@@ -14,13 +14,17 @@ class FFAppState {
 
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
+    _user = prefs.getString('ff_user') ?? _user;
   }
 
   SharedPreferences prefs;
 
-  String mealtime = '';
-
-  String mealday = '';
+  String _user = '';
+  String get user => _user;
+  set user(String _value) {
+    _user = _value;
+    prefs.setString('ff_user', _value);
+  }
 }
 
 LatLng _latLngFromString(String val) {

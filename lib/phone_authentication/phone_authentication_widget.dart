@@ -137,8 +137,45 @@ class _PhoneAuthenticationWidgetState extends State<PhoneAuthenticationWidget> {
                       builder: (context) => NavBarPage(initialPage: 'Landing'),
                     ),
                   );
+                  setState(() => FFAppState().user = currentUserUid);
                 },
-                text: 'Sign In with Phone',
+                text: 'Sign In as Anoy',
+                options: FFButtonOptions(
+                  width: 230,
+                  height: 60,
+                  color: Colors.white,
+                  textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                        fontFamily: 'Lexend Deca',
+                        color: Color(0xFF4B39EF),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                  elevation: 3,
+                  borderSide: BorderSide(
+                    color: Colors.transparent,
+                    width: 1,
+                  ),
+                  borderRadius: 8,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 0),
+              child: FFButtonWidget(
+                onPressed: () async {
+                  final user = await signInWithGoogle(context);
+                  if (user == null) {
+                    return;
+                  }
+                  await Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => NavBarPage(initialPage: 'Landing'),
+                    ),
+                  );
+                  setState(() => FFAppState().user = currentUserUid);
+                },
+                text: 'Sign In with Gmail',
                 options: FFButtonOptions(
                   width: 230,
                   height: 60,

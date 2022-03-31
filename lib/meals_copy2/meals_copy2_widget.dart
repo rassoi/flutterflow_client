@@ -39,10 +39,15 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: true,
-        leading: Icon(
-          Icons.chevron_left,
-          color: Colors.black,
-          size: 36,
+        leading: InkWell(
+          onTap: () async {
+            Navigator.pop(context);
+          },
+          child: Icon(
+            Icons.chevron_left,
+            color: Colors.black,
+            size: 36,
+          ),
         ),
         title: TextFormField(
           controller: textController,
@@ -87,262 +92,254 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
       ),
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
-        child: GestureDetector(
-          onTap: () => FocusScope.of(context).unfocus(),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                width: double.infinity,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Color(0xFFEEEEEE),
-                ),
-                child: StreamBuilder<List<CategoriesRecord>>(
-                  stream: queryCategoriesRecord(),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primaryColor,
-                          ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Container(
+              width: double.infinity,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Color(0xFFEEEEEE),
+              ),
+              child: StreamBuilder<List<CategoriesRecord>>(
+                stream: queryCategoriesRecord(),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: CircularProgressIndicator(
+                          color: FlutterFlowTheme.of(context).primaryColor,
                         ),
-                      );
-                    }
-                    List<CategoriesRecord> listViewCategoriesRecordList =
-                        snapshot.data;
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: listViewCategoriesRecordList.length,
-                      itemBuilder: (context, listViewIndex) {
-                        final listViewCategoriesRecord =
-                            listViewCategoriesRecordList[listViewIndex];
-                        return StreamBuilder<List<CategoriesRecord>>(
-                          stream: queryCategoriesRecord(),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: CircularProgressIndicator(
-                                    color: FlutterFlowTheme.of(context)
-                                        .primaryColor,
-                                  ),
+                      ),
+                    );
+                  }
+                  List<CategoriesRecord> listViewCategoriesRecordList =
+                      snapshot.data;
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: listViewCategoriesRecordList.length,
+                    itemBuilder: (context, listViewIndex) {
+                      final listViewCategoriesRecord =
+                          listViewCategoriesRecordList[listViewIndex];
+                      return StreamBuilder<List<CategoriesRecord>>(
+                        stream: queryCategoriesRecord(),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: CircularProgressIndicator(
+                                  color:
+                                      FlutterFlowTheme.of(context).primaryColor,
                                 ),
-                              );
-                            }
-                            List<CategoriesRecord> buttonCategoriesRecordList =
-                                snapshot.data;
-                            return FFButtonWidget(
-                              onPressed: () {
-                                print('Button pressed ...');
-                              },
-                              text: listViewCategoriesRecord.categoryName,
-                              options: FFButtonOptions(
-                                width: 130,
-                                height: 30,
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .subtitle2
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                    ),
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                                borderRadius: 12,
                               ),
                             );
-                          },
-                        );
-                      },
-                    );
-                  },
-                ),
+                          }
+                          List<CategoriesRecord> buttonCategoriesRecordList =
+                              snapshot.data;
+                          return FFButtonWidget(
+                            onPressed: () {
+                              print('Button pressed ...');
+                            },
+                            text: listViewCategoriesRecord.categoryName,
+                            options: FFButtonOptions(
+                              width: 130,
+                              height: 30,
+                              color: FlutterFlowTheme.of(context).primaryColor,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                  ),
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1,
+                              ),
+                              borderRadius: 12,
+                            ),
+                          );
+                        },
+                      );
+                    },
+                  );
+                },
               ),
-              Expanded(
-                child: StreamBuilder<List<RecipesRecord>>(
-                  stream: queryRecipesRecord(),
-                  builder: (context, snapshot) {
-                    // Customize what your widget looks like when it's loading.
-                    if (!snapshot.hasData) {
-                      return Center(
-                        child: SizedBox(
-                          width: 50,
-                          height: 50,
-                          child: CircularProgressIndicator(
-                            color: FlutterFlowTheme.of(context).primaryColor,
-                          ),
+            ),
+            Expanded(
+              child: StreamBuilder<List<RecipesRecord>>(
+                stream: queryRecipesRecord(),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: CircularProgressIndicator(
+                          color: FlutterFlowTheme.of(context).primaryColor,
+                        ),
+                      ),
+                    );
+                  }
+                  List<RecipesRecord> listViewRecipesRecordList = snapshot.data;
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.vertical,
+                    itemCount: listViewRecipesRecordList.length,
+                    itemBuilder: (context, listViewIndex) {
+                      final listViewRecipesRecord =
+                          listViewRecipesRecordList[listViewIndex];
+                      return Container(
+                        width: 100,
+                        height: 170,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFEEEEEE),
+                        ),
+                        child: Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              FFAppState().user,
+                              style: FlutterFlowTheme.of(context).bodyText1,
+                            ),
+                            Text(
+                              listViewRecipesRecord.name,
+                              style: FlutterFlowTheme.of(context).bodyText1,
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                StreamBuilder<List<RecipesRecord>>(
+                                  stream: queryRecipesRecord(
+                                    singleRecord: true,
+                                  ),
+                                  builder: (context, snapshot) {
+                                    // Customize what your widget looks like when it's loading.
+                                    if (!snapshot.hasData) {
+                                      return Center(
+                                        child: SizedBox(
+                                          width: 50,
+                                          height: 50,
+                                          child: CircularProgressIndicator(
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryColor,
+                                          ),
+                                        ),
+                                      );
+                                    }
+                                    List<RecipesRecord> imageRecipesRecordList =
+                                        snapshot.data;
+                                    // Return an empty Container when the document does not exist.
+                                    if (snapshot.data.isEmpty) {
+                                      return Container();
+                                    }
+                                    final imageRecipesRecord =
+                                        imageRecipesRecordList.isNotEmpty
+                                            ? imageRecipesRecordList.first
+                                            : null;
+                                    return Image.network(
+                                      listViewRecipesRecord.image,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.fitHeight,
+                                    );
+                                  },
+                                ),
+                              ],
+                            ),
+                            Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                FFButtonWidget(
+                                  onPressed: () async {
+                                    final tempCreateData = createTempRecordData(
+                                      image: listViewRecipesRecord.image,
+                                      name: listViewRecipesRecord.name,
+                                      mealTime: dropDownValue1,
+                                      day: dropDownValue2,
+                                    );
+                                    await TempRecord.collection
+                                        .doc()
+                                        .set(tempCreateData);
+                                  },
+                                  text: 'Add',
+                                  options: FFButtonOptions(
+                                    width: 130,
+                                    height: 40,
+                                    color: FlutterFlowTheme.of(context)
+                                        .primaryColor,
+                                    textStyle: FlutterFlowTheme.of(context)
+                                        .subtitle2
+                                        .override(
+                                          fontFamily: 'Poppins',
+                                          color: Colors.white,
+                                        ),
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 1,
+                                    ),
+                                    borderRadius: 12,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
                       );
-                    }
-                    List<RecipesRecord> listViewRecipesRecordList =
-                        snapshot.data;
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.vertical,
-                      itemCount: listViewRecipesRecordList.length,
-                      itemBuilder: (context, listViewIndex) {
-                        final listViewRecipesRecord =
-                            listViewRecipesRecordList[listViewIndex];
-                        return Container(
-                          width: 100,
-                          height: 170,
-                          decoration: BoxDecoration(
-                            color: Color(0xFFEEEEEE),
-                          ),
-                          child: Row(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    listViewRecipesRecord.name,
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  StreamBuilder<List<RecipesRecord>>(
-                                    stream: queryRecipesRecord(
-                                      singleRecord: true,
-                                    ),
-                                    builder: (context, snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50,
-                                            height: 50,
-                                            child: CircularProgressIndicator(
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryColor,
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      List<RecipesRecord>
-                                          imageRecipesRecordList =
-                                          snapshot.data;
-                                      // Return an empty Container when the document does not exist.
-                                      if (snapshot.data.isEmpty) {
-                                        return Container();
-                                      }
-                                      final imageRecipesRecord =
-                                          imageRecipesRecordList.isNotEmpty
-                                              ? imageRecipesRecordList.first
-                                              : null;
-                                      return Image.network(
-                                        listViewRecipesRecord.image,
-                                        width: 100,
-                                        height: 100,
-                                        fit: BoxFit.fitHeight,
-                                      );
-                                    },
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  FFButtonWidget(
-                                    onPressed: () async {
-                                      final tempCreateData =
-                                          createTempRecordData(
-                                        chd: listViewRecipesRecord.name,
-                                      );
-                                      await TempRecord.collection
-                                          .doc()
-                                          .set(tempCreateData);
-                                    },
-                                    text: 'Add',
-                                    options: FFButtonOptions(
-                                      width: 130,
-                                      height: 40,
-                                      color: FlutterFlowTheme.of(context)
-                                          .primaryColor,
-                                      textStyle: FlutterFlowTheme.of(context)
-                                          .subtitle2
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            color: Colors.white,
-                                          ),
-                                      borderSide: BorderSide(
-                                        color: Colors.transparent,
-                                        width: 1,
-                                      ),
-                                      borderRadius: 12,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ],
-                          ),
-                        );
-                      },
-                    );
-                  },
+                    },
+                  );
+                },
+              ),
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                FlutterFlowDropDown(
+                  initialOption: dropDownValue1 ??= '1',
+                  options: ['1', '2', '3', '4', '5', '6'].toList(),
+                  onChanged: (val) => setState(() => dropDownValue1 = val),
+                  width: 180,
+                  height: 50,
+                  textStyle: FlutterFlowTheme.of(context).bodyText1.override(
+                        fontFamily: 'Poppins',
+                        color: Colors.black,
+                      ),
+                  fillColor: Colors.white,
+                  elevation: 2,
+                  borderColor: Colors.transparent,
+                  borderWidth: 0,
+                  borderRadius: 0,
+                  margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                  hidesUnderline: true,
                 ),
-              ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  FlutterFlowDropDown(
-                    initialOption: dropDownValue1 ??= '1',
-                    options: ['1', '2', '3', '4', '5', '6'].toList(),
-                    onChanged: (val) => setState(() => dropDownValue1 = val),
-                    width: 180,
-                    height: 50,
-                    textStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.black,
-                        ),
-                    fillColor: Colors.white,
-                    elevation: 2,
-                    borderColor: Colors.transparent,
-                    borderWidth: 0,
-                    borderRadius: 0,
-                    margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                    hidesUnderline: true,
-                  ),
-                  FlutterFlowDropDown(
-                    initialOption: dropDownValue2 ??= 'Brakefast',
-                    options:
-                        ['Brakefast', 'Lunch', 'Snacks', 'Dinner'].toList(),
-                    onChanged: (val) => setState(() => dropDownValue2 = val),
-                    width: 180,
-                    height: 50,
-                    textStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.black,
-                        ),
-                    fillColor: Colors.white,
-                    elevation: 2,
-                    borderColor: Colors.transparent,
-                    borderWidth: 0,
-                    borderRadius: 0,
-                    margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                    hidesUnderline: true,
-                  ),
-                ],
-              ),
-            ],
-          ),
+                FlutterFlowDropDown(
+                  initialOption: dropDownValue2 ??= 'Brakefast',
+                  options: ['Brakefast', 'Lunch', 'Snacks', 'Dinner'].toList(),
+                  onChanged: (val) => setState(() => dropDownValue2 = val),
+                  width: 180,
+                  height: 50,
+                  textStyle: FlutterFlowTheme.of(context).bodyText1.override(
+                        fontFamily: 'Poppins',
+                        color: Colors.black,
+                      ),
+                  fillColor: Colors.white,
+                  elevation: 2,
+                  borderColor: Colors.transparent,
+                  borderWidth: 0,
+                  borderRadius: 0,
+                  margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                  hidesUnderline: true,
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

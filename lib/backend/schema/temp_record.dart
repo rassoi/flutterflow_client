@@ -10,14 +10,27 @@ abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
   static Serializer<TempRecord> get serializer => _$tempRecordSerializer;
 
   @nullable
-  String get chd;
+  String get image;
+
+  @nullable
+  String get name;
+
+  @nullable
+  @BuiltValueField(wireName: 'meal_time')
+  String get mealTime;
+
+  @nullable
+  String get day;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
-  static void _initializeBuilder(TempRecordBuilder builder) =>
-      builder..chd = '';
+  static void _initializeBuilder(TempRecordBuilder builder) => builder
+    ..image = ''
+    ..name = ''
+    ..mealTime = ''
+    ..day = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('temp');
@@ -40,7 +53,15 @@ abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
 }
 
 Map<String, dynamic> createTempRecordData({
-  String chd,
+  String image,
+  String name,
+  String mealTime,
+  String day,
 }) =>
     serializers.toFirestore(
-        TempRecord.serializer, TempRecord((t) => t..chd = chd));
+        TempRecord.serializer,
+        TempRecord((t) => t
+          ..image = image
+          ..name = name
+          ..mealTime = mealTime
+          ..day = day));

@@ -1,8 +1,10 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../main.dart';
 import '../meals_copy2/meals_copy2_widget.dart';
+import '../phone_authentication/phone_authentication_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -23,10 +25,22 @@ class _LandingWidgetState extends State<LandingWidget> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: true,
-        leading: Icon(
-          Icons.person_sharp,
-          color: Colors.black,
-          size: 36,
+        leading: InkWell(
+          onTap: () async {
+            await signOut();
+            await Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => PhoneAuthenticationWidget(),
+              ),
+              (r) => false,
+            );
+          },
+          child: Icon(
+            Icons.person_sharp,
+            color: Colors.black,
+            size: 36,
+          ),
         ),
         title: Text(
           'Rassoi',
