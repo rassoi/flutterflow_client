@@ -39,6 +39,10 @@ abstract class RecipesRecord
   String get phoneNumber;
 
   @nullable
+  @BuiltValueField(wireName: 'youtube_link')
+  String get youtubeLink;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -49,7 +53,8 @@ abstract class RecipesRecord
     ..displayName = ''
     ..photoUrl = ''
     ..uid = ''
-    ..phoneNumber = '';
+    ..phoneNumber = ''
+    ..youtubeLink = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('recipes');
@@ -81,6 +86,7 @@ Map<String, dynamic> createRecipesRecordData({
   String uid,
   DateTime createdTime,
   String phoneNumber,
+  String youtubeLink,
 }) =>
     serializers.toFirestore(
         RecipesRecord.serializer,
@@ -92,4 +98,5 @@ Map<String, dynamic> createRecipesRecordData({
           ..photoUrl = photoUrl
           ..uid = uid
           ..createdTime = createdTime
-          ..phoneNumber = phoneNumber));
+          ..phoneNumber = phoneNumber
+          ..youtubeLink = youtubeLink));

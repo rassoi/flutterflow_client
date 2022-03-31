@@ -268,6 +268,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                               name: listViewRecipesRecord.name,
                                               mealTime: dropDownValue1,
                                               day: dropDownValue2,
+                                              youtubeLink: listViewRecipesRecord
+                                                  .youtubeLink,
                                             );
                                             await TempRecord.collection
                                                 .doc()
