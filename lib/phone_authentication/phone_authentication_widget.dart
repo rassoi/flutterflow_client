@@ -131,13 +131,13 @@ class _PhoneAuthenticationWidgetState extends State<PhoneAuthenticationWidget> {
                   if (user == null) {
                     return;
                   }
+                  setState(() => FFAppState().user = currentUserUid);
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => NavBarPage(initialPage: 'Landing'),
                     ),
                   );
-                  setState(() => FFAppState().user = currentJwtToken);
                 },
                 text: 'Sign In as Anoy',
                 options: FFButtonOptions(

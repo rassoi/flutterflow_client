@@ -275,7 +275,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                   child: Text(
-                    'Hello World',
+                    FFAppState().user,
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).title3,
                   ),

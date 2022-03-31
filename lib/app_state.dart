@@ -19,7 +19,7 @@ class FFAppState {
 
   SharedPreferences prefs;
 
-  String _user = 'vhjnkmlghb';
+  String _user = '';
   String get user => _user;
   set user(String _value) {
     _user = _value;
