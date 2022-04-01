@@ -193,24 +193,11 @@ class _MealsCopy3WidgetState extends State<MealsCopy3Widget> {
                             Row(
                               mainAxisSize: MainAxisSize.max,
                               children: [
-                                InkWell(
-                                  onTap: () async {
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            MealsCopy2CopyWidget(
-                                          mealDetail: listViewTempRecord.ref,
-                                        ),
-                                      ),
-                                    );
-                                  },
-                                  child: Image.network(
-                                    listViewTempRecord.image,
-                                    width: 100,
-                                    height: 100,
-                                    fit: BoxFit.cover,
-                                  ),
+                                Image.network(
+                                  listViewTempRecord.image,
+                                  width: 100,
+                                  height: 100,
+                                  fit: BoxFit.cover,
                                 ),
                               ],
                             ),
