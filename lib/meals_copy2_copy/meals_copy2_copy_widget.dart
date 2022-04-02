@@ -2,6 +2,7 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_video_player.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -99,21 +100,28 @@ class _MealsCopy2CopyWidgetState extends State<MealsCopy2CopyWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Text(
-                      'Hello World',
+                      'Description',
                       style: FlutterFlowTheme.of(context).bodyText1,
                     ),
                   ],
                 ),
-                Container(
-                  width: double.infinity,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEEEEEE),
-                  ),
-                  child: ListView(
-                    padding: EdgeInsets.zero,
-                    scrollDirection: Axis.vertical,
-                    children: [],
+                Expanded(
+                  child: Builder(
+                    builder: (context) {
+                      final ingredName = functions.ingredname()?.toList() ?? [];
+                      return ListView.builder(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.vertical,
+                        itemCount: ingredName.length,
+                        itemBuilder: (context, ingredNameIndex) {
+                          final ingredNameItem = ingredName[ingredNameIndex];
+                          return Text(
+                            ingredNameItem,
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                          );
+                        },
+                      );
+                    },
                   ),
                 ),
               ],
