@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../meals_copy2_copy/meals_copy2_copy_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -270,6 +271,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                               day: dropDownValue2,
                                               youtubeLink: listViewRecipesRecord
                                                   .youtubeLink,
+                                              ref: listViewRecipesRecord.ref,
                                             );
                                             await TempRecord.collection
                                                 .doc()
@@ -338,11 +340,25 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                             imageRecipesRecordList.isNotEmpty
                                                 ? imageRecipesRecordList.first
                                                 : null;
-                                        return Image.network(
-                                          listViewRecipesRecord.image,
-                                          width: 130,
-                                          height: 130,
-                                          fit: BoxFit.fitHeight,
+                                        return InkWell(
+                                          onTap: () async {
+                                            await Navigator.push(
+                                              context,
+                                              MaterialPageRoute(
+                                                builder: (context) =>
+                                                    MealsCopy2CopyWidget(
+                                                  mealDetail:
+                                                      listViewRecipesRecord.ref,
+                                                ),
+                                              ),
+                                            );
+                                          },
+                                          child: Image.network(
+                                            listViewRecipesRecord.image,
+                                            width: 130,
+                                            height: 130,
+                                            fit: BoxFit.fitHeight,
+                                          ),
                                         );
                                       },
                                     ),

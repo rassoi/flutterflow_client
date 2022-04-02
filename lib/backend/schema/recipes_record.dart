@@ -43,6 +43,9 @@ abstract class RecipesRecord
   String get youtubeLink;
 
   @nullable
+  DocumentReference get ref;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -87,6 +90,7 @@ Map<String, dynamic> createRecipesRecordData({
   DateTime createdTime,
   String phoneNumber,
   String youtubeLink,
+  DocumentReference ref,
 }) =>
     serializers.toFirestore(
         RecipesRecord.serializer,
@@ -99,4 +103,5 @@ Map<String, dynamic> createRecipesRecordData({
           ..uid = uid
           ..createdTime = createdTime
           ..phoneNumber = phoneNumber
-          ..youtubeLink = youtubeLink));
+          ..youtubeLink = youtubeLink
+          ..ref = ref));

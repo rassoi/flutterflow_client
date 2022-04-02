@@ -71,8 +71,7 @@ class _MealsCopy2CopyWidgetState extends State<MealsCopy2CopyWidget> {
               mainAxisSize: MainAxisSize.max,
               children: [
                 FlutterFlowVideoPlayer(
-                  path:
-                      'https://assets.mixkit.co/videos/preview/mixkit-forest-stream-in-the-sunlight-529-large.mp4',
+                  path: mealsCopy2CopyRecipesRecord.youtubeLink,
                   videoType: VideoType.network,
                   autoPlay: false,
                   looping: true,
@@ -80,15 +79,41 @@ class _MealsCopy2CopyWidgetState extends State<MealsCopy2CopyWidget> {
                   allowFullScreen: true,
                   allowPlaybackSpeedMenu: false,
                 ),
-                Align(
-                  alignment: AlignmentDirectional(-0.9, 0),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                    child: Text(
-                      mealsCopy2CopyRecipesRecord.name,
-                      textAlign: TextAlign.start,
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Align(
+                      alignment: AlignmentDirectional(-0.9, 0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        child: Text(
+                          mealsCopy2CopyRecipesRecord.name,
+                          textAlign: TextAlign.start,
+                          style: FlutterFlowTheme.of(context).bodyText1,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Text(
+                      'Hello World',
                       style: FlutterFlowTheme.of(context).bodyText1,
                     ),
+                  ],
+                ),
+                Container(
+                  width: double.infinity,
+                  height: 100,
+                  decoration: BoxDecoration(
+                    color: Color(0xFFEEEEEE),
+                  ),
+                  child: ListView(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.vertical,
+                    children: [],
                   ),
                 ),
               ],
