@@ -167,13 +167,13 @@ class _PhoneAuthenticationWidgetState extends State<PhoneAuthenticationWidget> {
                   if (user == null) {
                     return;
                   }
+                  setState(() => FFAppState().user = currentUserUid);
                   await Navigator.push(
                     context,
                     MaterialPageRoute(
                       builder: (context) => NavBarPage(initialPage: 'Landing'),
                     ),
                   );
-                  setState(() => FFAppState().user = currentUserUid);
                 },
                 text: 'Sign In with Gmail',
                 options: FFButtonOptions(
