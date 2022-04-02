@@ -102,7 +102,15 @@
       },
       "oauth_client": [
         {
-          "client_id": "557519141026-n62hdu3dqjk80qm2897o1rcg3p13ss5o.apps.googleusercontent.com",
+          "client_id": "557519141026-0gf7jc2ig58a1983o73mt8s8dcavmfkk.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.flutterflow.rassoi",
+            "certificate_hash": "829cec1ec8fb0fa640754719d1830c5826cbb0fe"
+          }
+        },
+        {
+          "client_id": "557519141026-eat647sovhhcue4jj92a13kokpmcks1i.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
             "package_name": "com.flutterflow.rassoi",
