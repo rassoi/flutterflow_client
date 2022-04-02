@@ -272,6 +272,9 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                               youtubeLink: listViewRecipesRecord
                                                   .youtubeLink,
                                               ref: listViewRecipesRecord.ref,
+                                              ingredNames: listViewRecipesRecord
+                                                  .ingredNames,
+                                              userUid: FFAppState().user,
                                             );
                                             await TempRecord.collection
                                                 .doc()

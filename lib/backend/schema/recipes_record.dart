@@ -46,6 +46,16 @@ abstract class RecipesRecord
   DocumentReference get ref;
 
   @nullable
+  @BuiltValueField(wireName: 'ingred_names')
+  String get ingredNames;
+
+  @nullable
+  String get desc;
+
+  @nullable
+  BuiltList<String> get nameAsArray;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -57,7 +67,10 @@ abstract class RecipesRecord
     ..photoUrl = ''
     ..uid = ''
     ..phoneNumber = ''
-    ..youtubeLink = '';
+    ..youtubeLink = ''
+    ..ingredNames = ''
+    ..desc = ''
+    ..nameAsArray = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('recipes');
@@ -91,6 +104,8 @@ Map<String, dynamic> createRecipesRecordData({
   String phoneNumber,
   String youtubeLink,
   DocumentReference ref,
+  String ingredNames,
+  String desc,
 }) =>
     serializers.toFirestore(
         RecipesRecord.serializer,
@@ -104,4 +119,7 @@ Map<String, dynamic> createRecipesRecordData({
           ..createdTime = createdTime
           ..phoneNumber = phoneNumber
           ..youtubeLink = youtubeLink
-          ..ref = ref));
+          ..ref = ref
+          ..ingredNames = ingredNames
+          ..desc = desc
+          ..nameAsArray = null));

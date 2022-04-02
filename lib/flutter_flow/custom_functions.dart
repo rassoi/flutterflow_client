@@ -9,7 +9,8 @@ import '../backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../auth/auth_util.dart';
 
-List<String> ingredname() {
+List<String> ingredname(String ingredtext) {
   // Add your fu
-  return ["a", "b", "c"];
+
+  return ingredtext.split(",");
 }

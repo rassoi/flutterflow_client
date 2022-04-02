@@ -80,48 +80,85 @@ class _MealsCopy2CopyWidgetState extends State<MealsCopy2CopyWidget> {
                   allowFullScreen: true,
                   allowPlaybackSpeedMenu: false,
                 ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Align(
-                      alignment: AlignmentDirectional(-0.9, 0),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                        child: Text(
-                          mealsCopy2CopyRecipesRecord.name,
-                          textAlign: TextAlign.start,
-                          style: FlutterFlowTheme.of(context).bodyText1,
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(-0.9, 0),
+                        child: Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                          child: Text(
+                            mealsCopy2CopyRecipesRecord.name,
+                            textAlign: TextAlign.start,
+                            style: FlutterFlowTheme.of(context).subtitle1,
+                          ),
                         ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Text(
-                      'Description',
-                      style: FlutterFlowTheme.of(context).bodyText1,
-                    ),
-                  ],
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Description',
+                        style: FlutterFlowTheme.of(context).subtitle2,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Hello World',
+                        style: FlutterFlowTheme.of(context).bodyText1,
+                      ),
+                    ],
+                  ),
+                ),
+                Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        'Ingredients',
+                        style: FlutterFlowTheme.of(context).subtitle2,
+                      ),
+                    ],
+                  ),
                 ),
                 Expanded(
-                  child: Builder(
-                    builder: (context) {
-                      final ingredName = functions.ingredname()?.toList() ?? [];
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.vertical,
-                        itemCount: ingredName.length,
-                        itemBuilder: (context, ingredNameIndex) {
-                          final ingredNameItem = ingredName[ingredNameIndex];
-                          return Text(
-                            ingredNameItem,
-                            style: FlutterFlowTheme.of(context).bodyText1,
-                          );
-                        },
-                      );
-                    },
+                  child: Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                    child: Builder(
+                      builder: (context) {
+                        final ingredName = functions
+                                .ingredname(
+                                    mealsCopy2CopyRecipesRecord.ingredNames)
+                                ?.toList() ??
+                            [];
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          scrollDirection: Axis.vertical,
+                          itemCount: ingredName.length,
+                          itemBuilder: (context, ingredNameIndex) {
+                            final ingredNameItem = ingredName[ingredNameIndex];
+                            return Text(
+                              ingredNameItem,
+                              style: FlutterFlowTheme.of(context).bodyText1,
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],
