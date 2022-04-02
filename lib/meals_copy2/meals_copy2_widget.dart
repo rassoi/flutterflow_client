@@ -283,8 +283,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                 .set(tempCreateData);
                                             setIngred =
                                                 await SetingredCall.call(
-                                              ingredId: listViewRecipesRecord
-                                                  .ingredNames,
+                                              recipeId: listViewRecipesRecord
+                                                  .recipeId,
                                             );
 
                                             setState(() {});

@@ -38,6 +38,10 @@ abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
   String get userUid;
 
   @nullable
+  @BuiltValueField(wireName: 'recipe_id')
+  String get recipeId;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -48,7 +52,8 @@ abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
     ..day = ''
     ..youtubeLink = ''
     ..ingredNames = ''
-    ..userUid = '';
+    ..userUid = ''
+    ..recipeId = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('temp');
@@ -79,6 +84,7 @@ Map<String, dynamic> createTempRecordData({
   DocumentReference ref,
   String ingredNames,
   String userUid,
+  String recipeId,
 }) =>
     serializers.toFirestore(
         TempRecord.serializer,
@@ -90,4 +96,5 @@ Map<String, dynamic> createTempRecordData({
           ..youtubeLink = youtubeLink
           ..ref = ref
           ..ingredNames = ingredNames
-          ..userUid = userUid));
+          ..userUid = userUid
+          ..recipeId = recipeId));

@@ -6,11 +6,11 @@ export 'api_manager.dart' show ApiCallResponse;
 
 class SetingredCall {
   static Future<ApiCallResponse> call({
-    String ingredId = '',
+    String recipeId = '',
   }) {
     final body = '''
 {
-  "message": "${ingredId}"
+  "message": "${recipeId}"
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'setingred',
@@ -18,7 +18,7 @@ class SetingredCall {
       callType: ApiCallType.POST,
       headers: {},
       params: {
-        'ingred_id': ingredId,
+        'recipe_id': recipeId,
       },
       body: body,
       bodyType: BodyType.JSON,
