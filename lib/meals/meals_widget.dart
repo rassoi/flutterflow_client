@@ -136,7 +136,8 @@ class _MealsWidgetState extends State<MealsWidget> {
                   stream: queryTempRecord(
                     queryBuilder: (tempRecord) => tempRecord
                         .where('meal_time', isEqualTo: dropDownValue)
-                        .where('day', isEqualTo: 'Brakefast'),
+                        .where('day', isEqualTo: 'Brakefast')
+                        .where('user_uid', isEqualTo: FFAppState().user),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.

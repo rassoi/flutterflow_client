@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -22,6 +23,7 @@ class MealsCopy2Widget extends StatefulWidget {
 }
 
 class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
+  ApiCallResponse setIngred;
   String dropDownValue1;
   String dropDownValue2;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -279,6 +281,13 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                             await TempRecord.collection
                                                 .doc()
                                                 .set(tempCreateData);
+                                            setIngred =
+                                                await SetingredCall.call(
+                                              ingredId: listViewRecipesRecord
+                                                  .ingredNames,
+                                            );
+
+                                            setState(() {});
                                           },
                                           text: 'Add',
                                           options: FFButtonOptions(

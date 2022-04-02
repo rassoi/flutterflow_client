@@ -10,7 +10,13 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../auth/auth_util.dart';
 
 List<String> ingredname(String ingredtext) {
-  // Add your fu
+  List<String> b = ingredtext.split("*");
+  List<String> nameList = [];
 
-  return ingredtext.split(",");
+  for (var i = 0; i < b.length; i++) {
+    String currentElement = b[i];
+    List<String> c = currentElement.split("+");
+    nameList.add(c[0]);
+  }
+  return nameList;
 }
