@@ -24,6 +24,7 @@ class MealsCopy2Widget extends StatefulWidget {
 
 class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
   ApiCallResponse setIngred;
+  TempRecord mealCreation;
   String dropDownValue1;
   String dropDownValue2;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -277,10 +278,17 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                               ingredNames: listViewRecipesRecord
                                                   .ingredNames,
                                               userUid: FFAppState().user,
+                                              recipeId: listViewRecipesRecord
+                                                  .recipeId,
                                             );
-                                            await TempRecord.collection
-                                                .doc()
+                                            var tempRecordReference =
+                                                TempRecord.collection.doc();
+                                            await tempRecordReference
                                                 .set(tempCreateData);
+                                            mealCreation =
+                                                TempRecord.getDocumentFromData(
+                                                    tempCreateData,
+                                                    tempRecordReference);
                                             setIngred =
                                                 await SetingredCall.call(
                                               recipeId: listViewRecipesRecord

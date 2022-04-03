@@ -15,11 +15,34 @@ abstract class MealIngredRecord
   String get english;
 
   @nullable
+  String get hindi;
+
+  @nullable
+  String get img;
+
+  @nullable
+  @BuiltValueField(wireName: 'inged_id')
+  String get ingedId;
+
+  @nullable
+  @BuiltValueField(wireName: 'recipe_name')
+  String get recipeName;
+
+  @nullable
+  @BuiltValueField(wireName: 'user_uid')
+  String get userUid;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
-  static void _initializeBuilder(MealIngredRecordBuilder builder) =>
-      builder..english = '';
+  static void _initializeBuilder(MealIngredRecordBuilder builder) => builder
+    ..english = ''
+    ..hindi = ''
+    ..img = ''
+    ..ingedId = ''
+    ..recipeName = ''
+    ..userUid = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('meal_ingred');
@@ -44,6 +67,18 @@ abstract class MealIngredRecord
 
 Map<String, dynamic> createMealIngredRecordData({
   String english,
+  String hindi,
+  String img,
+  String ingedId,
+  String recipeName,
+  String userUid,
 }) =>
-    serializers.toFirestore(MealIngredRecord.serializer,
-        MealIngredRecord((m) => m..english = english));
+    serializers.toFirestore(
+        MealIngredRecord.serializer,
+        MealIngredRecord((m) => m
+          ..english = english
+          ..hindi = hindi
+          ..img = img
+          ..ingedId = ingedId
+          ..recipeName = recipeName
+          ..userUid = userUid));
