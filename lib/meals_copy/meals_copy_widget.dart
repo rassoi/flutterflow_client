@@ -1,6 +1,8 @@
+import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -56,9 +58,17 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
+              Text(
+                'Unavaialble',
+                style: FlutterFlowTheme.of(context).subtitle2,
+              ),
               Expanded(
                 child: StreamBuilder<List<MealIngredRecord>>(
-                  stream: queryMealIngredRecord(),
+                  stream: queryMealIngredRecord(
+                    queryBuilder: (mealIngredRecord) => mealIngredRecord
+                        .where('status', isEqualTo: 'unavailable')
+                        .where('user_uid', isEqualTo: FFAppState().user),
+                  ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
                     if (!snapshot.hasData) {
@@ -82,82 +92,238 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                         final listViewMealIngredRecord =
                             listViewMealIngredRecordList[listViewIndex];
                         return Container(
-                          height: 200,
-                          decoration: BoxDecoration(),
-                          child: Container(
-                            width: double.infinity,
-                            color: Colors.white,
-                            child: ExpandableNotifier(
-                              initialExpanded: false,
-                              child: ExpandablePanel(
-                                header: Text(
-                                  'Edit Your Title Here',
-                                  style: FlutterFlowTheme.of(context)
-                                      .title1
-                                      .override(
-                                        fontFamily: 'Poppins',
+                          width: double.infinity,
+                          color: Colors.white,
+                          child: ExpandableNotifier(
+                            initialExpanded: false,
+                            child: ExpandablePanel(
+                              header: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    flex: 4,
+                                    child: Text(
+                                      listViewMealIngredRecord.english,
+                                      style: FlutterFlowTheme.of(context)
+                                          .subtitle2,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 30, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        final mealIngredUpdateData =
+                                            createMealIngredRecordData(
+                                          status: 'available',
+                                        );
+                                        await listViewMealIngredRecord.reference
+                                            .update(mealIngredUpdateData);
+                                      },
+                                      child: Icon(
+                                        Icons.clear,
                                         color: Colors.black,
-                                      ),
-                                ),
-                                collapsed: Container(),
-                                expanded: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          'Hindi Name: ',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1
-                                              .override(
-                                                fontFamily: 'Poppins',
-                                                color: Color(0x8A000000),
-                                              ),
-                                        ),
-                                        Text(
-                                          listViewMealIngredRecord.hindi,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          'Used in : ',
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                        Text(
-                                          listViewMealIngredRecord.recipeName,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ],
-                                    ),
-                                    Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 4, 0, 0),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/829/600',
-                                        width:
-                                            MediaQuery.of(context).size.width,
-                                        height: 100,
-                                        fit: BoxFit.cover,
+                                        size: 24,
                                       ),
                                     ),
-                                  ],
-                                ),
-                                theme: ExpandableThemeData(
-                                  tapHeaderToExpand: true,
-                                  tapBodyToExpand: false,
-                                  tapBodyToCollapse: false,
-                                  headerAlignment:
-                                      ExpandablePanelHeaderAlignment.center,
-                                  hasIcon: true,
-                                ),
+                                  ),
+                                ],
+                              ),
+                              collapsed: Container(),
+                              expanded: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        'Hindi Name: ',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0x8A000000),
+                                            ),
+                                      ),
+                                      Text(
+                                        listViewMealIngredRecord.hindi,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        'Used in : ',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
+                                      Text(
+                                        listViewMealIngredRecord.recipeName,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 4, 0, 0),
+                                    child: Image.network(
+                                      'https://picsum.photos/seed/829/600',
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              theme: ExpandableThemeData(
+                                tapHeaderToExpand: true,
+                                tapBodyToExpand: false,
+                                tapBodyToCollapse: false,
+                                headerAlignment:
+                                    ExpandablePanelHeaderAlignment.center,
+                                hasIcon: true,
+                              ),
+                            ),
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+              Divider(),
+              Text(
+                'Available',
+                style: FlutterFlowTheme.of(context).subtitle2,
+              ),
+              Expanded(
+                child: StreamBuilder<List<MealIngredRecord>>(
+                  stream: queryMealIngredRecord(
+                    queryBuilder: (mealIngredRecord) => mealIngredRecord
+                        .where('status', isEqualTo: 'available')
+                        .where('user_uid', isEqualTo: FFAppState().user),
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: CircularProgressIndicator(
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                          ),
+                        ),
+                      );
+                    }
+                    List<MealIngredRecord> listViewMealIngredRecordList =
+                        snapshot.data;
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.vertical,
+                      itemCount: listViewMealIngredRecordList.length,
+                      itemBuilder: (context, listViewIndex) {
+                        final listViewMealIngredRecord =
+                            listViewMealIngredRecordList[listViewIndex];
+                        return Container(
+                          width: double.infinity,
+                          color: Colors.white,
+                          child: ExpandableNotifier(
+                            initialExpanded: false,
+                            child: ExpandablePanel(
+                              header: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Expanded(
+                                    flex: 4,
+                                    child: Text(
+                                      listViewMealIngredRecord.english,
+                                      style: FlutterFlowTheme.of(context)
+                                          .subtitle2,
+                                    ),
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 0, 30, 0),
+                                    child: InkWell(
+                                      onTap: () async {
+                                        final mealIngredUpdateData =
+                                            createMealIngredRecordData(
+                                          status: 'unavailable',
+                                        );
+                                        await listViewMealIngredRecord.reference
+                                            .update(mealIngredUpdateData);
+                                      },
+                                      child: Icon(
+                                        Icons.done,
+                                        color: Colors.black,
+                                        size: 24,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              collapsed: Container(),
+                              expanded: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        'Hindi Name: ',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1
+                                            .override(
+                                              fontFamily: 'Poppins',
+                                              color: Color(0x8A000000),
+                                            ),
+                                      ),
+                                      Text(
+                                        listViewMealIngredRecord.hindi,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
+                                    ],
+                                  ),
+                                  Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Text(
+                                        'Used in : ',
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
+                                      Text(
+                                        listViewMealIngredRecord.recipeName,
+                                        style: FlutterFlowTheme.of(context)
+                                            .bodyText1,
+                                      ),
+                                    ],
+                                  ),
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        0, 4, 0, 0),
+                                    child: Image.network(
+                                      'https://picsum.photos/seed/829/600',
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              theme: ExpandableThemeData(
+                                tapHeaderToExpand: true,
+                                tapBodyToExpand: false,
+                                tapBodyToCollapse: false,
+                                headerAlignment:
+                                    ExpandablePanelHeaderAlignment.center,
+                                hasIcon: true,
                               ),
                             ),
                           ),

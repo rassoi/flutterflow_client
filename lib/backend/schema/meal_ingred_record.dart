@@ -33,6 +33,9 @@ abstract class MealIngredRecord
   String get userUid;
 
   @nullable
+  String get status;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -42,7 +45,8 @@ abstract class MealIngredRecord
     ..img = ''
     ..ingedId = ''
     ..recipeName = ''
-    ..userUid = '';
+    ..userUid = ''
+    ..status = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('meal_ingred');
@@ -72,6 +76,7 @@ Map<String, dynamic> createMealIngredRecordData({
   String ingedId,
   String recipeName,
   String userUid,
+  String status,
 }) =>
     serializers.toFirestore(
         MealIngredRecord.serializer,
@@ -81,4 +86,5 @@ Map<String, dynamic> createMealIngredRecordData({
           ..img = img
           ..ingedId = ingedId
           ..recipeName = recipeName
-          ..userUid = userUid));
+          ..userUid = userUid
+          ..status = status));

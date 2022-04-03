@@ -1,12 +1,14 @@
 import '../auth/auth_util.dart';
 import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../meals_copy2_copy/meals_copy2_copy_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -25,6 +27,7 @@ class MealsCopy2Widget extends StatefulWidget {
 class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
   ApiCallResponse setIngred;
   TempRecord mealCreation;
+  String choiceChipsValue;
   String dropDownValue1;
   String dropDownValue2;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -53,33 +56,67 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
             size: 36,
           ),
         ),
-        title: TextFormField(
-          controller: textController,
-          obscureText: false,
-          decoration: InputDecoration(
-            hintText: 'Searh Dish',
-            enabledBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Color(0x00000000),
-                width: 1,
-              ),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(4.0),
-                topRight: Radius.circular(4.0),
-              ),
-            ),
-            focusedBorder: UnderlineInputBorder(
-              borderSide: BorderSide(
-                color: Color(0x00000000),
-                width: 1,
-              ),
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(4.0),
-                topRight: Radius.circular(4.0),
-              ),
-            ),
+        title: StreamBuilder<List<RecipesRecord>>(
+          stream: queryRecipesRecord(
+            queryBuilder: (recipesRecord) =>
+                recipesRecord.where('name', isEqualTo: textController.text),
+            singleRecord: true,
           ),
-          style: FlutterFlowTheme.of(context).subtitle1,
+          builder: (context, snapshot) {
+            // Customize what your widget looks like when it's loading.
+            if (!snapshot.hasData) {
+              return Center(
+                child: SizedBox(
+                  width: 50,
+                  height: 50,
+                  child: CircularProgressIndicator(
+                    color: FlutterFlowTheme.of(context).primaryColor,
+                  ),
+                ),
+              );
+            }
+            List<RecipesRecord> textFieldRecipesRecordList = snapshot.data;
+            // Return an empty Container when the document does not exist.
+            if (snapshot.data.isEmpty) {
+              return Container();
+            }
+            final textFieldRecipesRecord = textFieldRecipesRecordList.isNotEmpty
+                ? textFieldRecipesRecordList.first
+                : null;
+            return TextFormField(
+              onChanged: (_) => EasyDebounce.debounce(
+                'textController',
+                Duration(milliseconds: 500),
+                () => setState(() {}),
+              ),
+              controller: textController,
+              obscureText: false,
+              decoration: InputDecoration(
+                hintText: 'Searh Dish',
+                enabledBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color(0x00000000),
+                    width: 1,
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(4.0),
+                    topRight: Radius.circular(4.0),
+                  ),
+                ),
+                focusedBorder: UnderlineInputBorder(
+                  borderSide: BorderSide(
+                    color: Color(0x00000000),
+                    width: 1,
+                  ),
+                  borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(4.0),
+                    topRight: Radius.circular(4.0),
+                  ),
+                ),
+              ),
+              style: FlutterFlowTheme.of(context).subtitle1,
+            );
+          },
         ),
         actions: [
           Padding(
@@ -99,6 +136,75 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
         child: Column(
           mainAxisSize: MainAxisSize.max,
           children: [
+            Container(
+              width: double.infinity,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Color(0xFFEEEEEE),
+              ),
+              child: StreamBuilder<List<CategoriesTempRecord>>(
+                stream: queryCategoriesTempRecord(),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: CircularProgressIndicator(
+                          color: FlutterFlowTheme.of(context).primaryColor,
+                        ),
+                      ),
+                    );
+                  }
+                  List<CategoriesTempRecord> listViewCategoriesTempRecordList =
+                      snapshot.data;
+                  return ListView.builder(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: listViewCategoriesTempRecordList.length,
+                    itemBuilder: (context, listViewIndex) {
+                      final listViewCategoriesTempRecord =
+                          listViewCategoriesTempRecordList[listViewIndex];
+                      return FlutterFlowChoiceChips(
+                        initiallySelected: [choiceChipsValue],
+                        options:
+                            (listViewCategoriesTempRecord.list.toList() ?? [])
+                                .map((label) => ChipData(label))
+                                .toList(),
+                        onChanged: (val) =>
+                            setState(() => choiceChipsValue = val.first),
+                        selectedChipStyle: ChipStyle(
+                          backgroundColor: Color(0xFF323B45),
+                          textStyle:
+                              FlutterFlowTheme.of(context).bodyText1.override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                  ),
+                          iconColor: Colors.white,
+                          iconSize: 18,
+                          elevation: 4,
+                        ),
+                        unselectedChipStyle: ChipStyle(
+                          backgroundColor: Colors.white,
+                          textStyle:
+                              FlutterFlowTheme.of(context).bodyText2.override(
+                                    fontFamily: 'Poppins',
+                                    color: Color(0xFF323B45),
+                                  ),
+                          iconColor: Color(0xFF323B45),
+                          iconSize: 18,
+                          elevation: 4,
+                        ),
+                        chipSpacing: 20,
+                        multiselect: false,
+                        alignment: WrapAlignment.start,
+                      );
+                    },
+                  );
+                },
+              ),
+            ),
             Container(
               width: double.infinity,
               height: 40,

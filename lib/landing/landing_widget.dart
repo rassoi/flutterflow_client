@@ -167,8 +167,11 @@ class _LandingWidgetState extends State<LandingWidget> {
                 ),
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(15, 1, 0, 0),
-                  child: StreamBuilder<List<UsersRecord>>(
-                    stream: queryUsersRecord(),
+                  child: StreamBuilder<List<TempRecord>>(
+                    stream: queryTempRecord(
+                      queryBuilder: (tempRecord) => tempRecord.where('user_uid',
+                          isEqualTo: FFAppState().user),
+                    ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
                       if (!snapshot.hasData) {
@@ -182,14 +185,14 @@ class _LandingWidgetState extends State<LandingWidget> {
                           ),
                         );
                       }
-                      List<UsersRecord> listViewUsersRecordList = snapshot.data;
+                      List<TempRecord> listViewTempRecordList = snapshot.data;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
-                        itemCount: listViewUsersRecordList.length,
+                        itemCount: listViewTempRecordList.length,
                         itemBuilder: (context, listViewIndex) {
-                          final listViewUsersRecord =
-                              listViewUsersRecordList[listViewIndex];
+                          final listViewTempRecord =
+                              listViewTempRecordList[listViewIndex];
                           return Padding(
                             padding:
                                 EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
@@ -232,7 +235,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                             );
                                           },
                                           child: Image.network(
-                                            listViewUsersRecord.image,
+                                            listViewTempRecord.image,
                                             width: 100,
                                             height: 70,
                                             fit: BoxFit.cover,
@@ -246,7 +249,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Text(
-                                      listViewUsersRecord.name
+                                      listViewTempRecord.name
                                           .maybeHandleOverflow(
                                         maxChars: 20,
                                         replacement: '…',

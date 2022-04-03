@@ -11,6 +11,7 @@ import 'schema/categories_record.dart';
 import 'schema/users_record.dart';
 import 'schema/temp_record.dart';
 import 'schema/meal_ingred_record.dart';
+import 'schema/categories_temp_record.dart';
 import 'schema/serializers.dart';
 
 export 'package:cloud_firestore/cloud_firestore.dart';
@@ -24,6 +25,7 @@ export 'schema/categories_record.dart';
 export 'schema/users_record.dart';
 export 'schema/temp_record.dart';
 export 'schema/meal_ingred_record.dart';
+export 'schema/categories_temp_record.dart';
 
 /// Functions to query BannerRecords (as a Stream and as a Future).
 Stream<List<BannerRecord>> queryBannerRecord(
@@ -132,6 +134,23 @@ Future<List<MealIngredRecord>> queryMealIngredRecordOnce(
         bool singleRecord = false}) =>
     queryCollectionOnce(
         MealIngredRecord.collection, MealIngredRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+/// Functions to query CategoriesTempRecords (as a Stream and as a Future).
+Stream<List<CategoriesTempRecord>> queryCategoriesTempRecord(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollection(
+        CategoriesTempRecord.collection, CategoriesTempRecord.serializer,
+        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+
+Future<List<CategoriesTempRecord>> queryCategoriesTempRecordOnce(
+        {Query Function(Query) queryBuilder,
+        int limit = -1,
+        bool singleRecord = false}) =>
+    queryCollectionOnce(
+        CategoriesTempRecord.collection, CategoriesTempRecord.serializer,
         queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
 
 Stream<List<T>> queryCollection<T>(
