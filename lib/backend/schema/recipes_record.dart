@@ -88,6 +88,43 @@ abstract class RecipesRecord
       .get()
       .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
 
+  static RecipesRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
+      RecipesRecord(
+        (c) => c
+          ..image = snapshot.data['image']
+          ..name = snapshot.data['name']
+          ..email = snapshot.data['email']
+          ..displayName = snapshot.data['display_name']
+          ..photoUrl = snapshot.data['photo_url']
+          ..uid = snapshot.data['uid']
+          ..createdTime = safeGet(() => DateTime.fromMillisecondsSinceEpoch(
+              snapshot.data['created_time']))
+          ..phoneNumber = snapshot.data['phone_number']
+          ..youtubeLink = snapshot.data['youtube_link']
+          ..ref = safeGet(() => toRef(snapshot.data['ref']))
+          ..ingredNames = snapshot.data['ingred_names']
+          ..desc = snapshot.data['desc']
+          ..nameAsArray =
+              safeGet(() => ListBuilder(snapshot.data['nameAsArray']))
+          ..recipeId = snapshot.data['recipe_id']
+          ..reference = RecipesRecord.collection.doc(snapshot.objectID),
+      );
+
+  static Future<List<RecipesRecord>> search(
+          {String term,
+          FutureOr<LatLng> location,
+          int maxResults,
+          double searchRadiusMeters}) =>
+      FFAlgoliaManager.instance
+          .algoliaQuery(
+            index: 'recipes',
+            term: term,
+            maxResults: maxResults,
+            location: location,
+            searchRadiusMeters: searchRadiusMeters,
+          )
+          .then((r) => r.map(fromAlgolia).toList());
+
   RecipesRecord._();
   factory RecipesRecord([void Function(RecipesRecordBuilder) updates]) =
       _$RecipesRecord;

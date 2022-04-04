@@ -1,7 +1,7 @@
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../flutter_flow/flutter_flow_video_player.dart';
+import '../flutter_flow/flutter_flow_youtube_player.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
@@ -71,33 +71,29 @@ class _MealsCopy2CopyWidgetState extends State<MealsCopy2CopyWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                FlutterFlowVideoPlayer(
-                  path: mealsCopy2CopyRecipesRecord.youtubeLink,
-                  videoType: VideoType.network,
-                  autoPlay: false,
-                  looping: true,
-                  showControls: true,
-                  allowFullScreen: true,
-                  allowPlaybackSpeedMenu: false,
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
-                  child: Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Align(
-                        alignment: AlignmentDirectional(-0.9, 0),
-                        child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                          child: Text(
-                            mealsCopy2CopyRecipesRecord.name,
-                            textAlign: TextAlign.start,
-                            style: FlutterFlowTheme.of(context).subtitle1,
-                          ),
+                Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    FlutterFlowYoutubePlayer(
+                      url: mealsCopy2CopyRecipesRecord.youtubeLink,
+                      autoPlay: false,
+                      looping: true,
+                      mute: false,
+                      showControls: true,
+                      showFullScreen: true,
+                    ),
+                    Align(
+                      alignment: AlignmentDirectional(-0.9, 0),
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                        child: Text(
+                          mealsCopy2CopyRecipesRecord.name,
+                          textAlign: TextAlign.start,
+                          style: FlutterFlowTheme.of(context).subtitle1,
                         ),
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),

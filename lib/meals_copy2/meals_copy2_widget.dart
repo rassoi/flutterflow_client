@@ -283,8 +283,10 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
               ),
             ),
             Expanded(
-              child: StreamBuilder<List<RecipesRecord>>(
-                stream: queryRecipesRecord(),
+              child: FutureBuilder<List<RecipesRecord>>(
+                future: RecipesRecord.search(
+                  term: textController.text,
+                ),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
                   if (!snapshot.hasData) {
@@ -299,6 +301,15 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                     );
                   }
                   List<RecipesRecord> listViewRecipesRecordList = snapshot.data;
+                  // Customize what your widget looks like with no search results.
+                  if (snapshot.data.isEmpty) {
+                    return Container(
+                      height: 100,
+                      child: Center(
+                        child: Text('No results.'),
+                      ),
+                    );
+                  }
                   return ListView.builder(
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.vertical,
@@ -344,21 +355,6 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  Row(
-                                    mainAxisSize: MainAxisSize.max,
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: [
-                                      Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            40, 0, 0, 20),
-                                        child: Text(
-                                          FFAppState().user,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ),
-                                    ],
                                   ),
                                   Align(
                                     alignment: AlignmentDirectional(0, 0),
@@ -481,7 +477,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                           },
                                           child: Image.network(
                                             listViewRecipesRecord.image,
-                                            width: 130,
+                                            width: 160,
                                             height: 130,
                                             fit: BoxFit.fitHeight,
                                           ),
