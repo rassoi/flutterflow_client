@@ -7,6 +7,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../meals_copy2_copy/meals_copy2_copy_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -56,67 +57,38 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
             size: 36,
           ),
         ),
-        title: StreamBuilder<List<RecipesRecord>>(
-          stream: queryRecipesRecord(
-            queryBuilder: (recipesRecord) =>
-                recipesRecord.where('name', isEqualTo: textController.text),
-            singleRecord: true,
+        title: TextFormField(
+          onChanged: (_) => EasyDebounce.debounce(
+            'textController',
+            Duration(milliseconds: 500),
+            () => setState(() {}),
           ),
-          builder: (context, snapshot) {
-            // Customize what your widget looks like when it's loading.
-            if (!snapshot.hasData) {
-              return Center(
-                child: SizedBox(
-                  width: 50,
-                  height: 50,
-                  child: CircularProgressIndicator(
-                    color: FlutterFlowTheme.of(context).primaryColor,
-                  ),
-                ),
-              );
-            }
-            List<RecipesRecord> textFieldRecipesRecordList = snapshot.data;
-            // Return an empty Container when the document does not exist.
-            if (snapshot.data.isEmpty) {
-              return Container();
-            }
-            final textFieldRecipesRecord = textFieldRecipesRecordList.isNotEmpty
-                ? textFieldRecipesRecordList.first
-                : null;
-            return TextFormField(
-              onChanged: (_) => EasyDebounce.debounce(
-                'textController',
-                Duration(milliseconds: 500),
-                () => setState(() {}),
+          controller: textController,
+          obscureText: false,
+          decoration: InputDecoration(
+            hintText: 'Searh Dish',
+            enabledBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Color(0x00000000),
+                width: 1,
               ),
-              controller: textController,
-              obscureText: false,
-              decoration: InputDecoration(
-                hintText: 'Searh Dish',
-                enabledBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0x00000000),
-                    width: 1,
-                  ),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(4.0),
-                    topRight: Radius.circular(4.0),
-                  ),
-                ),
-                focusedBorder: UnderlineInputBorder(
-                  borderSide: BorderSide(
-                    color: Color(0x00000000),
-                    width: 1,
-                  ),
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(4.0),
-                    topRight: Radius.circular(4.0),
-                  ),
-                ),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(4.0),
+                topRight: Radius.circular(4.0),
               ),
-              style: FlutterFlowTheme.of(context).subtitle1,
-            );
-          },
+            ),
+            focusedBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Color(0x00000000),
+                width: 1,
+              ),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(4.0),
+                topRight: Radius.circular(4.0),
+              ),
+            ),
+          ),
+          style: FlutterFlowTheme.of(context).subtitle1,
         ),
         actions: [
           Padding(
@@ -285,7 +257,10 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
             Expanded(
               child: FutureBuilder<List<RecipesRecord>>(
                 future: RecipesRecord.search(
-                  term: textController.text,
+                  term: valueOrDefault<String>(
+                    textController.text,
+                    'b',
+                  ),
                 ),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
@@ -346,8 +321,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  40, 0, 0, 0),
-                                          child: Text(
+                                                  50, 0, 0, 0),
+                                          child: AutoSizeText(
                                             listViewRecipesRecord.name,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1,
