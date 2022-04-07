@@ -37,7 +37,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController();
+    textController = TextEditingController(text: ' ');
   }
 
   @override
@@ -257,8 +257,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
             Expanded(
               child: StreamBuilder<List<RecipesRecord>>(
                 stream: queryRecipesRecord(
-                  queryBuilder: (recipesRecord) => recipesRecord.where('name',
-                      isEqualTo: textController.text),
+                  queryBuilder: (recipesRecord) => recipesRecord
+                      .where('nameAsArray', arrayContains: textController.text),
                 ),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
