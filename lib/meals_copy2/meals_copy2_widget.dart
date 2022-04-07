@@ -255,12 +255,10 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
               ),
             ),
             Expanded(
-              child: FutureBuilder<List<RecipesRecord>>(
-                future: RecipesRecord.search(
-                  term: valueOrDefault<String>(
-                    textController.text,
-                    'b',
-                  ),
+              child: StreamBuilder<List<RecipesRecord>>(
+                stream: queryRecipesRecord(
+                  queryBuilder: (recipesRecord) => recipesRecord.where('name',
+                      isEqualTo: textController.text),
                 ),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
@@ -276,15 +274,6 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                     );
                   }
                   List<RecipesRecord> listViewRecipesRecordList = snapshot.data;
-                  // Customize what your widget looks like with no search results.
-                  if (snapshot.data.isEmpty) {
-                    return Container(
-                      height: 100,
-                      child: Center(
-                        child: Text('No results.'),
-                      ),
-                    );
-                  }
                   return ListView.builder(
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.vertical,
