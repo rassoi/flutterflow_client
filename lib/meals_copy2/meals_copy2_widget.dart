@@ -37,7 +37,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
   @override
   void initState() {
     super.initState();
-    textController = TextEditingController(text: ' ');
+    textController = TextEditingController();
   }
 
   @override
@@ -114,8 +114,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
               decoration: BoxDecoration(
                 color: Color(0xFFEEEEEE),
               ),
-              child: StreamBuilder<List<CategoriesTempRecord>>(
-                stream: queryCategoriesTempRecord(),
+              child: StreamBuilder<List<MiscellaneousRecord>>(
+                stream: queryMiscellaneousRecord(),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
                   if (!snapshot.hasData) {
@@ -129,21 +129,24 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                       ),
                     );
                   }
-                  List<CategoriesTempRecord> listViewCategoriesTempRecordList =
+                  List<MiscellaneousRecord> listViewMiscellaneousRecordList =
                       snapshot.data;
                   return ListView.builder(
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.horizontal,
-                    itemCount: listViewCategoriesTempRecordList.length,
+                    itemCount: listViewMiscellaneousRecordList.length,
                     itemBuilder: (context, listViewIndex) {
-                      final listViewCategoriesTempRecord =
-                          listViewCategoriesTempRecordList[listViewIndex];
+                      final listViewMiscellaneousRecord =
+                          listViewMiscellaneousRecordList[listViewIndex];
                       return FlutterFlowChoiceChips(
-                        initiallySelected: [choiceChipsValue],
-                        options:
-                            (listViewCategoriesTempRecord.list.toList() ?? [])
-                                .map((label) => ChipData(label))
-                                .toList(),
+                        initiallySelected: choiceChipsValue != null
+                            ? [choiceChipsValue]
+                            : [FFAppState().category],
+                        options: (listViewMiscellaneousRecord.categoriesList
+                                    .toList() ??
+                                [])
+                            .map((label) => ChipData(label))
+                            .toList(),
                         onChanged: (val) =>
                             setState(() => choiceChipsValue = val.first),
                         selectedChipStyle: ChipStyle(
@@ -170,84 +173,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                         ),
                         chipSpacing: 20,
                         multiselect: false,
+                        initialized: choiceChipsValue != null,
                         alignment: WrapAlignment.start,
-                      );
-                    },
-                  );
-                },
-              ),
-            ),
-            Container(
-              width: double.infinity,
-              height: 40,
-              decoration: BoxDecoration(
-                color: Color(0xFFEEEEEE),
-              ),
-              child: StreamBuilder<List<CategoriesRecord>>(
-                stream: queryCategoriesRecord(),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: CircularProgressIndicator(
-                          color: FlutterFlowTheme.of(context).primaryColor,
-                        ),
-                      ),
-                    );
-                  }
-                  List<CategoriesRecord> listViewCategoriesRecordList =
-                      snapshot.data;
-                  return ListView.builder(
-                    padding: EdgeInsets.zero,
-                    scrollDirection: Axis.horizontal,
-                    itemCount: listViewCategoriesRecordList.length,
-                    itemBuilder: (context, listViewIndex) {
-                      final listViewCategoriesRecord =
-                          listViewCategoriesRecordList[listViewIndex];
-                      return StreamBuilder<List<CategoriesRecord>>(
-                        stream: queryCategoriesRecord(),
-                        builder: (context, snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: CircularProgressIndicator(
-                                  color:
-                                      FlutterFlowTheme.of(context).primaryColor,
-                                ),
-                              ),
-                            );
-                          }
-                          List<CategoriesRecord> buttonCategoriesRecordList =
-                              snapshot.data;
-                          return FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
-                            },
-                            text: listViewCategoriesRecord.categoryName,
-                            options: FFButtonOptions(
-                              width: 130,
-                              height: 30,
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.white,
-                                  ),
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
-                              ),
-                              borderRadius: 12,
-                            ),
-                          );
-                        },
                       );
                     },
                   );
@@ -257,8 +184,10 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
             Expanded(
               child: StreamBuilder<List<RecipesRecord>>(
                 stream: queryRecipesRecord(
-                  queryBuilder: (recipesRecord) => recipesRecord
-                      .where('nameAsArray', arrayContains: textController.text),
+                  queryBuilder: (recipesRecord) => recipesRecord.where(
+                      'nameAsArray',
+                      arrayContains:
+                          '${choiceChipsValue}${textController.text}'),
                 ),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
@@ -276,6 +205,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                   List<RecipesRecord> listViewRecipesRecordList = snapshot.data;
                   return ListView.builder(
                     padding: EdgeInsets.zero,
+                    shrinkWrap: true,
                     scrollDirection: Axis.vertical,
                     itemCount: listViewRecipesRecordList.length,
                     itemBuilder: (context, listViewIndex) {

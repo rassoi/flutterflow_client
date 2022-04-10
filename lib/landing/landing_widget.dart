@@ -3,7 +3,6 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../main.dart';
-import '../meals_copy2/meals_copy2_widget.dart';
 import '../phone_authentication/phone_authentication_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -57,7 +56,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                 await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => MealsCopy2Widget(),
+                    builder: (context) => NavBarPage(initialPage: 'MealsCopy2'),
                   ),
                 );
               },
@@ -278,7 +277,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                   child: Text(
-                    FFAppState().user,
+                    'Explore',
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).title3,
                   ),
@@ -331,16 +330,33 @@ class _LandingWidgetState extends State<LandingWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.center,
                                 children: [
-                                  Container(
-                                    width: 70,
-                                    height: 70,
-                                    clipBehavior: Clip.antiAlias,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: Image.network(
-                                      gridViewCategoriesRecord.image,
-                                      fit: BoxFit.fill,
+                                  InkWell(
+                                    onTap: () async {
+                                      setState(() => FFAppState().category =
+                                              valueOrDefault<String>(
+                                            gridViewCategoriesRecord
+                                                .categoryName,
+                                            'All',
+                                          ));
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => NavBarPage(
+                                              initialPage: 'MealsCopy2'),
+                                        ),
+                                      );
+                                    },
+                                    child: Container(
+                                      width: 70,
+                                      height: 70,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Image.network(
+                                        gridViewCategoriesRecord.image,
+                                        fit: BoxFit.fill,
+                                      ),
                                     ),
                                   ),
                                 ],

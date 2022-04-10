@@ -14,6 +14,7 @@ import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.da
 import 'meals/meals_widget.dart';
 import 'landing/landing_widget.dart';
 import 'meals_copy/meals_copy_widget.dart';
+import 'meals_copy2/meals_copy2_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -120,6 +121,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'Meals': MealsWidget(),
       'Landing': LandingWidget(),
       'MealsCopy': MealsCopyWidget(),
+      'MealsCopy2': MealsCopy2Widget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -200,6 +202,29 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2
+                        ? Color(0xFF39BDEF)
+                        : Color(0x8A484545),
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.search,
+                  color:
+                      currentIndex == 3 ? Color(0xFF39BDEF) : Color(0x8A484545),
+                  size: 24,
+                ),
+                Text(
+                  'Explore',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 3
                         ? Color(0xFF39BDEF)
                         : Color(0x8A484545),
                     fontSize: 11.0,

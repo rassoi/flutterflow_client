@@ -60,6 +60,9 @@ abstract class RecipesRecord
   String get recipeId;
 
   @nullable
+  BuiltList<String> get categoryName;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -75,7 +78,8 @@ abstract class RecipesRecord
     ..ingredNames = ''
     ..desc = ''
     ..nameAsArray = ListBuilder()
-    ..recipeId = '';
+    ..recipeId = ''
+    ..categoryName = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('recipes');
@@ -107,6 +111,8 @@ abstract class RecipesRecord
           ..nameAsArray =
               safeGet(() => ListBuilder(snapshot.data['nameAsArray']))
           ..recipeId = snapshot.data['recipe_id']
+          ..categoryName =
+              safeGet(() => ListBuilder(snapshot.data['categoryName']))
           ..reference = RecipesRecord.collection.doc(snapshot.objectID),
       );
 
@@ -166,4 +172,5 @@ Map<String, dynamic> createRecipesRecordData({
           ..ingredNames = ingredNames
           ..desc = desc
           ..nameAsArray = null
-          ..recipeId = recipeId));
+          ..recipeId = recipeId
+          ..categoryName = null));

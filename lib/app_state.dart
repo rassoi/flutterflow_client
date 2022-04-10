@@ -15,6 +15,7 @@ class FFAppState {
   Future initializePersistedState() async {
     prefs = await SharedPreferences.getInstance();
     _user = prefs.getString('ff_user') ?? _user;
+    _category = prefs.getString('ff_category') ?? _category;
   }
 
   SharedPreferences prefs;
@@ -24,6 +25,13 @@ class FFAppState {
   set user(String _value) {
     _user = _value;
     prefs.setString('ff_user', _value);
+  }
+
+  String _category = '';
+  String get category => _category;
+  set category(String _value) {
+    _category = _value;
+    prefs.setString('ff_category', _value);
   }
 }
 
