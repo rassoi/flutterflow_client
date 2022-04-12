@@ -239,21 +239,20 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                               onPressed: () async {
                                                 final tempUpdateData =
                                                     createTempRecordData(
-                                                  fav: !!(listViewTempRecord
-                                                      .fav),
+                                                  fav: !listViewTempRecord.fav,
                                                 );
                                                 await listViewTempRecord
                                                     .reference
                                                     .update(tempUpdateData);
                                               },
-                                              value: !(listViewTempRecord.fav),
+                                              value: listViewTempRecord.fav,
                                               onIcon: Icon(
-                                                Icons.favorite_border,
-                                                color: Colors.black,
+                                                Icons.favorite,
+                                                color: Color(0xFFE82E2E),
                                                 size: 25,
                                               ),
                                               offIcon: Icon(
-                                                Icons.favorite,
+                                                Icons.favorite_border,
                                                 color: Colors.black,
                                                 size: 25,
                                               ),
@@ -301,8 +300,6 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                   final tempUpdateData =
                                                       createTempRecordData(
                                                     status: 'live',
-                                                    mealTime: dropDownValue1,
-                                                    day: dropDownValue2,
                                                   );
                                                   await listViewTempRecord
                                                       .reference
