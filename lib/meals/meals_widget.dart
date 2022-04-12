@@ -1,9 +1,14 @@
+import '../auth/auth_util.dart';
 import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../meal_info/meal_info_widget.dart';
+import '../meals_copy2/meals_copy2_widget.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -22,11 +27,7 @@ class MealsWidget extends StatefulWidget {
 
 class _MealsWidgetState extends State<MealsWidget> {
   String dropDownValue;
-  int countControllerValue1;
-  int countControllerValue2;
-  int countControllerValue3;
-  int countControllerValue4;
-  int countControllerValue5;
+  int countControllerValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -51,10 +52,20 @@ class _MealsWidgetState extends State<MealsWidget> {
         actions: [
           Padding(
             padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
-            child: Icon(
-              Icons.search_sharp,
-              color: Colors.black,
-              size: 28,
+            child: InkWell(
+              onTap: () async {
+                await Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => MealsCopy2Widget(),
+                  ),
+                );
+              },
+              child: Icon(
+                Icons.search_sharp,
+                color: Colors.black,
+                size: 28,
+              ),
             ),
           ),
         ],
@@ -128,11 +139,28 @@ class _MealsWidgetState extends State<MealsWidget> {
                               fontSize: 16,
                             ),
                           ),
-                          count: countControllerValue1 ??= 0,
+                          count: countControllerValue ??= 0,
                           updateCount: (count) =>
-                              setState(() => countControllerValue1 = count),
+                              setState(() => countControllerValue = count),
                           stepSize: 1,
                         ),
+                      ),
+                    ),
+                    ToggleIcon(
+                      onPressed: () async {
+                        setState(() =>
+                            FFAppState().eddiMeal = !FFAppState().eddiMeal);
+                      },
+                      value: FFAppState().eddiMeal,
+                      onIcon: Icon(
+                        Icons.edit,
+                        color: Colors.black,
+                        size: 25,
+                      ),
+                      offIcon: Icon(
+                        Icons.edit_off,
+                        color: Colors.black,
+                        size: 25,
                       ),
                     ),
                   ],
@@ -144,7 +172,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                 ),
                 Container(
                   width: double.infinity,
-                  height: 180,
+                  height: 150,
                   decoration: BoxDecoration(
                     color: Color(0xFFEEEEEE),
                   ),
@@ -153,7 +181,8 @@ class _MealsWidgetState extends State<MealsWidget> {
                       queryBuilder: (tempRecord) => tempRecord
                           .where('meal_time', isEqualTo: dropDownValue)
                           .where('day', isEqualTo: 'Brakefast')
-                          .where('user_uid', isEqualTo: FFAppState().user),
+                          .where('user_uid', isEqualTo: FFAppState().user)
+                          .where('status', isEqualTo: 'live'),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -185,13 +214,27 @@ class _MealsWidgetState extends State<MealsWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         5, 0, 0, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(5),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/854/600',
-                                        width: 130,
-                                        height: 100,
-                                        fit: BoxFit.cover,
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                MealInfoWidget(
+                                              mealRef:
+                                                  listViewTempRecord.reference,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Image.network(
+                                          listViewTempRecord.image,
+                                          width: 130,
+                                          height: 100,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -208,67 +251,42 @@ class _MealsWidgetState extends State<MealsWidget> {
                                   ),
                                 ],
                               ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Container(
-                                    width: 100,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      shape: BoxShape.rectangle,
-                                      border: Border.all(
-                                        color: Color(0xFF9E9E9E),
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child: FlutterFlowCountController(
-                                      decrementIconBuilder: (enabled) => FaIcon(
-                                        FontAwesomeIcons.minus,
-                                        color: enabled
-                                            ? Color(0xDD000000)
-                                            : Color(0xFFEEEEEE),
-                                        size: 10,
-                                      ),
-                                      incrementIconBuilder: (enabled) => FaIcon(
-                                        FontAwesomeIcons.plus,
-                                        color: enabled
-                                            ? Colors.blue
-                                            : Color(0xFFEEEEEE),
-                                        size: 10,
-                                      ),
-                                      countBuilder: (count) => Text(
-                                        count.toString(),
+                              Expanded(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Align(
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: Text(
+                                        formatNumber(
+                                          listViewTempRecord.counter,
+                                          formatType: FormatType.custom,
+                                          format: '0',
+                                          locale: '',
+                                        ),
+                                        textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context)
-                                            .subtitle2,
+                                            .bodyText1,
                                       ),
-                                      count: countControllerValue2 ??= 0,
-                                      updateCount: (count) => setState(
-                                          () => countControllerValue2 = count),
-                                      stepSize: 1,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  InkWell(
-                                    onTap: () async {
-                                      await listViewTempRecord.reference
-                                          .delete();
-                                      await RemoveIngredAsPerRecipeCall.call(
-                                        recipeId: listViewTempRecord.recipeId,
-                                      );
-                                    },
-                                    child: Icon(
-                                      Icons.delete,
-                                      color: Colors.black,
-                                      size: 24,
+                                    InkWell(
+                                      onTap: () async {
+                                        final tempUpdateData =
+                                            createTempRecordData();
+                                        await listViewTempRecord.reference
+                                            .update(tempUpdateData);
+                                        await RemoveIngredAsPerRecipeCall.call(
+                                          recipeId: listViewTempRecord.recipeId,
+                                        );
+                                      },
+                                      child: Icon(
+                                        Icons.delete,
+                                        color: Colors.black,
+                                        size: 24,
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ],
                           );
@@ -283,7 +301,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                 ),
                 Container(
                   width: double.infinity,
-                  height: 180,
+                  height: 150,
                   decoration: BoxDecoration(
                     color: Color(0xFFEEEEEE),
                   ),
@@ -292,7 +310,8 @@ class _MealsWidgetState extends State<MealsWidget> {
                       queryBuilder: (tempRecord) => tempRecord
                           .where('meal_time', isEqualTo: dropDownValue)
                           .where('day', isEqualTo: 'Lunch')
-                          .where('user_uid', isEqualTo: FFAppState().user),
+                          .where('user_uid', isEqualTo: FFAppState().user)
+                          .where('status', isEqualTo: 'live'),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -324,13 +343,27 @@ class _MealsWidgetState extends State<MealsWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         5, 0, 0, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(5),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/854/600',
-                                        width: 130,
-                                        height: 100,
-                                        fit: BoxFit.cover,
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                MealInfoWidget(
+                                              mealRef:
+                                                  listViewTempRecord.reference,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Image.network(
+                                          listViewTempRecord.image,
+                                          width: 130,
+                                          height: 100,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -340,64 +373,47 @@ class _MealsWidgetState extends State<MealsWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    listViewTempRecord.name,
+                                    listViewTempRecord.name
+                                        .maybeHandleOverflow(maxChars: 15),
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,
                                   ),
                                 ],
                               ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Container(
-                                    width: 100,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      shape: BoxShape.rectangle,
-                                      border: Border.all(
-                                        color: Color(0xFF9E9E9E),
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child: FlutterFlowCountController(
-                                      decrementIconBuilder: (enabled) => FaIcon(
-                                        FontAwesomeIcons.minus,
-                                        color: enabled
-                                            ? Color(0xDD000000)
-                                            : Color(0xFFEEEEEE),
-                                        size: 10,
-                                      ),
-                                      incrementIconBuilder: (enabled) => FaIcon(
-                                        FontAwesomeIcons.plus,
-                                        color: enabled
-                                            ? Colors.blue
-                                            : Color(0xFFEEEEEE),
-                                        size: 10,
-                                      ),
-                                      countBuilder: (count) => Text(
-                                        count.toString(),
+                              Expanded(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Align(
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: Text(
+                                        formatNumber(
+                                          listViewTempRecord.counter,
+                                          formatType: FormatType.custom,
+                                          format: '0',
+                                          locale: '',
+                                        ),
+                                        textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context)
-                                            .subtitle2,
+                                            .bodyText1,
                                       ),
-                                      count: countControllerValue3 ??= 0,
-                                      updateCount: (count) => setState(
-                                          () => countControllerValue3 = count),
-                                      stepSize: 1,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Icon(
-                                    Icons.delete,
-                                    color: Colors.black,
-                                    size: 24,
-                                  ),
-                                ],
+                                    InkWell(
+                                      onTap: () async {
+                                        await listViewTempRecord.reference
+                                            .delete();
+                                        await RemoveIngredAsPerRecipeCall.call(
+                                          recipeId: listViewTempRecord.recipeId,
+                                        );
+                                      },
+                                      child: Icon(
+                                        Icons.delete,
+                                        color: Colors.black,
+                                        size: 24,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           );
@@ -412,7 +428,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                 ),
                 Container(
                   width: double.infinity,
-                  height: 180,
+                  height: 150,
                   decoration: BoxDecoration(
                     color: Color(0xFFEEEEEE),
                   ),
@@ -421,7 +437,8 @@ class _MealsWidgetState extends State<MealsWidget> {
                       queryBuilder: (tempRecord) => tempRecord
                           .where('meal_time', isEqualTo: dropDownValue)
                           .where('day', isEqualTo: 'Snacks')
-                          .where('user_uid', isEqualTo: FFAppState().user),
+                          .where('user_uid', isEqualTo: FFAppState().user)
+                          .where('status', isEqualTo: 'live'),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -453,13 +470,27 @@ class _MealsWidgetState extends State<MealsWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         5, 0, 0, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(5),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/854/600',
-                                        width: 130,
-                                        height: 100,
-                                        fit: BoxFit.cover,
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                MealInfoWidget(
+                                              mealRef:
+                                                  listViewTempRecord.reference,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Image.network(
+                                          listViewTempRecord.image,
+                                          width: 130,
+                                          height: 100,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -469,64 +500,47 @@ class _MealsWidgetState extends State<MealsWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    listViewTempRecord.name,
+                                    listViewTempRecord.name
+                                        .maybeHandleOverflow(maxChars: 15),
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,
                                   ),
                                 ],
                               ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Container(
-                                    width: 100,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      shape: BoxShape.rectangle,
-                                      border: Border.all(
-                                        color: Color(0xFF9E9E9E),
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child: FlutterFlowCountController(
-                                      decrementIconBuilder: (enabled) => FaIcon(
-                                        FontAwesomeIcons.minus,
-                                        color: enabled
-                                            ? Color(0xDD000000)
-                                            : Color(0xFFEEEEEE),
-                                        size: 10,
-                                      ),
-                                      incrementIconBuilder: (enabled) => FaIcon(
-                                        FontAwesomeIcons.plus,
-                                        color: enabled
-                                            ? Colors.blue
-                                            : Color(0xFFEEEEEE),
-                                        size: 10,
-                                      ),
-                                      countBuilder: (count) => Text(
-                                        count.toString(),
+                              Expanded(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Align(
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: Text(
+                                        formatNumber(
+                                          listViewTempRecord.counter,
+                                          formatType: FormatType.custom,
+                                          format: '0',
+                                          locale: '',
+                                        ),
+                                        textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context)
-                                            .subtitle2,
+                                            .bodyText1,
                                       ),
-                                      count: countControllerValue4 ??= 0,
-                                      updateCount: (count) => setState(
-                                          () => countControllerValue4 = count),
-                                      stepSize: 1,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Icon(
-                                    Icons.delete,
-                                    color: Colors.black,
-                                    size: 24,
-                                  ),
-                                ],
+                                    InkWell(
+                                      onTap: () async {
+                                        await listViewTempRecord.reference
+                                            .delete();
+                                        await RemoveIngredAsPerRecipeCall.call(
+                                          recipeId: listViewTempRecord.recipeId,
+                                        );
+                                      },
+                                      child: Icon(
+                                        Icons.delete,
+                                        color: Colors.black,
+                                        size: 24,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           );
@@ -541,7 +555,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                 ),
                 Container(
                   width: double.infinity,
-                  height: 180,
+                  height: 150,
                   decoration: BoxDecoration(
                     color: Color(0xFFEEEEEE),
                   ),
@@ -550,7 +564,8 @@ class _MealsWidgetState extends State<MealsWidget> {
                       queryBuilder: (tempRecord) => tempRecord
                           .where('meal_time', isEqualTo: dropDownValue)
                           .where('day', isEqualTo: 'Dinner')
-                          .where('user_uid', isEqualTo: FFAppState().user),
+                          .where('user_uid', isEqualTo: FFAppState().user)
+                          .where('status', isEqualTo: 'live'),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -582,13 +597,27 @@ class _MealsWidgetState extends State<MealsWidget> {
                                   Padding(
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         5, 0, 0, 0),
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(5),
-                                      child: Image.network(
-                                        'https://picsum.photos/seed/854/600',
-                                        width: 130,
-                                        height: 100,
-                                        fit: BoxFit.cover,
+                                    child: InkWell(
+                                      onTap: () async {
+                                        await Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                MealInfoWidget(
+                                              mealRef:
+                                                  listViewTempRecord.reference,
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.circular(5),
+                                        child: Image.network(
+                                          listViewTempRecord.image,
+                                          width: 130,
+                                          height: 100,
+                                          fit: BoxFit.cover,
+                                        ),
                                       ),
                                     ),
                                   ),
@@ -598,77 +627,53 @@ class _MealsWidgetState extends State<MealsWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    listViewTempRecord.name,
+                                    listViewTempRecord.name
+                                        .maybeHandleOverflow(maxChars: 15),
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,
                                   ),
                                 ],
                               ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Container(
-                                    width: 100,
-                                    height: 30,
-                                    decoration: BoxDecoration(
-                                      color: Colors.white,
-                                      borderRadius: BorderRadius.circular(5),
-                                      shape: BoxShape.rectangle,
-                                      border: Border.all(
-                                        color: Color(0xFF9E9E9E),
-                                        width: 1,
-                                      ),
-                                    ),
-                                    child: FlutterFlowCountController(
-                                      decrementIconBuilder: (enabled) => FaIcon(
-                                        FontAwesomeIcons.minus,
-                                        color: enabled
-                                            ? Color(0xDD000000)
-                                            : Color(0xFFEEEEEE),
-                                        size: 10,
-                                      ),
-                                      incrementIconBuilder: (enabled) => FaIcon(
-                                        FontAwesomeIcons.plus,
-                                        color: enabled
-                                            ? Colors.blue
-                                            : Color(0xFFEEEEEE),
-                                        size: 10,
-                                      ),
-                                      countBuilder: (count) => Text(
-                                        count.toString(),
+                              Expanded(
+                                child: Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Align(
+                                      alignment: AlignmentDirectional(0, 0),
+                                      child: Text(
+                                        formatNumber(
+                                          listViewTempRecord.counter,
+                                          formatType: FormatType.custom,
+                                          format: '0',
+                                          locale: '',
+                                        ),
+                                        textAlign: TextAlign.start,
                                         style: FlutterFlowTheme.of(context)
-                                            .subtitle2,
+                                            .bodyText1,
                                       ),
-                                      count: countControllerValue5 ??= 0,
-                                      updateCount: (count) => setState(
-                                          () => countControllerValue5 = count),
-                                      stepSize: 1,
                                     ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Icon(
-                                    Icons.delete,
-                                    color: Colors.black,
-                                    size: 24,
-                                  ),
-                                ],
+                                    InkWell(
+                                      onTap: () async {
+                                        await listViewTempRecord.reference
+                                            .delete();
+                                        await RemoveIngredAsPerRecipeCall.call(
+                                          recipeId: listViewTempRecord.recipeId,
+                                        );
+                                      },
+                                      child: Icon(
+                                        Icons.delete,
+                                        color: Colors.black,
+                                        size: 24,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
                             ],
                           );
                         },
                       );
                     },
-                  ),
-                ),
-                Container(
-                  width: double.infinity,
-                  height: 100,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEEEEEE),
                   ),
                 ),
               ],

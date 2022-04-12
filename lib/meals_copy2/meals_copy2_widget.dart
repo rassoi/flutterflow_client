@@ -4,10 +4,10 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
+import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../meals_copy2_copy/meals_copy2_copy_widget.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import '../meal_info/meal_info_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -26,8 +26,6 @@ class MealsCopy2Widget extends StatefulWidget {
 }
 
 class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
-  ApiCallResponse setIngred;
-  TempRecord mealCreation;
   String choiceChipsValue;
   String dropDownValue1;
   String dropDownValue2;
@@ -182,12 +180,13 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
               ),
             ),
             Expanded(
-              child: StreamBuilder<List<RecipesRecord>>(
-                stream: queryRecipesRecord(
-                  queryBuilder: (recipesRecord) => recipesRecord.where(
-                      'nameAsArray',
-                      arrayContains:
-                          '${choiceChipsValue}${textController.text}'),
+              child: StreamBuilder<List<TempRecord>>(
+                stream: queryTempRecord(
+                  queryBuilder: (tempRecord) => tempRecord.where('nameAsArray',
+                      arrayContains: '${valueOrDefault<String>(
+                        choiceChipsValue,
+                        'All',
+                      )}${textController.text}'),
                 ),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.
@@ -202,15 +201,15 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                       ),
                     );
                   }
-                  List<RecipesRecord> listViewRecipesRecordList = snapshot.data;
+                  List<TempRecord> listViewTempRecordList = snapshot.data;
                   return ListView.builder(
                     padding: EdgeInsets.zero,
                     shrinkWrap: true,
                     scrollDirection: Axis.vertical,
-                    itemCount: listViewRecipesRecordList.length,
+                    itemCount: listViewTempRecordList.length,
                     itemBuilder: (context, listViewIndex) {
-                      final listViewRecipesRecord =
-                          listViewRecipesRecordList[listViewIndex];
+                      final listViewTempRecord =
+                          listViewTempRecordList[listViewIndex];
                       return Container(
                         width: 100,
                         height: 140,
@@ -222,15 +221,49 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                           children: [
                             Expanded(
                               flex: 5,
-                              child: Column(
-                                mainAxisSize: MainAxisSize.max,
-                                mainAxisAlignment: MainAxisAlignment.end,
-                                crossAxisAlignment: CrossAxisAlignment.center,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        0, 0, 0, 20),
-                                    child: Row(
+                              child: Padding(
+                                padding:
+                                    EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                                child: Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  crossAxisAlignment: CrossAxisAlignment.center,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Expanded(
+                                          child: Align(
+                                            alignment:
+                                                AlignmentDirectional(1, 0),
+                                            child: ToggleIcon(
+                                              onPressed: () async {
+                                                final tempUpdateData =
+                                                    createTempRecordData(
+                                                  fav: !!(listViewTempRecord
+                                                      .fav),
+                                                );
+                                                await listViewTempRecord
+                                                    .reference
+                                                    .update(tempUpdateData);
+                                              },
+                                              value: !(listViewTempRecord.fav),
+                                              onIcon: Icon(
+                                                Icons.favorite_border,
+                                                color: Colors.black,
+                                                size: 25,
+                                              ),
+                                              offIcon: Icon(
+                                                Icons.favorite,
+                                                color: Colors.black,
+                                                size: 25,
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
                                           MainAxisAlignment.start,
@@ -240,82 +273,72 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                         Padding(
                                           padding:
                                               EdgeInsetsDirectional.fromSTEB(
-                                                  50, 0, 0, 0),
-                                          child: AutoSizeText(
-                                            listViewRecipesRecord.name,
+                                                  20, 0, 0, 0),
+                                          child: Text(
+                                            listViewTempRecord.name
+                                                .maybeHandleOverflow(
+                                                    maxChars: 20),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1,
                                           ),
                                         ),
                                       ],
                                     ),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(0, 0),
-                                    child: Row(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        FFButtonWidget(
-                                          onPressed: () async {
-                                            final tempCreateData =
-                                                createTempRecordData(
-                                              image:
-                                                  listViewRecipesRecord.image,
-                                              name: listViewRecipesRecord.name,
-                                              mealTime: dropDownValue1,
-                                              day: dropDownValue2,
-                                              youtubeLink: listViewRecipesRecord
-                                                  .youtubeLink,
-                                              ref: listViewRecipesRecord.ref,
-                                              ingredNames: listViewRecipesRecord
-                                                  .ingredNames,
-                                              userUid: FFAppState().user,
-                                              recipeId: listViewRecipesRecord
-                                                  .recipeId,
-                                            );
-                                            var tempRecordReference =
-                                                TempRecord.collection.doc();
-                                            await tempRecordReference
-                                                .set(tempCreateData);
-                                            mealCreation =
-                                                TempRecord.getDocumentFromData(
-                                                    tempCreateData,
-                                                    tempRecordReference);
-                                            setIngred =
-                                                await SetingredCall.call(
-                                              recipeId: listViewRecipesRecord
-                                                  .recipeId,
-                                            );
-
-                                            setState(() {});
-                                          },
-                                          text: 'Add',
-                                          options: FFButtonOptions(
-                                            width: 100,
-                                            height: 25,
-                                            color: Color(0xFF736CAF),
-                                            textStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .subtitle2
-                                                    .override(
-                                                      fontFamily: 'Poppins',
-                                                      color: Colors.white,
-                                                    ),
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 1,
+                                    Expanded(
+                                      child: Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Row(
+                                          mainAxisSize: MainAxisSize.min,
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.center,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.end,
+                                          children: [
+                                            Align(
+                                              alignment:
+                                                  AlignmentDirectional(0, 1),
+                                              child: FFButtonWidget(
+                                                onPressed: () async {
+                                                  final tempUpdateData =
+                                                      createTempRecordData(
+                                                    status: 'live',
+                                                    mealTime: dropDownValue1,
+                                                    day: dropDownValue2,
+                                                  );
+                                                  await listViewTempRecord
+                                                      .reference
+                                                      .update(tempUpdateData);
+                                                  await SetingredCall.call(
+                                                    recipeId: listViewTempRecord
+                                                        .recipeId,
+                                                  );
+                                                },
+                                                text: 'Add',
+                                                options: FFButtonOptions(
+                                                  width: 100,
+                                                  height: 25,
+                                                  color: Color(0xFF736CAF),
+                                                  textStyle: FlutterFlowTheme
+                                                          .of(context)
+                                                      .subtitle2
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color: Colors.white,
+                                                      ),
+                                                  borderSide: BorderSide(
+                                                    color: Colors.transparent,
+                                                    width: 1,
+                                                  ),
+                                                  borderRadius: 5,
+                                                ),
+                                              ),
                                             ),
-                                            borderRadius: 5,
-                                          ),
+                                          ],
                                         ),
-                                      ],
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                  ],
+                                ),
                               ),
                             ),
                             Expanded(
@@ -362,15 +385,15 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                               context,
                                               MaterialPageRoute(
                                                 builder: (context) =>
-                                                    MealsCopy2CopyWidget(
-                                                  mealDetail:
-                                                      listViewRecipesRecord.ref,
+                                                    MealInfoWidget(
+                                                  mealRef: listViewTempRecord
+                                                      .reference,
                                                 ),
                                               ),
                                             );
                                           },
                                           child: Image.network(
-                                            listViewRecipesRecord.image,
+                                            listViewTempRecord.image,
                                             width: 160,
                                             height: 130,
                                             fit: BoxFit.fitHeight,

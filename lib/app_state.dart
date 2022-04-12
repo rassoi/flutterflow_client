@@ -16,6 +16,7 @@ class FFAppState {
     prefs = await SharedPreferences.getInstance();
     _user = prefs.getString('ff_user') ?? _user;
     _category = prefs.getString('ff_category') ?? _category;
+    _eddiMeal = prefs.getBool('ff_eddiMeal') ?? _eddiMeal;
   }
 
   SharedPreferences prefs;
@@ -32,6 +33,13 @@ class FFAppState {
   set category(String _value) {
     _category = _value;
     prefs.setString('ff_category', _value);
+  }
+
+  bool _eddiMeal = false;
+  bool get eddiMeal => _eddiMeal;
+  set eddiMeal(bool _value) {
+    _eddiMeal = _value;
+    prefs.setBool('ff_eddiMeal', _value);
   }
 }
 

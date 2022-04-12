@@ -2,8 +2,9 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../main.dart';
+import '../meals_copy2/meals_copy2_widget.dart';
 import '../phone_authentication/phone_authentication_widget.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -56,7 +57,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                 await Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => NavBarPage(initialPage: 'MealsCopy2'),
+                    builder: (context) => MealsCopy2Widget(),
                   ),
                 );
               },
@@ -160,116 +161,69 @@ class _LandingWidgetState extends State<LandingWidget> {
               ),
               Container(
                 width: double.infinity,
-                height: 110,
+                height: 130,
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: Color(0xFFEEEEEE),
                 ),
-                child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(15, 1, 0, 0),
-                  child: StreamBuilder<List<TempRecord>>(
-                    stream: queryTempRecord(
-                      queryBuilder: (tempRecord) => tempRecord.where('user_uid',
-                          isEqualTo: FFAppState().user),
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: CircularProgressIndicator(
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                            ),
+                child: StreamBuilder<List<TempRecord>>(
+                  stream: queryTempRecord(),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: CircularProgressIndicator(
+                            color: FlutterFlowTheme.of(context).primaryColor,
                           ),
-                        );
-                      }
-                      List<TempRecord> listViewTempRecordList = snapshot.data;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: listViewTempRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewTempRecord =
-                              listViewTempRecordList[listViewIndex];
-                          return Padding(
-                            padding:
-                                EdgeInsetsDirectional.fromSTEB(12, 0, 0, 0),
-                            child: Column(
+                        ),
+                      );
+                    }
+                    List<TempRecord> listViewTempRecordList = snapshot.data;
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: listViewTempRecordList.length,
+                      itemBuilder: (context, listViewIndex) {
+                        final listViewTempRecord =
+                            listViewTempRecordList[listViewIndex];
+                        return Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Row(
                               mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.end,
                               children: [
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    StreamBuilder<List<UpcommingMealsRecord>>(
-                                      stream: queryUpcommingMealsRecord(),
-                                      builder: (context, snapshot) {
-                                        // Customize what your widget looks like when it's loading.
-                                        if (!snapshot.hasData) {
-                                          return Center(
-                                            child: SizedBox(
-                                              width: 50,
-                                              height: 50,
-                                              child: CircularProgressIndicator(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryColor,
-                                              ),
-                                            ),
-                                          );
-                                        }
-                                        List<UpcommingMealsRecord>
-                                            imageUpcommingMealsRecordList =
-                                            snapshot.data;
-                                        return InkWell(
-                                          onTap: () async {
-                                            await Navigator.push(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    NavBarPage(
-                                                        initialPage: 'Meals'),
-                                              ),
-                                            );
-                                          },
-                                          child: Image.network(
-                                            listViewTempRecord.image,
-                                            width: 100,
-                                            height: 70,
-                                            fit: BoxFit.cover,
-                                          ),
-                                        );
-                                      },
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 0, 0, 0),
+                                  child: ClipRRect(
+                                    borderRadius: BorderRadius.circular(10),
+                                    child: Image.network(
+                                      listViewTempRecord.image,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
                                     ),
-                                  ],
-                                ),
-                                Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Text(
-                                      listViewTempRecord.name
-                                          .maybeHandleOverflow(
-                                        maxChars: 20,
-                                        replacement: '…',
-                                      ),
-                                      style: FlutterFlowTheme.of(context)
-                                          .bodyText1
-                                          .override(
-                                            fontFamily: 'Poppins',
-                                            fontSize: 8,
-                                            lineHeight: 3,
-                                          ),
-                                    ),
-                                  ],
+                                  ),
                                 ),
                               ],
                             ),
-                          );
-                        },
-                      );
-                    },
-                  ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                AutoSizeText(
+                                  listViewTempRecord.name
+                                      .maybeHandleOverflow(maxChars: 10),
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
                 ),
               ),
               Align(
@@ -277,7 +231,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                 child: Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
                   child: Text(
-                    'Explore',
+                    FFAppState().user,
                     textAlign: TextAlign.start,
                     style: FlutterFlowTheme.of(context).title3,
                   ),
@@ -341,8 +295,8 @@ class _LandingWidgetState extends State<LandingWidget> {
                                       await Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) => NavBarPage(
-                                              initialPage: 'MealsCopy2'),
+                                          builder: (context) =>
+                                              MealsCopy2Widget(),
                                         ),
                                       );
                                     },
