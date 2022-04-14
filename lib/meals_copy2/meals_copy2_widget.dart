@@ -187,6 +187,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                             choiceChipsValue,
                             'All',
                           )}${textController.text}')
+                      .where('user_uid', isEqualTo: FFAppState().user)
                       .orderBy('fav', descending: true),
                 ),
                 builder: (context, snapshot) {
@@ -302,6 +303,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                   final tempUpdateData =
                                                       createTempRecordData(
                                                     status: 'live',
+                                                    mealTime: dropDownValue1,
+                                                    day: dropDownValue2,
                                                   );
                                                   await listViewTempRecord
                                                       .reference

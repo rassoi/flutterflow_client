@@ -9,6 +9,10 @@
           "arrayConfig": "CONTAINS"
         },
         {
+          "fieldPath": "user_uid",
+          "order": "ASCENDING"
+        },
+        {
           "fieldPath": "fav",
           "order": "DESCENDING"
         }
