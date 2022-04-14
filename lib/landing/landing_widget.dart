@@ -167,8 +167,8 @@ class _LandingWidgetState extends State<LandingWidget> {
                 ),
                 child: StreamBuilder<List<TempRecord>>(
                   stream: queryTempRecord(
-                    queryBuilder: (tempRecord) => tempRecord.where('user_uid',
-                        isEqualTo: FFAppState().user),
+                    queryBuilder: (tempRecord) =>
+                        tempRecord.where('uid', isEqualTo: FFAppState().user),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.

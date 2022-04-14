@@ -54,6 +54,9 @@ abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
   bool get fav;
 
   @nullable
+  String get uid;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
@@ -69,7 +72,8 @@ abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
     ..counter = 0
     ..nameAsArray = ListBuilder()
     ..status = ''
-    ..fav = false;
+    ..fav = false
+    ..uid = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('temp');
@@ -104,6 +108,7 @@ Map<String, dynamic> createTempRecordData({
   int counter,
   String status,
   bool fav,
+  String uid,
 }) =>
     serializers.toFirestore(
         TempRecord.serializer,
@@ -120,4 +125,5 @@ Map<String, dynamic> createTempRecordData({
           ..counter = counter
           ..nameAsArray = null
           ..status = status
-          ..fav = fav));
+          ..fav = fav
+          ..uid = uid));

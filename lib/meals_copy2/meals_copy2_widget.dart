@@ -187,7 +187,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                             choiceChipsValue,
                             'All',
                           )}${textController.text}')
-                      .where('user_uid', isEqualTo: FFAppState().user)
+                      .where('uid', isEqualTo: FFAppState().user)
                       .orderBy('fav', descending: true),
                 ),
                 builder: (context, snapshot) {
