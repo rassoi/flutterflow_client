@@ -181,11 +181,13 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
             Expanded(
               child: StreamBuilder<List<TempRecord>>(
                 stream: queryTempRecord(
-                  queryBuilder: (tempRecord) => tempRecord.where('nameAsArray',
-                      arrayContains: '${valueOrDefault<String>(
-                        choiceChipsValue,
-                        'All',
-                      )}${textController.text}'),
+                  queryBuilder: (tempRecord) => tempRecord
+                      .where('nameAsArray',
+                          arrayContains: '${valueOrDefault<String>(
+                            choiceChipsValue,
+                            'All',
+                          )}${textController.text}')
+                      .orderBy('fav', descending: true),
                 ),
                 builder: (context, snapshot) {
                   // Customize what your widget looks like when it's loading.

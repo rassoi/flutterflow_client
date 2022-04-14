@@ -1,3 +1,18 @@
 {
-  "indexes": []
+  "indexes": [
+    {
+      "collectionGroup": "temp",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "nameAsArray",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "fav",
+          "order": "DESCENDING"
+        }
+      ]
+    }
+  ]
 }
