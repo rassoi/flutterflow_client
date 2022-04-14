@@ -181,7 +181,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                       queryBuilder: (tempRecord) => tempRecord
                           .where('meal_time', isEqualTo: dropDownValue)
                           .where('day', isEqualTo: 'Brakefast')
-                          .where('user_uid', isEqualTo: FFAppState().user)
+                          .where('uid', isEqualTo: FFAppState().user)
                           .where('status', isEqualTo: 'live'),
                     ),
                     builder: (context, snapshot) {
