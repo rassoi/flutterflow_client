@@ -311,6 +311,9 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                     'day':
                                                         FieldValue.arrayUnion(
                                                             [dropDownValue1]),
+                                                    'which_meal':
+                                                        FieldValue.arrayUnion(
+                                                            [dropDownValue2]),
                                                   };
                                                   await listViewTempRecord
                                                       .reference
