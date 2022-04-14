@@ -17,6 +17,9 @@ class FFAppState {
     _user = prefs.getString('ff_user') ?? _user;
     _category = prefs.getString('ff_category') ?? _category;
     _eddiMeal = prefs.getBool('ff_eddiMeal') ?? _eddiMeal;
+    _Lunch = prefs.getString('ff_Lunch') ?? _Lunch;
+    _Snacks = prefs.getString('ff_Snacks') ?? _Snacks;
+    _Dinner = prefs.getString('ff_Dinner') ?? _Dinner;
   }
 
   SharedPreferences prefs;
@@ -40,6 +43,29 @@ class FFAppState {
   set eddiMeal(bool _value) {
     _eddiMeal = _value;
     prefs.setBool('ff_eddiMeal', _value);
+  }
+
+  String Brakefast = 'Brakefast';
+
+  String _Lunch = 'Lunch';
+  String get Lunch => _Lunch;
+  set Lunch(String _value) {
+    _Lunch = _value;
+    prefs.setString('ff_Lunch', _value);
+  }
+
+  String _Snacks = 'Snacks';
+  String get Snacks => _Snacks;
+  set Snacks(String _value) {
+    _Snacks = _value;
+    prefs.setString('ff_Snacks', _value);
+  }
+
+  String _Dinner = 'Dinner';
+  String get Dinner => _Dinner;
+  set Dinner(String _value) {
+    _Dinner = _value;
+    prefs.setString('ff_Dinner', _value);
   }
 }
 

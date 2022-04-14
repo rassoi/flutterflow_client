@@ -300,12 +300,18 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                   AlignmentDirectional(0, 1),
                                               child: FFButtonWidget(
                                                 onPressed: () async {
-                                                  final tempUpdateData =
-                                                      createTempRecordData(
-                                                    status: 'live',
-                                                    mealTime: dropDownValue1,
-                                                    day: dropDownValue2,
-                                                  );
+                                                  final tempUpdateData = {
+                                                    ...createTempRecordData(
+                                                      status: 'live',
+                                                    ),
+                                                    'meal_time':
+                                                        FieldValue.arrayUnion([
+                                                      '${dropDownValue1}${dropDownValue2}'
+                                                    ]),
+                                                    'day':
+                                                        FieldValue.arrayUnion(
+                                                            [dropDownValue1]),
+                                                  };
                                                   await listViewTempRecord
                                                       .reference
                                                       .update(tempUpdateData);

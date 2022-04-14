@@ -1,5 +1,4 @@
 import '../auth/auth_util.dart';
-import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
@@ -179,8 +178,8 @@ class _MealsWidgetState extends State<MealsWidget> {
                   child: StreamBuilder<List<TempRecord>>(
                     stream: queryTempRecord(
                       queryBuilder: (tempRecord) => tempRecord
-                          .where('meal_time', isEqualTo: dropDownValue)
-                          .where('day', isEqualTo: 'Brakefast')
+                          .where('meal_time',
+                              arrayContains: '${dropDownValue}Brakefast')
                           .where('uid', isEqualTo: FFAppState().user)
                           .where('status', isEqualTo: 'live'),
                     ),
@@ -272,12 +271,11 @@ class _MealsWidgetState extends State<MealsWidget> {
                                     InkWell(
                                       onTap: () async {
                                         final tempUpdateData =
-                                            createTempRecordData();
+                                            createTempRecordData(
+                                          status: 'notLive',
+                                        );
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);
-                                        await RemoveIngredAsPerRecipeCall.call(
-                                          recipeId: listViewTempRecord.recipeId,
-                                        );
                                       },
                                       child: Icon(
                                         Icons.delete,
@@ -308,9 +306,9 @@ class _MealsWidgetState extends State<MealsWidget> {
                   child: StreamBuilder<List<TempRecord>>(
                     stream: queryTempRecord(
                       queryBuilder: (tempRecord) => tempRecord
-                          .where('meal_time', isEqualTo: dropDownValue)
-                          .where('day', isEqualTo: 'Lunch')
-                          .where('user_uid', isEqualTo: FFAppState().user)
+                          .where('meal_time',
+                              arrayContains: '${dropDownValue}Lunch')
+                          .where('uid', isEqualTo: FFAppState().user)
                           .where('status', isEqualTo: 'live'),
                     ),
                     builder: (context, snapshot) {
@@ -400,11 +398,12 @@ class _MealsWidgetState extends State<MealsWidget> {
                                     ),
                                     InkWell(
                                       onTap: () async {
-                                        await listViewTempRecord.reference
-                                            .delete();
-                                        await RemoveIngredAsPerRecipeCall.call(
-                                          recipeId: listViewTempRecord.recipeId,
+                                        final tempUpdateData =
+                                            createTempRecordData(
+                                          status: 'notLive',
                                         );
+                                        await listViewTempRecord.reference
+                                            .update(tempUpdateData);
                                       },
                                       child: Icon(
                                         Icons.delete,
@@ -432,122 +431,6 @@ class _MealsWidgetState extends State<MealsWidget> {
                   decoration: BoxDecoration(
                     color: Color(0xFFEEEEEE),
                   ),
-                  child: StreamBuilder<List<TempRecord>>(
-                    stream: queryTempRecord(
-                      queryBuilder: (tempRecord) => tempRecord
-                          .where('meal_time', isEqualTo: dropDownValue)
-                          .where('day', isEqualTo: 'Snacks')
-                          .where('user_uid', isEqualTo: FFAppState().user)
-                          .where('status', isEqualTo: 'live'),
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: CircularProgressIndicator(
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                            ),
-                          ),
-                        );
-                      }
-                      List<TempRecord> listViewTempRecordList = snapshot.data;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: listViewTempRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewTempRecord =
-                              listViewTempRecordList[listViewIndex];
-                          return Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                MealInfoWidget(
-                                              mealRef:
-                                                  listViewTempRecord.reference,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(5),
-                                        child: Image.network(
-                                          listViewTempRecord.image,
-                                          width: 130,
-                                          height: 100,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    listViewTempRecord.name
-                                        .maybeHandleOverflow(maxChars: 15),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                ],
-                              ),
-                              Expanded(
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Align(
-                                      alignment: AlignmentDirectional(0, 0),
-                                      child: Text(
-                                        formatNumber(
-                                          listViewTempRecord.counter,
-                                          formatType: FormatType.custom,
-                                          format: '0',
-                                          locale: '',
-                                        ),
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () async {
-                                        await listViewTempRecord.reference
-                                            .delete();
-                                        await RemoveIngredAsPerRecipeCall.call(
-                                          recipeId: listViewTempRecord.recipeId,
-                                        );
-                                      },
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: Colors.black,
-                                        size: 24,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
-                  ),
                 ),
                 Text(
                   'Dinner',
@@ -558,122 +441,6 @@ class _MealsWidgetState extends State<MealsWidget> {
                   height: 150,
                   decoration: BoxDecoration(
                     color: Color(0xFFEEEEEE),
-                  ),
-                  child: StreamBuilder<List<TempRecord>>(
-                    stream: queryTempRecord(
-                      queryBuilder: (tempRecord) => tempRecord
-                          .where('meal_time', isEqualTo: dropDownValue)
-                          .where('day', isEqualTo: 'Dinner')
-                          .where('user_uid', isEqualTo: FFAppState().user)
-                          .where('status', isEqualTo: 'live'),
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: CircularProgressIndicator(
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                            ),
-                          ),
-                        );
-                      }
-                      List<TempRecord> listViewTempRecordList = snapshot.data;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: listViewTempRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewTempRecord =
-                              listViewTempRecordList[listViewIndex];
-                          return Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                MealInfoWidget(
-                                              mealRef:
-                                                  listViewTempRecord.reference,
-                                            ),
-                                          ),
-                                        );
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(5),
-                                        child: Image.network(
-                                          listViewTempRecord.image,
-                                          width: 130,
-                                          height: 100,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    listViewTempRecord.name
-                                        .maybeHandleOverflow(maxChars: 15),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                ],
-                              ),
-                              Expanded(
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Align(
-                                      alignment: AlignmentDirectional(0, 0),
-                                      child: Text(
-                                        formatNumber(
-                                          listViewTempRecord.counter,
-                                          formatType: FormatType.custom,
-                                          format: '0',
-                                          locale: '',
-                                        ),
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () async {
-                                        await listViewTempRecord.reference
-                                            .delete();
-                                        await RemoveIngredAsPerRecipeCall.call(
-                                          recipeId: listViewTempRecord.recipeId,
-                                        );
-                                      },
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: Colors.black,
-                                        size: 24,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
                   ),
                 ),
               ],

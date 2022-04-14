@@ -16,13 +16,6 @@ abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
   String get name;
 
   @nullable
-  @BuiltValueField(wireName: 'meal_time')
-  String get mealTime;
-
-  @nullable
-  String get day;
-
-  @nullable
   @BuiltValueField(wireName: 'youtube_link')
   String get youtubeLink;
 
@@ -57,14 +50,19 @@ abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
   String get uid;
 
   @nullable
+  @BuiltValueField(wireName: 'meal_time')
+  BuiltList<String> get mealTime;
+
+  @nullable
+  BuiltList<String> get day;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(TempRecordBuilder builder) => builder
     ..image = ''
     ..name = ''
-    ..mealTime = ''
-    ..day = ''
     ..youtubeLink = ''
     ..ingredNames = ''
     ..userUid = ''
@@ -73,7 +71,9 @@ abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
     ..nameAsArray = ListBuilder()
     ..status = ''
     ..fav = false
-    ..uid = '';
+    ..uid = ''
+    ..mealTime = ListBuilder()
+    ..day = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('temp');
@@ -98,8 +98,6 @@ abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
 Map<String, dynamic> createTempRecordData({
   String image,
   String name,
-  String mealTime,
-  String day,
   String youtubeLink,
   DocumentReference ref,
   String ingredNames,
@@ -115,8 +113,6 @@ Map<String, dynamic> createTempRecordData({
         TempRecord((t) => t
           ..image = image
           ..name = name
-          ..mealTime = mealTime
-          ..day = day
           ..youtubeLink = youtubeLink
           ..ref = ref
           ..ingredNames = ingredNames
@@ -126,4 +122,6 @@ Map<String, dynamic> createTempRecordData({
           ..nameAsArray = null
           ..status = status
           ..fav = fav
-          ..uid = uid));
+          ..uid = uid
+          ..mealTime = null
+          ..day = null));
