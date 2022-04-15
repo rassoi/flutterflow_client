@@ -2,6 +2,7 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../main.dart';
 import '../meals_copy2/meals_copy2_widget.dart';
 import '../phone_authentication/phone_authentication_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
@@ -167,8 +168,11 @@ class _LandingWidgetState extends State<LandingWidget> {
                 ),
                 child: StreamBuilder<List<TempRecord>>(
                   stream: queryTempRecord(
-                    queryBuilder: (tempRecord) =>
-                        tempRecord.where('uid', isEqualTo: FFAppState().user),
+                    queryBuilder: (tempRecord) => tempRecord
+                        .where('uid', isEqualTo: FFAppState().user)
+                        .where('status', isEqualTo: 'live')
+                        .where('meal_time',
+                            arrayContains: FFAppState().upcommingMealTime),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -184,47 +188,59 @@ class _LandingWidgetState extends State<LandingWidget> {
                       );
                     }
                     List<TempRecord> listViewTempRecordList = snapshot.data;
-                    return ListView.builder(
-                      padding: EdgeInsets.zero,
-                      scrollDirection: Axis.horizontal,
-                      itemCount: listViewTempRecordList.length,
-                      itemBuilder: (context, listViewIndex) {
-                        final listViewTempRecord =
-                            listViewTempRecordList[listViewIndex];
-                        return Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
-                                      10, 0, 0, 0),
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(10),
-                                    child: Image.network(
-                                      listViewTempRecord.image,
-                                      width: 100,
-                                      height: 100,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                AutoSizeText(
-                                  listViewTempRecord.name
-                                      .maybeHandleOverflow(maxChars: 10),
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ],
-                            ),
-                          ],
+                    return InkWell(
+                      onTap: () async {
+                        await Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) =>
+                                NavBarPage(initialPage: 'Meals'),
+                          ),
                         );
                       },
+                      child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: listViewTempRecordList.length,
+                        itemBuilder: (context, listViewIndex) {
+                          final listViewTempRecord =
+                              listViewTempRecordList[listViewIndex];
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  Padding(
+                                    padding: EdgeInsetsDirectional.fromSTEB(
+                                        10, 0, 0, 0),
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(10),
+                                      child: Image.network(
+                                        listViewTempRecord.image,
+                                        width: 100,
+                                        height: 100,
+                                        fit: BoxFit.cover,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  AutoSizeText(
+                                    listViewTempRecord.name
+                                        .maybeHandleOverflow(maxChars: 10),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyText1,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          );
+                        },
+                      ),
                     );
                   },
                 ),
@@ -322,8 +338,9 @@ class _LandingWidgetState extends State<LandingWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text(
-                                    gridViewCategoriesRecord.categoryName,
+                                  AutoSizeText(
+                                    gridViewCategoriesRecord.categoryName
+                                        .maybeHandleOverflow(maxChars: 15),
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,
                                   ),

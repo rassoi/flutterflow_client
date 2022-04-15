@@ -20,6 +20,8 @@ class FFAppState {
     _Lunch = prefs.getString('ff_Lunch') ?? _Lunch;
     _Snacks = prefs.getString('ff_Snacks') ?? _Snacks;
     _Dinner = prefs.getString('ff_Dinner') ?? _Dinner;
+    _upcommingMealTime =
+        prefs.getString('ff_upcommingMealTime') ?? _upcommingMealTime;
   }
 
   SharedPreferences prefs;
@@ -66,6 +68,13 @@ class FFAppState {
   set Dinner(String _value) {
     _Dinner = _value;
     prefs.setString('ff_Dinner', _value);
+  }
+
+  String _upcommingMealTime = '1';
+  String get upcommingMealTime => _upcommingMealTime;
+  set upcommingMealTime(String _value) {
+    _upcommingMealTime = _value;
+    prefs.setString('ff_upcommingMealTime', _value);
   }
 }
 
