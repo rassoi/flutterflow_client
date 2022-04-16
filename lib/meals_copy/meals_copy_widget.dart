@@ -249,12 +249,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                 'Unavaialble',
                 style: FlutterFlowTheme.of(context).subtitle2,
               ),
-              Container(
-                width: double.infinity,
-                height: 400,
-                decoration: BoxDecoration(
-                  color: Color(0xFFEEEEEE),
-                ),
+              Expanded(
                 child: StreamBuilder<List<MealIngredRecord>>(
                   stream: queryMealIngredRecord(
                     queryBuilder: (mealIngredRecord) => mealIngredRecord
@@ -392,7 +387,10 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                                 .bodyText1,
                                           ),
                                           Text(
-                                            listViewMealIngredRecord.recipeName,
+                                            listViewMealIngredRecord.recipeNames
+                                                .toList()
+                                                .length
+                                                .toString(),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1,
                                           ),
@@ -429,7 +427,6 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                   },
                 ),
               ),
-              Divider(),
               Text(
                 'Available',
                 style: FlutterFlowTheme.of(context).subtitle2,
@@ -533,7 +530,10 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                             .bodyText1,
                                       ),
                                       Text(
-                                        listViewMealIngredRecord.recipeName,
+                                        listViewMealIngredRecord.recipeNames
+                                            .toList()
+                                            .length
+                                            .toString(),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1,
                                       ),
