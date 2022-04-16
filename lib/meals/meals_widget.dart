@@ -270,10 +270,10 @@ class _MealsWidgetState extends State<MealsWidget> {
                                     ),
                                     InkWell(
                                       onTap: () async {
-                                        final tempUpdateData =
-                                            createTempRecordData(
-                                          status: 'notLive',
-                                        );
+                                        final tempUpdateData = {
+                                          'meal_time': FieldValue.arrayRemove(
+                                              ['${dropDownValue}Brakefast']),
+                                        };
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);
                                       },
@@ -398,10 +398,10 @@ class _MealsWidgetState extends State<MealsWidget> {
                                     ),
                                     InkWell(
                                       onTap: () async {
-                                        final tempUpdateData =
-                                            createTempRecordData(
-                                          status: 'notLive',
-                                        );
+                                        final tempUpdateData = {
+                                          'meal_time': FieldValue.arrayRemove(
+                                              ['${dropDownValue}Lunch']),
+                                        };
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);
                                       },
