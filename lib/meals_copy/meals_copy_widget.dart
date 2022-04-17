@@ -254,7 +254,8 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                   stream: queryMealIngredRecord(
                     queryBuilder: (mealIngredRecord) => mealIngredRecord
                         .where('status', isEqualTo: 'unavailable')
-                        .where('user_uid', isEqualTo: FFAppState().user),
+                        .where('user_uid', isEqualTo: FFAppState().user)
+                        .where('meal_count', isGreaterThan: 0),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -436,7 +437,8 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                   stream: queryMealIngredRecord(
                     queryBuilder: (mealIngredRecord) => mealIngredRecord
                         .where('status', isEqualTo: 'available')
-                        .where('user_uid', isEqualTo: FFAppState().user),
+                        .where('user_uid', isEqualTo: FFAppState().user)
+                        .where('meal_count', isGreaterThan: 0),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
