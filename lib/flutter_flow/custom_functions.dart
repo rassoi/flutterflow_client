@@ -24,3 +24,8 @@ List<String> ingredname(String ingredtext) {
 DateTime geCurrentTimeStamp() {
   return DateTime.now();
 }
+
+String recipeList(List<String> recipelist) {
+  return recipelist.join(",");
+  // Add your function code here!
+}

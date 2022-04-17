@@ -35,11 +35,6 @@ class _MealsWidgetState extends State<MealsWidget> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: true,
-        leading: Icon(
-          Icons.person_sharp,
-          color: Colors.black,
-          size: 24,
-        ),
         title: Text(
           'My Meals',
           style: FlutterFlowTheme.of(context).title1.override(

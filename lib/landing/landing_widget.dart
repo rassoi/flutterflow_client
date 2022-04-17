@@ -6,6 +6,7 @@ import '../main.dart';
 import '../phone_authentication/phone_authentication_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LandingWidget extends StatefulWidget {
@@ -17,6 +18,22 @@ class LandingWidget extends StatefulWidget {
 
 class _LandingWidgetState extends State<LandingWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    // On page load action.
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
+      await signOut();
+      await Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+          builder: (context) => PhoneAuthenticationWidget(),
+        ),
+        (r) => false,
+      );
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -54,6 +71,49 @@ class _LandingWidgetState extends State<LandingWidget> {
         elevation: 4,
       ),
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+      drawer: Drawer(
+        elevation: 16,
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          children: [
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  'Rassoi',
+                  style: FlutterFlowTheme.of(context).title1,
+                ),
+              ],
+            ),
+            Container(
+              width: double.infinity,
+              height: 40,
+              decoration: BoxDecoration(
+                color: Colors.white,
+              ),
+            ),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  'Settings',
+                  style: FlutterFlowTheme.of(context).bodyText1,
+                ),
+              ],
+            ),
+            Divider(),
+            Row(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+                Text(
+                  'Logout',
+                  style: FlutterFlowTheme.of(context).bodyText1,
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -168,32 +228,32 @@ class _LandingWidgetState extends State<LandingWidget> {
                       );
                     }
                     List<TempRecord> listViewTempRecordList = snapshot.data;
-                    return InkWell(
-                      onTap: () async {
-                        await Navigator.push(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) =>
-                                NavBarPage(initialPage: 'Meals'),
-                          ),
-                        );
-                      },
-                      child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: listViewTempRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewTempRecord =
-                              listViewTempRecordList[listViewIndex];
-                          return Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        10, 0, 0, 0),
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: listViewTempRecordList.length,
+                      itemBuilder: (context, listViewIndex) {
+                        final listViewTempRecord =
+                            listViewTempRecordList[listViewIndex];
+                        return Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      10, 0, 0, 0),
+                                  child: InkWell(
+                                    onTap: () async {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              NavBarPage(initialPage: 'Meals'),
+                                        ),
+                                      );
+                                    },
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: Image.network(
@@ -204,23 +264,22 @@ class _LandingWidgetState extends State<LandingWidget> {
                                       ),
                                     ),
                                   ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  AutoSizeText(
-                                    listViewTempRecord.name
-                                        .maybeHandleOverflow(maxChars: 10),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                ],
-                              ),
-                            ],
-                          );
-                        },
-                      ),
+                                ),
+                              ],
+                            ),
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                AutoSizeText(
+                                  listViewTempRecord.name
+                                      .maybeHandleOverflow(maxChars: 10),
+                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                ),
+                              ],
+                            ),
+                          ],
+                        );
+                      },
                     );
                   },
                 ),
