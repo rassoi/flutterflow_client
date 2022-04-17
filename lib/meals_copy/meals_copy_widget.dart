@@ -3,7 +3,6 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../phone_authentication/phone_authentication_widget.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
@@ -41,60 +40,6 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
         elevation: 4,
       ),
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      drawer: Drawer(
-        elevation: 16,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(
-                  'Rassoi',
-                  style: FlutterFlowTheme.of(context).title1,
-                ),
-              ],
-            ),
-            Container(
-              width: double.infinity,
-              height: 40,
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(
-                  'Settings',
-                  style: FlutterFlowTheme.of(context).title2,
-                ),
-              ],
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                InkWell(
-                  onTap: () async {
-                    await signOut();
-                    await Navigator.pushAndRemoveUntil(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => PhoneAuthenticationWidget(),
-                      ),
-                      (r) => false,
-                    );
-                  },
-                  child: Text(
-                    'Logout',
-                    style: FlutterFlowTheme.of(context).title2,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -573,10 +518,9 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                             .bodyText1,
                                       ),
                                       Text(
-                                        listViewMealIngredRecord.recipeNames
-                                            .toList()
-                                            .length
-                                            .toString(),
+                                        functions.recipeList(
+                                            listViewMealIngredRecord.recipeNames
+                                                .toList()),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1,
                                       ),

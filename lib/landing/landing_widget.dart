@@ -71,49 +71,6 @@ class _LandingWidgetState extends State<LandingWidget> {
         elevation: 4,
       ),
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-      drawer: Drawer(
-        elevation: 16,
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(
-                  'Rassoi',
-                  style: FlutterFlowTheme.of(context).title1,
-                ),
-              ],
-            ),
-            Container(
-              width: double.infinity,
-              height: 40,
-              decoration: BoxDecoration(
-                color: Colors.white,
-              ),
-            ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(
-                  'Settings',
-                  style: FlutterFlowTheme.of(context).bodyText1,
-                ),
-              ],
-            ),
-            Divider(),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(
-                  'Logout',
-                  style: FlutterFlowTheme.of(context).bodyText1,
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),

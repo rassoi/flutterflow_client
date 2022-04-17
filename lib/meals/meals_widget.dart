@@ -172,6 +172,11 @@ class _MealsWidgetState extends State<MealsWidget> {
                         );
                       }
                       List<TempRecord> listViewTempRecordList = snapshot.data;
+                      if (listViewTempRecordList.isEmpty) {
+                        return Image.asset(
+                          'assets/images/Screenshot_2022-04-17_at_4.34.25_PM.png',
+                        );
+                      }
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
