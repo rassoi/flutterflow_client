@@ -6,7 +6,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../meal_info/meal_info_widget.dart';
-import '../meals_copy2/meals_copy2_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -48,26 +47,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                 fontSize: 36,
               ),
         ),
-        actions: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
-            child: InkWell(
-              onTap: () async {
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MealsCopy2Widget(),
-                  ),
-                );
-              },
-              child: Icon(
-                Icons.search_sharp,
-                color: Colors.black,
-                size: 28,
-              ),
-            ),
-          ),
-        ],
+        actions: [],
         centerTitle: true,
         elevation: 4,
       ),

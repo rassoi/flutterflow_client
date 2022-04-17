@@ -40,16 +40,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
           'Ingredients',
           style: FlutterFlowTheme.of(context).title2,
         ),
-        actions: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
-            child: Icon(
-              Icons.search_sharp,
-              color: Colors.black,
-              size: 36,
-            ),
-          ),
-        ],
+        actions: [],
         centerTitle: true,
         elevation: 4,
       ),

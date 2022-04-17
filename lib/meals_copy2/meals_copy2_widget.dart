@@ -87,16 +87,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
           ),
           style: FlutterFlowTheme.of(context).subtitle1,
         ),
-        actions: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
-            child: Icon(
-              Icons.search_sharp,
-              color: Colors.black,
-              size: 36,
-            ),
-          ),
-        ],
+        actions: [],
         centerTitle: true,
         elevation: 4,
       ),

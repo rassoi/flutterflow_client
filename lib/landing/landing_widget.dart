@@ -3,7 +3,6 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../main.dart';
-import '../meals_copy2/meals_copy2_widget.dart';
 import '../phone_authentication/phone_authentication_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
@@ -50,26 +49,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                 fontSize: 36,
               ),
         ),
-        actions: [
-          Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0, 0, 20, 0),
-            child: InkWell(
-              onTap: () async {
-                await Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => MealsCopy2Widget(),
-                  ),
-                );
-              },
-              child: Icon(
-                Icons.search_sharp,
-                color: Colors.black,
-                size: 36,
-              ),
-            ),
-          ),
-        ],
+        actions: [],
         centerTitle: true,
         elevation: 4,
       ),
@@ -314,8 +294,8 @@ class _LandingWidgetState extends State<LandingWidget> {
                                       await Navigator.push(
                                         context,
                                         MaterialPageRoute(
-                                          builder: (context) =>
-                                              MealsCopy2Widget(),
+                                          builder: (context) => NavBarPage(
+                                              initialPage: 'MealsCopy2'),
                                         ),
                                       );
                                     },
