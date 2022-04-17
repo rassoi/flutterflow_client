@@ -3,6 +3,7 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
@@ -214,7 +215,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                               onPressed: () async {
                                 final timestampUpdateData =
                                     createTimestampRecordData(
-                                  lastBuy: columnTimestampRecord.lastBuy,
+                                  lastBuy: functions.geCurrentTimeStamp(),
                                 );
                                 await columnTimestampRecord.reference
                                     .update(timestampUpdateData);
@@ -339,9 +340,8 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
 
                                             final timestampUpdateData =
                                                 createTimestampRecordData(
-                                              lastAudit:
-                                                  expandableTimestampRecord
-                                                      .lastAudit,
+                                              lastAudit: functions
+                                                  .geCurrentTimeStamp(),
                                             );
                                             await expandableTimestampRecord
                                                 .reference

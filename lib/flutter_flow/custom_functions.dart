@@ -20,3 +20,7 @@ List<String> ingredname(String ingredtext) {
   }
   return nameList;
 }
+
+DateTime geCurrentTimeStamp() {
+  return DateTime.now();
+}
