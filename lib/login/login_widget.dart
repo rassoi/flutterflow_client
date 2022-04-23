@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -47,78 +48,109 @@ class _LoginWidgetState extends State<LoginWidget> {
                 mainAxisSize: MainAxisSize.max,
                 children: [],
               ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Align(
-                    alignment: AlignmentDirectional(0, 0),
-                    child: Container(
-                      width: 230,
-                      height: 44,
-                      child: Stack(
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional(0, 0),
-                            child: FFButtonWidget(
-                              onPressed: () async {
-                                final user = await signInWithGoogle(context);
-                                if (user == null) {
-                                  return;
-                                }
-                                await Navigator.pushAndRemoveUntil(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        NavBarPage(initialPage: 'Home'),
-                                  ),
-                                  (r) => false,
-                                );
-                              },
-                              text: 'Sign in with Google',
-                              icon: Icon(
-                                Icons.add,
-                                color: Colors.transparent,
-                                size: 20,
-                              ),
-                              options: FFButtonOptions(
-                                width: 230,
-                                height: 44,
-                                color: Colors.white,
-                                textStyle: GoogleFonts.getFont(
-                                  'Roboto',
-                                  color: Color(0xFF606060),
-                                  fontSize: 17,
-                                ),
-                                elevation: 4,
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 0,
-                                ),
-                                borderRadius: 12,
-                              ),
-                            ),
-                          ),
-                          Align(
-                            alignment: AlignmentDirectional(-0.83, 0),
-                            child: Container(
-                              width: 22,
-                              height: 22,
-                              clipBehavior: Clip.antiAlias,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                              ),
-                              child: Image.network(
-                                'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
-                                fit: BoxFit.contain,
-                              ),
-                            ),
-                          ),
-                        ],
+              StreamBuilder<List<UsersRecord>>(
+                stream: queryUsersRecord(
+                  singleRecord: true,
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: SpinKitThreeBounce(
+                          color: FlutterFlowTheme.of(context).primaryColor,
+                          size: 50,
+                        ),
                       ),
-                    ),
-                  ),
-                ],
+                    );
+                  }
+                  List<UsersRecord> rowUsersRecordList = snapshot.data;
+                  // Return an empty Container when the document does not exist.
+                  if (snapshot.data.isEmpty) {
+                    return Container();
+                  }
+                  final rowUsersRecord = rowUsersRecordList.isNotEmpty
+                      ? rowUsersRecordList.first
+                      : null;
+                  return Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Align(
+                        alignment: AlignmentDirectional(0, 0),
+                        child: Container(
+                          width: 230,
+                          height: 44,
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: AlignmentDirectional(0, 0),
+                                child: FFButtonWidget(
+                                  onPressed: () async {
+                                    final user =
+                                        await signInWithGoogle(context);
+                                    if (user == null) {
+                                      return;
+                                    }
+                                    setState(() =>
+                                        FFAppState().user = rowUsersRecord.uid);
+                                    await Navigator.pushAndRemoveUntil(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) =>
+                                            NavBarPage(initialPage: 'Home'),
+                                      ),
+                                      (r) => false,
+                                    );
+                                  },
+                                  text: 'Sign in with Google',
+                                  icon: Icon(
+                                    Icons.add,
+                                    color: Colors.transparent,
+                                    size: 20,
+                                  ),
+                                  options: FFButtonOptions(
+                                    width: 230,
+                                    height: 44,
+                                    color: Colors.white,
+                                    textStyle: GoogleFonts.getFont(
+                                      'Roboto',
+                                      color: Color(0xFF606060),
+                                      fontSize: 17,
+                                    ),
+                                    elevation: 4,
+                                    borderSide: BorderSide(
+                                      color: Colors.transparent,
+                                      width: 0,
+                                    ),
+                                    borderRadius: 12,
+                                  ),
+                                ),
+                              ),
+                              Align(
+                                alignment: AlignmentDirectional(-0.83, 0),
+                                child: Container(
+                                  width: 22,
+                                  height: 22,
+                                  clipBehavior: Clip.antiAlias,
+                                  decoration: BoxDecoration(
+                                    shape: BoxShape.circle,
+                                  ),
+                                  child: Image.network(
+                                    'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ],
+                  );
+                },
               ),
               Row(
                 mainAxisSize: MainAxisSize.max,
