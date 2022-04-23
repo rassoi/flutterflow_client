@@ -43,23 +43,6 @@ class _LandingWidgetState extends State<LandingWidget> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: true,
-        leading: InkWell(
-          onTap: () async {
-            await signOut();
-            await Navigator.pushAndRemoveUntil(
-              context,
-              MaterialPageRoute(
-                builder: (context) => HomePageWidget(),
-              ),
-              (r) => false,
-            );
-          },
-          child: Icon(
-            Icons.person_sharp,
-            color: Colors.black,
-            size: 36,
-          ),
-        ),
         title: Text(
           'Rassoi',
           style: FlutterFlowTheme.of(context).title1.override(

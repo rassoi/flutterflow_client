@@ -55,90 +55,122 @@ class _MealsWidgetState extends State<MealsWidget> {
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Expanded(
-                      child: FlutterFlowDropDown(
-                        initialOption: dropDownValue ??= '1',
-                        options: ['1', '2'].toList(),
-                        onChanged: (val) => setState(() => dropDownValue = val),
-                        width: 180,
-                        height: 30,
-                        textStyle:
-                            FlutterFlowTheme.of(context).bodyText1.override(
-                                  fontFamily: 'Poppins',
-                                  color: Colors.black,
-                                ),
-                        hintText: 'Please select...',
-                        fillColor: Color(0xFFC4A2A2),
-                        elevation: 2,
-                        borderColor: Colors.transparent,
-                        borderWidth: 0,
-                        borderRadius: 5,
-                        margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                        hidesUnderline: true,
-                      ),
-                    ),
-                    Expanded(
-                      child: Container(
-                        width: 160,
-                        height: 30,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFDABEBE),
-                          borderRadius: BorderRadius.circular(5),
-                          shape: BoxShape.rectangle,
-                          border: Border.all(
-                            color: Color(0xFF9E9E9E),
-                            width: 0,
+                StreamBuilder<List<DaysRecord>>(
+                  stream: queryDaysRecord(
+                    singleRecord: true,
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: SpinKitThreeBounce(
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            size: 50,
                           ),
                         ),
-                        child: FlutterFlowCountController(
-                          decrementIconBuilder: (enabled) => FaIcon(
-                            FontAwesomeIcons.minus,
-                            color:
-                                enabled ? Color(0xDD000000) : Color(0xFFEEEEEE),
-                            size: 20,
+                      );
+                    }
+                    List<DaysRecord> rowDaysRecordList = snapshot.data;
+                    // Return an empty Container when the document does not exist.
+                    if (snapshot.data.isEmpty) {
+                      return Container();
+                    }
+                    final rowDaysRecord = rowDaysRecordList.isNotEmpty
+                        ? rowDaysRecordList.first
+                        : null;
+                    return Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: FlutterFlowDropDown(
+                            initialOption: dropDownValue ??= '1',
+                            options: rowDaysRecord.day.toList().toList(),
+                            onChanged: (val) =>
+                                setState(() => dropDownValue = val),
+                            width: 180,
+                            height: 30,
+                            textStyle:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.black,
+                                    ),
+                            hintText: 'Please select...',
+                            fillColor: Color(0xFFC4A2A2),
+                            elevation: 2,
+                            borderColor: Colors.transparent,
+                            borderWidth: 0,
+                            borderRadius: 5,
+                            margin:
+                                EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                            hidesUnderline: true,
                           ),
-                          incrementIconBuilder: (enabled) => FaIcon(
-                            FontAwesomeIcons.plus,
-                            color: enabled ? Colors.blue : Color(0xFFEEEEEE),
-                            size: 20,
-                          ),
-                          countBuilder: (count) => Text(
-                            count.toString(),
-                            style: GoogleFonts.getFont(
-                              'Roboto',
-                              color: Colors.black,
-                              fontWeight: FontWeight.w600,
-                              fontSize: 16,
+                        ),
+                        Expanded(
+                          child: Container(
+                            width: 160,
+                            height: 30,
+                            decoration: BoxDecoration(
+                              color: Color(0xFFDABEBE),
+                              borderRadius: BorderRadius.circular(5),
+                              shape: BoxShape.rectangle,
+                              border: Border.all(
+                                color: Color(0xFF9E9E9E),
+                                width: 0,
+                              ),
+                            ),
+                            child: FlutterFlowCountController(
+                              decrementIconBuilder: (enabled) => FaIcon(
+                                FontAwesomeIcons.minus,
+                                color: enabled
+                                    ? Color(0xDD000000)
+                                    : Color(0xFFEEEEEE),
+                                size: 20,
+                              ),
+                              incrementIconBuilder: (enabled) => FaIcon(
+                                FontAwesomeIcons.plus,
+                                color:
+                                    enabled ? Colors.blue : Color(0xFFEEEEEE),
+                                size: 20,
+                              ),
+                              countBuilder: (count) => Text(
+                                count.toString(),
+                                style: GoogleFonts.getFont(
+                                  'Roboto',
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600,
+                                  fontSize: 16,
+                                ),
+                              ),
+                              count: countControllerValue ??= 0,
+                              updateCount: (count) =>
+                                  setState(() => countControllerValue = count),
+                              stepSize: 1,
                             ),
                           ),
-                          count: countControllerValue ??= 0,
-                          updateCount: (count) =>
-                              setState(() => countControllerValue = count),
-                          stepSize: 1,
                         ),
-                      ),
-                    ),
-                    ToggleIcon(
-                      onPressed: () async {
-                        setState(() =>
-                            FFAppState().eddiMeal = !FFAppState().eddiMeal);
-                      },
-                      value: FFAppState().eddiMeal,
-                      onIcon: Icon(
-                        Icons.edit,
-                        color: Colors.black,
-                        size: 25,
-                      ),
-                      offIcon: Icon(
-                        Icons.edit_off,
-                        color: Colors.black,
-                        size: 25,
-                      ),
-                    ),
-                  ],
+                        ToggleIcon(
+                          onPressed: () async {
+                            setState(() =>
+                                FFAppState().eddiMeal = !FFAppState().eddiMeal);
+                          },
+                          value: FFAppState().eddiMeal,
+                          onIcon: Icon(
+                            Icons.edit,
+                            color: Colors.black,
+                            size: 25,
+                          ),
+                          offIcon: Icon(
+                            Icons.edit_off,
+                            color: Colors.black,
+                            size: 25,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 Text(
                   'Brakefast',

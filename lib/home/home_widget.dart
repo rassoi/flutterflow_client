@@ -1,5 +1,8 @@
+import '../auth/auth_util.dart';
+import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../home_page/home_page_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -21,10 +24,22 @@ class _HomeWidgetState extends State<HomeWidget> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
-        leading: Icon(
-          Icons.settings_outlined,
-          color: Colors.black,
-          size: 24,
+        leading: InkWell(
+          onTap: () async {
+            await signOut();
+            await Navigator.pushAndRemoveUntil(
+              context,
+              MaterialPageRoute(
+                builder: (context) => HomePageWidget(),
+              ),
+              (r) => false,
+            );
+          },
+          child: Icon(
+            Icons.settings_outlined,
+            color: Colors.black,
+            size: 24,
+          ),
         ),
         title: Text(
           'Rassoi',
@@ -98,6 +113,43 @@ class _HomeWidgetState extends State<HomeWidget> {
                     ],
                   ),
                 ),
+              ),
+              StreamBuilder<List<UsersRecord>>(
+                stream: queryUsersRecord(
+                  singleRecord: true,
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: SpinKitThreeBounce(
+                          color: FlutterFlowTheme.of(context).primaryColor,
+                          size: 50,
+                        ),
+                      ),
+                    );
+                  }
+                  List<UsersRecord> rowUsersRecordList = snapshot.data;
+                  // Return an empty Container when the document does not exist.
+                  if (snapshot.data.isEmpty) {
+                    return Container();
+                  }
+                  final rowUsersRecord = rowUsersRecordList.isNotEmpty
+                      ? rowUsersRecordList.first
+                      : null;
+                  return Row(
+                    mainAxisSize: MainAxisSize.max,
+                    children: [
+                      Text(
+                        rowUsersRecord.uid,
+                        style: FlutterFlowTheme.of(context).bodyText1,
+                      ),
+                    ],
+                  );
+                },
               ),
             ],
           ),
