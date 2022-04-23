@@ -16,12 +16,16 @@ abstract class DaysRecord implements Built<DaysRecord, DaysRecordBuilder> {
   BuiltList<String> get day;
 
   @nullable
+  String get type;
+
+  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
   static void _initializeBuilder(DaysRecordBuilder builder) => builder
     ..date = ''
-    ..day = ListBuilder();
+    ..day = ListBuilder()
+    ..type = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('days');
@@ -45,9 +49,11 @@ abstract class DaysRecord implements Built<DaysRecord, DaysRecordBuilder> {
 
 Map<String, dynamic> createDaysRecordData({
   String date,
+  String type,
 }) =>
     serializers.toFirestore(
         DaysRecord.serializer,
         DaysRecord((d) => d
           ..date = date
-          ..day = null));
+          ..day = null
+          ..type = type));

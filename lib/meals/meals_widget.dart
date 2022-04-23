@@ -1,5 +1,6 @@
 import '../auth/auth_util.dart';
 import '../backend/backend.dart';
+import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_count_controller.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -25,6 +26,7 @@ class MealsWidget extends StatefulWidget {
 }
 
 class _MealsWidgetState extends State<MealsWidget> {
+  String choiceChipsValue;
   String dropDownValue;
   int countControllerValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -85,8 +87,80 @@ class _MealsWidgetState extends State<MealsWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
+                          child: FlutterFlowChoiceChips(
+                            initiallySelected: [choiceChipsValue],
+                            options: (rowDaysRecord.day.toList() ?? [])
+                                .map((label) => ChipData(label))
+                                .toList(),
+                            onChanged: (val) =>
+                                setState(() => choiceChipsValue = val.first),
+                            selectedChipStyle: ChipStyle(
+                              backgroundColor: Color(0xFF323B45),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                  ),
+                              iconColor: Colors.white,
+                              iconSize: 18,
+                              elevation: 4,
+                            ),
+                            unselectedChipStyle: ChipStyle(
+                              backgroundColor: Colors.white,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .bodyText2
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Color(0xFF323B45),
+                                  ),
+                              iconColor: Color(0xFF323B45),
+                              iconSize: 18,
+                              elevation: 4,
+                            ),
+                            chipSpacing: 20,
+                            multiselect: false,
+                            alignment: WrapAlignment.start,
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
+                StreamBuilder<List<DaysRecord>>(
+                  stream: queryDaysRecord(
+                    queryBuilder: (daysRecord) =>
+                        daysRecord.where('type', isEqualTo: 'list'),
+                    singleRecord: true,
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: SpinKitThreeBounce(
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            size: 50,
+                          ),
+                        ),
+                      );
+                    }
+                    List<DaysRecord> rowDaysRecordList = snapshot.data;
+                    // Return an empty Container when the document does not exist.
+                    if (snapshot.data.isEmpty) {
+                      return Container();
+                    }
+                    final rowDaysRecord = rowDaysRecordList.isNotEmpty
+                        ? rowDaysRecordList.first
+                        : null;
+                    return Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
                           child: FlutterFlowDropDown(
-                            initialOption: dropDownValue ??= '1',
+                            initialOption: dropDownValue ??= 'Today',
                             options: rowDaysRecord.day.toList().toList(),
                             onChanged: (val) =>
                                 setState(() => dropDownValue = val),
@@ -97,7 +171,6 @@ class _MealsWidgetState extends State<MealsWidget> {
                                       fontFamily: 'Poppins',
                                       color: Colors.black,
                                     ),
-                            hintText: 'Please select...',
                             fillColor: Color(0xFFC4A2A2),
                             elevation: 2,
                             borderColor: Colors.transparent,

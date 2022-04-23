@@ -151,6 +151,15 @@ class _HomeWidgetState extends State<HomeWidget> {
                   );
                 },
               ),
+              Row(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Text(
+                    FFAppState().user,
+                    style: FlutterFlowTheme.of(context).bodyText1,
+                  ),
+                ],
+              ),
             ],
           ),
         ),
