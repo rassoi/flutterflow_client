@@ -29,3 +29,9 @@ String recipeList(List<String> recipelist) {
   return recipelist.join(",");
   // Add your function code here!
 }
+
+String getStrTimeStamp() {
+  String now = new DateTime.now().toString();
+
+  return now.substring(0, 10);
+}
