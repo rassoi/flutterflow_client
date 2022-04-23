@@ -19,6 +19,24 @@
       ]
     },
     {
+      "collectionGroup": "temp",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "meal_time",
+          "arrayConfig": "CONTAINS"
+        },
+        {
+          "fieldPath": "uid",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "status",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
       "collectionGroup": "meal_ingred",
       "queryScope": "COLLECTION",
       "fields": [

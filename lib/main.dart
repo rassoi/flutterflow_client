@@ -8,13 +8,15 @@ import 'auth/auth_util.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/internationalization.dart';
-import 'package:rassoi/phone_authentication/phone_authentication_widget.dart';
+import 'package:rassoi/home_page/home_page_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'meals/meals_widget.dart';
 import 'landing/landing_widget.dart';
 import 'meals_copy/meals_copy_widget.dart';
 import 'meals_copy2/meals_copy2_widget.dart';
+import 'home/home_widget.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -84,14 +86,15 @@ class _MyAppState extends State<MyApp> {
               child: SizedBox(
                 width: 50,
                 height: 50,
-                child: CircularProgressIndicator(
+                child: SpinKitThreeBounce(
                   color: FlutterFlowTheme.of(context).primaryColor,
+                  size: 50,
                 ),
               ),
             )
           : currentUser.loggedIn
               ? NavBarPage()
-              : PhoneAuthenticationWidget(),
+              : HomePageWidget(),
     );
   }
 }
@@ -107,7 +110,7 @@ class NavBarPage extends StatefulWidget {
 
 /// This is the private State class that goes with NavBarPage.
 class _NavBarPageState extends State<NavBarPage> {
-  String _currentPage = 'Landing';
+  String _currentPage = 'Home';
 
   @override
   void initState() {
@@ -122,6 +125,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'Landing': LandingWidget(),
       'MealsCopy': MealsCopyWidget(),
       'MealsCopy2': MealsCopy2Widget(),
+      'Home': HomeWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPage);
     return Scaffold(
@@ -225,6 +229,29 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3
+                        ? Color(0xFF39BDEF)
+                        : Color(0x8A484545),
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.home_outlined,
+                  color:
+                      currentIndex == 4 ? Color(0xFF39BDEF) : Color(0x8A484545),
+                  size: 24,
+                ),
+                Text(
+                  'Home',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 4
                         ? Color(0xFF39BDEF)
                         : Color(0x8A484545),
                     fontSize: 11.0,

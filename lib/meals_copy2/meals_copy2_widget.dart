@@ -10,6 +10,7 @@ import '../meal_info/meal_info_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MealsCopy2Widget extends StatefulWidget {
@@ -111,8 +112,9 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                       child: SizedBox(
                         width: 50,
                         height: 50,
-                        child: CircularProgressIndicator(
+                        child: SpinKitThreeBounce(
                           color: FlutterFlowTheme.of(context).primaryColor,
+                          size: 50,
                         ),
                       ),
                     );
@@ -169,46 +171,77 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                 },
               ),
             ),
-            Row(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                FlutterFlowDropDown(
-                  initialOption: dropDownValue1 ??= '1',
-                  options: ['1', '2', '3', '4', '5', '6'].toList(),
-                  onChanged: (val) => setState(() => dropDownValue1 = val),
-                  width: 180,
-                  height: 50,
-                  textStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                        fontFamily: 'Poppins',
-                        color: Colors.black,
+            StreamBuilder<List<DaysRecord>>(
+              stream: queryDaysRecord(
+                singleRecord: true,
+              ),
+              builder: (context, snapshot) {
+                // Customize what your widget looks like when it's loading.
+                if (!snapshot.hasData) {
+                  return Center(
+                    child: SizedBox(
+                      width: 50,
+                      height: 50,
+                      child: SpinKitThreeBounce(
+                        color: FlutterFlowTheme.of(context).primaryColor,
+                        size: 50,
                       ),
-                  fillColor: Colors.white,
-                  elevation: 2,
-                  borderColor: Colors.transparent,
-                  borderWidth: 0,
-                  borderRadius: 0,
-                  margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                  hidesUnderline: true,
-                ),
-                FlutterFlowDropDown(
-                  initialOption: dropDownValue2 ??= 'Brakefast',
-                  options: ['Brakefast', 'Lunch', 'Snacks', 'Dinner'].toList(),
-                  onChanged: (val) => setState(() => dropDownValue2 = val),
-                  width: 180,
-                  height: 50,
-                  textStyle: FlutterFlowTheme.of(context).bodyText1.override(
-                        fontFamily: 'Poppins',
-                        color: Colors.black,
-                      ),
-                  fillColor: Colors.white,
-                  elevation: 2,
-                  borderColor: Colors.transparent,
-                  borderWidth: 0,
-                  borderRadius: 0,
-                  margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                  hidesUnderline: true,
-                ),
-              ],
+                    ),
+                  );
+                }
+                List<DaysRecord> rowDaysRecordList = snapshot.data;
+                // Return an empty Container when the document does not exist.
+                if (snapshot.data.isEmpty) {
+                  return Container();
+                }
+                final rowDaysRecord = rowDaysRecordList.isNotEmpty
+                    ? rowDaysRecordList.first
+                    : null;
+                return Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    FlutterFlowDropDown(
+                      initialOption: dropDownValue1 ??= 'Today',
+                      options: rowDaysRecord.day.toList().toList(),
+                      onChanged: (val) => setState(() => dropDownValue1 = val),
+                      width: 180,
+                      height: 50,
+                      textStyle:
+                          FlutterFlowTheme.of(context).bodyText1.override(
+                                fontFamily: 'Poppins',
+                                color: Colors.black,
+                              ),
+                      fillColor: Colors.white,
+                      elevation: 2,
+                      borderColor: Colors.transparent,
+                      borderWidth: 0,
+                      borderRadius: 0,
+                      margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                      hidesUnderline: true,
+                    ),
+                    FlutterFlowDropDown(
+                      initialOption: dropDownValue2 ??= 'Brakefast',
+                      options:
+                          ['Brakefast', 'Lunch', 'Snacks', 'Dinner'].toList(),
+                      onChanged: (val) => setState(() => dropDownValue2 = val),
+                      width: 180,
+                      height: 50,
+                      textStyle:
+                          FlutterFlowTheme.of(context).bodyText1.override(
+                                fontFamily: 'Poppins',
+                                color: Colors.black,
+                              ),
+                      fillColor: Colors.white,
+                      elevation: 2,
+                      borderColor: Colors.transparent,
+                      borderWidth: 0,
+                      borderRadius: 0,
+                      margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                      hidesUnderline: true,
+                    ),
+                  ],
+                );
+              },
             ),
             Expanded(
               child: StreamBuilder<List<TempRecord>>(
@@ -229,8 +262,9 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                       child: SizedBox(
                         width: 50,
                         height: 50,
-                        child: CircularProgressIndicator(
+                        child: SpinKitThreeBounce(
                           color: FlutterFlowTheme.of(context).primaryColor,
+                          size: 50,
                         ),
                       ),
                     );
@@ -398,10 +432,11 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                             child: SizedBox(
                                               width: 50,
                                               height: 50,
-                                              child: CircularProgressIndicator(
+                                              child: SpinKitThreeBounce(
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primaryColor,
+                                                size: 50,
                                               ),
                                             ),
                                           );

@@ -2,11 +2,12 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
+import '../home_page/home_page_widget.dart';
 import '../main.dart';
-import '../phone_authentication/phone_authentication_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LandingWidget extends StatefulWidget {
@@ -28,7 +29,7 @@ class _LandingWidgetState extends State<LandingWidget> {
       await Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-          builder: (context) => PhoneAuthenticationWidget(),
+          builder: (context) => HomePageWidget(),
         ),
         (r) => false,
       );
@@ -48,7 +49,7 @@ class _LandingWidgetState extends State<LandingWidget> {
             await Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => PhoneAuthenticationWidget(),
+                builder: (context) => HomePageWidget(),
               ),
               (r) => false,
             );
@@ -178,8 +179,9 @@ class _LandingWidgetState extends State<LandingWidget> {
                         child: SizedBox(
                           width: 50,
                           height: 50,
-                          child: CircularProgressIndicator(
+                          child: SpinKitThreeBounce(
                             color: FlutterFlowTheme.of(context).primaryColor,
+                            size: 50,
                           ),
                         ),
                       );
@@ -269,8 +271,9 @@ class _LandingWidgetState extends State<LandingWidget> {
                           child: SizedBox(
                             width: 50,
                             height: 50,
-                            child: CircularProgressIndicator(
+                            child: SpinKitThreeBounce(
                               color: FlutterFlowTheme.of(context).primaryColor,
+                              size: 50,
                             ),
                           ),
                         );
