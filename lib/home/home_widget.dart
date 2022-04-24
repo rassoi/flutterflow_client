@@ -94,6 +94,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           height: 120,
                           decoration: BoxDecoration(
                             color: Color(0xFFEEEEEE),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                           child: Card(
                             clipBehavior: Clip.antiAliasWithSaveLayer,
@@ -114,42 +115,83 @@ class _HomeWidgetState extends State<HomeWidget> {
                   ),
                 ),
               ),
-              StreamBuilder<List<UsersRecord>>(
-                stream: queryUsersRecord(
-                  singleRecord: true,
-                ),
-                builder: (context, snapshot) {
-                  // Customize what your widget looks like when it's loading.
-                  if (!snapshot.hasData) {
-                    return Center(
-                      child: SizedBox(
-                        width: 50,
-                        height: 50,
-                        child: SpinKitThreeBounce(
-                          color: FlutterFlowTheme.of(context).primaryColor,
-                          size: 50,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                child: StreamBuilder<List<UsersRecord>>(
+                  stream: queryUsersRecord(
+                    singleRecord: true,
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: SpinKitThreeBounce(
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            size: 50,
+                          ),
                         ),
-                      ),
+                      );
+                    }
+                    List<UsersRecord> rowUsersRecordList = snapshot.data;
+                    // Return an empty Container when the document does not exist.
+                    if (snapshot.data.isEmpty) {
+                      return Container();
+                    }
+                    final rowUsersRecord = rowUsersRecordList.isNotEmpty
+                        ? rowUsersRecordList.first
+                        : null;
+                    return Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Text(
+                          'Upcomming Meals',
+                          style: FlutterFlowTheme.of(context).title3,
+                        ),
+                      ],
                     );
-                  }
-                  List<UsersRecord> rowUsersRecordList = snapshot.data;
-                  // Return an empty Container when the document does not exist.
-                  if (snapshot.data.isEmpty) {
-                    return Container();
-                  }
-                  final rowUsersRecord = rowUsersRecordList.isNotEmpty
-                      ? rowUsersRecordList.first
-                      : null;
-                  return Row(
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Text(
-                        rowUsersRecord.uid,
-                        style: FlutterFlowTheme.of(context).bodyText1,
-                      ),
-                    ],
-                  );
-                },
+                  },
+                ),
+              ),
+              Container(
+                width: double.infinity,
+                height: 130,
+                decoration: BoxDecoration(
+                  color: Color(0xFFEEEEEE),
+                ),
+                child: ListView(
+                  padding: EdgeInsets.zero,
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Image.network(
+                              'https://picsum.photos/seed/971/600',
+                              width: 100,
+                              height: 100,
+                              fit: BoxFit.cover,
+                            ),
+                          ],
+                        ),
+                        Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Text(
+                              'Hello World',
+                              style: FlutterFlowTheme.of(context).bodyText1,
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
               ),
               Row(
                 mainAxisSize: MainAxisSize.max,

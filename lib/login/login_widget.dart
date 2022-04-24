@@ -16,7 +16,14 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
+  TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+    textController = TextEditingController();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +53,38 @@ class _LoginWidgetState extends State<LoginWidget> {
             children: [
               Row(
                 mainAxisSize: MainAxisSize.max,
-                children: [],
+                children: [
+                  Expanded(
+                    child: TextFormField(
+                      controller: textController,
+                      obscureText: false,
+                      decoration: InputDecoration(
+                        hintText: '[Some hint text...]',
+                        enabledBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        focusedBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                      ),
+                      style: FlutterFlowTheme.of(context).bodyText1,
+                    ),
+                  ),
+                ],
               ),
               StreamBuilder<List<UsersRecord>>(
                 stream: queryUsersRecord(
@@ -78,74 +116,48 @@ class _LoginWidgetState extends State<LoginWidget> {
                     mainAxisSize: MainAxisSize.max,
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Align(
-                        alignment: AlignmentDirectional(0, 0),
-                        child: Container(
-                          width: 230,
-                          height: 44,
-                          child: Stack(
-                            children: [
-                              Align(
-                                alignment: AlignmentDirectional(0, 0),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    final user =
-                                        await signInWithGoogle(context);
-                                    if (user == null) {
-                                      return;
-                                    }
-                                    setState(() =>
-                                        FFAppState().user = rowUsersRecord.uid);
-                                    await Navigator.pushAndRemoveUntil(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) =>
-                                            NavBarPage(initialPage: 'Home'),
-                                      ),
-                                      (r) => false,
-                                    );
-                                  },
-                                  text: 'Sign in with Google',
-                                  icon: Icon(
-                                    Icons.add,
-                                    color: Colors.transparent,
-                                    size: 20,
-                                  ),
-                                  options: FFButtonOptions(
-                                    width: 230,
-                                    height: 44,
+                      FFButtonWidget(
+                        onPressed: () async {
+                          if (textController.text.isEmpty) {
+                            ScaffoldMessenger.of(context).showSnackBar(
+                              SnackBar(
+                                content: Text('Enter SMS verification code.'),
+                              ),
+                            );
+                            return;
+                          }
+                          final phoneVerifiedUser = await verifySmsCode(
+                            context: context,
+                            smsCode: textController.text,
+                          );
+                          if (phoneVerifiedUser == null) {
+                            return;
+                          }
+
+                          await Navigator.pushAndRemoveUntil(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) =>
+                                  NavBarPage(initialPage: 'Home'),
+                            ),
+                            (r) => false,
+                          );
+                        },
+                        text: 'Send',
+                        options: FFButtonOptions(
+                          width: 130,
+                          height: 40,
+                          color: FlutterFlowTheme.of(context).primaryColor,
+                          textStyle:
+                              FlutterFlowTheme.of(context).subtitle2.override(
+                                    fontFamily: 'Poppins',
                                     color: Colors.white,
-                                    textStyle: GoogleFonts.getFont(
-                                      'Roboto',
-                                      color: Color(0xFF606060),
-                                      fontSize: 17,
-                                    ),
-                                    elevation: 4,
-                                    borderSide: BorderSide(
-                                      color: Colors.transparent,
-                                      width: 0,
-                                    ),
-                                    borderRadius: 12,
                                   ),
-                                ),
-                              ),
-                              Align(
-                                alignment: AlignmentDirectional(-0.83, 0),
-                                child: Container(
-                                  width: 22,
-                                  height: 22,
-                                  clipBehavior: Clip.antiAlias,
-                                  decoration: BoxDecoration(
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: Image.network(
-                                    'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
-                                    fit: BoxFit.contain,
-                                  ),
-                                ),
-                              ),
-                            ],
+                          borderSide: BorderSide(
+                            color: Colors.transparent,
+                            width: 1,
                           ),
+                          borderRadius: 12,
                         ),
                       ),
                     ],
