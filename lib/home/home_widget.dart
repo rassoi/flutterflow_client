@@ -3,6 +3,8 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../home_page/home_page_widget.dart';
+import '../main.dart';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -161,46 +163,181 @@ class _HomeWidgetState extends State<HomeWidget> {
                 decoration: BoxDecoration(
                   color: Color(0xFFEEEEEE),
                 ),
-                child: ListView(
-                  padding: EdgeInsets.zero,
-                  scrollDirection: Axis.horizontal,
+                child: StreamBuilder<List<TempRecord>>(
+                  stream: queryTempRecord(
+                    queryBuilder: (tempRecord) =>
+                        tempRecord.where('uid', isEqualTo: FFAppState().user),
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: SpinKitThreeBounce(
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            size: 50,
+                          ),
+                        ),
+                      );
+                    }
+                    List<TempRecord> listViewTempRecordList = snapshot.data;
+                    return ListView.builder(
+                      padding: EdgeInsets.zero,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: listViewTempRecordList.length,
+                      itemBuilder: (context, listViewIndex) {
+                        final listViewTempRecord =
+                            listViewTempRecordList[listViewIndex];
+                        return Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(10, 0, 0, 0),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  InkWell(
+                                    onTap: () async {
+                                      await Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              NavBarPage(initialPage: 'Meals'),
+                                        ),
+                                      );
+                                    },
+                                    child: Image.network(
+                                      listViewTempRecord.image,
+                                      width: 100,
+                                      height: 100,
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              Row(
+                                mainAxisSize: MainAxisSize.max,
+                                children: [
+                                  AutoSizeText(
+                                    listViewTempRecord.name
+                                        .maybeHandleOverflow(maxChars: 15),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyText1,
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        );
+                      },
+                    );
+                  },
+                ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
                   children: [
-                    Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Image.network(
-                              'https://picsum.photos/seed/971/600',
-                              width: 100,
-                              height: 100,
-                              fit: BoxFit.cover,
-                            ),
-                          ],
-                        ),
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            Text(
-                              'Hello World',
-                              style: FlutterFlowTheme.of(context).bodyText1,
-                            ),
-                          ],
-                        ),
-                      ],
+                    Text(
+                      'Categories',
+                      style: FlutterFlowTheme.of(context).title3,
                     ),
                   ],
                 ),
               ),
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Text(
-                    FFAppState().user,
-                    style: FlutterFlowTheme.of(context).bodyText1,
-                  ),
-                ],
+              Container(
+                width: double.infinity,
+                height: 270,
+                decoration: BoxDecoration(
+                  color: Color(0xFFEEEEEE),
+                ),
+                child: StreamBuilder<List<CategoriesRecord>>(
+                  stream: queryCategoriesRecord(),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: SpinKitThreeBounce(
+                            color: FlutterFlowTheme.of(context).primaryColor,
+                            size: 50,
+                          ),
+                        ),
+                      );
+                    }
+                    List<CategoriesRecord> gridViewCategoriesRecordList =
+                        snapshot.data;
+                    return GridView.builder(
+                      padding: EdgeInsets.zero,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 10,
+                        mainAxisSpacing: 10,
+                        childAspectRatio: 1,
+                      ),
+                      scrollDirection: Axis.vertical,
+                      itemCount: gridViewCategoriesRecordList.length,
+                      itemBuilder: (context, gridViewIndex) {
+                        final gridViewCategoriesRecord =
+                            gridViewCategoriesRecordList[gridViewIndex];
+                        return Column(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Row(
+                              mainAxisSize: MainAxisSize.max,
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                InkWell(
+                                  onTap: () async {
+                                    setState(() => FFAppState().category =
+                                        gridViewCategoriesRecord.categoryName);
+                                    await Navigator.push(
+                                      context,
+                                      MaterialPageRoute(
+                                        builder: (context) => NavBarPage(
+                                            initialPage: 'MealsCopy2'),
+                                      ),
+                                    );
+                                  },
+                                  child: Container(
+                                    width: 100,
+                                    height: 100,
+                                    clipBehavior: Clip.antiAlias,
+                                    decoration: BoxDecoration(
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: Image.network(
+                                      gridViewCategoriesRecord.image,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            Expanded(
+                              child: Row(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  AutoSizeText(
+                                    gridViewCategoriesRecord.categoryName
+                                        .maybeHandleOverflow(maxChars: 10),
+                                    style:
+                                        FlutterFlowTheme.of(context).bodyText1,
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ],
+                        );
+                      },
+                    );
+                  },
+                ),
               ),
             ],
           ),

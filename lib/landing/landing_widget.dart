@@ -271,6 +271,8 @@ class _LandingWidgetState extends State<LandingWidget> {
                           mainAxisSpacing: 4,
                           childAspectRatio: 1.2,
                         ),
+                        primary: false,
+                        shrinkWrap: true,
                         scrollDirection: Axis.horizontal,
                         itemCount: gridViewCategoriesRecordList.length,
                         itemBuilder: (context, gridViewIndex) {

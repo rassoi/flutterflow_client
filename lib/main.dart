@@ -13,7 +13,6 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'meals/meals_widget.dart';
-import 'landing/landing_widget.dart';
 import 'meals_copy/meals_copy_widget.dart';
 import 'meals_copy2/meals_copy2_widget.dart';
 import 'home/home_widget.dart';
@@ -122,7 +121,6 @@ class _NavBarPageState extends State<NavBarPage> {
   Widget build(BuildContext context) {
     final tabs = {
       'Meals': MealsWidget(),
-      'Landing': LandingWidget(),
       'MealsCopy': MealsCopyWidget(),
       'MealsCopy2': MealsCopy2Widget(),
       'Home': HomeWidget(),
@@ -173,13 +171,13 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.home_outlined,
+                  Icons.list,
                   color:
                       currentIndex == 1 ? Color(0xFF39BDEF) : Color(0x8A484545),
                   size: 24,
                 ),
                 Text(
-                  'Home',
+                  'Ingredients',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1
@@ -196,13 +194,13 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.list,
+                  Icons.search,
                   color:
                       currentIndex == 2 ? Color(0xFF39BDEF) : Color(0x8A484545),
                   size: 24,
                 ),
                 Text(
-                  'Ingredients',
+                  'Explore',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2
@@ -219,39 +217,16 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.search,
-                  color:
-                      currentIndex == 3 ? Color(0xFF39BDEF) : Color(0x8A484545),
-                  size: 24,
-                ),
-                Text(
-                  'Explore',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 3
-                        ? Color(0xFF39BDEF)
-                        : Color(0x8A484545),
-                    fontSize: 11.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
                   Icons.home_outlined,
                   color:
-                      currentIndex == 4 ? Color(0xFF39BDEF) : Color(0x8A484545),
+                      currentIndex == 3 ? Color(0xFF39BDEF) : Color(0x8A484545),
                   size: 24,
                 ),
                 Text(
                   'Home',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
-                    color: currentIndex == 4
+                    color: currentIndex == 3
                         ? Color(0xFF39BDEF)
                         : Color(0x8A484545),
                     fontSize: 11.0,
