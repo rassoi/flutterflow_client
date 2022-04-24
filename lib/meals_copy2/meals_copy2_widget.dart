@@ -368,19 +368,10 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                               child: FFButtonWidget(
                                                 onPressed: () async {
                                                   final tempUpdateData = {
-                                                    ...createTempRecordData(
-                                                      status: 'live',
-                                                    ),
                                                     'meal_time':
                                                         FieldValue.arrayUnion([
                                                       '${dropDownValue1}${dropDownValue2}'
                                                     ]),
-                                                    'day':
-                                                        FieldValue.arrayUnion(
-                                                            [dropDownValue1]),
-                                                    'which_meal':
-                                                        FieldValue.arrayUnion(
-                                                            [dropDownValue2]),
                                                     'dates':
                                                         FieldValue.arrayUnion([
                                                       functions
