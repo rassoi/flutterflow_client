@@ -61,7 +61,7 @@ abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
   BuiltList<String> get whichMeal;
 
   @nullable
-  String get date;
+  BuiltList<String> get dates;
 
   @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
@@ -82,7 +82,7 @@ abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
     ..mealTime = ListBuilder()
     ..day = ListBuilder()
     ..whichMeal = ListBuilder()
-    ..date = '';
+    ..dates = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('temp');
@@ -116,7 +116,6 @@ Map<String, dynamic> createTempRecordData({
   String status,
   bool fav,
   String uid,
-  String date,
 }) =>
     serializers.toFirestore(
         TempRecord.serializer,
@@ -136,4 +135,4 @@ Map<String, dynamic> createTempRecordData({
           ..mealTime = null
           ..day = null
           ..whichMeal = null
-          ..date = date));
+          ..dates = null));

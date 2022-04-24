@@ -370,8 +370,6 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                   final tempUpdateData = {
                                                     ...createTempRecordData(
                                                       status: 'live',
-                                                      date: functions
-                                                          .getStrTimeStamp(),
                                                     ),
                                                     'meal_time':
                                                         FieldValue.arrayUnion([
@@ -383,6 +381,11 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                     'which_meal':
                                                         FieldValue.arrayUnion(
                                                             [dropDownValue2]),
+                                                    'dates':
+                                                        FieldValue.arrayUnion([
+                                                      functions
+                                                          .getStrTimeStamp()
+                                                    ]),
                                                   };
                                                   await listViewTempRecord
                                                       .reference

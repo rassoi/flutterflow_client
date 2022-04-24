@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_count_controller.dart';
@@ -279,11 +280,6 @@ class _MealsWidgetState extends State<MealsWidget> {
                         );
                       }
                       List<TempRecord> listViewTempRecordList = snapshot.data;
-                      if (listViewTempRecordList.isEmpty) {
-                        return Image.asset(
-                          'assets/images/Screenshot_2022-04-17_at_4.34.25_PM.png',
-                        );
-                      }
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
@@ -363,6 +359,11 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         };
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);
+                                        await SetingredCall.call(
+                                          recipeId: listViewTempRecord.recipeId,
+                                          uid: listViewTempRecord.uid,
+                                          day: dropDownValue,
+                                        );
                                       },
                                       child: Icon(
                                         Icons.delete,
