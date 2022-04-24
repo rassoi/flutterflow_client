@@ -262,8 +262,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                       queryBuilder: (tempRecord) => tempRecord
                           .where('meal_time',
                               arrayContains: '${dropDownValue}Brakefast')
-                          .where('uid', isEqualTo: FFAppState().user)
-                          .where('status', isEqualTo: 'live'),
+                          .where('uid', isEqualTo: FFAppState().user),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
