@@ -30,8 +30,10 @@ String recipeList(List<String> recipelist) {
   // Add your function code here!
 }
 
-String getStrTimeStamp() {
-  String now = new DateTime.now().toString();
-
-  return now.substring(0, 10);
+String getStrTimeStamp(
+  List<String> dates,
+  List<String> days,
+  String day,
+) {
+  return dates[days.indexOf(day)];
 }
