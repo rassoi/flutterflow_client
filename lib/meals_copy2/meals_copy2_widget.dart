@@ -46,16 +46,6 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: true,
-        leading: InkWell(
-          onTap: () async {
-            Navigator.pop(context);
-          },
-          child: Icon(
-            Icons.chevron_left,
-            color: Colors.black,
-            size: 36,
-          ),
-        ),
         title: TextFormField(
           onChanged: (_) => EasyDebounce.debounce(
             'textController',

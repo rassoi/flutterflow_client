@@ -69,23 +69,31 @@ class _MealsWidgetState extends State<MealsWidget> {
                         ),
                       );
                     }
-                    List<DaysRecord> rowDaysRecordList = snapshot.data;
+                    List<DaysRecord> containerDaysRecordList = snapshot.data;
                     // Return an empty Container when the document does not exist.
                     if (snapshot.data.isEmpty) {
                       return Container();
                     }
-                    final rowDaysRecord = rowDaysRecordList.isNotEmpty
-                        ? rowDaysRecordList.first
-                        : null;
-                    return Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Expanded(
-                          child: FlutterFlowChoiceChips(
+                    final containerDaysRecord =
+                        containerDaysRecordList.isNotEmpty
+                            ? containerDaysRecordList.first
+                            : null;
+                    return Container(
+                      width: double.infinity,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: Color(0xFFEEEEEE),
+                      ),
+                      child: ListView(
+                        padding: EdgeInsets.zero,
+                        shrinkWrap: true,
+                        scrollDirection: Axis.horizontal,
+                        children: [
+                          FlutterFlowChoiceChips(
                             initiallySelected: choiceChipsValue != null
                                 ? [choiceChipsValue]
                                 : [FFAppState().day],
-                            options: (rowDaysRecord.day.toList() ?? [])
+                            options: (containerDaysRecord.day.toList() ?? [])
                                 .map((label) => ChipData(label))
                                 .toList(),
                             onChanged: (val) =>
@@ -119,8 +127,8 @@ class _MealsWidgetState extends State<MealsWidget> {
                             initialized: choiceChipsValue != null,
                             alignment: WrapAlignment.start,
                           ),
-                        ),
-                      ],
+                        ],
+                      ),
                     );
                   },
                 ),
