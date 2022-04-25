@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
@@ -244,6 +245,9 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         };
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);
+                                        await RemoveIngredAsPerRecipeCall.call(
+                                          recipeId: listViewTempRecord.recipeId,
+                                        );
                                       },
                                       child: Icon(
                                         Icons.delete,
@@ -372,6 +376,9 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         };
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);
+                                        await RemoveIngredAsPerRecipeCall.call(
+                                          recipeId: listViewTempRecord.recipeId,
+                                        );
                                       },
                                       child: Icon(
                                         Icons.delete,
@@ -500,6 +507,9 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         };
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);
+                                        await RemoveIngredAsPerRecipeCall.call(
+                                          recipeId: listViewTempRecord.recipeId,
+                                        );
                                       },
                                       child: Icon(
                                         Icons.delete,
@@ -628,6 +638,9 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         };
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);
+                                        await RemoveIngredAsPerRecipeCall.call(
+                                          recipeId: listViewTempRecord.recipeId,
+                                        );
                                       },
                                       child: Icon(
                                         Icons.delete,

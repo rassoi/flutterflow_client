@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
@@ -414,6 +415,11 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                           .reference
                                                           .update(
                                                               tempUpdateData);
+                                                      await SetingredCall.call(
+                                                        recipeId:
+                                                            listViewTempRecord
+                                                                .recipeId,
+                                                      );
                                                     },
                                                     text: 'Add',
                                                     options: FFButtonOptions(

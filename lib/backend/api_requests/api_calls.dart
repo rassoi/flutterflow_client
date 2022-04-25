@@ -7,12 +7,10 @@ export 'api_manager.dart' show ApiCallResponse;
 class SetingredCall {
   static Future<ApiCallResponse> call({
     String recipeId = '',
-    String uid = '',
-    String day = '',
   }) {
     final body = '''
 {
-  "message": ["${recipeId}","${uid}","${day}"]
+  "message": ["${recipeId}"]
 }''';
     return ApiManager.instance.makeApiCall(
       callName: 'setingred',
@@ -21,8 +19,6 @@ class SetingredCall {
       headers: {},
       params: {
         'recipe_id': recipeId,
-        'uid': uid,
-        'day': day,
       },
       body: body,
       bodyType: BodyType.JSON,
