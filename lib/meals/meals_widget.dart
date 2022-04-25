@@ -1,16 +1,12 @@
 import '../auth/auth_util.dart';
-import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
-import '../flutter_flow/flutter_flow_count_controller.dart';
-import '../flutter_flow/flutter_flow_drop_down.dart';
+import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
-import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../meal_info/meal_info_widget.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MealsWidget extends StatefulWidget {
@@ -26,8 +22,7 @@ class MealsWidget extends StatefulWidget {
 }
 
 class _MealsWidgetState extends State<MealsWidget> {
-  String dropDownValue;
-  int countControllerValue;
+  String choiceChipsValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -58,8 +53,6 @@ class _MealsWidgetState extends State<MealsWidget> {
               children: [
                 StreamBuilder<List<DaysRecord>>(
                   stream: queryDaysRecord(
-                    queryBuilder: (daysRecord) =>
-                        daysRecord.where('type', isEqualTo: 'list'),
                     singleRecord: true,
                   ),
                   builder: (context, snapshot) {
@@ -88,86 +81,43 @@ class _MealsWidgetState extends State<MealsWidget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
-                          child: FlutterFlowDropDown(
-                            initialOption: dropDownValue ??= 'Today',
-                            options: rowDaysRecord.day.toList().toList(),
+                          child: FlutterFlowChoiceChips(
+                            initiallySelected: choiceChipsValue != null
+                                ? [choiceChipsValue]
+                                : [FFAppState().day],
+                            options: (rowDaysRecord.day.toList() ?? [])
+                                .map((label) => ChipData(label))
+                                .toList(),
                             onChanged: (val) =>
-                                setState(() => dropDownValue = val),
-                            width: 180,
-                            height: 30,
-                            textStyle:
-                                FlutterFlowTheme.of(context).bodyText1.override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.black,
-                                    ),
-                            fillColor: Color(0xFFC4A2A2),
-                            elevation: 2,
-                            borderColor: Colors.transparent,
-                            borderWidth: 0,
-                            borderRadius: 5,
-                            margin:
-                                EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                            hidesUnderline: true,
-                          ),
-                        ),
-                        Expanded(
-                          child: Container(
-                            width: 160,
-                            height: 30,
-                            decoration: BoxDecoration(
-                              color: Color(0xFFDABEBE),
-                              borderRadius: BorderRadius.circular(5),
-                              shape: BoxShape.rectangle,
-                              border: Border.all(
-                                color: Color(0xFF9E9E9E),
-                                width: 0,
-                              ),
+                                setState(() => choiceChipsValue = val.first),
+                            selectedChipStyle: ChipStyle(
+                              backgroundColor: Color(0xFF323B45),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .bodyText1
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                  ),
+                              iconColor: Colors.white,
+                              iconSize: 18,
+                              elevation: 4,
                             ),
-                            child: FlutterFlowCountController(
-                              decrementIconBuilder: (enabled) => FaIcon(
-                                FontAwesomeIcons.minus,
-                                color: enabled
-                                    ? Color(0xDD000000)
-                                    : Color(0xFFEEEEEE),
-                                size: 20,
-                              ),
-                              incrementIconBuilder: (enabled) => FaIcon(
-                                FontAwesomeIcons.plus,
-                                color:
-                                    enabled ? Colors.blue : Color(0xFFEEEEEE),
-                                size: 20,
-                              ),
-                              countBuilder: (count) => Text(
-                                count.toString(),
-                                style: GoogleFonts.getFont(
-                                  'Roboto',
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
-                                ),
-                              ),
-                              count: countControllerValue ??= 0,
-                              updateCount: (count) =>
-                                  setState(() => countControllerValue = count),
-                              stepSize: 1,
+                            unselectedChipStyle: ChipStyle(
+                              backgroundColor: Colors.white,
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .bodyText2
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Color(0xFF323B45),
+                                  ),
+                              iconColor: Color(0xFF323B45),
+                              iconSize: 18,
+                              elevation: 4,
                             ),
-                          ),
-                        ),
-                        ToggleIcon(
-                          onPressed: () async {
-                            setState(() =>
-                                FFAppState().eddiMeal = !FFAppState().eddiMeal);
-                          },
-                          value: FFAppState().eddiMeal,
-                          onIcon: Icon(
-                            Icons.edit,
-                            color: Colors.black,
-                            size: 25,
-                          ),
-                          offIcon: Icon(
-                            Icons.edit_off,
-                            color: Colors.black,
-                            size: 25,
+                            chipSpacing: 20,
+                            multiselect: false,
+                            initialized: choiceChipsValue != null,
+                            alignment: WrapAlignment.start,
                           ),
                         ),
                       ],
@@ -189,7 +139,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                     stream: queryTempRecord(
                       queryBuilder: (tempRecord) => tempRecord
                           .where('meal_time',
-                              arrayContains: '${dropDownValue}Brakefast')
+                              arrayContains: '${choiceChipsValue}Brakefast')
                           .where('uid', isEqualTo: FFAppState().user),
                     ),
                     builder: (context, snapshot) {
@@ -282,15 +232,10 @@ class _MealsWidgetState extends State<MealsWidget> {
                                       onTap: () async {
                                         final tempUpdateData = {
                                           'meal_time': FieldValue.arrayRemove(
-                                              ['${dropDownValue}Brakefast']),
+                                              ['${choiceChipsValue}Brakefast']),
                                         };
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);
-                                        await SetingredCall.call(
-                                          recipeId: listViewTempRecord.recipeId,
-                                          uid: listViewTempRecord.uid,
-                                          day: dropDownValue,
-                                        );
                                       },
                                       child: Icon(
                                         Icons.delete,
@@ -322,7 +267,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                     stream: queryTempRecord(
                       queryBuilder: (tempRecord) => tempRecord
                           .where('meal_time',
-                              arrayContains: '${dropDownValue}Lunch')
+                              arrayContains: '${choiceChipsValue}Lunch')
                           .where('uid', isEqualTo: FFAppState().user),
                     ),
                     builder: (context, snapshot) {
@@ -415,7 +360,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                       onTap: () async {
                                         final tempUpdateData = {
                                           'meal_time': FieldValue.arrayRemove(
-                                              ['${dropDownValue}Lunch']),
+                                              ['${choiceChipsValue}Lunch']),
                                         };
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);
@@ -450,7 +395,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                     stream: queryTempRecord(
                       queryBuilder: (tempRecord) => tempRecord
                           .where('meal_time',
-                              arrayContains: '${dropDownValue}Snacks')
+                              arrayContains: '${choiceChipsValue}Snacks')
                           .where('uid', isEqualTo: FFAppState().user),
                     ),
                     builder: (context, snapshot) {
@@ -543,7 +488,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                       onTap: () async {
                                         final tempUpdateData = {
                                           'meal_time': FieldValue.arrayRemove(
-                                              ['${dropDownValue}Snacks']),
+                                              ['${choiceChipsValue}Snacks']),
                                         };
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);
@@ -578,7 +523,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                     stream: queryTempRecord(
                       queryBuilder: (tempRecord) => tempRecord
                           .where('meal_time',
-                              arrayContains: '${dropDownValue}Dinner')
+                              arrayContains: '${choiceChipsValue}Dinner')
                           .where('uid', isEqualTo: FFAppState().user),
                     ),
                     builder: (context, snapshot) {
@@ -671,7 +616,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                       onTap: () async {
                                         final tempUpdateData = {
                                           'meal_time': FieldValue.arrayRemove(
-                                              ['${dropDownValue}Dinner']),
+                                              ['${choiceChipsValue}Dinner']),
                                         };
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);

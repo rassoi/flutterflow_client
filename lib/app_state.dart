@@ -33,7 +33,7 @@ class FFAppState {
     prefs.setString('ff_user', _value);
   }
 
-  String _category = '';
+  String _category = 'All';
   String get category => _category;
   set category(String _value) {
     _category = _value;
@@ -76,6 +76,8 @@ class FFAppState {
     _upcommingMealTime = _value;
     prefs.setString('ff_upcommingMealTime', _value);
   }
+
+  String day = 'Today';
 }
 
 LatLng _latLngFromString(String val) {
