@@ -2,8 +2,8 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../home_page/home_page_widget.dart';
 import '../main.dart';
+import '../main/main_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -32,7 +32,7 @@ class _HomeWidgetState extends State<HomeWidget> {
             await Navigator.pushAndRemoveUntil(
               context,
               MaterialPageRoute(
-                builder: (context) => HomePageWidget(),
+                builder: (context) => MainWidget(),
               ),
               (r) => false,
             );

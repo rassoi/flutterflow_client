@@ -8,7 +8,7 @@ import 'backend/push_notifications/push_notifications_util.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/internationalization.dart';
-import 'package:rassoi/home_page/home_page_widget.dart';
+import 'package:rassoi/main/main_widget.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -94,7 +94,7 @@ class _MyAppState extends State<MyApp> {
             )
           : currentUser.loggedIn
               ? PushNotificationsHandler(child: NavBarPage())
-              : HomePageWidget(),
+              : MainWidget(),
     );
   }
 }

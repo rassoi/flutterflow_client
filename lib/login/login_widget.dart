@@ -32,13 +32,20 @@ class _LoginWidgetState extends State<LoginWidget> {
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
-        title: Text(
-          'Login',
-          style: FlutterFlowTheme.of(context).title2.override(
-                fontFamily: 'Poppins',
-                color: Colors.white,
-                fontSize: 22,
+        leading: InkWell(
+          onTap: () async {
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NavBarPage(initialPage: 'Home'),
               ),
+            );
+          },
+          child: Icon(
+            Icons.chevron_left,
+            color: Color(0xFFF7F4F4),
+            size: 36,
+          ),
         ),
         actions: [],
         centerTitle: false,
@@ -227,6 +234,11 @@ class _LoginWidgetState extends State<LoginWidget> {
                     ),
                   ],
                 ),
+              ),
+              Icon(
+                Icons.settings_outlined,
+                color: Colors.black,
+                size: 24,
               ),
             ],
           ),

@@ -18,6 +18,7 @@ import '../../meals_copy2/meals_copy2_widget.dart';
 import '../../meals_copy2_copy/meals_copy2_copy_widget.dart';
 import '../../meal_info/meal_info_widget.dart';
 import '../../login/login_widget.dart';
+import '../../main/main_widget.dart';
 
 class PushNotificationsHandler extends StatefulWidget {
   const PushNotificationsHandler(
@@ -109,6 +110,7 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
         mealRef: getParameter(data, 'mealRef'),
       ),
   'login': (data) async => LoginWidget(),
+  'main': (data) async => MainWidget(),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>

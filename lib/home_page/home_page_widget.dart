@@ -61,254 +61,238 @@ class _HomePageWidgetState extends State<HomePageWidget> {
               final columnUsersRecord = columnUsersRecordList.isNotEmpty
                   ? columnUsersRecordList.first
                   : null;
-              return InkWell(
-                onTap: () async {
-                  final user = await signInWithGoogle(context);
-                  if (user == null) {
-                    return;
-                  }
-                  await Navigator.pushAndRemoveUntil(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => NavBarPage(initialPage: 'Home'),
+              return Column(
+                mainAxisSize: MainAxisSize.max,
+                children: [
+                  Align(
+                    alignment: AlignmentDirectional(0, -0.3),
+                    child: Padding(
+                      padding: EdgeInsetsDirectional.fromSTEB(0, 130, 0, 0),
+                      child: SvgPicture.asset(
+                        'assets/images/undraw_breakfast_psiw.svg',
+                        height: 150,
+                        fit: BoxFit.cover,
+                      ),
                     ),
-                    (r) => false,
-                  );
-                },
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Align(
-                      alignment: AlignmentDirectional(0, -0.3),
-                      child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(0, 130, 0, 0),
-                        child: SvgPicture.asset(
-                          'assets/images/undraw_breakfast_psiw.svg',
-                          height: 150,
-                          fit: BoxFit.cover,
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Align(
+                            alignment: AlignmentDirectional(0, 0),
+                            child: Container(
+                              width: 230,
+                              height: 44,
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: AlignmentDirectional(0, 0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 2, 0, 0),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          final user =
+                                              await signInWithGoogle(context);
+                                          if (user == null) {
+                                            return;
+                                          }
+                                          setState(() => FFAppState().user =
+                                              columnUsersRecord.uid);
+                                          await Navigator.pushAndRemoveUntil(
+                                            context,
+                                            MaterialPageRoute(
+                                              builder: (context) => NavBarPage(
+                                                  initialPage: 'Home'),
+                                            ),
+                                            (r) => false,
+                                          );
+                                        },
+                                        text: 'Sign in with Google',
+                                        icon: Icon(
+                                          Icons.add,
+                                          color: Colors.transparent,
+                                          size: 20,
+                                        ),
+                                        options: FFButtonOptions(
+                                          width: 230,
+                                          height: 44,
+                                          color: Color(0xFF736CAF),
+                                          textStyle: GoogleFonts.getFont(
+                                            'Roboto',
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                          ),
+                                          elevation: 4,
+                                          borderSide: BorderSide(
+                                            color: Colors.transparent,
+                                            width: 0,
+                                          ),
+                                          borderRadius: 12,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: AlignmentDirectional(-0.83, 0),
+                                    child: Container(
+                                      width: 22,
+                                      height: 22,
+                                      clipBehavior: Clip.antiAlias,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                      ),
+                                      child: Image.network(
+                                        'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
+                                        fit: BoxFit.contain,
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          ),
                         ),
-                      ),
+                      ],
                     ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 40, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Align(
-                              alignment: AlignmentDirectional(0, 0),
-                              child: Container(
-                                width: 230,
-                                height: 44,
-                                child: Stack(
-                                  children: [
-                                    Align(
-                                      alignment: AlignmentDirectional(0, 0),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 2, 0, 0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            final user =
-                                                await signInWithGoogle(context);
-                                            if (user == null) {
-                                              return;
-                                            }
-                                            setState(() => FFAppState().user =
-                                                columnUsersRecord.uid);
-                                            await Navigator.pushAndRemoveUntil(
-                                              context,
-                                              MaterialPageRoute(
-                                                builder: (context) =>
-                                                    NavBarPage(
-                                                        initialPage: 'Home'),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Expanded(
+                          child: TextFormField(
+                            controller: textController,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              labelText: 'Enter Phone  No',
+                              hintText: 'Phone Number',
+                              enabledBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                ),
+                              ),
+                              focusedBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                ),
+                              ),
+                              filled: true,
+                              fillColor: Color(0xFFDBCFCF),
+                            ),
+                            style: FlutterFlowTheme.of(context).bodyText1,
+                            keyboardType: TextInputType.phone,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Expanded(
+                          child: Align(
+                            alignment: AlignmentDirectional(0, 0),
+                            child: Container(
+                              width: 230,
+                              height: 44,
+                              child: Stack(
+                                children: [
+                                  Align(
+                                    alignment: AlignmentDirectional(0, 0),
+                                    child: Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 2, 0, 0),
+                                      child: FFButtonWidget(
+                                        onPressed: () async {
+                                          if (textController.text.isEmpty ||
+                                              !textController.text
+                                                  .startsWith('+')) {
+                                            ScaffoldMessenger.of(context)
+                                                .showSnackBar(
+                                              SnackBar(
+                                                content: Text(
+                                                    'Phone Number is required and has to start with +.'),
                                               ),
-                                              (r) => false,
                                             );
-                                          },
-                                          text: 'Sign in with Google',
-                                          icon: Icon(
-                                            Icons.add,
-                                            color: Colors.transparent,
-                                            size: 20,
-                                          ),
-                                          options: FFButtonOptions(
-                                            width: 230,
-                                            height: 44,
-                                            color: Color(0xFF736CAF),
-                                            textStyle: GoogleFonts.getFont(
-                                              'Roboto',
-                                              color: Colors.white,
-                                              fontSize: 17,
-                                            ),
-                                            elevation: 4,
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 0,
-                                            ),
-                                            borderRadius: 12,
-                                          ),
-                                        ),
-                                      ),
-                                    ),
-                                    Align(
-                                      alignment: AlignmentDirectional(-0.83, 0),
-                                      child: Container(
-                                        width: 22,
-                                        height: 22,
-                                        clipBehavior: Clip.antiAlias,
-                                        decoration: BoxDecoration(
-                                          shape: BoxShape.circle,
-                                        ),
-                                        child: Image.network(
-                                          'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
-                                          fit: BoxFit.contain,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Expanded(
-                            child: TextFormField(
-                              controller: textController,
-                              obscureText: false,
-                              decoration: InputDecoration(
-                                labelText: 'Enter Phone  No',
-                                hintText: 'Phone Number',
-                                enabledBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(4.0),
-                                    topRight: Radius.circular(4.0),
-                                  ),
-                                ),
-                                focusedBorder: OutlineInputBorder(
-                                  borderSide: BorderSide(
-                                    color: Color(0x00000000),
-                                    width: 1,
-                                  ),
-                                  borderRadius: const BorderRadius.only(
-                                    topLeft: Radius.circular(4.0),
-                                    topRight: Radius.circular(4.0),
-                                  ),
-                                ),
-                                filled: true,
-                                fillColor: Color(0xFFE5E3E3),
-                              ),
-                              style: FlutterFlowTheme.of(context).bodyText1,
-                              keyboardType: TextInputType.phone,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                    Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Expanded(
-                            child: Align(
-                              alignment: AlignmentDirectional(0, 0),
-                              child: Container(
-                                width: 230,
-                                height: 44,
-                                child: Stack(
-                                  children: [
-                                    Align(
-                                      alignment: AlignmentDirectional(0, 0),
-                                      child: Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            0, 2, 0, 0),
-                                        child: FFButtonWidget(
-                                          onPressed: () async {
-                                            if (textController.text.isEmpty ||
-                                                !textController.text
-                                                    .startsWith('+')) {
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(
-                                                SnackBar(
-                                                  content: Text(
-                                                      'Phone Number is required and has to start with +.'),
+                                            return;
+                                          }
+                                          await beginPhoneAuth(
+                                            context: context,
+                                            phoneNumber: textController.text,
+                                            onCodeSent: () async {
+                                              await Navigator
+                                                  .pushAndRemoveUntil(
+                                                context,
+                                                MaterialPageRoute(
+                                                  builder: (context) =>
+                                                      LoginWidget(),
                                                 ),
+                                                (r) => false,
                                               );
-                                              return;
-                                            }
-                                            await beginPhoneAuth(
-                                              context: context,
-                                              phoneNumber: textController.text,
-                                              onCodeSent: () async {
-                                                await Navigator
-                                                    .pushAndRemoveUntil(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        LoginWidget(),
-                                                  ),
-                                                  (r) => false,
-                                                );
-                                              },
-                                            );
-                                          },
-                                          text: 'Sign in with Phone',
-                                          icon: Icon(
-                                            Icons.add,
+                                            },
+                                          );
+                                        },
+                                        text: 'Sign in with Phone',
+                                        icon: Icon(
+                                          Icons.add,
+                                          color: Colors.transparent,
+                                          size: 20,
+                                        ),
+                                        options: FFButtonOptions(
+                                          width: 230,
+                                          height: 44,
+                                          color: Color(0xFF736CAF),
+                                          textStyle: GoogleFonts.getFont(
+                                            'Roboto',
+                                            color: Colors.white,
+                                            fontSize: 17,
+                                          ),
+                                          elevation: 4,
+                                          borderSide: BorderSide(
                                             color: Colors.transparent,
-                                            size: 20,
+                                            width: 0,
                                           ),
-                                          options: FFButtonOptions(
-                                            width: 230,
-                                            height: 44,
-                                            color: Color(0xFF736CAF),
-                                            textStyle: GoogleFonts.getFont(
-                                              'Roboto',
-                                              color: Colors.white,
-                                              fontSize: 17,
-                                            ),
-                                            elevation: 4,
-                                            borderSide: BorderSide(
-                                              color: Colors.transparent,
-                                              width: 0,
-                                            ),
-                                            borderRadius: 12,
-                                          ),
+                                          borderRadius: 12,
                                         ),
                                       ),
                                     ),
-                                    Align(
-                                      alignment: AlignmentDirectional(-0.85, 0),
-                                      child: Icon(
-                                        Icons.phone_enabled,
-                                        color: Colors.white,
-                                        size: 24,
-                                      ),
+                                  ),
+                                  Align(
+                                    alignment: AlignmentDirectional(-0.85, 0),
+                                    child: Icon(
+                                      Icons.phone_enabled,
+                                      color: Colors.white,
+                                      size: 24,
                                     ),
-                                  ],
-                                ),
+                                  ),
+                                ],
                               ),
                             ),
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               );
             },
           ),
