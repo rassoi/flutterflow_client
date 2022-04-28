@@ -40,7 +40,7 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
               width: 50,
               height: 50,
               child: SpinKitThreeBounce(
-                color: FlutterFlowTheme.of(context).primaryColor,
+                color: Color(0xFF8783B0),
                 size: 50,
               ),
             ),

@@ -9,16 +9,8 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 
+import '../../index.dart';
 import '../../main.dart';
-import '../../home_page/home_page_widget.dart';
-import '../../meals/meals_widget.dart';
-import '../../landing/landing_widget.dart';
-import '../../meals_copy/meals_copy_widget.dart';
-import '../../meals_copy2/meals_copy2_widget.dart';
-import '../../meals_copy2_copy/meals_copy2_copy_widget.dart';
-import '../../meal_info/meal_info_widget.dart';
-import '../../login/login_widget.dart';
-import '../../main/main_widget.dart';
 
 class PushNotificationsHandler extends StatefulWidget {
   const PushNotificationsHandler(
@@ -77,7 +69,7 @@ class _PushNotificationsHandlerState extends State<PushNotificationsHandler> {
             width: 50,
             height: 50,
             child: SpinKitThreeBounce(
-              color: FlutterFlowTheme.of(context).primaryColor,
+              color: Color(0xFF8783B0),
               size: 50,
             ),
           ),
@@ -111,6 +103,7 @@ final pageBuilderMap = <String, Future<Widget> Function(Map<String, dynamic>)>{
       ),
   'login': (data) async => LoginWidget(),
   'main': (data) async => MainWidget(),
+  'settings': (data) async => SettingsWidget(),
 };
 
 bool hasMatchingParameters(Map<String, dynamic> data, Set<String> params) =>

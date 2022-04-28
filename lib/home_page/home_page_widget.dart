@@ -47,7 +47,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                     width: 50,
                     height: 50,
                     child: SpinKitThreeBounce(
-                      color: FlutterFlowTheme.of(context).primaryColor,
+                      color: Color(0xFF8783B0),
                       size: 50,
                     ),
                   ),
@@ -223,9 +223,10 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           0, 2, 0, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          if (textController.text.isEmpty ||
-                                              !textController.text
-                                                  .startsWith('+')) {
+                                          final phoneNumberVal =
+                                              textController.text;
+                                          if (phoneNumberVal.isEmpty ||
+                                              !phoneNumberVal.startsWith('+')) {
                                             ScaffoldMessenger.of(context)
                                                 .showSnackBar(
                                               SnackBar(
@@ -237,7 +238,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           }
                                           await beginPhoneAuth(
                                             context: context,
-                                            phoneNumber: textController.text,
+                                            phoneNumber: phoneNumberVal,
                                             onCodeSent: () async {
                                               await Navigator
                                                   .pushAndRemoveUntil(

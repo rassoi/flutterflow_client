@@ -5,23 +5,20 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
 import 'backend/push_notifications/push_notifications_util.dart';
-import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
+import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
-import 'package:rassoi/main/main_widget.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
-import 'package:flutter_spinkit/flutter_spinkit.dart';
-import 'meals/meals_widget.dart';
-import 'meals_copy/meals_copy_widget.dart';
-import 'meals_copy2/meals_copy2_widget.dart';
-import 'home/home_widget.dart';
+import 'index.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
-
   await FlutterFlowTheme.initialize();
+
+  FFAppState(); // Initialize FFAppState
 
   runApp(MyApp());
 }
@@ -29,7 +26,7 @@ void main() async {
 class MyApp extends StatefulWidget {
   // This widget is the root of your application.
   @override
-  _MyAppState createState() => _MyAppState();
+  State<MyApp> createState() => _MyAppState();
 
   static _MyAppState of(BuildContext context) =>
       context.findAncestorStateOfType<_MyAppState>();
@@ -38,17 +35,13 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   Locale _locale;
   ThemeMode _themeMode = FlutterFlowTheme.themeMode;
+
   Stream<RassoiFirebaseUser> userStream;
   RassoiFirebaseUser initialUser;
   bool displaySplashImage = true;
+
   final authUserSub = authenticatedUserStream.listen((_) {});
   final fcmTokenSub = fcmTokenUserStream.listen((_) {});
-
-  void setLocale(Locale value) => setState(() => _locale = value);
-  void setThemeMode(ThemeMode mode) => setState(() {
-        _themeMode = mode;
-        FlutterFlowTheme.saveThemeMode(mode);
-      });
 
   @override
   void initState() {
@@ -56,7 +49,9 @@ class _MyAppState extends State<MyApp> {
     userStream = rassoiFirebaseUserStream()
       ..listen((user) => initialUser ?? setState(() => initialUser = user));
     Future.delayed(
-        Duration(seconds: 1), () => setState(() => displaySplashImage = false));
+      Duration(seconds: 1),
+      () => setState(() => displaySplashImage = false),
+    );
   }
 
   @override
@@ -65,6 +60,12 @@ class _MyAppState extends State<MyApp> {
     fcmTokenSub.cancel();
     super.dispose();
   }
+
+  void setLocale(Locale value) => setState(() => _locale = value);
+  void setThemeMode(ThemeMode mode) => setState(() {
+        _themeMode = mode;
+        FlutterFlowTheme.saveThemeMode(mode);
+      });
 
   @override
   Widget build(BuildContext context) {
@@ -87,7 +88,7 @@ class _MyAppState extends State<MyApp> {
                 width: 50,
                 height: 50,
                 child: SpinKitThreeBounce(
-                  color: FlutterFlowTheme.of(context).primaryColor,
+                  color: Color(0xFF8783B0),
                   size: 50,
                 ),
               ),

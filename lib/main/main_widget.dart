@@ -64,7 +64,7 @@ class _MainWidgetState extends State<MainWidget> {
                           width: 50,
                           height: 50,
                           child: SpinKitThreeBounce(
-                            color: FlutterFlowTheme.of(context).primaryColor,
+                            color: Color(0xFF8783B0),
                             size: 50,
                           ),
                         ),
@@ -165,7 +165,7 @@ class _MainWidgetState extends State<MainWidget> {
                       controller: textController,
                       obscureText: false,
                       decoration: InputDecoration(
-                        hintText: 'Phone no. here',
+                        labelText: 'Phone no. here',
                         enabledBorder: UnderlineInputBorder(
                           borderSide: BorderSide(
                             color: Color(0x00000000),
@@ -206,7 +206,7 @@ class _MainWidgetState extends State<MainWidget> {
                         width: 50,
                         height: 50,
                         child: SpinKitThreeBounce(
-                          color: FlutterFlowTheme.of(context).primaryColor,
+                          color: Color(0xFF8783B0),
                           size: 50,
                         ),
                       ),
@@ -235,8 +235,9 @@ class _MainWidgetState extends State<MainWidget> {
                                 alignment: AlignmentDirectional(0, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    if (textController.text.isEmpty ||
-                                        !textController.text.startsWith('+')) {
+                                    final phoneNumberVal = textController.text;
+                                    if (phoneNumberVal.isEmpty ||
+                                        !phoneNumberVal.startsWith('+')) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
                                         SnackBar(
@@ -248,7 +249,7 @@ class _MainWidgetState extends State<MainWidget> {
                                     }
                                     await beginPhoneAuth(
                                       context: context,
-                                      phoneNumber: textController.text,
+                                      phoneNumber: phoneNumberVal,
                                       onCodeSent: () async {
                                         await Navigator.pushAndRemoveUntil(
                                           context,
@@ -302,6 +303,107 @@ class _MainWidgetState extends State<MainWidget> {
                     ],
                   );
                 },
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                child: StreamBuilder<List<UsersRecord>>(
+                  stream: queryUsersRecord(
+                    singleRecord: true,
+                  ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: SpinKitThreeBounce(
+                            color: Color(0xFF8783B0),
+                            size: 50,
+                          ),
+                        ),
+                      );
+                    }
+                    List<UsersRecord> rowUsersRecordList = snapshot.data;
+                    // Return an empty Container when the document does not exist.
+                    if (snapshot.data.isEmpty) {
+                      return Container();
+                    }
+                    final rowUsersRecord = rowUsersRecordList.isNotEmpty
+                        ? rowUsersRecordList.first
+                        : null;
+                    return Row(
+                      mainAxisSize: MainAxisSize.max,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(0, 0),
+                          child: Container(
+                            width: 230,
+                            height: 44,
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: AlignmentDirectional(0, 0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      final user =
+                                          await signInAnonymously(context);
+                                      if (user == null) {
+                                        return;
+                                      }
+                                      setState(() => FFAppState().user =
+                                          rowUsersRecord.uid);
+                                      await Navigator.pushAndRemoveUntil(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              NavBarPage(initialPage: 'Home'),
+                                        ),
+                                        (r) => false,
+                                      );
+                                    },
+                                    text: 'Sign in as Anonymous',
+                                    icon: Icon(
+                                      Icons.add,
+                                      color: Colors.transparent,
+                                      size: 20,
+                                    ),
+                                    options: FFButtonOptions(
+                                      width: 230,
+                                      height: 44,
+                                      color: Color(0xFF736CAF),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Colors.white,
+                                          ),
+                                      elevation: 4,
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 0,
+                                      ),
+                                      borderRadius: 12,
+                                    ),
+                                  ),
+                                ),
+                                Align(
+                                  alignment: AlignmentDirectional(-0.85, 0),
+                                  child: Icon(
+                                    Icons.person,
+                                    color: Color(0xFFFDF9F9),
+                                    size: 30,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ],
           ),

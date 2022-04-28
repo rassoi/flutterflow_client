@@ -47,12 +47,12 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
         backgroundColor: Colors.white,
         automaticallyImplyLeading: true,
         title: TextFormField(
+          controller: textController,
           onChanged: (_) => EasyDebounce.debounce(
             'textController',
             Duration(milliseconds: 500),
             () => setState(() {}),
           ),
-          controller: textController,
           obscureText: false,
           decoration: InputDecoration(
             hintText: 'Searh Dish',
@@ -99,7 +99,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                   width: 50,
                   height: 50,
                   child: SpinKitThreeBounce(
-                    color: FlutterFlowTheme.of(context).primaryColor,
+                    color: Color(0xFF8783B0),
                     size: 50,
                   ),
                 ),
@@ -132,7 +132,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                             width: 50,
                             height: 50,
                             child: SpinKitThreeBounce(
-                              color: FlutterFlowTheme.of(context).primaryColor,
+                              color: Color(0xFF8783B0),
                               size: 50,
                             ),
                           ),
@@ -204,7 +204,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                           width: 50,
                           height: 50,
                           child: SpinKitThreeBounce(
-                            color: FlutterFlowTheme.of(context).primaryColor,
+                            color: Color(0xFF8783B0),
                             size: 50,
                           ),
                         ),
@@ -286,7 +286,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                             width: 50,
                             height: 50,
                             child: SpinKitThreeBounce(
-                              color: FlutterFlowTheme.of(context).primaryColor,
+                              color: Color(0xFF8783B0),
                               size: 50,
                             ),
                           ),
@@ -468,9 +468,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                   width: 50,
                                                   height: 50,
                                                   child: SpinKitThreeBounce(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryColor,
+                                                    color: Color(0xFF8783B0),
                                                     size: 50,
                                                   ),
                                                 ),

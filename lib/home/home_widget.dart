@@ -1,9 +1,8 @@
-import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../main.dart';
-import '../main/main_widget.dart';
+import '../settings/settings_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -28,13 +27,11 @@ class _HomeWidgetState extends State<HomeWidget> {
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
-            await signOut();
-            await Navigator.pushAndRemoveUntil(
+            await Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => MainWidget(),
+                builder: (context) => SettingsWidget(),
               ),
-              (r) => false,
             );
           },
           child: Icon(
@@ -131,7 +128,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           width: 50,
                           height: 50,
                           child: SpinKitThreeBounce(
-                            color: FlutterFlowTheme.of(context).primaryColor,
+                            color: Color(0xFF8783B0),
                             size: 50,
                           ),
                         ),
@@ -176,7 +173,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           width: 50,
                           height: 50,
                           child: SpinKitThreeBounce(
-                            color: FlutterFlowTheme.of(context).primaryColor,
+                            color: Color(0xFF8783B0),
                             size: 50,
                           ),
                         ),
@@ -264,7 +261,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                           width: 50,
                           height: 50,
                           child: SpinKitThreeBounce(
-                            color: FlutterFlowTheme.of(context).primaryColor,
+                            color: Color(0xFF8783B0),
                             size: 50,
                           ),
                         ),

@@ -112,7 +112,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           width: 50,
                           height: 50,
                           child: SpinKitThreeBounce(
-                            color: FlutterFlowTheme.of(context).primaryColor,
+                            color: Color(0xFF8783B0),
                             size: 50,
                           ),
                         ),
@@ -132,7 +132,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                       children: [
                         FFButtonWidget(
                           onPressed: () async {
-                            if (textController.text.isEmpty) {
+                            final smsCodeVal = textController.text;
+                            if (smsCodeVal.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text('Enter SMS verification code.'),
@@ -142,7 +143,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                             }
                             final phoneVerifiedUser = await verifySmsCode(
                               context: context,
-                              smsCode: textController.text,
+                              smsCode: smsCodeVal,
                             );
                             if (phoneVerifiedUser == null) {
                               return;

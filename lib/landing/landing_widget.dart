@@ -163,7 +163,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                           width: 50,
                           height: 50,
                           child: SpinKitThreeBounce(
-                            color: FlutterFlowTheme.of(context).primaryColor,
+                            color: Color(0xFF8783B0),
                             size: 50,
                           ),
                         ),
@@ -255,7 +255,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                             width: 50,
                             height: 50,
                             child: SpinKitThreeBounce(
-                              color: FlutterFlowTheme.of(context).primaryColor,
+                              color: Color(0xFF8783B0),
                               size: 50,
                             ),
                           ),
