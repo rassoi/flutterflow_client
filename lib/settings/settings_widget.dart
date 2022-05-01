@@ -102,6 +102,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     FFButtonWidget(
                       onPressed: () async {
                         await signOut();
+                        setState(() => FFAppState().user = '');
                         await Navigator.pushAndRemoveUntil(
                           context,
                           MaterialPageRoute(

@@ -102,7 +102,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             return;
                                           }
                                           setState(() => FFAppState().user =
-                                              columnUsersRecord.uid);
+                                              currentUserUid);
                                           await Navigator.pushAndRemoveUntil(
                                             context,
                                             MaterialPageRoute(
