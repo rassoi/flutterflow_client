@@ -3,6 +3,7 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
+import '../main.dart';
 import '../main/main_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -25,10 +26,20 @@ class _SettingsWidgetState extends State<SettingsWidget> {
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
-        leading: Icon(
-          Icons.chevron_left,
-          color: Colors.black,
-          size: 24,
+        leading: InkWell(
+          onTap: () async {
+            await Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => NavBarPage(initialPage: 'Home'),
+              ),
+            );
+          },
+          child: Icon(
+            Icons.chevron_left,
+            color: Colors.black,
+            size: 24,
+          ),
         ),
         title: Text(
           'Settings',

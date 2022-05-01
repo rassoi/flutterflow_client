@@ -83,13 +83,15 @@ class _MyAppState extends State<MyApp> {
       darkTheme: ThemeData(brightness: Brightness.dark),
       themeMode: _themeMode,
       home: initialUser == null || displaySplashImage
-          ? Center(
-              child: SizedBox(
-                width: 50,
-                height: 50,
-                child: SpinKitThreeBounce(
-                  color: Color(0xFF8783B0),
-                  size: 50,
+          ? Container(
+              color: Colors.transparent,
+              child: Center(
+                child: Builder(
+                  builder: (context) => Image.asset(
+                    'assets/images/undraw_breakfast_psiw.svg',
+                    width: 1000,
+                    fit: BoxFit.scaleDown,
+                  ),
                 ),
               ),
             )

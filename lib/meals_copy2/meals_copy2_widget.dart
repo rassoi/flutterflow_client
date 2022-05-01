@@ -221,46 +221,52 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                     return Row(
                       mainAxisSize: MainAxisSize.max,
                       children: [
-                        FlutterFlowDropDown(
-                          initialOption: dropDownValue1 ??= 'Today',
-                          options: rowDaysRecord.day.toList().toList(),
-                          onChanged: (val) =>
-                              setState(() => dropDownValue1 = val),
-                          width: 180,
-                          height: 50,
-                          textStyle:
-                              FlutterFlowTheme.of(context).bodyText1.override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.black,
-                                  ),
-                          fillColor: Colors.white,
-                          elevation: 2,
-                          borderColor: Colors.transparent,
-                          borderWidth: 0,
-                          borderRadius: 0,
-                          margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                          hidesUnderline: true,
+                        Expanded(
+                          child: FlutterFlowDropDown(
+                            initialOption: dropDownValue1 ??= 'Today',
+                            options: rowDaysRecord.day.toList().toList(),
+                            onChanged: (val) =>
+                                setState(() => dropDownValue1 = val),
+                            width: 180,
+                            height: 50,
+                            textStyle:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.black,
+                                    ),
+                            fillColor: Colors.white,
+                            elevation: 2,
+                            borderColor: Colors.transparent,
+                            borderWidth: 0,
+                            borderRadius: 0,
+                            margin:
+                                EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                            hidesUnderline: true,
+                          ),
                         ),
-                        FlutterFlowDropDown(
-                          initialOption: dropDownValue2 ??= 'Brakefast',
-                          options: ['Brakefast', 'Lunch', 'Snacks', 'Dinner']
-                              .toList(),
-                          onChanged: (val) =>
-                              setState(() => dropDownValue2 = val),
-                          width: 180,
-                          height: 50,
-                          textStyle:
-                              FlutterFlowTheme.of(context).bodyText1.override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.black,
-                                  ),
-                          fillColor: Colors.white,
-                          elevation: 2,
-                          borderColor: Colors.transparent,
-                          borderWidth: 0,
-                          borderRadius: 0,
-                          margin: EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
-                          hidesUnderline: true,
+                        Expanded(
+                          child: FlutterFlowDropDown(
+                            initialOption: dropDownValue2 ??= 'Brakefast',
+                            options: ['Brakefast', 'Lunch', 'Snacks', 'Dinner']
+                                .toList(),
+                            onChanged: (val) =>
+                                setState(() => dropDownValue2 = val),
+                            width: 180,
+                            height: 50,
+                            textStyle:
+                                FlutterFlowTheme.of(context).bodyText1.override(
+                                      fontFamily: 'Poppins',
+                                      color: Colors.black,
+                                    ),
+                            fillColor: Colors.white,
+                            elevation: 2,
+                            borderColor: Colors.transparent,
+                            borderWidth: 0,
+                            borderRadius: 0,
+                            margin:
+                                EdgeInsetsDirectional.fromSTEB(12, 4, 12, 4),
+                            hidesUnderline: true,
+                          ),
                         ),
                       ],
                     );
