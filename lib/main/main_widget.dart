@@ -262,7 +262,7 @@ class _MainWidgetState extends State<MainWidget> {
                                     );
 
                                     setState(() =>
-                                        FFAppState().user = rowUsersRecord.uid);
+                                        FFAppState().user = currentUserUid);
                                   },
                                   text: 'Sign in with Phone',
                                   icon: Icon(
@@ -352,8 +352,8 @@ class _MainWidgetState extends State<MainWidget> {
                                       if (user == null) {
                                         return;
                                       }
-                                      setState(() => FFAppState().user =
-                                          rowUsersRecord.uid);
+                                      setState(() =>
+                                          FFAppState().user = currentUserUid);
                                       await Navigator.pushAndRemoveUntil(
                                         context,
                                         MaterialPageRoute(
