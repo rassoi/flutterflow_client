@@ -11,3 +11,4 @@ export 'login/login_widget.dart' show LoginWidget;
 export 'home/home_widget.dart' show HomeWidget;
 export 'main/main_widget.dart' show MainWidget;
 export 'settings/settings_widget.dart' show SettingsWidget;
+export 'temp/temp_widget.dart' show TempWidget;
