@@ -19,6 +19,12 @@ class _HomeWidgetState extends State<HomeWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Home'});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -27,6 +33,8 @@ class _HomeWidgetState extends State<HomeWidget> {
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
+            logFirebaseEvent('Icon-ON_TAP');
+            logFirebaseEvent('Icon-Navigate-To');
             await Navigator.push(
               context,
               MaterialPageRoute(
@@ -197,6 +205,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
+                                      logFirebaseEvent('Image-ON_TAP');
+                                      logFirebaseEvent('Image-Navigate-To');
                                       await Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -291,8 +301,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                               children: [
                                 InkWell(
                                   onTap: () async {
+                                    logFirebaseEvent('CircleImage-ON_TAP');
+                                    logFirebaseEvent(
+                                        'CircleImage-Update-Local-State');
                                     setState(() => FFAppState().category =
                                         gridViewCategoriesRecord.categoryName);
+                                    logFirebaseEvent('CircleImage-Navigate-To');
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(

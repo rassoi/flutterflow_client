@@ -25,6 +25,8 @@ class _LandingWidgetState extends State<LandingWidget> {
     super.initState();
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      logFirebaseEvent('Landing-ON_PAGE_LOAD');
+      logFirebaseEvent('Landing-Auth');
       await signOut();
       await Navigator.pushAndRemoveUntil(
         context,
@@ -34,6 +36,8 @@ class _LandingWidgetState extends State<LandingWidget> {
         (r) => false,
       );
     });
+
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Landing'});
   }
 
   @override
@@ -188,6 +192,8 @@ class _LandingWidgetState extends State<LandingWidget> {
                                       10, 0, 0, 0),
                                   child: InkWell(
                                     onTap: () async {
+                                      logFirebaseEvent('Image-ON_TAP');
+                                      logFirebaseEvent('Image-Navigate-To');
                                       await Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -289,12 +295,17 @@ class _LandingWidgetState extends State<LandingWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
+                                      logFirebaseEvent('CircleImage-ON_TAP');
+                                      logFirebaseEvent(
+                                          'CircleImage-Update-Local-State');
                                       setState(() => FFAppState().category =
                                               valueOrDefault<String>(
                                             gridViewCategoriesRecord
                                                 .categoryName,
                                             'All',
                                           ));
+                                      logFirebaseEvent(
+                                          'CircleImage-Navigate-To');
                                       await Navigator.push(
                                         context,
                                         MaterialPageRoute(

@@ -16,12 +16,13 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
-  TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController textController;
 
   @override
   void initState() {
     super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'login'});
     textController = TextEditingController();
   }
 
@@ -34,6 +35,8 @@ class _LoginWidgetState extends State<LoginWidget> {
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
+            logFirebaseEvent('Icon-ON_TAP');
+            logFirebaseEvent('Icon-Navigate-To');
             await Navigator.push(
               context,
               MaterialPageRoute(
@@ -132,6 +135,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                       children: [
                         FFButtonWidget(
                           onPressed: () async {
+                            logFirebaseEvent('Button-ON_TAP');
+                            logFirebaseEvent('Button-Auth');
                             final smsCodeVal = textController.text;
                             if (smsCodeVal.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -149,6 +154,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                               return;
                             }
 
+                            logFirebaseEvent('Button-Update-Local-State');
                             setState(
                                 () => FFAppState().user = rowUsersRecord.uid);
                             await Navigator.pushAndRemoveUntil(

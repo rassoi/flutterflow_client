@@ -29,6 +29,12 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
   int countControllerValue;
 
   @override
+  void initState() {
+    super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'meal_info'});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<TempRecord>(
       stream: TempRecord.getDocument(widget.mealRef),
@@ -54,6 +60,8 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
             automaticallyImplyLeading: true,
             leading: InkWell(
               onTap: () async {
+                logFirebaseEvent('Icon-ON_TAP');
+                logFirebaseEvent('Icon-Navigate-Back');
                 Navigator.pop(context);
               },
               child: Icon(
@@ -188,6 +196,9 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
                         ),
                         FFButtonWidget(
                           onPressed: () async {
+                            logFirebaseEvent('Button-ON_TAP');
+                            logFirebaseEvent('Button-Backend-Call');
+
                             final tempUpdateData = createTempRecordData(
                               counter: countControllerValue,
                             );

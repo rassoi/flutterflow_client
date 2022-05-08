@@ -36,6 +36,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
   @override
   void initState() {
     super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'MealsCopy2'});
     textController = TextEditingController();
   }
 
@@ -399,6 +400,11 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                           0, 1),
                                                   child: FFButtonWidget(
                                                     onPressed: () async {
+                                                      logFirebaseEvent(
+                                                          'Button-ON_TAP');
+                                                      logFirebaseEvent(
+                                                          'Button-Backend-Call');
+
                                                       final tempUpdateData = {
                                                         'meal_time': FieldValue
                                                             .arrayUnion([
@@ -495,6 +501,10 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                     : null;
                                             return InkWell(
                                               onTap: () async {
+                                                logFirebaseEvent(
+                                                    'Image-ON_TAP');
+                                                logFirebaseEvent(
+                                                    'Image-Navigate-To');
                                                 await Navigator.push(
                                                   context,
                                                   MaterialPageRoute(

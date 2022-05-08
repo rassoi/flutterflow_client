@@ -27,6 +27,13 @@ class _MealsCopy2CopyWidgetState extends State<MealsCopy2CopyWidget> {
   int countControllerValue;
 
   @override
+  void initState() {
+    super.initState();
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'MealsCopy2Copy'});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<RecipesRecord>(
       stream: RecipesRecord.getDocument(widget.mealDetail),
@@ -52,6 +59,8 @@ class _MealsCopy2CopyWidgetState extends State<MealsCopy2CopyWidget> {
             automaticallyImplyLeading: true,
             leading: InkWell(
               onTap: () async {
+                logFirebaseEvent('Icon-ON_TAP');
+                logFirebaseEvent('Icon-Navigate-Back');
                 Navigator.pop(context);
               },
               child: Icon(

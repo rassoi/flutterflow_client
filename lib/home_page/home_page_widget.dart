@@ -18,12 +18,13 @@ class HomePageWidget extends StatefulWidget {
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
-  TextEditingController textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+  TextEditingController textController;
 
   @override
   void initState() {
     super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'HomePage'});
     textController = TextEditingController();
   }
 
@@ -96,11 +97,15 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           0, 2, 0, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
+                                          logFirebaseEvent('Button-ON_TAP');
+                                          logFirebaseEvent('Button-Auth');
                                           final user =
                                               await signInWithGoogle(context);
                                           if (user == null) {
                                             return;
                                           }
+                                          logFirebaseEvent(
+                                              'Button-Update-Local-State');
                                           setState(() => FFAppState().user =
                                               currentUserUid);
                                           await Navigator.pushAndRemoveUntil(
@@ -223,6 +228,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           0, 2, 0, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
+                                          logFirebaseEvent('Button-ON_TAP');
+                                          logFirebaseEvent('Button-Auth');
                                           final phoneNumberVal =
                                               textController.text;
                                           if (phoneNumberVal.isEmpty ||

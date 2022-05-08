@@ -20,6 +20,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+    logFirebaseEvent('screen_view', parameters: {'screen_name': 'settings'});
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -28,6 +34,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
+            logFirebaseEvent('Icon-ON_TAP');
+            logFirebaseEvent('Icon-Navigate-To');
             await Navigator.push(
               context,
               MaterialPageRoute(
@@ -101,7 +109,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   children: [
                     FFButtonWidget(
                       onPressed: () async {
+                        logFirebaseEvent('Button-ON_TAP');
+                        logFirebaseEvent('Button-Auth');
                         await signOut();
+                        logFirebaseEvent('Button-Update-Local-State');
                         setState(() => FFAppState().user = '');
                         await Navigator.pushAndRemoveUntil(
                           context,
