@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'lat_lng.dart';
@@ -36,4 +37,10 @@ String getStrTimeStamp(
   String day,
 ) {
   return dates[days.indexOf(day)];
+}
+
+int mealStatus(List<String> mealTime) {
+  // Add your function code here!
+
+  return mealTime.length;
 }

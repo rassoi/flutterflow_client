@@ -35,19 +35,31 @@ export 'schema/timestamp_record.dart';
 export 'schema/days_record.dart';
 
 /// Functions to query BannerRecords (as a Stream and as a Future).
-Stream<List<BannerRecord>> queryBannerRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(BannerRecord.collection, BannerRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+Stream<List<BannerRecord>> queryBannerRecord({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      BannerRecord.collection,
+      BannerRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
-Future<List<BannerRecord>> queryBannerRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(BannerRecord.collection, BannerRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+Future<List<BannerRecord>> queryBannerRecordOnce({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      BannerRecord.collection,
+      BannerRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
 Future<FFFirestorePage<BannerRecord>> queryBannerRecordPage({
   Query Function(Query) queryBuilder,
@@ -65,19 +77,31 @@ Future<FFFirestorePage<BannerRecord>> queryBannerRecordPage({
     );
 
 /// Functions to query RecipesRecords (as a Stream and as a Future).
-Stream<List<RecipesRecord>> queryRecipesRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(RecipesRecord.collection, RecipesRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+Stream<List<RecipesRecord>> queryRecipesRecord({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      RecipesRecord.collection,
+      RecipesRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
-Future<List<RecipesRecord>> queryRecipesRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(RecipesRecord.collection, RecipesRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+Future<List<RecipesRecord>> queryRecipesRecordOnce({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      RecipesRecord.collection,
+      RecipesRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
 Future<FFFirestorePage<RecipesRecord>> queryRecipesRecordPage({
   Query Function(Query) queryBuilder,
@@ -95,21 +119,31 @@ Future<FFFirestorePage<RecipesRecord>> queryRecipesRecordPage({
     );
 
 /// Functions to query UpcommingMealsRecords (as a Stream and as a Future).
-Stream<List<UpcommingMealsRecord>> queryUpcommingMealsRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
+Stream<List<UpcommingMealsRecord>> queryUpcommingMealsRecord({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
     queryCollection(
-        UpcommingMealsRecord.collection, UpcommingMealsRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+      UpcommingMealsRecord.collection,
+      UpcommingMealsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
-Future<List<UpcommingMealsRecord>> queryUpcommingMealsRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
+Future<List<UpcommingMealsRecord>> queryUpcommingMealsRecordOnce({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
     queryCollectionOnce(
-        UpcommingMealsRecord.collection, UpcommingMealsRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+      UpcommingMealsRecord.collection,
+      UpcommingMealsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
 Future<FFFirestorePage<UpcommingMealsRecord>> queryUpcommingMealsRecordPage({
   Query Function(Query) queryBuilder,
@@ -127,20 +161,31 @@ Future<FFFirestorePage<UpcommingMealsRecord>> queryUpcommingMealsRecordPage({
     );
 
 /// Functions to query CategoriesRecords (as a Stream and as a Future).
-Stream<List<CategoriesRecord>> queryCategoriesRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(CategoriesRecord.collection, CategoriesRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+Stream<List<CategoriesRecord>> queryCategoriesRecord({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      CategoriesRecord.collection,
+      CategoriesRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
-Future<List<CategoriesRecord>> queryCategoriesRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
+Future<List<CategoriesRecord>> queryCategoriesRecordOnce({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
     queryCollectionOnce(
-        CategoriesRecord.collection, CategoriesRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+      CategoriesRecord.collection,
+      CategoriesRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
 Future<FFFirestorePage<CategoriesRecord>> queryCategoriesRecordPage({
   Query Function(Query) queryBuilder,
@@ -158,19 +203,31 @@ Future<FFFirestorePage<CategoriesRecord>> queryCategoriesRecordPage({
     );
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
-Stream<List<UsersRecord>> queryUsersRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(UsersRecord.collection, UsersRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+Stream<List<UsersRecord>> queryUsersRecord({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      UsersRecord.collection,
+      UsersRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
-Future<List<UsersRecord>> queryUsersRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(UsersRecord.collection, UsersRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+Future<List<UsersRecord>> queryUsersRecordOnce({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      UsersRecord.collection,
+      UsersRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
 Future<FFFirestorePage<UsersRecord>> queryUsersRecordPage({
   Query Function(Query) queryBuilder,
@@ -188,19 +245,31 @@ Future<FFFirestorePage<UsersRecord>> queryUsersRecordPage({
     );
 
 /// Functions to query TempRecords (as a Stream and as a Future).
-Stream<List<TempRecord>> queryTempRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(TempRecord.collection, TempRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+Stream<List<TempRecord>> queryTempRecord({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      TempRecord.collection,
+      TempRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
-Future<List<TempRecord>> queryTempRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(TempRecord.collection, TempRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+Future<List<TempRecord>> queryTempRecordOnce({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      TempRecord.collection,
+      TempRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
 Future<FFFirestorePage<TempRecord>> queryTempRecordPage({
   Query Function(Query) queryBuilder,
@@ -218,20 +287,31 @@ Future<FFFirestorePage<TempRecord>> queryTempRecordPage({
     );
 
 /// Functions to query MealIngredRecords (as a Stream and as a Future).
-Stream<List<MealIngredRecord>> queryMealIngredRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(MealIngredRecord.collection, MealIngredRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+Stream<List<MealIngredRecord>> queryMealIngredRecord({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      MealIngredRecord.collection,
+      MealIngredRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
-Future<List<MealIngredRecord>> queryMealIngredRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
+Future<List<MealIngredRecord>> queryMealIngredRecordOnce({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
     queryCollectionOnce(
-        MealIngredRecord.collection, MealIngredRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+      MealIngredRecord.collection,
+      MealIngredRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
 Future<FFFirestorePage<MealIngredRecord>> queryMealIngredRecordPage({
   Query Function(Query) queryBuilder,
@@ -249,21 +329,31 @@ Future<FFFirestorePage<MealIngredRecord>> queryMealIngredRecordPage({
     );
 
 /// Functions to query CategoriesTempRecords (as a Stream and as a Future).
-Stream<List<CategoriesTempRecord>> queryCategoriesTempRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
+Stream<List<CategoriesTempRecord>> queryCategoriesTempRecord({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
     queryCollection(
-        CategoriesTempRecord.collection, CategoriesTempRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+      CategoriesTempRecord.collection,
+      CategoriesTempRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
-Future<List<CategoriesTempRecord>> queryCategoriesTempRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
+Future<List<CategoriesTempRecord>> queryCategoriesTempRecordOnce({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
     queryCollectionOnce(
-        CategoriesTempRecord.collection, CategoriesTempRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+      CategoriesTempRecord.collection,
+      CategoriesTempRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
 Future<FFFirestorePage<CategoriesTempRecord>> queryCategoriesTempRecordPage({
   Query Function(Query) queryBuilder,
@@ -281,21 +371,31 @@ Future<FFFirestorePage<CategoriesTempRecord>> queryCategoriesTempRecordPage({
     );
 
 /// Functions to query MiscellaneousRecords (as a Stream and as a Future).
-Stream<List<MiscellaneousRecord>> queryMiscellaneousRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
+Stream<List<MiscellaneousRecord>> queryMiscellaneousRecord({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
     queryCollection(
-        MiscellaneousRecord.collection, MiscellaneousRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+      MiscellaneousRecord.collection,
+      MiscellaneousRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
-Future<List<MiscellaneousRecord>> queryMiscellaneousRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
+Future<List<MiscellaneousRecord>> queryMiscellaneousRecordOnce({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
     queryCollectionOnce(
-        MiscellaneousRecord.collection, MiscellaneousRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+      MiscellaneousRecord.collection,
+      MiscellaneousRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
 Future<FFFirestorePage<MiscellaneousRecord>> queryMiscellaneousRecordPage({
   Query Function(Query) queryBuilder,
@@ -313,19 +413,31 @@ Future<FFFirestorePage<MiscellaneousRecord>> queryMiscellaneousRecordPage({
     );
 
 /// Functions to query TimestampRecords (as a Stream and as a Future).
-Stream<List<TimestampRecord>> queryTimestampRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(TimestampRecord.collection, TimestampRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+Stream<List<TimestampRecord>> queryTimestampRecord({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      TimestampRecord.collection,
+      TimestampRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
-Future<List<TimestampRecord>> queryTimestampRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(TimestampRecord.collection, TimestampRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+Future<List<TimestampRecord>> queryTimestampRecordOnce({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      TimestampRecord.collection,
+      TimestampRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
 Future<FFFirestorePage<TimestampRecord>> queryTimestampRecordPage({
   Query Function(Query) queryBuilder,
@@ -343,19 +455,31 @@ Future<FFFirestorePage<TimestampRecord>> queryTimestampRecordPage({
     );
 
 /// Functions to query DaysRecords (as a Stream and as a Future).
-Stream<List<DaysRecord>> queryDaysRecord(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollection(DaysRecord.collection, DaysRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+Stream<List<DaysRecord>> queryDaysRecord({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      DaysRecord.collection,
+      DaysRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
-Future<List<DaysRecord>> queryDaysRecordOnce(
-        {Query Function(Query) queryBuilder,
-        int limit = -1,
-        bool singleRecord = false}) =>
-    queryCollectionOnce(DaysRecord.collection, DaysRecord.serializer,
-        queryBuilder: queryBuilder, limit: limit, singleRecord: singleRecord);
+Future<List<DaysRecord>> queryDaysRecordOnce({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      DaysRecord.collection,
+      DaysRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
 
 Future<FFFirestorePage<DaysRecord>> queryDaysRecordPage({
   Query Function(Query) queryBuilder,
@@ -372,8 +496,7 @@ Future<FFFirestorePage<DaysRecord>> queryDaysRecordPage({
       isStream: isStream,
     );
 
-Stream<List<T>> queryCollection<T>(
-    CollectionReference collection, Serializer<T> serializer,
+Stream<List<T>> queryCollection<T>(Query collection, Serializer<T> serializer,
     {Query Function(Query) queryBuilder,
     int limit = -1,
     bool singleRecord = false}) {
@@ -382,7 +505,9 @@ Stream<List<T>> queryCollection<T>(
   if (limit > 0 || singleRecord) {
     query = query.limit(singleRecord ? 1 : limit);
   }
-  return query.snapshots().map((s) => s.docs
+  return query.snapshots().handleError((err) {
+    print('Error querying $collection: $err');
+  }).map((s) => s.docs
       .map(
         (d) => safeGet(
           () => serializers.deserializeWith(serializer, serializedData(d)),
@@ -394,7 +519,7 @@ Stream<List<T>> queryCollection<T>(
 }
 
 Future<List<T>> queryCollectionOnce<T>(
-    CollectionReference collection, Serializer<T> serializer,
+    Query collection, Serializer<T> serializer,
     {Query Function(Query) queryBuilder,
     int limit = -1,
     bool singleRecord = false}) {
@@ -423,7 +548,7 @@ class FFFirestorePage<T> {
 }
 
 Future<FFFirestorePage<T>> queryCollectionPage<T>(
-  CollectionReference collection,
+  Query collection,
   Serializer<T> serializer, {
   Query Function(Query) queryBuilder,
   DocumentSnapshot nextPageMarker,
@@ -458,7 +583,7 @@ Future<FFFirestorePage<T>> queryCollectionPage<T>(
   return FFFirestorePage(data, dataStream, nextPageToken);
 }
 
-// Creates a Firestore record representing the logged in user if it doesn't yet exist
+// Creates a Firestore document representing the logged in user if it doesn't yet exist
 Future maybeCreateUser(User user) async {
   final userRecord = UsersRecord.collection.doc(user.uid);
   final userExists = await userRecord.get().then((u) => u.exists);

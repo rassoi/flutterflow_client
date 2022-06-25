@@ -248,8 +248,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                         Expanded(
                           child: FlutterFlowDropDown(
                             initialOption: dropDownValue2 ??= 'Brakefast',
-                            options: ['Brakefast', 'Lunch', 'Snacks', 'Dinner']
-                                .toList(),
+                            options: ['Brakefast', 'Lunch', 'Snacks', 'Dinner'],
                             onChanged: (val) =>
                                 setState(() => dropDownValue2 = val),
                             width: 180,
@@ -269,10 +268,153 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                             hidesUnderline: true,
                           ),
                         ),
+                        ToggleIcon(
+                          onPressed: () async {
+                            setState(
+                                () => FFAppState().Fav = !FFAppState().Fav);
+                          },
+                          value: FFAppState().Fav,
+                          onIcon: Icon(
+                            Icons.favorite_sharp,
+                            color: Color(0xFFE82E2E),
+                            size: 25,
+                          ),
+                          offIcon: Icon(
+                            Icons.favorite_border,
+                            color: Colors.black,
+                            size: 25,
+                          ),
+                        ),
+                        ToggleIcon(
+                          onPressed: () async {
+                            setState(
+                                () => FFAppState().Fav = !FFAppState().Fav);
+                          },
+                          value: FFAppState().Fav,
+                          onIcon: Icon(
+                            Icons.circle,
+                            color: Color(0xFF50C878),
+                            size: 25,
+                          ),
+                          offIcon: Icon(
+                            Icons.circle,
+                            color: Color(0xFFD92A2A),
+                            size: 25,
+                          ),
+                        ),
                       ],
                     );
                   },
                 ),
+                if (FFAppState().Fav ?? true)
+                  StreamBuilder<List<TempRecord>>(
+                    stream: queryTempRecord(
+                      queryBuilder: (tempRecord) => tempRecord
+                          .where('uid', isEqualTo: FFAppState().user)
+                          .where('nameAsArray',
+                              arrayContains: '${valueOrDefault<String>(
+                                choiceChipsValue,
+                                'All',
+                              )}${textController.text}')
+                          .where('fav', isEqualTo: true),
+                    ),
+                    builder: (context, snapshot) {
+                      // Customize what your widget looks like when it's loading.
+                      if (!snapshot.hasData) {
+                        return Center(
+                          child: SizedBox(
+                            width: 50,
+                            height: 50,
+                            child: SpinKitThreeBounce(
+                              color: Color(0xFF8783B0),
+                              size: 50,
+                            ),
+                          ),
+                        );
+                      }
+                      List<TempRecord> containerTempRecordList = snapshot.data;
+                      return Container(
+                        width: double.infinity,
+                        height: 140,
+                        decoration: BoxDecoration(
+                          color: Color(0xFFEEEEEE),
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        child: StreamBuilder<List<TempRecord>>(
+                          stream: queryTempRecord(
+                            queryBuilder: (tempRecord) => tempRecord
+                                .where('uid', isEqualTo: FFAppState().user)
+                                .where('nameAsArray',
+                                    arrayContains: '${valueOrDefault<String>(
+                                      choiceChipsValue,
+                                      'All',
+                                    )}${textController.text}'),
+                          ),
+                          builder: (context, snapshot) {
+                            // Customize what your widget looks like when it's loading.
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: SizedBox(
+                                  width: 50,
+                                  height: 50,
+                                  child: SpinKitThreeBounce(
+                                    color: Color(0xFF8783B0),
+                                    size: 50,
+                                  ),
+                                ),
+                              );
+                            }
+                            List<TempRecord> listViewTempRecordList =
+                                snapshot.data;
+                            return ListView.builder(
+                              padding: EdgeInsets.zero,
+                              scrollDirection: Axis.horizontal,
+                              itemCount: listViewTempRecordList.length,
+                              itemBuilder: (context, listViewIndex) {
+                                final listViewTempRecord =
+                                    listViewTempRecordList[listViewIndex];
+                                return Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  2.5, 2.5, 2.5, 2.5),
+                                          child: ClipRRect(
+                                            borderRadius:
+                                                BorderRadius.circular(10),
+                                            child: Image.network(
+                                              listViewTempRecord.image,
+                                              width: 100,
+                                              height: 100,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        Text(
+                                          listViewTempRecord.name,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1,
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                );
+                              },
+                            );
+                          },
+                        ),
+                      );
+                    },
+                  ),
                 Expanded(
                   child: StreamBuilder<List<TempRecord>>(
                     stream: queryTempRecord(
@@ -283,7 +425,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                 'All',
                               )}${textController.text}')
                           .where('uid', isEqualTo: FFAppState().user)
-                          .orderBy('fav', descending: true),
+                          .where('fav', isEqualTo: false),
                     ),
                     builder: (context, snapshot) {
                       // Customize what your widget looks like when it's loading.
@@ -339,7 +481,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                   onPressed: () async {
                                                     final tempUpdateData =
                                                         createTempRecordData(
-                                                      fav: !listViewTempRecord
+                                                      fav: listViewTempRecord
                                                           .fav,
                                                     );
                                                     await listViewTempRecord
@@ -401,9 +543,9 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                   child: FFButtonWidget(
                                                     onPressed: () async {
                                                       logFirebaseEvent(
-                                                          'Button-ON_TAP');
+                                                          'MEALS_COPY2_PAGE_ADD_BTN_ON_TAP');
                                                       logFirebaseEvent(
-                                                          'Button-Backend-Call');
+                                                          'Button_Backend-Call');
 
                                                       final tempUpdateData = {
                                                         'meal_time': FieldValue
@@ -421,6 +563,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                                   .toList(),
                                                               dropDownValue1)
                                                         ]),
+                                                        'counter': FieldValue
+                                                            .increment(1),
                                                       };
                                                       await listViewTempRecord
                                                           .reference
@@ -502,9 +646,9 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                             return InkWell(
                                               onTap: () async {
                                                 logFirebaseEvent(
-                                                    'Image-ON_TAP');
+                                                    'MEALS_COPY2_PAGE_Image_uei5zsjt_ON_TAP');
                                                 logFirebaseEvent(
-                                                    'Image-Navigate-To');
+                                                    'Image_Navigate-To');
                                                 await Navigator.push(
                                                   context,
                                                   MaterialPageRoute(

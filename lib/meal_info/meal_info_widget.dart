@@ -60,8 +60,8 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
             automaticallyImplyLeading: true,
             leading: InkWell(
               onTap: () async {
-                logFirebaseEvent('Icon-ON_TAP');
-                logFirebaseEvent('Icon-Navigate-Back');
+                logFirebaseEvent('MEAL_INFO_PAGE_Icon_6fhpmmb5_ON_TAP');
+                logFirebaseEvent('Icon_Navigate-Back');
                 Navigator.pop(context);
               },
               child: Icon(
@@ -196,8 +196,8 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
                         ),
                         FFButtonWidget(
                           onPressed: () async {
-                            logFirebaseEvent('Button-ON_TAP');
-                            logFirebaseEvent('Button-Backend-Call');
+                            logFirebaseEvent('MEAL_INFO_PAGE_SAVE_BTN_ON_TAP');
+                            logFirebaseEvent('Button_Backend-Call');
 
                             final tempUpdateData = createTempRecordData(
                               counter: countControllerValue,

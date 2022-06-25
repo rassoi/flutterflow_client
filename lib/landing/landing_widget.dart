@@ -24,9 +24,9 @@ class _LandingWidgetState extends State<LandingWidget> {
   void initState() {
     super.initState();
     // On page load action.
-    SchedulerBinding.instance.addPostFrameCallback((_) async {
-      logFirebaseEvent('Landing-ON_PAGE_LOAD');
-      logFirebaseEvent('Landing-Auth');
+    SchedulerBinding.instance?.addPostFrameCallback((_) async {
+      logFirebaseEvent('LANDING_PAGE_Landing_ON_PAGE_LOAD');
+      logFirebaseEvent('Landing_Auth');
       await signOut();
       await Navigator.pushAndRemoveUntil(
         context,
@@ -192,8 +192,9 @@ class _LandingWidgetState extends State<LandingWidget> {
                                       10, 0, 0, 0),
                                   child: InkWell(
                                     onTap: () async {
-                                      logFirebaseEvent('Image-ON_TAP');
-                                      logFirebaseEvent('Image-Navigate-To');
+                                      logFirebaseEvent(
+                                          'LANDING_PAGE_Image_h56dwc7z_ON_TAP');
+                                      logFirebaseEvent('Image_Navigate-To');
                                       await Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -295,9 +296,10 @@ class _LandingWidgetState extends State<LandingWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
-                                      logFirebaseEvent('CircleImage-ON_TAP');
                                       logFirebaseEvent(
-                                          'CircleImage-Update-Local-State');
+                                          'LANDING_PAGE_CircleImage_70gltlwp_ON_TAP');
+                                      logFirebaseEvent(
+                                          'CircleImage_Update-Local-State');
                                       setState(() => FFAppState().category =
                                               valueOrDefault<String>(
                                             gridViewCategoriesRecord
@@ -305,7 +307,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                             'All',
                                           ));
                                       logFirebaseEvent(
-                                          'CircleImage-Navigate-To');
+                                          'CircleImage_Navigate-To');
                                       await Navigator.push(
                                         context,
                                         MaterialPageRoute(

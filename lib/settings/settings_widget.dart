@@ -34,8 +34,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
-            logFirebaseEvent('Icon-ON_TAP');
-            logFirebaseEvent('Icon-Navigate-To');
+            logFirebaseEvent('SETTINGS_PAGE_Icon_l16ni4gx_ON_TAP');
+            logFirebaseEvent('Icon_Navigate-To');
             await Navigator.push(
               context,
               MaterialPageRoute(
@@ -109,10 +109,10 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   children: [
                     FFButtonWidget(
                       onPressed: () async {
-                        logFirebaseEvent('Button-ON_TAP');
-                        logFirebaseEvent('Button-Auth');
+                        logFirebaseEvent('SETTINGS_PAGE_LOGOUT_BTN_ON_TAP');
+                        logFirebaseEvent('Button_Auth');
                         await signOut();
-                        logFirebaseEvent('Button-Update-Local-State');
+                        logFirebaseEvent('Button_Update-Local-State');
                         setState(() => FFAppState().user = '');
                         await Navigator.pushAndRemoveUntil(
                           context,

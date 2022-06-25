@@ -206,8 +206,9 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
-                                logFirebaseEvent('Button-ON_TAP');
-                                logFirebaseEvent('Button-Backend-Call');
+                                logFirebaseEvent(
+                                    'MEALS_COPY_PAGE_BUY_BTN_ON_TAP');
+                                logFirebaseEvent('Button_Backend-Call');
 
                                 final timestampUpdateData =
                                     createTimestampRecordData(
@@ -327,9 +328,10 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                             0, 0, 30, 0),
                                         child: InkWell(
                                           onTap: () async {
-                                            logFirebaseEvent('Icon-ON_TAP');
                                             logFirebaseEvent(
-                                                'Icon-Backend-Call');
+                                                'MEALS_COPY_PAGE_Icon_3361evjo_ON_TAP');
+                                            logFirebaseEvent(
+                                                'Icon_Backend-Call');
 
                                             final mealIngredUpdateData =
                                                 createMealIngredRecordData(
@@ -339,7 +341,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                                 .reference
                                                 .update(mealIngredUpdateData);
                                             logFirebaseEvent(
-                                                'Icon-Backend-Call');
+                                                'Icon_Backend-Call');
 
                                             final timestampUpdateData =
                                                 createTimestampRecordData(
@@ -488,8 +490,9 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                         0, 0, 30, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        logFirebaseEvent('Icon-ON_TAP');
-                                        logFirebaseEvent('Icon-Backend-Call');
+                                        logFirebaseEvent(
+                                            'MEALS_COPY_PAGE_Icon_qggpj43x_ON_TAP');
+                                        logFirebaseEvent('Icon_Backend-Call');
 
                                         final mealIngredUpdateData =
                                             createMealIngredRecordData(

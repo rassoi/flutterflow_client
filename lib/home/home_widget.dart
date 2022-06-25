@@ -33,8 +33,8 @@ class _HomeWidgetState extends State<HomeWidget> {
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
-            logFirebaseEvent('Icon-ON_TAP');
-            logFirebaseEvent('Icon-Navigate-To');
+            logFirebaseEvent('HOME_PAGE_Icon_0nuwe44s_ON_TAP');
+            logFirebaseEvent('Icon_Navigate-To');
             await Navigator.push(
               context,
               MaterialPageRoute(
@@ -205,8 +205,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
-                                      logFirebaseEvent('Image-ON_TAP');
-                                      logFirebaseEvent('Image-Navigate-To');
+                                      logFirebaseEvent(
+                                          'HOME_PAGE_Image_adszkbny_ON_TAP');
+                                      logFirebaseEvent('Image_Navigate-To');
                                       await Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -301,12 +302,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                               children: [
                                 InkWell(
                                   onTap: () async {
-                                    logFirebaseEvent('CircleImage-ON_TAP');
                                     logFirebaseEvent(
-                                        'CircleImage-Update-Local-State');
+                                        'HOME_PAGE_CircleImage_3sfeuvo0_ON_TAP');
+                                    logFirebaseEvent(
+                                        'CircleImage_Update-Local-State');
                                     setState(() => FFAppState().category =
                                         gridViewCategoriesRecord.categoryName);
-                                    logFirebaseEvent('CircleImage-Navigate-To');
+                                    logFirebaseEvent('CircleImage_Navigate-To');
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(

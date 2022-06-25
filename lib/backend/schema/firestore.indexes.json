@@ -23,12 +23,12 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "meal_time",
-          "arrayConfig": "CONTAINS"
-        },
-        {
           "fieldPath": "uid",
           "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "meal_time",
+          "arrayConfig": "CONTAINS"
         }
       ]
     },
@@ -55,16 +55,30 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "nameAsArray",
-          "arrayConfig": "CONTAINS"
-        },
-        {
           "fieldPath": "uid",
           "order": "ASCENDING"
         },
         {
           "fieldPath": "fav",
-          "order": "DESCENDING"
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "nameAsArray",
+          "arrayConfig": "CONTAINS"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "temp",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "uid",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "nameAsArray",
+          "arrayConfig": "CONTAINS"
         }
       ]
     }

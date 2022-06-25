@@ -59,8 +59,8 @@ class _MealsCopy2CopyWidgetState extends State<MealsCopy2CopyWidget> {
             automaticallyImplyLeading: true,
             leading: InkWell(
               onTap: () async {
-                logFirebaseEvent('Icon-ON_TAP');
-                logFirebaseEvent('Icon-Navigate-Back');
+                logFirebaseEvent('MEALS_COPY2_COPY_Icon_9z0ey72n_ON_TAP');
+                logFirebaseEvent('Icon_Navigate-Back');
                 Navigator.pop(context);
               },
               child: Icon(

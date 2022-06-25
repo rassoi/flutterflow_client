@@ -18,8 +18,8 @@ class MainWidget extends StatefulWidget {
 }
 
 class _MainWidgetState extends State<MainWidget> {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController textController;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -94,15 +94,16 @@ class _MainWidgetState extends State<MainWidget> {
                                   alignment: AlignmentDirectional(0, 0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      logFirebaseEvent('Button-ON_TAP');
-                                      logFirebaseEvent('Button-Auth');
+                                      logFirebaseEvent(
+                                          'MAIN_PAGE_SIGN_IN_WITH_GOOGLE_BTN_ON_TAP');
+                                      logFirebaseEvent('Button_Auth');
                                       final user =
                                           await signInWithGoogle(context);
                                       if (user == null) {
                                         return;
                                       }
                                       logFirebaseEvent(
-                                          'Button-Update-Local-State');
+                                          'Button_Update-Local-State');
                                       setState(() =>
                                           FFAppState().user = currentUserUid);
                                       await Navigator.pushAndRemoveUntil(
@@ -240,10 +241,12 @@ class _MainWidgetState extends State<MainWidget> {
                                 alignment: AlignmentDirectional(0, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    logFirebaseEvent('Button-ON_TAP');
-                                    logFirebaseEvent('Button-Auth');
+                                    logFirebaseEvent(
+                                        'MAIN_PAGE_SIGN_IN_WITH_PHONE_BTN_ON_TAP');
+                                    logFirebaseEvent('Button_Auth');
                                     final phoneNumberVal = textController.text;
-                                    if (phoneNumberVal.isEmpty ||
+                                    if (phoneNumberVal == null ||
+                                        phoneNumberVal.isEmpty ||
                                         !phoneNumberVal.startsWith('+')) {
                                       ScaffoldMessenger.of(context)
                                           .showSnackBar(
@@ -269,7 +272,7 @@ class _MainWidgetState extends State<MainWidget> {
                                     );
 
                                     logFirebaseEvent(
-                                        'Button-Update-Local-State');
+                                        'Button_Update-Local-State');
                                     setState(() =>
                                         FFAppState().user = currentUserUid);
                                   },
@@ -356,15 +359,16 @@ class _MainWidgetState extends State<MainWidget> {
                                   alignment: AlignmentDirectional(0, 0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      logFirebaseEvent('Button-ON_TAP');
-                                      logFirebaseEvent('Button-Auth');
+                                      logFirebaseEvent(
+                                          'MAIN_SIGN_IN_AS_ANONYMOUS_BTN_ON_TAP');
+                                      logFirebaseEvent('Button_Auth');
                                       final user =
                                           await signInAnonymously(context);
                                       if (user == null) {
                                         return;
                                       }
                                       logFirebaseEvent(
-                                          'Button-Update-Local-State');
+                                          'Button_Update-Local-State');
                                       setState(() =>
                                           FFAppState().user = currentUserUid);
                                       await Navigator.pushAndRemoveUntil(

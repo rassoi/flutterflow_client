@@ -16,8 +16,8 @@ class LoginWidget extends StatefulWidget {
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
-  final scaffoldKey = GlobalKey<ScaffoldState>();
   TextEditingController textController;
+  final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
@@ -35,8 +35,8 @@ class _LoginWidgetState extends State<LoginWidget> {
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
-            logFirebaseEvent('Icon-ON_TAP');
-            logFirebaseEvent('Icon-Navigate-To');
+            logFirebaseEvent('LOGIN_PAGE_Icon_8qifjd8z_ON_TAP');
+            logFirebaseEvent('Icon_Navigate-To');
             await Navigator.push(
               context,
               MaterialPageRoute(
@@ -135,10 +135,10 @@ class _LoginWidgetState extends State<LoginWidget> {
                       children: [
                         FFButtonWidget(
                           onPressed: () async {
-                            logFirebaseEvent('Button-ON_TAP');
-                            logFirebaseEvent('Button-Auth');
+                            logFirebaseEvent('LOGIN_PAGE_VERIFY_BTN_ON_TAP');
+                            logFirebaseEvent('Button_Auth');
                             final smsCodeVal = textController.text;
-                            if (smsCodeVal.isEmpty) {
+                            if (smsCodeVal == null || smsCodeVal.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(
                                   content: Text('Enter SMS verification code.'),
@@ -154,9 +154,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                               return;
                             }
 
-                            logFirebaseEvent('Button-Update-Local-State');
-                            setState(
-                                () => FFAppState().user = rowUsersRecord.uid);
+                            logFirebaseEvent('Button_Update-Local-State');
+                            setState(() => FFAppState().user = currentUserUid);
                             await Navigator.pushAndRemoveUntil(
                               context,
                               MaterialPageRoute(

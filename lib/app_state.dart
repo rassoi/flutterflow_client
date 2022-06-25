@@ -78,6 +78,8 @@ class FFAppState {
   }
 
   String day = 'Today';
+
+  bool Fav = false;
 }
 
 LatLng _latLngFromString(String val) {

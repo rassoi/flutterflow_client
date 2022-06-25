@@ -16,16 +16,11 @@ abstract class MiscellaneousRecord
   BuiltList<String> get categoriesList;
 
   @nullable
-  @BuiltValueField(wireName: 'empty_listview')
-  BuiltList<String> get emptyListview;
-
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference get reference;
 
-  static void _initializeBuilder(MiscellaneousRecordBuilder builder) => builder
-    ..categoriesList = ListBuilder()
-    ..emptyListview = ListBuilder();
+  static void _initializeBuilder(MiscellaneousRecordBuilder builder) =>
+      builder..categoriesList = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('miscellaneous');
@@ -51,6 +46,4 @@ abstract class MiscellaneousRecord
 
 Map<String, dynamic> createMiscellaneousRecordData() => serializers.toFirestore(
     MiscellaneousRecord.serializer,
-    MiscellaneousRecord((m) => m
-      ..categoriesList = null
-      ..emptyListview = null));
+    MiscellaneousRecord((m) => m..categoriesList = null));
