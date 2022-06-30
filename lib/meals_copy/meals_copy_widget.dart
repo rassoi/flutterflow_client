@@ -243,9 +243,57 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                   ),
                 ],
               ),
-              Text(
-                'Unavaialble',
-                style: FlutterFlowTheme.of(context).subtitle2,
+              StreamBuilder<List<MiscellaneousRecord>>(
+                stream: queryMiscellaneousRecord(
+                  singleRecord: true,
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: SpinKitThreeBounce(
+                          color: Color(0xFF8783B0),
+                          size: 50,
+                        ),
+                      ),
+                    );
+                  }
+                  List<MiscellaneousRecord> rowMiscellaneousRecordList =
+                      snapshot.data;
+                  // Return an empty Container when the document does not exist.
+                  if (snapshot.data.isEmpty) {
+                    return Container();
+                  }
+                  final rowMiscellaneousRecord =
+                      rowMiscellaneousRecordList.isNotEmpty
+                          ? rowMiscellaneousRecordList.first
+                          : null;
+                  return Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Unavaialble',
+                        style: FlutterFlowTheme.of(context).subtitle2,
+                      ),
+                      Text(
+                        ' (',
+                        style: FlutterFlowTheme.of(context).bodyText1,
+                      ),
+                      Text(
+                        rowMiscellaneousRecord.unavaialable.toString(),
+                        style: FlutterFlowTheme.of(context).bodyText1,
+                      ),
+                      Text(
+                        ')',
+                        style: FlutterFlowTheme.of(context).bodyText1,
+                      ),
+                    ],
+                  );
+                },
               ),
               Expanded(
                 child: StreamBuilder<List<MealIngredRecord>>(
@@ -433,9 +481,57 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                   },
                 ),
               ),
-              Text(
-                'Available',
-                style: FlutterFlowTheme.of(context).subtitle2,
+              StreamBuilder<List<MiscellaneousRecord>>(
+                stream: queryMiscellaneousRecord(
+                  singleRecord: true,
+                ),
+                builder: (context, snapshot) {
+                  // Customize what your widget looks like when it's loading.
+                  if (!snapshot.hasData) {
+                    return Center(
+                      child: SizedBox(
+                        width: 50,
+                        height: 50,
+                        child: SpinKitThreeBounce(
+                          color: Color(0xFF8783B0),
+                          size: 50,
+                        ),
+                      ),
+                    );
+                  }
+                  List<MiscellaneousRecord> rowMiscellaneousRecordList =
+                      snapshot.data;
+                  // Return an empty Container when the document does not exist.
+                  if (snapshot.data.isEmpty) {
+                    return Container();
+                  }
+                  final rowMiscellaneousRecord =
+                      rowMiscellaneousRecordList.isNotEmpty
+                          ? rowMiscellaneousRecordList.first
+                          : null;
+                  return Row(
+                    mainAxisSize: MainAxisSize.max,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'Available',
+                        style: FlutterFlowTheme.of(context).subtitle2,
+                      ),
+                      Text(
+                        ' (',
+                        style: FlutterFlowTheme.of(context).bodyText1,
+                      ),
+                      Text(
+                        rowMiscellaneousRecord.avaialable.toString(),
+                        style: FlutterFlowTheme.of(context).bodyText1,
+                      ),
+                      Text(
+                        ')',
+                        style: FlutterFlowTheme.of(context).bodyText1,
+                      ),
+                    ],
+                  );
+                },
               ),
               Expanded(
                 child: StreamBuilder<List<MealIngredRecord>>(

@@ -151,13 +151,11 @@ class _LandingWidgetState extends State<LandingWidget> {
                 decoration: BoxDecoration(
                   color: Color(0xFFEEEEEE),
                 ),
-                child: StreamBuilder<List<TempRecord>>(
-                  stream: queryTempRecord(
-                    queryBuilder: (tempRecord) => tempRecord
+                child: StreamBuilder<List<UpcommingmealsRecord>>(
+                  stream: queryUpcommingmealsRecord(
+                    queryBuilder: (upcommingmealsRecord) => upcommingmealsRecord
                         .where('uid', isEqualTo: FFAppState().user)
-                        .where('status', isEqualTo: 'live')
-                        .where('meal_time',
-                            arrayContains: FFAppState().upcommingMealTime),
+                        .orderBy('sequence'),
                   ),
                   builder: (context, snapshot) {
                     // Customize what your widget looks like when it's loading.
@@ -173,14 +171,15 @@ class _LandingWidgetState extends State<LandingWidget> {
                         ),
                       );
                     }
-                    List<TempRecord> listViewTempRecordList = snapshot.data;
+                    List<UpcommingmealsRecord>
+                        listViewUpcommingmealsRecordList = snapshot.data;
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.horizontal,
-                      itemCount: listViewTempRecordList.length,
+                      itemCount: listViewUpcommingmealsRecordList.length,
                       itemBuilder: (context, listViewIndex) {
-                        final listViewTempRecord =
-                            listViewTempRecordList[listViewIndex];
+                        final listViewUpcommingmealsRecord =
+                            listViewUpcommingmealsRecordList[listViewIndex];
                         return Column(
                           mainAxisSize: MainAxisSize.max,
                           children: [
@@ -206,7 +205,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: Image.network(
-                                        listViewTempRecord.image,
+                                        listViewUpcommingmealsRecord.image,
                                         width: 100,
                                         height: 100,
                                         fit: BoxFit.cover,
@@ -220,7 +219,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 AutoSizeText(
-                                  listViewTempRecord.name
+                                  listViewUpcommingmealsRecord.name
                                       .maybeHandleOverflow(maxChars: 10),
                                   style: FlutterFlowTheme.of(context).bodyText1,
                                 ),

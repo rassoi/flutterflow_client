@@ -2,6 +2,7 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_drop_down.dart';
+import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -335,7 +336,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                       List<TempRecord> containerTempRecordList = snapshot.data;
                       return Container(
                         width: double.infinity,
-                        height: 140,
+                        height: 180,
                         decoration: BoxDecoration(
                           color: Color(0xFFEEEEEE),
                           borderRadius: BorderRadius.circular(30),
@@ -403,6 +404,59 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                           listViewTempRecord.name,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1,
+                                        ),
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisSize: MainAxisSize.max,
+                                      children: [
+                                        FlutterFlowIconButton(
+                                          borderColor: Colors.transparent,
+                                          borderRadius: 30,
+                                          borderWidth: 1,
+                                          buttonSize: 60,
+                                          icon: Icon(
+                                            Icons.add,
+                                            color: FlutterFlowTheme.of(context)
+                                                .primaryText,
+                                            size: 30,
+                                          ),
+                                          onPressed: () async {
+                                            logFirebaseEvent(
+                                                'MEALS_COPY2_PAGE_add_ICN_ON_TAP');
+                                            logFirebaseEvent(
+                                                'IconButton_Backend-Call');
+
+                                            final tempUpdateData = {
+                                              'meal_time':
+                                                  FieldValue.arrayUnion([
+                                                '${dropDownValue1}${dropDownValue2}'
+                                              ]),
+                                            };
+                                            await listViewTempRecord.reference
+                                                .update(tempUpdateData);
+                                          },
+                                        ),
+                                        ToggleIcon(
+                                          onPressed: () async {
+                                            final tempUpdateData =
+                                                createTempRecordData(
+                                              fav: !listViewTempRecord.fav,
+                                            );
+                                            await listViewTempRecord.reference
+                                                .update(tempUpdateData);
+                                          },
+                                          value: listViewTempRecord.fav,
+                                          onIcon: Icon(
+                                            Icons.favorite,
+                                            color: Colors.black,
+                                            size: 25,
+                                          ),
+                                          offIcon: Icon(
+                                            Icons.favorite_border,
+                                            color: Colors.black,
+                                            size: 25,
+                                          ),
                                         ),
                                       ],
                                     ),
@@ -481,7 +535,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                   onPressed: () async {
                                                     final tempUpdateData =
                                                         createTempRecordData(
-                                                      fav: listViewTempRecord
+                                                      fav: !listViewTempRecord
                                                           .fav,
                                                     );
                                                     await listViewTempRecord

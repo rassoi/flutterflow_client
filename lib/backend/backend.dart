@@ -15,6 +15,7 @@ import 'schema/categories_temp_record.dart';
 import 'schema/miscellaneous_record.dart';
 import 'schema/timestamp_record.dart';
 import 'schema/days_record.dart';
+import 'schema/upcommingmeals_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -33,6 +34,7 @@ export 'schema/categories_temp_record.dart';
 export 'schema/miscellaneous_record.dart';
 export 'schema/timestamp_record.dart';
 export 'schema/days_record.dart';
+export 'schema/upcommingmeals_record.dart';
 
 /// Functions to query BannerRecords (as a Stream and as a Future).
 Stream<List<BannerRecord>> queryBannerRecord({
@@ -490,6 +492,48 @@ Future<FFFirestorePage<DaysRecord>> queryDaysRecordPage({
     queryCollectionPage(
       DaysRecord.collection,
       DaysRecord.serializer,
+      queryBuilder: queryBuilder,
+      nextPageMarker: nextPageMarker,
+      pageSize: pageSize,
+      isStream: isStream,
+    );
+
+/// Functions to query UpcommingmealsRecords (as a Stream and as a Future).
+Stream<List<UpcommingmealsRecord>> queryUpcommingmealsRecord({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      UpcommingmealsRecord.collection,
+      UpcommingmealsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<UpcommingmealsRecord>> queryUpcommingmealsRecordOnce({
+  Query Function(Query) queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      UpcommingmealsRecord.collection,
+      UpcommingmealsRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<UpcommingmealsRecord>> queryUpcommingmealsRecordPage({
+  Query Function(Query) queryBuilder,
+  DocumentSnapshot nextPageMarker,
+  int pageSize,
+  bool isStream,
+}) =>
+    queryCollectionPage(
+      UpcommingmealsRecord.collection,
+      UpcommingmealsRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

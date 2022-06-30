@@ -1,7 +1,7 @@
 {
   "indexes": [
     {
-      "collectionGroup": "temp",
+      "collectionGroup": "upcommingmeals",
       "queryScope": "COLLECTION",
       "fields": [
         {
@@ -9,12 +9,8 @@
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "status",
+          "fieldPath": "sequence",
           "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "meal_time",
-          "arrayConfig": "CONTAINS"
         }
       ]
     },
