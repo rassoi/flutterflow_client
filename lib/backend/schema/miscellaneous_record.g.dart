@@ -33,12 +33,17 @@ class _$MiscellaneousRecordSerializer
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    value = object.ingredCount;
+    value = object.avaialable;
     if (value != null) {
       result
-        ..add('ingredCount')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+        ..add('avaialable')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.unavaialable;
+    if (value != null) {
+      result
+        ..add('unavaialable')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
     value = object.reference;
     if (value != null) {
@@ -69,9 +74,13 @@ class _$MiscellaneousRecordSerializer
                       const FullType(BuiltList, const [const FullType(String)]))
               as BuiltList<Object>);
           break;
-        case 'ingredCount':
-          result.ingredCount = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+        case 'avaialable':
+          result.avaialable = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
+          break;
+        case 'unavaialable':
+          result.unavaialable = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int;
           break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
@@ -90,7 +99,9 @@ class _$MiscellaneousRecord extends MiscellaneousRecord {
   @override
   final BuiltList<String> categoriesList;
   @override
-  final String ingredCount;
+  final int avaialable;
+  @override
+  final int unavaialable;
   @override
   final DocumentReference<Object> reference;
 
@@ -99,7 +110,7 @@ class _$MiscellaneousRecord extends MiscellaneousRecord {
       (new MiscellaneousRecordBuilder()..update(updates)).build();
 
   _$MiscellaneousRecord._(
-      {this.categoriesList, this.ingredCount, this.reference})
+      {this.categoriesList, this.avaialable, this.unavaialable, this.reference})
       : super._();
 
   @override
@@ -116,13 +127,16 @@ class _$MiscellaneousRecord extends MiscellaneousRecord {
     if (identical(other, this)) return true;
     return other is MiscellaneousRecord &&
         categoriesList == other.categoriesList &&
-        ingredCount == other.ingredCount &&
+        avaialable == other.avaialable &&
+        unavaialable == other.unavaialable &&
         reference == other.reference;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, categoriesList.hashCode), ingredCount.hashCode),
+    return $jf($jc(
+        $jc($jc($jc(0, categoriesList.hashCode), avaialable.hashCode),
+            unavaialable.hashCode),
         reference.hashCode));
   }
 
@@ -130,7 +144,8 @@ class _$MiscellaneousRecord extends MiscellaneousRecord {
   String toString() {
     return (newBuiltValueToStringHelper('MiscellaneousRecord')
           ..add('categoriesList', categoriesList)
-          ..add('ingredCount', ingredCount)
+          ..add('avaialable', avaialable)
+          ..add('unavaialable', unavaialable)
           ..add('reference', reference))
         .toString();
   }
@@ -146,9 +161,13 @@ class MiscellaneousRecordBuilder
   set categoriesList(ListBuilder<String> categoriesList) =>
       _$this._categoriesList = categoriesList;
 
-  String _ingredCount;
-  String get ingredCount => _$this._ingredCount;
-  set ingredCount(String ingredCount) => _$this._ingredCount = ingredCount;
+  int _avaialable;
+  int get avaialable => _$this._avaialable;
+  set avaialable(int avaialable) => _$this._avaialable = avaialable;
+
+  int _unavaialable;
+  int get unavaialable => _$this._unavaialable;
+  set unavaialable(int unavaialable) => _$this._unavaialable = unavaialable;
 
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
@@ -163,7 +182,8 @@ class MiscellaneousRecordBuilder
     final $v = _$v;
     if ($v != null) {
       _categoriesList = $v.categoriesList?.toBuilder();
-      _ingredCount = $v.ingredCount;
+      _avaialable = $v.avaialable;
+      _unavaialable = $v.unavaialable;
       _reference = $v.reference;
       _$v = null;
     }
@@ -188,7 +208,8 @@ class MiscellaneousRecordBuilder
       _$result = _$v ??
           new _$MiscellaneousRecord._(
               categoriesList: _categoriesList?.build(),
-              ingredCount: ingredCount,
+              avaialable: avaialable,
+              unavaialable: unavaialable,
               reference: reference);
     } catch (_) {
       String _$failedField;

@@ -439,10 +439,9 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                         ),
                                         ToggleIcon(
                                           onPressed: () async {
-                                            final tempUpdateData =
-                                                createTempRecordData(
-                                              fav: !listViewTempRecord.fav,
-                                            );
+                                            final tempUpdateData = {
+                                              'fav': !listViewTempRecord.fav,
+                                            };
                                             await listViewTempRecord.reference
                                                 .update(tempUpdateData);
                                           },
@@ -533,11 +532,10 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                     AlignmentDirectional(1, 0),
                                                 child: ToggleIcon(
                                                   onPressed: () async {
-                                                    final tempUpdateData =
-                                                        createTempRecordData(
-                                                      fav: !listViewTempRecord
+                                                    final tempUpdateData = {
+                                                      'fav': !listViewTempRecord
                                                           .fav,
-                                                    );
+                                                    };
                                                     await listViewTempRecord
                                                         .reference
                                                         .update(tempUpdateData);
@@ -645,7 +643,9 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                             Colors.transparent,
                                                         width: 1,
                                                       ),
-                                                      borderRadius: 5,
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                              5),
                                                     ),
                                                   ),
                                                 ),
