@@ -160,10 +160,8 @@ class _MealsCopy2CopyWidgetState extends State<MealsCopy2CopyWidget> {
                     child: Builder(
                       builder: (context) {
                         final ingredName = functions
-                                .ingredname(
-                                    mealsCopy2CopyRecipesRecord.ingredNames)
-                                ?.toList() ??
-                            [];
+                            .ingredname(mealsCopy2CopyRecipesRecord.ingredNames)
+                            .toList();
                         return ListView.builder(
                           padding: EdgeInsets.zero,
                           scrollDirection: Axis.vertical,

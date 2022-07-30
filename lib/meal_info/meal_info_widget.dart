@@ -128,9 +128,8 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
                       child: Builder(
                         builder: (context) {
                           final ingredName = functions
-                                  .ingredname(mealInfoTempRecord.ingredNames)
-                                  ?.toList() ??
-                              [];
+                              .ingredname(mealInfoTempRecord.ingredNames)
+                              .toList();
                           return ListView.builder(
                             padding: EdgeInsets.zero,
                             scrollDirection: Axis.vertical,

@@ -24,7 +24,7 @@ class _LandingWidgetState extends State<LandingWidget> {
   void initState() {
     super.initState();
     // On page load action.
-    SchedulerBinding.instance?.addPostFrameCallback((_) async {
+    SchedulerBinding.instance.addPostFrameCallback((_) async {
       logFirebaseEvent('LANDING_PAGE_Landing_ON_PAGE_LOAD');
       logFirebaseEvent('Landing_Auth');
       await signOut();

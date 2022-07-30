@@ -307,7 +307,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                     );
                   },
                 ),
-                if (FFAppState().Fav ?? true)
+                if (FFAppState().Fav)
                   StreamBuilder<List<TempRecord>>(
                     stream: queryTempRecord(
                       queryBuilder: (tempRecord) => tempRecord
