@@ -265,7 +265,7 @@ class _$RecipesRecord extends RecipesRecord {
   final DocumentReference<Object> reference;
 
   factory _$RecipesRecord([void Function(RecipesRecordBuilder) updates]) =>
-      (new RecipesRecordBuilder()..update(updates)).build();
+      (new RecipesRecordBuilder()..update(updates))._build();
 
   _$RecipesRecord._(
       {this.image,
@@ -355,7 +355,7 @@ class _$RecipesRecord extends RecipesRecord {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('RecipesRecord')
+    return (newBuiltValueToStringHelper(r'RecipesRecord')
           ..add('image', image)
           ..add('name', name)
           ..add('email', email)
@@ -489,7 +489,9 @@ class RecipesRecordBuilder
   }
 
   @override
-  _$RecipesRecord build() {
+  RecipesRecord build() => _build();
+
+  _$RecipesRecord _build() {
     _$RecipesRecord _$result;
     try {
       _$result = _$v ??
@@ -520,7 +522,7 @@ class RecipesRecordBuilder
         _categoryName?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'RecipesRecord', _$failedField, e.toString());
+            r'RecipesRecord', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -529,4 +531,4 @@ class RecipesRecordBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

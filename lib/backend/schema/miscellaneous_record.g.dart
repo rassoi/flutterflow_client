@@ -33,17 +33,13 @@ class _$MiscellaneousRecordSerializer
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    value = object.avaialable;
+    value = object.emptyListview;
     if (value != null) {
       result
-        ..add('avaialable')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
-    }
-    value = object.unavaialable;
-    if (value != null) {
-      result
-        ..add('unavaialable')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+        ..add('empty_listview')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
     }
     value = object.reference;
     if (value != null) {
@@ -74,13 +70,11 @@ class _$MiscellaneousRecordSerializer
                       const FullType(BuiltList, const [const FullType(String)]))
               as BuiltList<Object>);
           break;
-        case 'avaialable':
-          result.avaialable = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
-          break;
-        case 'unavaialable':
-          result.unavaialable = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+        case 'empty_listview':
+          result.emptyListview.replace(serializers.deserialize(value,
+                  specifiedType:
+                      const FullType(BuiltList, const [const FullType(String)]))
+              as BuiltList<Object>);
           break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
@@ -99,18 +93,16 @@ class _$MiscellaneousRecord extends MiscellaneousRecord {
   @override
   final BuiltList<String> categoriesList;
   @override
-  final int avaialable;
-  @override
-  final int unavaialable;
+  final BuiltList<String> emptyListview;
   @override
   final DocumentReference<Object> reference;
 
   factory _$MiscellaneousRecord(
           [void Function(MiscellaneousRecordBuilder) updates]) =>
-      (new MiscellaneousRecordBuilder()..update(updates)).build();
+      (new MiscellaneousRecordBuilder()..update(updates))._build();
 
   _$MiscellaneousRecord._(
-      {this.categoriesList, this.avaialable, this.unavaialable, this.reference})
+      {this.categoriesList, this.emptyListview, this.reference})
       : super._();
 
   @override
@@ -127,25 +119,21 @@ class _$MiscellaneousRecord extends MiscellaneousRecord {
     if (identical(other, this)) return true;
     return other is MiscellaneousRecord &&
         categoriesList == other.categoriesList &&
-        avaialable == other.avaialable &&
-        unavaialable == other.unavaialable &&
+        emptyListview == other.emptyListview &&
         reference == other.reference;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc($jc($jc(0, categoriesList.hashCode), avaialable.hashCode),
-            unavaialable.hashCode),
+    return $jf($jc($jc($jc(0, categoriesList.hashCode), emptyListview.hashCode),
         reference.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('MiscellaneousRecord')
+    return (newBuiltValueToStringHelper(r'MiscellaneousRecord')
           ..add('categoriesList', categoriesList)
-          ..add('avaialable', avaialable)
-          ..add('unavaialable', unavaialable)
+          ..add('emptyListview', emptyListview)
           ..add('reference', reference))
         .toString();
   }
@@ -161,13 +149,11 @@ class MiscellaneousRecordBuilder
   set categoriesList(ListBuilder<String> categoriesList) =>
       _$this._categoriesList = categoriesList;
 
-  int _avaialable;
-  int get avaialable => _$this._avaialable;
-  set avaialable(int avaialable) => _$this._avaialable = avaialable;
-
-  int _unavaialable;
-  int get unavaialable => _$this._unavaialable;
-  set unavaialable(int unavaialable) => _$this._unavaialable = unavaialable;
+  ListBuilder<String> _emptyListview;
+  ListBuilder<String> get emptyListview =>
+      _$this._emptyListview ??= new ListBuilder<String>();
+  set emptyListview(ListBuilder<String> emptyListview) =>
+      _$this._emptyListview = emptyListview;
 
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
@@ -182,8 +168,7 @@ class MiscellaneousRecordBuilder
     final $v = _$v;
     if ($v != null) {
       _categoriesList = $v.categoriesList?.toBuilder();
-      _avaialable = $v.avaialable;
-      _unavaialable = $v.unavaialable;
+      _emptyListview = $v.emptyListview?.toBuilder();
       _reference = $v.reference;
       _$v = null;
     }
@@ -202,23 +187,26 @@ class MiscellaneousRecordBuilder
   }
 
   @override
-  _$MiscellaneousRecord build() {
+  MiscellaneousRecord build() => _build();
+
+  _$MiscellaneousRecord _build() {
     _$MiscellaneousRecord _$result;
     try {
       _$result = _$v ??
           new _$MiscellaneousRecord._(
               categoriesList: _categoriesList?.build(),
-              avaialable: avaialable,
-              unavaialable: unavaialable,
+              emptyListview: _emptyListview?.build(),
               reference: reference);
     } catch (_) {
       String _$failedField;
       try {
         _$failedField = 'categoriesList';
         _categoriesList?.build();
+        _$failedField = 'emptyListview';
+        _emptyListview?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'MiscellaneousRecord', _$failedField, e.toString());
+            r'MiscellaneousRecord', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -227,4 +215,4 @@ class MiscellaneousRecordBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

@@ -104,7 +104,7 @@ class _$DaysRecord extends DaysRecord {
   final DocumentReference<Object> reference;
 
   factory _$DaysRecord([void Function(DaysRecordBuilder) updates]) =>
-      (new DaysRecordBuilder()..update(updates)).build();
+      (new DaysRecordBuilder()..update(updates))._build();
 
   _$DaysRecord._({this.day, this.type, this.date, this.reference}) : super._();
 
@@ -133,7 +133,7 @@ class _$DaysRecord extends DaysRecord {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('DaysRecord')
+    return (newBuiltValueToStringHelper(r'DaysRecord')
           ..add('day', day)
           ..add('type', type)
           ..add('date', date)
@@ -190,7 +190,9 @@ class DaysRecordBuilder implements Builder<DaysRecord, DaysRecordBuilder> {
   }
 
   @override
-  _$DaysRecord build() {
+  DaysRecord build() => _build();
+
+  _$DaysRecord _build() {
     _$DaysRecord _$result;
     try {
       _$result = _$v ??
@@ -209,7 +211,7 @@ class DaysRecordBuilder implements Builder<DaysRecord, DaysRecordBuilder> {
         _date?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            'DaysRecord', _$failedField, e.toString());
+            r'DaysRecord', _$failedField, e.toString());
       }
       rethrow;
     }
@@ -218,4 +220,4 @@ class DaysRecordBuilder implements Builder<DaysRecord, DaysRecordBuilder> {
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

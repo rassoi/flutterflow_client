@@ -86,7 +86,7 @@ class _$BannerRecord extends BannerRecord {
   final DocumentReference<Object> reference;
 
   factory _$BannerRecord([void Function(BannerRecordBuilder) updates]) =>
-      (new BannerRecordBuilder()..update(updates)).build();
+      (new BannerRecordBuilder()..update(updates))._build();
 
   _$BannerRecord._({this.image, this.text, this.reference}) : super._();
 
@@ -114,7 +114,7 @@ class _$BannerRecord extends BannerRecord {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('BannerRecord')
+    return (newBuiltValueToStringHelper(r'BannerRecord')
           ..add('image', image)
           ..add('text', text)
           ..add('reference', reference))
@@ -166,7 +166,9 @@ class BannerRecordBuilder
   }
 
   @override
-  _$BannerRecord build() {
+  BannerRecord build() => _build();
+
+  _$BannerRecord _build() {
     final _$result = _$v ??
         new _$BannerRecord._(image: image, text: text, reference: reference);
     replace(_$result);
@@ -174,4 +176,4 @@ class BannerRecordBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas

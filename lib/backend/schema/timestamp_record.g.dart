@@ -88,7 +88,7 @@ class _$TimestampRecord extends TimestampRecord {
   final DocumentReference<Object> reference;
 
   factory _$TimestampRecord([void Function(TimestampRecordBuilder) updates]) =>
-      (new TimestampRecordBuilder()..update(updates)).build();
+      (new TimestampRecordBuilder()..update(updates))._build();
 
   _$TimestampRecord._({this.lastAudit, this.lastBuy, this.reference})
       : super._();
@@ -118,7 +118,7 @@ class _$TimestampRecord extends TimestampRecord {
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper('TimestampRecord')
+    return (newBuiltValueToStringHelper(r'TimestampRecord')
           ..add('lastAudit', lastAudit)
           ..add('lastBuy', lastBuy)
           ..add('reference', reference))
@@ -170,7 +170,9 @@ class TimestampRecordBuilder
   }
 
   @override
-  _$TimestampRecord build() {
+  TimestampRecord build() => _build();
+
+  _$TimestampRecord _build() {
     final _$result = _$v ??
         new _$TimestampRecord._(
             lastAudit: lastAudit, lastBuy: lastBuy, reference: reference);
@@ -179,4 +181,4 @@ class TimestampRecordBuilder
   }
 }
 
-// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new
+// ignore_for_file: always_put_control_body_on_new_line,always_specify_types,annotate_overrides,avoid_annotating_with_dynamic,avoid_as,avoid_catches_without_on_clauses,avoid_returning_this,deprecated_member_use_from_same_package,lines_longer_than_80_chars,no_leading_underscores_for_local_identifiers,omit_local_variable_types,prefer_expression_function_bodies,sort_constructors_first,test_types_in_equals,unnecessary_const,unnecessary_new,unnecessary_lambdas
