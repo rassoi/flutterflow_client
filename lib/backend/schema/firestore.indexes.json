@@ -63,20 +63,6 @@
           "arrayConfig": "CONTAINS"
         }
       ]
-    },
-    {
-      "collectionGroup": "temp",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "uid",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "nameAsArray",
-          "arrayConfig": "CONTAINS"
-        }
-      ]
     }
   ]
 }

@@ -336,7 +336,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                       List<TempRecord> containerTempRecordList = snapshot.data;
                       return Container(
                         width: double.infinity,
-                        height: 180,
+                        height: 190,
                         decoration: BoxDecoration(
                           color: Color(0xFFEEEEEE),
                           borderRadius: BorderRadius.circular(30),
@@ -349,7 +349,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                     arrayContains: '${valueOrDefault<String>(
                                       choiceChipsValue,
                                       'All',
-                                    )}${textController.text}'),
+                                    )}${textController.text}')
+                                .where('fav', isEqualTo: true),
                           ),
                           builder: (context, snapshot) {
                             // Customize what your widget looks like when it's loading.
