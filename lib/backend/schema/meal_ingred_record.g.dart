@@ -35,13 +35,6 @@ class _$MealIngredRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.img;
-    if (value != null) {
-      result
-        ..add('img')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.ingedId;
     if (value != null) {
       result
@@ -77,6 +70,13 @@ class _$MealIngredRecordSerializer
         ..add('meal_count')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
+    value = object.img;
+    if (value != null) {
+      result
+        ..add('img')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.reference;
     if (value != null) {
       result
@@ -108,10 +108,6 @@ class _$MealIngredRecordSerializer
           result.hindi = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
           break;
-        case 'img':
-          result.img = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
-          break;
         case 'inged_id':
           result.ingedId = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String;
@@ -134,6 +130,10 @@ class _$MealIngredRecordSerializer
           result.mealCount = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int;
           break;
+        case 'img':
+          result.img = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String;
+          break;
         case 'Document__Reference__Field':
           result.reference = serializers.deserialize(value,
                   specifiedType: const FullType(
@@ -153,8 +153,6 @@ class _$MealIngredRecord extends MealIngredRecord {
   @override
   final String hindi;
   @override
-  final String img;
-  @override
   final String ingedId;
   @override
   final String userUid;
@@ -165,6 +163,8 @@ class _$MealIngredRecord extends MealIngredRecord {
   @override
   final int mealCount;
   @override
+  final String img;
+  @override
   final DocumentReference<Object> reference;
 
   factory _$MealIngredRecord(
@@ -174,12 +174,12 @@ class _$MealIngredRecord extends MealIngredRecord {
   _$MealIngredRecord._(
       {this.english,
       this.hindi,
-      this.img,
       this.ingedId,
       this.userUid,
       this.status,
       this.recipeNames,
       this.mealCount,
+      this.img,
       this.reference})
       : super._();
 
@@ -197,12 +197,12 @@ class _$MealIngredRecord extends MealIngredRecord {
     return other is MealIngredRecord &&
         english == other.english &&
         hindi == other.hindi &&
-        img == other.img &&
         ingedId == other.ingedId &&
         userUid == other.userUid &&
         status == other.status &&
         recipeNames == other.recipeNames &&
         mealCount == other.mealCount &&
+        img == other.img &&
         reference == other.reference;
   }
 
@@ -215,12 +215,12 @@ class _$MealIngredRecord extends MealIngredRecord {
                     $jc(
                         $jc(
                             $jc($jc($jc(0, english.hashCode), hindi.hashCode),
-                                img.hashCode),
-                            ingedId.hashCode),
-                        userUid.hashCode),
-                    status.hashCode),
-                recipeNames.hashCode),
-            mealCount.hashCode),
+                                ingedId.hashCode),
+                            userUid.hashCode),
+                        status.hashCode),
+                    recipeNames.hashCode),
+                mealCount.hashCode),
+            img.hashCode),
         reference.hashCode));
   }
 
@@ -229,12 +229,12 @@ class _$MealIngredRecord extends MealIngredRecord {
     return (newBuiltValueToStringHelper(r'MealIngredRecord')
           ..add('english', english)
           ..add('hindi', hindi)
-          ..add('img', img)
           ..add('ingedId', ingedId)
           ..add('userUid', userUid)
           ..add('status', status)
           ..add('recipeNames', recipeNames)
           ..add('mealCount', mealCount)
+          ..add('img', img)
           ..add('reference', reference))
         .toString();
   }
@@ -251,10 +251,6 @@ class MealIngredRecordBuilder
   String _hindi;
   String get hindi => _$this._hindi;
   set hindi(String hindi) => _$this._hindi = hindi;
-
-  String _img;
-  String get img => _$this._img;
-  set img(String img) => _$this._img = img;
 
   String _ingedId;
   String get ingedId => _$this._ingedId;
@@ -278,6 +274,10 @@ class MealIngredRecordBuilder
   int get mealCount => _$this._mealCount;
   set mealCount(int mealCount) => _$this._mealCount = mealCount;
 
+  String _img;
+  String get img => _$this._img;
+  set img(String img) => _$this._img = img;
+
   DocumentReference<Object> _reference;
   DocumentReference<Object> get reference => _$this._reference;
   set reference(DocumentReference<Object> reference) =>
@@ -292,12 +292,12 @@ class MealIngredRecordBuilder
     if ($v != null) {
       _english = $v.english;
       _hindi = $v.hindi;
-      _img = $v.img;
       _ingedId = $v.ingedId;
       _userUid = $v.userUid;
       _status = $v.status;
       _recipeNames = $v.recipeNames?.toBuilder();
       _mealCount = $v.mealCount;
+      _img = $v.img;
       _reference = $v.reference;
       _$v = null;
     }
@@ -325,12 +325,12 @@ class MealIngredRecordBuilder
           new _$MealIngredRecord._(
               english: english,
               hindi: hindi,
-              img: img,
               ingedId: ingedId,
               userUid: userUid,
               status: status,
               recipeNames: _recipeNames?.build(),
               mealCount: mealCount,
+              img: img,
               reference: reference);
     } catch (_) {
       String _$failedField;
