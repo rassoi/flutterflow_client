@@ -650,7 +650,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 4, 0, 0),
                                     child: Image.network(
-                                      'https://picsum.photos/seed/829/600',
+                                      listViewMealIngredRecord.img,
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,
