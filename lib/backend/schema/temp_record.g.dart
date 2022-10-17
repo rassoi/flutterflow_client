@@ -15,10 +15,10 @@ class _$TempRecordSerializer implements StructuredSerializer<TempRecord> {
   final String wireName = 'TempRecord';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, TempRecord object,
+  Iterable<Object?> serialize(Serializers serializers, TempRecord object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.image;
     if (value != null) {
       result
@@ -46,7 +46,7 @@ class _$TempRecordSerializer implements StructuredSerializer<TempRecord> {
         ..add('ref')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     value = object.ingredNames;
     if (value != null) {
@@ -136,109 +136,109 @@ class _$TempRecordSerializer implements StructuredSerializer<TempRecord> {
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    value = object.reference;
+    value = object.ffRef;
     if (value != null) {
       result
         ..add('Document__Reference__Field')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     return result;
   }
 
   @override
-  TempRecord deserialize(Serializers serializers, Iterable<Object> serialized,
+  TempRecord deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new TempRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'image':
           result.image = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'youtube_link':
           result.youtubeLink = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'ref':
           result.ref = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
         case 'ingred_names':
           result.ingredNames = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'user_uid':
           result.userUid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'recipe_id':
           result.recipeId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'counter':
           result.counter = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'nameAsArray':
           result.nameAsArray.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
         case 'status':
           result.status = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'fav':
           result.fav = serializers.deserialize(value,
-              specifiedType: const FullType(bool)) as bool;
+              specifiedType: const FullType(bool)) as bool?;
           break;
         case 'uid':
           result.uid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'meal_time':
           result.mealTime.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
         case 'day':
           result.day.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
         case 'which_meal':
           result.whichMeal.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
         case 'dates':
           result.dates.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
         case 'Document__Reference__Field':
-          result.reference = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+          result.ffRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
       }
     }
@@ -249,41 +249,41 @@ class _$TempRecordSerializer implements StructuredSerializer<TempRecord> {
 
 class _$TempRecord extends TempRecord {
   @override
-  final String image;
+  final String? image;
   @override
-  final String name;
+  final String? name;
   @override
-  final String youtubeLink;
+  final String? youtubeLink;
   @override
-  final DocumentReference<Object> ref;
+  final DocumentReference<Object?>? ref;
   @override
-  final String ingredNames;
+  final String? ingredNames;
   @override
-  final String userUid;
+  final String? userUid;
   @override
-  final String recipeId;
+  final String? recipeId;
   @override
-  final int counter;
+  final int? counter;
   @override
-  final BuiltList<String> nameAsArray;
+  final BuiltList<String>? nameAsArray;
   @override
-  final String status;
+  final String? status;
   @override
-  final bool fav;
+  final bool? fav;
   @override
-  final String uid;
+  final String? uid;
   @override
-  final BuiltList<String> mealTime;
+  final BuiltList<String>? mealTime;
   @override
-  final BuiltList<String> day;
+  final BuiltList<String>? day;
   @override
-  final BuiltList<String> whichMeal;
+  final BuiltList<String>? whichMeal;
   @override
-  final BuiltList<String> dates;
+  final BuiltList<String>? dates;
   @override
-  final DocumentReference<Object> reference;
+  final DocumentReference<Object?>? ffRef;
 
-  factory _$TempRecord([void Function(TempRecordBuilder) updates]) =>
+  factory _$TempRecord([void Function(TempRecordBuilder)? updates]) =>
       (new TempRecordBuilder()..update(updates))._build();
 
   _$TempRecord._(
@@ -303,7 +303,7 @@ class _$TempRecord extends TempRecord {
       this.day,
       this.whichMeal,
       this.dates,
-      this.reference})
+      this.ffRef})
       : super._();
 
   @override
@@ -333,7 +333,7 @@ class _$TempRecord extends TempRecord {
         day == other.day &&
         whichMeal == other.whichMeal &&
         dates == other.dates &&
-        reference == other.reference;
+        ffRef == other.ffRef;
   }
 
   @override
@@ -375,7 +375,7 @@ class _$TempRecord extends TempRecord {
                     day.hashCode),
                 whichMeal.hashCode),
             dates.hashCode),
-        reference.hashCode));
+        ffRef.hashCode));
   }
 
   @override
@@ -397,86 +397,86 @@ class _$TempRecord extends TempRecord {
           ..add('day', day)
           ..add('whichMeal', whichMeal)
           ..add('dates', dates)
-          ..add('reference', reference))
+          ..add('ffRef', ffRef))
         .toString();
   }
 }
 
 class TempRecordBuilder implements Builder<TempRecord, TempRecordBuilder> {
-  _$TempRecord _$v;
+  _$TempRecord? _$v;
 
-  String _image;
-  String get image => _$this._image;
-  set image(String image) => _$this._image = image;
+  String? _image;
+  String? get image => _$this._image;
+  set image(String? image) => _$this._image = image;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _youtubeLink;
-  String get youtubeLink => _$this._youtubeLink;
-  set youtubeLink(String youtubeLink) => _$this._youtubeLink = youtubeLink;
+  String? _youtubeLink;
+  String? get youtubeLink => _$this._youtubeLink;
+  set youtubeLink(String? youtubeLink) => _$this._youtubeLink = youtubeLink;
 
-  DocumentReference<Object> _ref;
-  DocumentReference<Object> get ref => _$this._ref;
-  set ref(DocumentReference<Object> ref) => _$this._ref = ref;
+  DocumentReference<Object?>? _ref;
+  DocumentReference<Object?>? get ref => _$this._ref;
+  set ref(DocumentReference<Object?>? ref) => _$this._ref = ref;
 
-  String _ingredNames;
-  String get ingredNames => _$this._ingredNames;
-  set ingredNames(String ingredNames) => _$this._ingredNames = ingredNames;
+  String? _ingredNames;
+  String? get ingredNames => _$this._ingredNames;
+  set ingredNames(String? ingredNames) => _$this._ingredNames = ingredNames;
 
-  String _userUid;
-  String get userUid => _$this._userUid;
-  set userUid(String userUid) => _$this._userUid = userUid;
+  String? _userUid;
+  String? get userUid => _$this._userUid;
+  set userUid(String? userUid) => _$this._userUid = userUid;
 
-  String _recipeId;
-  String get recipeId => _$this._recipeId;
-  set recipeId(String recipeId) => _$this._recipeId = recipeId;
+  String? _recipeId;
+  String? get recipeId => _$this._recipeId;
+  set recipeId(String? recipeId) => _$this._recipeId = recipeId;
 
-  int _counter;
-  int get counter => _$this._counter;
-  set counter(int counter) => _$this._counter = counter;
+  int? _counter;
+  int? get counter => _$this._counter;
+  set counter(int? counter) => _$this._counter = counter;
 
-  ListBuilder<String> _nameAsArray;
+  ListBuilder<String>? _nameAsArray;
   ListBuilder<String> get nameAsArray =>
       _$this._nameAsArray ??= new ListBuilder<String>();
-  set nameAsArray(ListBuilder<String> nameAsArray) =>
+  set nameAsArray(ListBuilder<String>? nameAsArray) =>
       _$this._nameAsArray = nameAsArray;
 
-  String _status;
-  String get status => _$this._status;
-  set status(String status) => _$this._status = status;
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
 
-  bool _fav;
-  bool get fav => _$this._fav;
-  set fav(bool fav) => _$this._fav = fav;
+  bool? _fav;
+  bool? get fav => _$this._fav;
+  set fav(bool? fav) => _$this._fav = fav;
 
-  String _uid;
-  String get uid => _$this._uid;
-  set uid(String uid) => _$this._uid = uid;
+  String? _uid;
+  String? get uid => _$this._uid;
+  set uid(String? uid) => _$this._uid = uid;
 
-  ListBuilder<String> _mealTime;
+  ListBuilder<String>? _mealTime;
   ListBuilder<String> get mealTime =>
       _$this._mealTime ??= new ListBuilder<String>();
-  set mealTime(ListBuilder<String> mealTime) => _$this._mealTime = mealTime;
+  set mealTime(ListBuilder<String>? mealTime) => _$this._mealTime = mealTime;
 
-  ListBuilder<String> _day;
+  ListBuilder<String>? _day;
   ListBuilder<String> get day => _$this._day ??= new ListBuilder<String>();
-  set day(ListBuilder<String> day) => _$this._day = day;
+  set day(ListBuilder<String>? day) => _$this._day = day;
 
-  ListBuilder<String> _whichMeal;
+  ListBuilder<String>? _whichMeal;
   ListBuilder<String> get whichMeal =>
       _$this._whichMeal ??= new ListBuilder<String>();
-  set whichMeal(ListBuilder<String> whichMeal) => _$this._whichMeal = whichMeal;
+  set whichMeal(ListBuilder<String>? whichMeal) =>
+      _$this._whichMeal = whichMeal;
 
-  ListBuilder<String> _dates;
+  ListBuilder<String>? _dates;
   ListBuilder<String> get dates => _$this._dates ??= new ListBuilder<String>();
-  set dates(ListBuilder<String> dates) => _$this._dates = dates;
+  set dates(ListBuilder<String>? dates) => _$this._dates = dates;
 
-  DocumentReference<Object> _reference;
-  DocumentReference<Object> get reference => _$this._reference;
-  set reference(DocumentReference<Object> reference) =>
-      _$this._reference = reference;
+  DocumentReference<Object?>? _ffRef;
+  DocumentReference<Object?>? get ffRef => _$this._ffRef;
+  set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
   TempRecordBuilder() {
     TempRecord._initializeBuilder(this);
@@ -501,7 +501,7 @@ class TempRecordBuilder implements Builder<TempRecord, TempRecordBuilder> {
       _day = $v.day?.toBuilder();
       _whichMeal = $v.whichMeal?.toBuilder();
       _dates = $v.dates?.toBuilder();
-      _reference = $v.reference;
+      _ffRef = $v.ffRef;
       _$v = null;
     }
     return this;
@@ -514,7 +514,7 @@ class TempRecordBuilder implements Builder<TempRecord, TempRecordBuilder> {
   }
 
   @override
-  void update(void Function(TempRecordBuilder) updates) {
+  void update(void Function(TempRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -542,9 +542,9 @@ class TempRecordBuilder implements Builder<TempRecord, TempRecordBuilder> {
               day: _day?.build(),
               whichMeal: _whichMeal?.build(),
               dates: _dates?.build(),
-              reference: reference);
+              ffRef: ffRef);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'nameAsArray';
         _nameAsArray?.build();

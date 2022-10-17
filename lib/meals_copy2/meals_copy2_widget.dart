@@ -8,6 +8,7 @@ import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../meal_info/meal_info_widget.dart';
+import '../custom_code/actions/index.dart' as actions;
 import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
@@ -17,22 +18,22 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MealsCopy2Widget extends StatefulWidget {
   const MealsCopy2Widget({
-    Key key,
+    Key? key,
     this.category,
   }) : super(key: key);
 
-  final String category;
+  final String? category;
 
   @override
   _MealsCopy2WidgetState createState() => _MealsCopy2WidgetState();
 }
 
 class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
-  String choiceChipsValue;
-  String dropDownValue1;
-  String dropDownValue2;
+  String? choiceChipsValue;
+  String? dropDownValue1;
+  String? dropDownValue2;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-  TextEditingController textController;
+  TextEditingController? textController;
 
   @override
   void initState() {
@@ -42,9 +43,16 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
   }
 
   @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: true,
@@ -78,6 +86,26 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                 topRight: Radius.circular(4.0),
               ),
             ),
+            errorBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Color(0x00000000),
+                width: 1,
+              ),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(4.0),
+                topRight: Radius.circular(4.0),
+              ),
+            ),
+            focusedErrorBorder: UnderlineInputBorder(
+              borderSide: BorderSide(
+                color: Color(0x00000000),
+                width: 1,
+              ),
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(4.0),
+                topRight: Radius.circular(4.0),
+              ),
+            ),
           ),
           style: FlutterFlowTheme.of(context).subtitle1,
         ),
@@ -85,7 +113,6 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
         centerTitle: true,
         elevation: 4,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: StreamBuilder<List<DaysRecord>>(
           stream: queryDaysRecord(
@@ -107,9 +134,9 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                 ),
               );
             }
-            List<DaysRecord> columnDaysRecordList = snapshot.data;
+            List<DaysRecord> columnDaysRecordList = snapshot.data!;
             // Return an empty Container when the document does not exist.
-            if (snapshot.data.isEmpty) {
+            if (snapshot.data!.isEmpty) {
               return Container();
             }
             final columnDaysRecord = columnDaysRecordList.isNotEmpty
@@ -141,7 +168,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                         );
                       }
                       List<MiscellaneousRecord>
-                          listViewMiscellaneousRecordList = snapshot.data;
+                          listViewMiscellaneousRecordList = snapshot.data!;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
@@ -150,16 +177,13 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                           final listViewMiscellaneousRecord =
                               listViewMiscellaneousRecordList[listViewIndex];
                           return FlutterFlowChoiceChips(
-                            initiallySelected: choiceChipsValue != null
-                                ? [choiceChipsValue]
-                                : [FFAppState().category],
-                            options: (listViewMiscellaneousRecord.categoriesList
-                                        .toList() ??
-                                    [])
+                            initiallySelected: [FFAppState().category],
+                            options: listViewMiscellaneousRecord.categoriesList!
+                                .toList()
                                 .map((label) => ChipData(label))
                                 .toList(),
                             onChanged: (val) =>
-                                setState(() => choiceChipsValue = val.first),
+                                setState(() => choiceChipsValue = val?.first),
                             selectedChipStyle: ChipStyle(
                               backgroundColor: Color(0xFF323B45),
                               textStyle: FlutterFlowTheme.of(context)
@@ -212,9 +236,9 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                         ),
                       );
                     }
-                    List<DaysRecord> rowDaysRecordList = snapshot.data;
+                    List<DaysRecord> rowDaysRecordList = snapshot.data!;
                     // Return an empty Container when the document does not exist.
-                    if (snapshot.data.isEmpty) {
+                    if (snapshot.data!.isEmpty) {
                       return Container();
                     }
                     final rowDaysRecord = rowDaysRecordList.isNotEmpty
@@ -226,7 +250,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                         Expanded(
                           child: FlutterFlowDropDown(
                             initialOption: dropDownValue1 ??= 'Today',
-                            options: rowDaysRecord.day.toList().toList(),
+                            options: rowDaysRecord!.day!.toList().toList(),
                             onChanged: (val) =>
                                 setState(() => dropDownValue1 = val),
                             width: 180,
@@ -316,7 +340,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                               arrayContains: '${valueOrDefault<String>(
                                 choiceChipsValue,
                                 'All',
-                              )}${textController.text}')
+                              )}${textController!.text}')
                           .where('fav', isEqualTo: true),
                     ),
                     builder: (context, snapshot) {
@@ -333,7 +357,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                           ),
                         );
                       }
-                      List<TempRecord> containerTempRecordList = snapshot.data;
+                      List<TempRecord> containerTempRecordList = snapshot.data!;
                       return Container(
                         width: double.infinity,
                         height: 190,
@@ -349,7 +373,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                     arrayContains: '${valueOrDefault<String>(
                                       choiceChipsValue,
                                       'All',
-                                    )}${textController.text}')
+                                    )}${textController!.text}')
                                 .where('fav', isEqualTo: true),
                           ),
                           builder: (context, snapshot) {
@@ -367,7 +391,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                               );
                             }
                             List<TempRecord> listViewTempRecordList =
-                                snapshot.data;
+                                snapshot.data!;
                             return ListView.builder(
                               padding: EdgeInsets.zero,
                               scrollDirection: Axis.horizontal,
@@ -389,7 +413,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                             borderRadius:
                                                 BorderRadius.circular(10),
                                             child: Image.network(
-                                              listViewTempRecord.image,
+                                              listViewTempRecord.image!,
                                               width: 100,
                                               height: 100,
                                               fit: BoxFit.cover,
@@ -402,7 +426,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                       mainAxisSize: MainAxisSize.max,
                                       children: [
                                         Text(
-                                          listViewTempRecord.name,
+                                          listViewTempRecord.name!,
                                           style: FlutterFlowTheme.of(context)
                                               .bodyText1,
                                         ),
@@ -441,12 +465,12 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                         ToggleIcon(
                                           onPressed: () async {
                                             final tempUpdateData = {
-                                              'fav': !listViewTempRecord.fav,
+                                              'fav': !listViewTempRecord.fav!,
                                             };
                                             await listViewTempRecord.reference
                                                 .update(tempUpdateData);
                                           },
-                                          value: listViewTempRecord.fav,
+                                          value: listViewTempRecord.fav!,
                                           onIcon: Icon(
                                             Icons.favorite,
                                             color: Colors.black,
@@ -477,7 +501,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                               arrayContains: '${valueOrDefault<String>(
                                 choiceChipsValue,
                                 'All',
-                              )}${textController.text}')
+                              )}${textController!.text}')
                           .where('uid', isEqualTo: FFAppState().user)
                           .where('fav', isEqualTo: false),
                     ),
@@ -495,7 +519,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                           ),
                         );
                       }
-                      List<TempRecord> listViewTempRecordList = snapshot.data;
+                      List<TempRecord> listViewTempRecordList = snapshot.data!;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         shrinkWrap: true,
@@ -535,13 +559,14 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                   onPressed: () async {
                                                     final tempUpdateData = {
                                                       'fav': !listViewTempRecord
-                                                          .fav,
+                                                          .fav!,
                                                     };
                                                     await listViewTempRecord
                                                         .reference
                                                         .update(tempUpdateData);
                                                   },
-                                                  value: listViewTempRecord.fav,
+                                                  value:
+                                                      listViewTempRecord.fav!,
                                                   onIcon: Icon(
                                                     Icons.favorite,
                                                     color: Color(0xFFE82E2E),
@@ -568,7 +593,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                               padding: EdgeInsetsDirectional
                                                   .fromSTEB(20, 0, 0, 0),
                                               child: Text(
-                                                listViewTempRecord.name
+                                                listViewTempRecord.name!
                                                     .maybeHandleOverflow(
                                                         maxChars: 20),
                                                 style:
@@ -608,11 +633,11 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                         'dates': FieldValue
                                                             .arrayUnion([
                                                           functions.getStrTimeStamp(
-                                                              columnDaysRecord
-                                                                  .date
+                                                              columnDaysRecord!
+                                                                  .date!
                                                                   .toList(),
-                                                              columnDaysRecord
-                                                                  .day
+                                                              columnDaysRecord!
+                                                                  .day!
                                                                   .toList(),
                                                               dropDownValue1)
                                                         ]),
@@ -623,6 +648,14 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                           .reference
                                                           .update(
                                                               tempUpdateData);
+                                                      logFirebaseEvent(
+                                                          'Button_Custom-Action');
+                                                      await actions.addIngred(
+                                                        listViewTempRecord
+                                                            .ingredNames,
+                                                        listViewTempRecord.name,
+                                                        listViewTempRecord.uid,
+                                                      );
                                                     },
                                                     text: 'Add',
                                                     options: FFButtonOptions(
@@ -687,9 +720,9 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                             }
                                             List<RecipesRecord>
                                                 imageRecipesRecordList =
-                                                snapshot.data;
+                                                snapshot.data!;
                                             // Return an empty Container when the document does not exist.
-                                            if (snapshot.data.isEmpty) {
+                                            if (snapshot.data!.isEmpty) {
                                               return Container();
                                             }
                                             final imageRecipesRecord =
@@ -717,7 +750,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                 );
                                               },
                                               child: Image.network(
-                                                listViewTempRecord.image,
+                                                listViewTempRecord.image!,
                                                 width: 160,
                                                 height: 130,
                                                 fit: BoxFit.fitHeight,

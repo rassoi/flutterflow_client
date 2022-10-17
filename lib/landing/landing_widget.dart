@@ -11,7 +11,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LandingWidget extends StatefulWidget {
-  const LandingWidget({Key key}) : super(key: key);
+  const LandingWidget({Key? key}) : super(key: key);
 
   @override
   _LandingWidgetState createState() => _LandingWidgetState();
@@ -44,6 +44,7 @@ class _LandingWidgetState extends State<LandingWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: true,
@@ -58,7 +59,6 @@ class _LandingWidgetState extends State<LandingWidget> {
         centerTitle: true,
         elevation: 4,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -172,7 +172,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                       );
                     }
                     List<UpcommingmealsRecord>
-                        listViewUpcommingmealsRecordList = snapshot.data;
+                        listViewUpcommingmealsRecordList = snapshot.data!;
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.horizontal,
@@ -205,7 +205,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
                                       child: Image.network(
-                                        listViewUpcommingmealsRecord.image,
+                                        listViewUpcommingmealsRecord.image!,
                                         width: 100,
                                         height: 100,
                                         fit: BoxFit.cover,
@@ -219,7 +219,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                               mainAxisSize: MainAxisSize.max,
                               children: [
                                 AutoSizeText(
-                                  listViewUpcommingmealsRecord.name
+                                  listViewUpcommingmealsRecord.name!
                                       .maybeHandleOverflow(maxChars: 10),
                                   style: FlutterFlowTheme.of(context).bodyText1,
                                 ),
@@ -268,7 +268,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                         );
                       }
                       List<CategoriesRecord> gridViewCategoriesRecordList =
-                          snapshot.data;
+                          snapshot.data!;
                       return GridView.builder(
                         padding: EdgeInsets.zero,
                         gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -323,7 +323,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                         shape: BoxShape.circle,
                                       ),
                                       child: Image.network(
-                                        gridViewCategoriesRecord.image,
+                                        gridViewCategoriesRecord.image!,
                                         fit: BoxFit.fill,
                                       ),
                                     ),
@@ -335,7 +335,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   AutoSizeText(
-                                    gridViewCategoriesRecord.categoryName
+                                    gridViewCategoriesRecord.categoryName!
                                         .maybeHandleOverflow(maxChars: 15),
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,

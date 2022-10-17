@@ -11,14 +11,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class MainWidget extends StatefulWidget {
-  const MainWidget({Key key}) : super(key: key);
+  const MainWidget({Key? key}) : super(key: key);
 
   @override
   _MainWidgetState createState() => _MainWidgetState();
 }
 
 class _MainWidgetState extends State<MainWidget> {
-  TextEditingController textController;
+  TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -26,6 +26,12 @@ class _MainWidgetState extends State<MainWidget> {
     super.initState();
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'main'});
     textController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -71,9 +77,9 @@ class _MainWidgetState extends State<MainWidget> {
                         ),
                       );
                     }
-                    List<UsersRecord> rowUsersRecordList = snapshot.data;
+                    List<UsersRecord> rowUsersRecordList = snapshot.data!;
                     // Return an empty Container when the document does not exist.
-                    if (snapshot.data.isEmpty) {
+                    if (snapshot.data!.isEmpty) {
                       return Container();
                     }
                     final rowUsersRecord = rowUsersRecordList.isNotEmpty
@@ -192,6 +198,26 @@ class _MainWidgetState extends State<MainWidget> {
                             topRight: Radius.circular(4.0),
                           ),
                         ),
+                        errorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
+                        focusedErrorBorder: UnderlineInputBorder(
+                          borderSide: BorderSide(
+                            color: Color(0x00000000),
+                            width: 1,
+                          ),
+                          borderRadius: const BorderRadius.only(
+                            topLeft: Radius.circular(4.0),
+                            topRight: Radius.circular(4.0),
+                          ),
+                        ),
                         filled: true,
                       ),
                       style: FlutterFlowTheme.of(context).bodyText1,
@@ -218,9 +244,9 @@ class _MainWidgetState extends State<MainWidget> {
                       ),
                     );
                   }
-                  List<UsersRecord> rowUsersRecordList = snapshot.data;
+                  List<UsersRecord> rowUsersRecordList = snapshot.data!;
                   // Return an empty Container when the document does not exist.
-                  if (snapshot.data.isEmpty) {
+                  if (snapshot.data!.isEmpty) {
                     return Container();
                   }
                   final rowUsersRecord = rowUsersRecordList.isNotEmpty
@@ -244,7 +270,7 @@ class _MainWidgetState extends State<MainWidget> {
                                     logFirebaseEvent(
                                         'MAIN_PAGE_SIGN_IN_WITH_PHONE_BTN_ON_TAP');
                                     logFirebaseEvent('Button_Auth');
-                                    final phoneNumberVal = textController.text;
+                                    final phoneNumberVal = textController!.text;
                                     if (phoneNumberVal == null ||
                                         phoneNumberVal.isEmpty ||
                                         !phoneNumberVal.startsWith('+')) {
@@ -336,9 +362,9 @@ class _MainWidgetState extends State<MainWidget> {
                         ),
                       );
                     }
-                    List<UsersRecord> rowUsersRecordList = snapshot.data;
+                    List<UsersRecord> rowUsersRecordList = snapshot.data!;
                     // Return an empty Container when the document does not exist.
-                    if (snapshot.data.isEmpty) {
+                    if (snapshot.data!.isEmpty) {
                       return Container();
                     }
                     final rowUsersRecord = rowUsersRecordList.isNotEmpty

@@ -12,3 +12,5 @@ export 'home/home_widget.dart' show HomeWidget;
 export 'main/main_widget.dart' show MainWidget;
 export 'settings/settings_widget.dart' show SettingsWidget;
 export 'temp/temp_widget.dart' show TempWidget;
+export 'ingredients/ingredients_widget.dart' show IngredientsWidget;
+export 'subcollection/subcollection_widget.dart' show SubcollectionWidget;

@@ -4,20 +4,21 @@ import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class TempWidget extends StatefulWidget {
-  const TempWidget({Key? key}) : super(key: key);
+class SubcollectionWidget extends StatefulWidget {
+  const SubcollectionWidget({Key? key}) : super(key: key);
 
   @override
-  _TempWidgetState createState() => _TempWidgetState();
+  _SubcollectionWidgetState createState() => _SubcollectionWidgetState();
 }
 
-class _TempWidgetState extends State<TempWidget> {
+class _SubcollectionWidgetState extends State<SubcollectionWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   void initState() {
     super.initState();
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'temp'});
+    logFirebaseEvent('screen_view',
+        parameters: {'screen_name': 'subcollection'});
   }
 
   @override
@@ -45,12 +46,7 @@ class _TempWidgetState extends State<TempWidget> {
           onTap: () => FocusScope.of(context).unfocus(),
           child: Column(
             mainAxisSize: MainAxisSize.max,
-            children: [
-              Text(
-                'Hello World',
-                style: FlutterFlowTheme.of(context).bodyText1,
-              ),
-            ],
+            children: [],
           ),
         ),
       ),

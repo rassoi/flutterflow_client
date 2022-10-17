@@ -11,15 +11,13 @@ abstract class UpcommingMealsRecord
   static Serializer<UpcommingMealsRecord> get serializer =>
       _$upcommingMealsRecordSerializer;
 
-  @nullable
-  String get image;
+  String? get image;
 
-  @nullable
-  String get text;
+  String? get text;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(UpcommingMealsRecordBuilder builder) => builder
     ..image = ''
@@ -30,11 +28,11 @@ abstract class UpcommingMealsRecord
 
   static Stream<UpcommingMealsRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<UpcommingMealsRecord> getDocumentOnce(DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   UpcommingMealsRecord._();
   factory UpcommingMealsRecord(
@@ -44,15 +42,21 @@ abstract class UpcommingMealsRecord
   static UpcommingMealsRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createUpcommingMealsRecordData({
-  String image,
-  String text,
-}) =>
-    serializers.toFirestore(
-        UpcommingMealsRecord.serializer,
-        UpcommingMealsRecord((u) => u
-          ..image = image
-          ..text = text));
+  String? image,
+  String? text,
+}) {
+  final firestoreData = serializers.toFirestore(
+    UpcommingMealsRecord.serializer,
+    UpcommingMealsRecord(
+      (u) => u
+        ..image = image
+        ..text = text,
+    ),
+  );
+
+  return firestoreData;
+}

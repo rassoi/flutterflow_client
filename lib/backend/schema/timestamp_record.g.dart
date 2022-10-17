@@ -17,10 +17,10 @@ class _$TimestampRecordSerializer
   final String wireName = 'TimestampRecord';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, TimestampRecord object,
+  Iterable<Object?> serialize(Serializers serializers, TimestampRecord object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.lastAudit;
     if (value != null) {
       result
@@ -35,42 +35,42 @@ class _$TimestampRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(DateTime)));
     }
-    value = object.reference;
+    value = object.ffRef;
     if (value != null) {
       result
         ..add('Document__Reference__Field')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     return result;
   }
 
   @override
   TimestampRecord deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new TimestampRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'lastAudit':
           result.lastAudit = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime;
+              specifiedType: const FullType(DateTime)) as DateTime?;
           break;
         case 'lastBuy':
           result.lastBuy = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime;
+              specifiedType: const FullType(DateTime)) as DateTime?;
           break;
         case 'Document__Reference__Field':
-          result.reference = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+          result.ffRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
       }
     }
@@ -81,17 +81,16 @@ class _$TimestampRecordSerializer
 
 class _$TimestampRecord extends TimestampRecord {
   @override
-  final DateTime lastAudit;
+  final DateTime? lastAudit;
   @override
-  final DateTime lastBuy;
+  final DateTime? lastBuy;
   @override
-  final DocumentReference<Object> reference;
+  final DocumentReference<Object?>? ffRef;
 
-  factory _$TimestampRecord([void Function(TimestampRecordBuilder) updates]) =>
+  factory _$TimestampRecord([void Function(TimestampRecordBuilder)? updates]) =>
       (new TimestampRecordBuilder()..update(updates))._build();
 
-  _$TimestampRecord._({this.lastAudit, this.lastBuy, this.reference})
-      : super._();
+  _$TimestampRecord._({this.lastAudit, this.lastBuy, this.ffRef}) : super._();
 
   @override
   TimestampRecord rebuild(void Function(TimestampRecordBuilder) updates) =>
@@ -107,13 +106,13 @@ class _$TimestampRecord extends TimestampRecord {
     return other is TimestampRecord &&
         lastAudit == other.lastAudit &&
         lastBuy == other.lastBuy &&
-        reference == other.reference;
+        ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc($jc(0, lastAudit.hashCode), lastBuy.hashCode), reference.hashCode));
+    return $jf(
+        $jc($jc($jc(0, lastAudit.hashCode), lastBuy.hashCode), ffRef.hashCode));
   }
 
   @override
@@ -121,27 +120,26 @@ class _$TimestampRecord extends TimestampRecord {
     return (newBuiltValueToStringHelper(r'TimestampRecord')
           ..add('lastAudit', lastAudit)
           ..add('lastBuy', lastBuy)
-          ..add('reference', reference))
+          ..add('ffRef', ffRef))
         .toString();
   }
 }
 
 class TimestampRecordBuilder
     implements Builder<TimestampRecord, TimestampRecordBuilder> {
-  _$TimestampRecord _$v;
+  _$TimestampRecord? _$v;
 
-  DateTime _lastAudit;
-  DateTime get lastAudit => _$this._lastAudit;
-  set lastAudit(DateTime lastAudit) => _$this._lastAudit = lastAudit;
+  DateTime? _lastAudit;
+  DateTime? get lastAudit => _$this._lastAudit;
+  set lastAudit(DateTime? lastAudit) => _$this._lastAudit = lastAudit;
 
-  DateTime _lastBuy;
-  DateTime get lastBuy => _$this._lastBuy;
-  set lastBuy(DateTime lastBuy) => _$this._lastBuy = lastBuy;
+  DateTime? _lastBuy;
+  DateTime? get lastBuy => _$this._lastBuy;
+  set lastBuy(DateTime? lastBuy) => _$this._lastBuy = lastBuy;
 
-  DocumentReference<Object> _reference;
-  DocumentReference<Object> get reference => _$this._reference;
-  set reference(DocumentReference<Object> reference) =>
-      _$this._reference = reference;
+  DocumentReference<Object?>? _ffRef;
+  DocumentReference<Object?>? get ffRef => _$this._ffRef;
+  set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
   TimestampRecordBuilder() {
     TimestampRecord._initializeBuilder(this);
@@ -152,7 +150,7 @@ class TimestampRecordBuilder
     if ($v != null) {
       _lastAudit = $v.lastAudit;
       _lastBuy = $v.lastBuy;
-      _reference = $v.reference;
+      _ffRef = $v.ffRef;
       _$v = null;
     }
     return this;
@@ -165,7 +163,7 @@ class TimestampRecordBuilder
   }
 
   @override
-  void update(void Function(TimestampRecordBuilder) updates) {
+  void update(void Function(TimestampRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -175,7 +173,7 @@ class TimestampRecordBuilder
   _$TimestampRecord _build() {
     final _$result = _$v ??
         new _$TimestampRecord._(
-            lastAudit: lastAudit, lastBuy: lastBuy, reference: reference);
+            lastAudit: lastAudit, lastBuy: lastBuy, ffRef: ffRef);
     replace(_$result);
     return _$result;
   }

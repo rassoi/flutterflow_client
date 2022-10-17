@@ -11,14 +11,14 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomePageWidget extends StatefulWidget {
-  const HomePageWidget({Key key}) : super(key: key);
+  const HomePageWidget({Key? key}) : super(key: key);
 
   @override
   _HomePageWidgetState createState() => _HomePageWidgetState();
 }
 
 class _HomePageWidgetState extends State<HomePageWidget> {
-  TextEditingController textController;
+  TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -26,6 +26,12 @@ class _HomePageWidgetState extends State<HomePageWidget> {
     super.initState();
     logFirebaseEvent('screen_view', parameters: {'screen_name': 'HomePage'});
     textController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
   }
 
   @override
@@ -54,9 +60,9 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                   ),
                 );
               }
-              List<UsersRecord> columnUsersRecordList = snapshot.data;
+              List<UsersRecord> columnUsersRecordList = snapshot.data!;
               // Return an empty Container when the document does not exist.
-              if (snapshot.data.isEmpty) {
+              if (snapshot.data!.isEmpty) {
                 return Container();
               }
               final columnUsersRecord = columnUsersRecordList.isNotEmpty
@@ -199,6 +205,26 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                   topRight: Radius.circular(4.0),
                                 ),
                               ),
+                              errorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                ),
+                              ),
+                              focusedErrorBorder: OutlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                ),
+                              ),
                               filled: true,
                               fillColor: Color(0xFFDBCFCF),
                             ),
@@ -234,7 +260,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                               'HOME_SIGN_IN_WITH_PHONE_BTN_ON_TAP');
                                           logFirebaseEvent('Button_Auth');
                                           final phoneNumberVal =
-                                              textController.text;
+                                              textController!.text;
                                           if (phoneNumberVal == null ||
                                               phoneNumberVal.isEmpty ||
                                               !phoneNumberVal.startsWith('+')) {

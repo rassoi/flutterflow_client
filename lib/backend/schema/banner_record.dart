@@ -10,31 +10,25 @@ abstract class BannerRecord
     implements Built<BannerRecord, BannerRecordBuilder> {
   static Serializer<BannerRecord> get serializer => _$bannerRecordSerializer;
 
-  @nullable
-  String get image;
+  String? get image;
 
-  @nullable
-  @BuiltValueField(wireName: 'Text')
-  String get text;
-
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
-  static void _initializeBuilder(BannerRecordBuilder builder) => builder
-    ..image = ''
-    ..text = '';
+  static void _initializeBuilder(BannerRecordBuilder builder) =>
+      builder..image = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('banner');
 
   static Stream<BannerRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<BannerRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   BannerRecord._();
   factory BannerRecord([void Function(BannerRecordBuilder) updates]) =
@@ -43,15 +37,18 @@ abstract class BannerRecord
   static BannerRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createBannerRecordData({
-  String image,
-  String text,
-}) =>
-    serializers.toFirestore(
-        BannerRecord.serializer,
-        BannerRecord((b) => b
-          ..image = image
-          ..text = text));
+  String? image,
+}) {
+  final firestoreData = serializers.toFirestore(
+    BannerRecord.serializer,
+    BannerRecord(
+      (b) => b..image = image,
+    ),
+  );
+
+  return firestoreData;
+}

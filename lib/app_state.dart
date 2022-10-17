@@ -24,7 +24,7 @@ class FFAppState {
         prefs.getString('ff_upcommingMealTime') ?? _upcommingMealTime;
   }
 
-  SharedPreferences prefs;
+  late SharedPreferences prefs;
 
   String _user = '';
   String get user => _user;
@@ -82,7 +82,7 @@ class FFAppState {
   bool Fav = false;
 }
 
-LatLng _latLngFromString(String val) {
+LatLng? _latLngFromString(String? val) {
   if (val == null) {
     return null;
   }

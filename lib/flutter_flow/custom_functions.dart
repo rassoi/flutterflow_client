@@ -10,8 +10,8 @@ import '../backend/backend.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import '../../auth/auth_util.dart';
 
-List<String> ingredname(String ingredtext) {
-  List<String> b = ingredtext.split("*");
+List<String> ingredname(String? ingredtext) {
+  List<String> b = ingredtext!.split("*");
   List<String> nameList = [];
 
   for (var i = 0; i < b.length; i++) {
@@ -26,21 +26,21 @@ DateTime geCurrentTimeStamp() {
   return DateTime.now();
 }
 
-String recipeList(List<String> recipelist) {
-  return recipelist.join(",");
+String recipeList(List<String>? recipelist) {
+  return recipelist!.join(",");
   // Add your function code here!
 }
 
 String getStrTimeStamp(
-  List<String> dates,
-  List<String> days,
-  String day,
+  List<String>? dates,
+  List<String>? days,
+  String? day,
 ) {
-  return dates[days.indexOf(day)];
+  return dates![days!.indexOf(day!)];
 }
 
-int mealStatus(List<String> mealTime) {
+int mealStatus(List<String>? mealTime) {
   // Add your function code here!
 
-  return mealTime.length;
+  return mealTime!.length;
 }

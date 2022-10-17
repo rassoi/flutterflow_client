@@ -16,10 +16,10 @@ class _$RecipesRecordSerializer implements StructuredSerializer<RecipesRecord> {
   final String wireName = 'RecipesRecord';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, RecipesRecord object,
+  Iterable<Object?> serialize(Serializers serializers, RecipesRecord object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.image;
     if (value != null) {
       result
@@ -89,7 +89,7 @@ class _$RecipesRecordSerializer implements StructuredSerializer<RecipesRecord> {
         ..add('ref')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     value = object.ingredNames;
     if (value != null) {
@@ -128,100 +128,100 @@ class _$RecipesRecordSerializer implements StructuredSerializer<RecipesRecord> {
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    value = object.reference;
+    value = object.ffRef;
     if (value != null) {
       result
         ..add('Document__Reference__Field')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     return result;
   }
 
   @override
   RecipesRecord deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new RecipesRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'image':
           result.image = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'email':
           result.email = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'display_name':
           result.displayName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'photo_url':
           result.photoUrl = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'uid':
           result.uid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'created_time':
           result.createdTime = serializers.deserialize(value,
-              specifiedType: const FullType(DateTime)) as DateTime;
+              specifiedType: const FullType(DateTime)) as DateTime?;
           break;
         case 'phone_number':
           result.phoneNumber = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'youtube_link':
           result.youtubeLink = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'ref':
           result.ref = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
         case 'ingred_names':
           result.ingredNames = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'desc':
           result.desc = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'nameAsArray':
           result.nameAsArray.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
         case 'recipe_id':
           result.recipeId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'categoryName':
           result.categoryName.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
         case 'Document__Reference__Field':
-          result.reference = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+          result.ffRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
       }
     }
@@ -232,39 +232,39 @@ class _$RecipesRecordSerializer implements StructuredSerializer<RecipesRecord> {
 
 class _$RecipesRecord extends RecipesRecord {
   @override
-  final String image;
+  final String? image;
   @override
-  final String name;
+  final String? name;
   @override
-  final String email;
+  final String? email;
   @override
-  final String displayName;
+  final String? displayName;
   @override
-  final String photoUrl;
+  final String? photoUrl;
   @override
-  final String uid;
+  final String? uid;
   @override
-  final DateTime createdTime;
+  final DateTime? createdTime;
   @override
-  final String phoneNumber;
+  final String? phoneNumber;
   @override
-  final String youtubeLink;
+  final String? youtubeLink;
   @override
-  final DocumentReference<Object> ref;
+  final DocumentReference<Object?>? ref;
   @override
-  final String ingredNames;
+  final String? ingredNames;
   @override
-  final String desc;
+  final String? desc;
   @override
-  final BuiltList<String> nameAsArray;
+  final BuiltList<String>? nameAsArray;
   @override
-  final String recipeId;
+  final String? recipeId;
   @override
-  final BuiltList<String> categoryName;
+  final BuiltList<String>? categoryName;
   @override
-  final DocumentReference<Object> reference;
+  final DocumentReference<Object?>? ffRef;
 
-  factory _$RecipesRecord([void Function(RecipesRecordBuilder) updates]) =>
+  factory _$RecipesRecord([void Function(RecipesRecordBuilder)? updates]) =>
       (new RecipesRecordBuilder()..update(updates))._build();
 
   _$RecipesRecord._(
@@ -283,7 +283,7 @@ class _$RecipesRecord extends RecipesRecord {
       this.nameAsArray,
       this.recipeId,
       this.categoryName,
-      this.reference})
+      this.ffRef})
       : super._();
 
   @override
@@ -312,7 +312,7 @@ class _$RecipesRecord extends RecipesRecord {
         nameAsArray == other.nameAsArray &&
         recipeId == other.recipeId &&
         categoryName == other.categoryName &&
-        reference == other.reference;
+        ffRef == other.ffRef;
   }
 
   @override
@@ -350,7 +350,7 @@ class _$RecipesRecord extends RecipesRecord {
                     nameAsArray.hashCode),
                 recipeId.hashCode),
             categoryName.hashCode),
-        reference.hashCode));
+        ffRef.hashCode));
   }
 
   @override
@@ -371,83 +371,82 @@ class _$RecipesRecord extends RecipesRecord {
           ..add('nameAsArray', nameAsArray)
           ..add('recipeId', recipeId)
           ..add('categoryName', categoryName)
-          ..add('reference', reference))
+          ..add('ffRef', ffRef))
         .toString();
   }
 }
 
 class RecipesRecordBuilder
     implements Builder<RecipesRecord, RecipesRecordBuilder> {
-  _$RecipesRecord _$v;
+  _$RecipesRecord? _$v;
 
-  String _image;
-  String get image => _$this._image;
-  set image(String image) => _$this._image = image;
+  String? _image;
+  String? get image => _$this._image;
+  set image(String? image) => _$this._image = image;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _email;
-  String get email => _$this._email;
-  set email(String email) => _$this._email = email;
+  String? _email;
+  String? get email => _$this._email;
+  set email(String? email) => _$this._email = email;
 
-  String _displayName;
-  String get displayName => _$this._displayName;
-  set displayName(String displayName) => _$this._displayName = displayName;
+  String? _displayName;
+  String? get displayName => _$this._displayName;
+  set displayName(String? displayName) => _$this._displayName = displayName;
 
-  String _photoUrl;
-  String get photoUrl => _$this._photoUrl;
-  set photoUrl(String photoUrl) => _$this._photoUrl = photoUrl;
+  String? _photoUrl;
+  String? get photoUrl => _$this._photoUrl;
+  set photoUrl(String? photoUrl) => _$this._photoUrl = photoUrl;
 
-  String _uid;
-  String get uid => _$this._uid;
-  set uid(String uid) => _$this._uid = uid;
+  String? _uid;
+  String? get uid => _$this._uid;
+  set uid(String? uid) => _$this._uid = uid;
 
-  DateTime _createdTime;
-  DateTime get createdTime => _$this._createdTime;
-  set createdTime(DateTime createdTime) => _$this._createdTime = createdTime;
+  DateTime? _createdTime;
+  DateTime? get createdTime => _$this._createdTime;
+  set createdTime(DateTime? createdTime) => _$this._createdTime = createdTime;
 
-  String _phoneNumber;
-  String get phoneNumber => _$this._phoneNumber;
-  set phoneNumber(String phoneNumber) => _$this._phoneNumber = phoneNumber;
+  String? _phoneNumber;
+  String? get phoneNumber => _$this._phoneNumber;
+  set phoneNumber(String? phoneNumber) => _$this._phoneNumber = phoneNumber;
 
-  String _youtubeLink;
-  String get youtubeLink => _$this._youtubeLink;
-  set youtubeLink(String youtubeLink) => _$this._youtubeLink = youtubeLink;
+  String? _youtubeLink;
+  String? get youtubeLink => _$this._youtubeLink;
+  set youtubeLink(String? youtubeLink) => _$this._youtubeLink = youtubeLink;
 
-  DocumentReference<Object> _ref;
-  DocumentReference<Object> get ref => _$this._ref;
-  set ref(DocumentReference<Object> ref) => _$this._ref = ref;
+  DocumentReference<Object?>? _ref;
+  DocumentReference<Object?>? get ref => _$this._ref;
+  set ref(DocumentReference<Object?>? ref) => _$this._ref = ref;
 
-  String _ingredNames;
-  String get ingredNames => _$this._ingredNames;
-  set ingredNames(String ingredNames) => _$this._ingredNames = ingredNames;
+  String? _ingredNames;
+  String? get ingredNames => _$this._ingredNames;
+  set ingredNames(String? ingredNames) => _$this._ingredNames = ingredNames;
 
-  String _desc;
-  String get desc => _$this._desc;
-  set desc(String desc) => _$this._desc = desc;
+  String? _desc;
+  String? get desc => _$this._desc;
+  set desc(String? desc) => _$this._desc = desc;
 
-  ListBuilder<String> _nameAsArray;
+  ListBuilder<String>? _nameAsArray;
   ListBuilder<String> get nameAsArray =>
       _$this._nameAsArray ??= new ListBuilder<String>();
-  set nameAsArray(ListBuilder<String> nameAsArray) =>
+  set nameAsArray(ListBuilder<String>? nameAsArray) =>
       _$this._nameAsArray = nameAsArray;
 
-  String _recipeId;
-  String get recipeId => _$this._recipeId;
-  set recipeId(String recipeId) => _$this._recipeId = recipeId;
+  String? _recipeId;
+  String? get recipeId => _$this._recipeId;
+  set recipeId(String? recipeId) => _$this._recipeId = recipeId;
 
-  ListBuilder<String> _categoryName;
+  ListBuilder<String>? _categoryName;
   ListBuilder<String> get categoryName =>
       _$this._categoryName ??= new ListBuilder<String>();
-  set categoryName(ListBuilder<String> categoryName) =>
+  set categoryName(ListBuilder<String>? categoryName) =>
       _$this._categoryName = categoryName;
 
-  DocumentReference<Object> _reference;
-  DocumentReference<Object> get reference => _$this._reference;
-  set reference(DocumentReference<Object> reference) =>
-      _$this._reference = reference;
+  DocumentReference<Object?>? _ffRef;
+  DocumentReference<Object?>? get ffRef => _$this._ffRef;
+  set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
   RecipesRecordBuilder() {
     RecipesRecord._initializeBuilder(this);
@@ -471,7 +470,7 @@ class RecipesRecordBuilder
       _nameAsArray = $v.nameAsArray?.toBuilder();
       _recipeId = $v.recipeId;
       _categoryName = $v.categoryName?.toBuilder();
-      _reference = $v.reference;
+      _ffRef = $v.ffRef;
       _$v = null;
     }
     return this;
@@ -484,7 +483,7 @@ class RecipesRecordBuilder
   }
 
   @override
-  void update(void Function(RecipesRecordBuilder) updates) {
+  void update(void Function(RecipesRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -511,9 +510,9 @@ class RecipesRecordBuilder
               nameAsArray: _nameAsArray?.build(),
               recipeId: recipeId,
               categoryName: _categoryName?.build(),
-              reference: reference);
+              ffRef: ffRef);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'nameAsArray';
         _nameAsArray?.build();

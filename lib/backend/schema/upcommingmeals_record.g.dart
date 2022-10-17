@@ -20,11 +20,11 @@ class _$UpcommingmealsRecordSerializer
   final String wireName = 'UpcommingmealsRecord';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, UpcommingmealsRecord object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.name;
     if (value != null) {
       result
@@ -52,50 +52,50 @@ class _$UpcommingmealsRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.reference;
+    value = object.ffRef;
     if (value != null) {
       result
         ..add('Document__Reference__Field')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     return result;
   }
 
   @override
   UpcommingmealsRecord deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new UpcommingmealsRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'name':
           result.name = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'image':
           result.image = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'sequence':
           result.sequence = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'uid':
           result.uid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'Document__Reference__Field':
-          result.reference = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+          result.ffRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
       }
     }
@@ -106,22 +106,22 @@ class _$UpcommingmealsRecordSerializer
 
 class _$UpcommingmealsRecord extends UpcommingmealsRecord {
   @override
-  final String name;
+  final String? name;
   @override
-  final String image;
+  final String? image;
   @override
-  final int sequence;
+  final int? sequence;
   @override
-  final String uid;
+  final String? uid;
   @override
-  final DocumentReference<Object> reference;
+  final DocumentReference<Object?>? ffRef;
 
   factory _$UpcommingmealsRecord(
-          [void Function(UpcommingmealsRecordBuilder) updates]) =>
+          [void Function(UpcommingmealsRecordBuilder)? updates]) =>
       (new UpcommingmealsRecordBuilder()..update(updates))._build();
 
   _$UpcommingmealsRecord._(
-      {this.name, this.image, this.sequence, this.uid, this.reference})
+      {this.name, this.image, this.sequence, this.uid, this.ffRef})
       : super._();
 
   @override
@@ -141,7 +141,7 @@ class _$UpcommingmealsRecord extends UpcommingmealsRecord {
         image == other.image &&
         sequence == other.sequence &&
         uid == other.uid &&
-        reference == other.reference;
+        ffRef == other.ffRef;
   }
 
   @override
@@ -149,7 +149,7 @@ class _$UpcommingmealsRecord extends UpcommingmealsRecord {
     return $jf($jc(
         $jc($jc($jc($jc(0, name.hashCode), image.hashCode), sequence.hashCode),
             uid.hashCode),
-        reference.hashCode));
+        ffRef.hashCode));
   }
 
   @override
@@ -159,35 +159,34 @@ class _$UpcommingmealsRecord extends UpcommingmealsRecord {
           ..add('image', image)
           ..add('sequence', sequence)
           ..add('uid', uid)
-          ..add('reference', reference))
+          ..add('ffRef', ffRef))
         .toString();
   }
 }
 
 class UpcommingmealsRecordBuilder
     implements Builder<UpcommingmealsRecord, UpcommingmealsRecordBuilder> {
-  _$UpcommingmealsRecord _$v;
+  _$UpcommingmealsRecord? _$v;
 
-  String _name;
-  String get name => _$this._name;
-  set name(String name) => _$this._name = name;
+  String? _name;
+  String? get name => _$this._name;
+  set name(String? name) => _$this._name = name;
 
-  String _image;
-  String get image => _$this._image;
-  set image(String image) => _$this._image = image;
+  String? _image;
+  String? get image => _$this._image;
+  set image(String? image) => _$this._image = image;
 
-  int _sequence;
-  int get sequence => _$this._sequence;
-  set sequence(int sequence) => _$this._sequence = sequence;
+  int? _sequence;
+  int? get sequence => _$this._sequence;
+  set sequence(int? sequence) => _$this._sequence = sequence;
 
-  String _uid;
-  String get uid => _$this._uid;
-  set uid(String uid) => _$this._uid = uid;
+  String? _uid;
+  String? get uid => _$this._uid;
+  set uid(String? uid) => _$this._uid = uid;
 
-  DocumentReference<Object> _reference;
-  DocumentReference<Object> get reference => _$this._reference;
-  set reference(DocumentReference<Object> reference) =>
-      _$this._reference = reference;
+  DocumentReference<Object?>? _ffRef;
+  DocumentReference<Object?>? get ffRef => _$this._ffRef;
+  set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
   UpcommingmealsRecordBuilder() {
     UpcommingmealsRecord._initializeBuilder(this);
@@ -200,7 +199,7 @@ class UpcommingmealsRecordBuilder
       _image = $v.image;
       _sequence = $v.sequence;
       _uid = $v.uid;
-      _reference = $v.reference;
+      _ffRef = $v.ffRef;
       _$v = null;
     }
     return this;
@@ -213,7 +212,7 @@ class UpcommingmealsRecordBuilder
   }
 
   @override
-  void update(void Function(UpcommingmealsRecordBuilder) updates) {
+  void update(void Function(UpcommingmealsRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -227,7 +226,7 @@ class UpcommingmealsRecordBuilder
             image: image,
             sequence: sequence,
             uid: uid,
-            reference: reference);
+            ffRef: ffRef);
     replace(_$result);
     return _$result;
   }

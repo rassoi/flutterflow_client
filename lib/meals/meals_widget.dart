@@ -11,18 +11,18 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MealsWidget extends StatefulWidget {
   const MealsWidget({
-    Key key,
+    Key? key,
     this.hg,
   }) : super(key: key);
 
-  final String hg;
+  final String? hg;
 
   @override
   _MealsWidgetState createState() => _MealsWidgetState();
 }
 
 class _MealsWidgetState extends State<MealsWidget> {
-  String choiceChipsValue;
+  String? choiceChipsValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -35,6 +35,7 @@ class _MealsWidgetState extends State<MealsWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: true,
@@ -49,7 +50,6 @@ class _MealsWidgetState extends State<MealsWidget> {
         centerTitle: true,
         elevation: 4,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -75,9 +75,9 @@ class _MealsWidgetState extends State<MealsWidget> {
                         ),
                       );
                     }
-                    List<DaysRecord> containerDaysRecordList = snapshot.data;
+                    List<DaysRecord> containerDaysRecordList = snapshot.data!;
                     // Return an empty Container when the document does not exist.
-                    if (snapshot.data.isEmpty) {
+                    if (snapshot.data!.isEmpty) {
                       return Container();
                     }
                     final containerDaysRecord =
@@ -96,14 +96,13 @@ class _MealsWidgetState extends State<MealsWidget> {
                         scrollDirection: Axis.horizontal,
                         children: [
                           FlutterFlowChoiceChips(
-                            initiallySelected: choiceChipsValue != null
-                                ? [choiceChipsValue]
-                                : [FFAppState().day],
-                            options: (containerDaysRecord.day.toList() ?? [])
+                            initiallySelected: [FFAppState().day],
+                            options: containerDaysRecord!.day!
+                                .toList()
                                 .map((label) => ChipData(label))
                                 .toList(),
                             onChanged: (val) =>
-                                setState(() => choiceChipsValue = val.first),
+                                setState(() => choiceChipsValue = val?.first),
                             selectedChipStyle: ChipStyle(
                               backgroundColor: Color(0xFF323B45),
                               textStyle: FlutterFlowTheme.of(context)
@@ -170,7 +169,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                           ),
                         );
                       }
-                      List<TempRecord> listViewTempRecordList = snapshot.data;
+                      List<TempRecord> listViewTempRecordList = snapshot.data!;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
@@ -206,7 +205,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(5),
                                         child: Image.network(
-                                          listViewTempRecord.image,
+                                          listViewTempRecord.image!,
                                           width: 130,
                                           height: 100,
                                           fit: BoxFit.cover,
@@ -220,7 +219,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    listViewTempRecord.name
+                                    listViewTempRecord.name!
                                         .maybeHandleOverflow(maxChars: 15),
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,
@@ -235,7 +234,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                       alignment: AlignmentDirectional(0, 0),
                                       child: Text(
                                         formatNumber(
-                                          listViewTempRecord.counter,
+                                          listViewTempRecord.counter!,
                                           formatType: FormatType.custom,
                                           format: '0',
                                           locale: '',
@@ -305,7 +304,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                           ),
                         );
                       }
-                      List<TempRecord> listViewTempRecordList = snapshot.data;
+                      List<TempRecord> listViewTempRecordList = snapshot.data!;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
@@ -341,7 +340,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(5),
                                         child: Image.network(
-                                          listViewTempRecord.image,
+                                          listViewTempRecord.image!,
                                           width: 130,
                                           height: 100,
                                           fit: BoxFit.cover,
@@ -355,7 +354,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    listViewTempRecord.name
+                                    listViewTempRecord.name!
                                         .maybeHandleOverflow(maxChars: 15),
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,
@@ -370,7 +369,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                       alignment: AlignmentDirectional(0, 0),
                                       child: Text(
                                         formatNumber(
-                                          listViewTempRecord.counter,
+                                          listViewTempRecord.counter!,
                                           formatType: FormatType.custom,
                                           format: '0',
                                           locale: '',
@@ -440,7 +439,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                           ),
                         );
                       }
-                      List<TempRecord> listViewTempRecordList = snapshot.data;
+                      List<TempRecord> listViewTempRecordList = snapshot.data!;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
@@ -476,7 +475,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(5),
                                         child: Image.network(
-                                          listViewTempRecord.image,
+                                          listViewTempRecord.image!,
                                           width: 130,
                                           height: 100,
                                           fit: BoxFit.cover,
@@ -490,7 +489,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    listViewTempRecord.name
+                                    listViewTempRecord.name!
                                         .maybeHandleOverflow(maxChars: 15),
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,
@@ -505,7 +504,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                       alignment: AlignmentDirectional(0, 0),
                                       child: Text(
                                         formatNumber(
-                                          listViewTempRecord.counter,
+                                          listViewTempRecord.counter!,
                                           formatType: FormatType.custom,
                                           format: '0',
                                           locale: '',
@@ -575,7 +574,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                           ),
                         );
                       }
-                      List<TempRecord> listViewTempRecordList = snapshot.data;
+                      List<TempRecord> listViewTempRecordList = snapshot.data!;
                       return ListView.builder(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
@@ -611,7 +610,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(5),
                                         child: Image.network(
-                                          listViewTempRecord.image,
+                                          listViewTempRecord.image!,
                                           width: 130,
                                           height: 100,
                                           fit: BoxFit.cover,
@@ -625,7 +624,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   Text(
-                                    listViewTempRecord.name
+                                    listViewTempRecord.name!
                                         .maybeHandleOverflow(maxChars: 15),
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,
@@ -640,7 +639,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                       alignment: AlignmentDirectional(0, 0),
                                       child: Text(
                                         formatNumber(
-                                          listViewTempRecord.counter,
+                                          listViewTempRecord.counter!,
                                           formatType: FormatType.custom,
                                           format: '0',
                                           locale: '',

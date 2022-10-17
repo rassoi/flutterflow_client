@@ -17,10 +17,10 @@ class _$MealIngredRecordSerializer
   final String wireName = 'MealIngredRecord';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, MealIngredRecord object,
+  Iterable<Object?> serialize(Serializers serializers, MealIngredRecord object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.english;
     if (value != null) {
       result
@@ -77,68 +77,68 @@ class _$MealIngredRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.reference;
+    value = object.ffRef;
     if (value != null) {
       result
         ..add('Document__Reference__Field')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     return result;
   }
 
   @override
   MealIngredRecord deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new MealIngredRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'english':
           result.english = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'hindi':
           result.hindi = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'inged_id':
           result.ingedId = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'user_uid':
           result.userUid = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'status':
           result.status = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'recipe_names':
           result.recipeNames.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
         case 'meal_count':
           result.mealCount = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int;
+              specifiedType: const FullType(int)) as int?;
           break;
         case 'img':
           result.img = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'Document__Reference__Field':
-          result.reference = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+          result.ffRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
       }
     }
@@ -149,26 +149,26 @@ class _$MealIngredRecordSerializer
 
 class _$MealIngredRecord extends MealIngredRecord {
   @override
-  final String english;
+  final String? english;
   @override
-  final String hindi;
+  final String? hindi;
   @override
-  final String ingedId;
+  final String? ingedId;
   @override
-  final String userUid;
+  final String? userUid;
   @override
-  final String status;
+  final String? status;
   @override
-  final BuiltList<String> recipeNames;
+  final BuiltList<String>? recipeNames;
   @override
-  final int mealCount;
+  final int? mealCount;
   @override
-  final String img;
+  final String? img;
   @override
-  final DocumentReference<Object> reference;
+  final DocumentReference<Object?>? ffRef;
 
   factory _$MealIngredRecord(
-          [void Function(MealIngredRecordBuilder) updates]) =>
+          [void Function(MealIngredRecordBuilder)? updates]) =>
       (new MealIngredRecordBuilder()..update(updates))._build();
 
   _$MealIngredRecord._(
@@ -180,7 +180,7 @@ class _$MealIngredRecord extends MealIngredRecord {
       this.recipeNames,
       this.mealCount,
       this.img,
-      this.reference})
+      this.ffRef})
       : super._();
 
   @override
@@ -203,7 +203,7 @@ class _$MealIngredRecord extends MealIngredRecord {
         recipeNames == other.recipeNames &&
         mealCount == other.mealCount &&
         img == other.img &&
-        reference == other.reference;
+        ffRef == other.ffRef;
   }
 
   @override
@@ -221,7 +221,7 @@ class _$MealIngredRecord extends MealIngredRecord {
                     recipeNames.hashCode),
                 mealCount.hashCode),
             img.hashCode),
-        reference.hashCode));
+        ffRef.hashCode));
   }
 
   @override
@@ -235,53 +235,52 @@ class _$MealIngredRecord extends MealIngredRecord {
           ..add('recipeNames', recipeNames)
           ..add('mealCount', mealCount)
           ..add('img', img)
-          ..add('reference', reference))
+          ..add('ffRef', ffRef))
         .toString();
   }
 }
 
 class MealIngredRecordBuilder
     implements Builder<MealIngredRecord, MealIngredRecordBuilder> {
-  _$MealIngredRecord _$v;
+  _$MealIngredRecord? _$v;
 
-  String _english;
-  String get english => _$this._english;
-  set english(String english) => _$this._english = english;
+  String? _english;
+  String? get english => _$this._english;
+  set english(String? english) => _$this._english = english;
 
-  String _hindi;
-  String get hindi => _$this._hindi;
-  set hindi(String hindi) => _$this._hindi = hindi;
+  String? _hindi;
+  String? get hindi => _$this._hindi;
+  set hindi(String? hindi) => _$this._hindi = hindi;
 
-  String _ingedId;
-  String get ingedId => _$this._ingedId;
-  set ingedId(String ingedId) => _$this._ingedId = ingedId;
+  String? _ingedId;
+  String? get ingedId => _$this._ingedId;
+  set ingedId(String? ingedId) => _$this._ingedId = ingedId;
 
-  String _userUid;
-  String get userUid => _$this._userUid;
-  set userUid(String userUid) => _$this._userUid = userUid;
+  String? _userUid;
+  String? get userUid => _$this._userUid;
+  set userUid(String? userUid) => _$this._userUid = userUid;
 
-  String _status;
-  String get status => _$this._status;
-  set status(String status) => _$this._status = status;
+  String? _status;
+  String? get status => _$this._status;
+  set status(String? status) => _$this._status = status;
 
-  ListBuilder<String> _recipeNames;
+  ListBuilder<String>? _recipeNames;
   ListBuilder<String> get recipeNames =>
       _$this._recipeNames ??= new ListBuilder<String>();
-  set recipeNames(ListBuilder<String> recipeNames) =>
+  set recipeNames(ListBuilder<String>? recipeNames) =>
       _$this._recipeNames = recipeNames;
 
-  int _mealCount;
-  int get mealCount => _$this._mealCount;
-  set mealCount(int mealCount) => _$this._mealCount = mealCount;
+  int? _mealCount;
+  int? get mealCount => _$this._mealCount;
+  set mealCount(int? mealCount) => _$this._mealCount = mealCount;
 
-  String _img;
-  String get img => _$this._img;
-  set img(String img) => _$this._img = img;
+  String? _img;
+  String? get img => _$this._img;
+  set img(String? img) => _$this._img = img;
 
-  DocumentReference<Object> _reference;
-  DocumentReference<Object> get reference => _$this._reference;
-  set reference(DocumentReference<Object> reference) =>
-      _$this._reference = reference;
+  DocumentReference<Object?>? _ffRef;
+  DocumentReference<Object?>? get ffRef => _$this._ffRef;
+  set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
   MealIngredRecordBuilder() {
     MealIngredRecord._initializeBuilder(this);
@@ -298,7 +297,7 @@ class MealIngredRecordBuilder
       _recipeNames = $v.recipeNames?.toBuilder();
       _mealCount = $v.mealCount;
       _img = $v.img;
-      _reference = $v.reference;
+      _ffRef = $v.ffRef;
       _$v = null;
     }
     return this;
@@ -311,7 +310,7 @@ class MealIngredRecordBuilder
   }
 
   @override
-  void update(void Function(MealIngredRecordBuilder) updates) {
+  void update(void Function(MealIngredRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -331,9 +330,9 @@ class MealIngredRecordBuilder
               recipeNames: _recipeNames?.build(),
               mealCount: mealCount,
               img: img,
-              reference: reference);
+              ffRef: ffRef);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'recipeNames';
         _recipeNames?.build();

@@ -11,19 +11,16 @@ abstract class MiscellaneousRecord
   static Serializer<MiscellaneousRecord> get serializer =>
       _$miscellaneousRecordSerializer;
 
-  @nullable
   @BuiltValueField(wireName: 'categories_list')
-  BuiltList<String> get categoriesList;
+  BuiltList<String>? get categoriesList;
 
-  @nullable
-  int get avaialable;
+  int? get avaialable;
 
-  @nullable
-  int get unavaialable;
+  int? get unavaialable;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(MiscellaneousRecordBuilder builder) => builder
     ..categoriesList = ListBuilder()
@@ -35,11 +32,11 @@ abstract class MiscellaneousRecord
 
   static Stream<MiscellaneousRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<MiscellaneousRecord> getDocumentOnce(DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   MiscellaneousRecord._();
   factory MiscellaneousRecord(
@@ -49,16 +46,22 @@ abstract class MiscellaneousRecord
   static MiscellaneousRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createMiscellaneousRecordData({
-  int avaialable,
-  int unavaialable,
-}) =>
-    serializers.toFirestore(
-        MiscellaneousRecord.serializer,
-        MiscellaneousRecord((m) => m
-          ..categoriesList = null
-          ..avaialable = avaialable
-          ..unavaialable = unavaialable));
+  int? avaialable,
+  int? unavaialable,
+}) {
+  final firestoreData = serializers.toFirestore(
+    MiscellaneousRecord.serializer,
+    MiscellaneousRecord(
+      (m) => m
+        ..categoriesList = null
+        ..avaialable = avaialable
+        ..unavaialable = unavaialable,
+    ),
+  );
+
+  return firestoreData;
+}

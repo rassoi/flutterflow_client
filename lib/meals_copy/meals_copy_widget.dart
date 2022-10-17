@@ -12,11 +12,11 @@ import 'package:google_fonts/google_fonts.dart';
 
 class MealsCopyWidget extends StatefulWidget {
   const MealsCopyWidget({
-    Key key,
+    Key? key,
     this.hg,
   }) : super(key: key);
 
-  final String hg;
+  final String? hg;
 
   @override
   _MealsCopyWidgetState createState() => _MealsCopyWidgetState();
@@ -35,6 +35,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: true,
@@ -46,7 +47,6 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
         centerTitle: true,
         elevation: 4,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -89,9 +89,9 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                               );
                             }
                             List<TimestampRecord> rowTimestampRecordList =
-                                snapshot.data;
+                                snapshot.data!;
                             // Return an empty Container when the document does not exist.
-                            if (snapshot.data.isEmpty) {
+                            if (snapshot.data!.isEmpty) {
                               return Container();
                             }
                             final rowTimestampRecord =
@@ -104,7 +104,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                               children: [
                                 Text(
                                   dateTimeFormat('M/d h:mm a',
-                                      rowTimestampRecord.lastAudit),
+                                      rowTimestampRecord!.lastAudit!),
                                   style: FlutterFlowTheme.of(context).bodyText1,
                                 ),
                               ],
@@ -147,9 +147,9 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                               );
                             }
                             List<TimestampRecord> rowTimestampRecordList =
-                                snapshot.data;
+                                snapshot.data!;
                             // Return an empty Container when the document does not exist.
-                            if (snapshot.data.isEmpty) {
+                            if (snapshot.data!.isEmpty) {
                               return Container();
                             }
                             final rowTimestampRecord =
@@ -161,8 +161,8 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                               mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Text(
-                                  dateTimeFormat(
-                                      'M/d h:mm a', rowTimestampRecord.lastBuy),
+                                  dateTimeFormat('M/d h:mm a',
+                                      rowTimestampRecord!.lastBuy!),
                                   style: FlutterFlowTheme.of(context).bodyText1,
                                 ),
                               ],
@@ -192,9 +192,9 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                           );
                         }
                         List<TimestampRecord> columnTimestampRecordList =
-                            snapshot.data;
+                            snapshot.data!;
                         // Return an empty Container when the document does not exist.
-                        if (snapshot.data.isEmpty) {
+                        if (snapshot.data!.isEmpty) {
                           return Container();
                         }
                         final columnTimestampRecord =
@@ -214,7 +214,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                     createTimestampRecordData(
                                   lastBuy: functions.geCurrentTimeStamp(),
                                 );
-                                await columnTimestampRecord.reference
+                                await columnTimestampRecord!.reference
                                     .update(timestampUpdateData);
                               },
                               text: 'Buy',
@@ -262,9 +262,9 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                     );
                   }
                   List<MiscellaneousRecord> rowMiscellaneousRecordList =
-                      snapshot.data;
+                      snapshot.data!;
                   // Return an empty Container when the document does not exist.
-                  if (snapshot.data.isEmpty) {
+                  if (snapshot.data!.isEmpty) {
                     return Container();
                   }
                   final rowMiscellaneousRecord =
@@ -284,7 +284,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
                       Text(
-                        rowMiscellaneousRecord.unavaialable.toString(),
+                        rowMiscellaneousRecord!.unavaialable!.toString(),
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
                       Text(
@@ -318,7 +318,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                       );
                     }
                     List<MealIngredRecord> listViewMealIngredRecordList =
-                        snapshot.data;
+                        snapshot.data!;
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.vertical,
@@ -345,9 +345,9 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                               );
                             }
                             List<TimestampRecord>
-                                expandableTimestampRecordList = snapshot.data;
+                                expandableTimestampRecordList = snapshot.data!;
                             // Return an empty Container when the document does not exist.
-                            if (snapshot.data.isEmpty) {
+                            if (snapshot.data!.isEmpty) {
                               return Container();
                             }
                             final expandableTimestampRecord =
@@ -366,7 +366,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                       Expanded(
                                         flex: 4,
                                         child: Text(
-                                          listViewMealIngredRecord.english,
+                                          listViewMealIngredRecord.english!,
                                           style: FlutterFlowTheme.of(context)
                                               .subtitle2,
                                         ),
@@ -396,7 +396,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                               lastAudit: functions
                                                   .geCurrentTimeStamp(),
                                             );
-                                            await expandableTimestampRecord
+                                            await expandableTimestampRecord!
                                                 .reference
                                                 .update(timestampUpdateData);
                                           },
@@ -426,7 +426,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                                 ),
                                           ),
                                           Text(
-                                            listViewMealIngredRecord.hindi,
+                                            listViewMealIngredRecord.hindi!,
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1,
                                           ),
@@ -443,7 +443,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                           Text(
                                             functions.recipeList(
                                                 listViewMealIngredRecord
-                                                    .recipeNames
+                                                    .recipeNames!
                                                     .toList()),
                                             style: FlutterFlowTheme.of(context)
                                                 .bodyText1,
@@ -454,7 +454,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 4, 0, 0),
                                         child: Image.network(
-                                          listViewMealIngredRecord.img,
+                                          listViewMealIngredRecord.img!,
                                           width:
                                               MediaQuery.of(context).size.width,
                                           height: 100,
@@ -500,9 +500,9 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                     );
                   }
                   List<MiscellaneousRecord> rowMiscellaneousRecordList =
-                      snapshot.data;
+                      snapshot.data!;
                   // Return an empty Container when the document does not exist.
-                  if (snapshot.data.isEmpty) {
+                  if (snapshot.data!.isEmpty) {
                     return Container();
                   }
                   final rowMiscellaneousRecord =
@@ -522,7 +522,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
                       Text(
-                        rowMiscellaneousRecord.avaialable.toString(),
+                        rowMiscellaneousRecord!.avaialable!.toString(),
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
                       Text(
@@ -556,7 +556,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                       );
                     }
                     List<MealIngredRecord> listViewMealIngredRecordList =
-                        snapshot.data;
+                        snapshot.data!;
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.vertical,
@@ -576,7 +576,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                   Expanded(
                                     flex: 4,
                                     child: Text(
-                                      listViewMealIngredRecord.english,
+                                      listViewMealIngredRecord.english!,
                                       style: FlutterFlowTheme.of(context)
                                           .subtitle2,
                                     ),
@@ -623,7 +623,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                             ),
                                       ),
                                       Text(
-                                        listViewMealIngredRecord.hindi,
+                                        listViewMealIngredRecord.hindi!,
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1,
                                       ),
@@ -639,7 +639,8 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                       ),
                                       Text(
                                         functions.recipeList(
-                                            listViewMealIngredRecord.recipeNames
+                                            listViewMealIngredRecord
+                                                .recipeNames!
                                                 .toList()),
                                         style: FlutterFlowTheme.of(context)
                                             .bodyText1,
@@ -650,7 +651,7 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                     padding: EdgeInsetsDirectional.fromSTEB(
                                         0, 4, 0, 0),
                                     child: Image.network(
-                                      listViewMealIngredRecord.img,
+                                      listViewMealIngredRecord.img!,
                                       width: MediaQuery.of(context).size.width,
                                       height: 100,
                                       fit: BoxFit.cover,

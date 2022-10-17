@@ -9,7 +9,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeWidget extends StatefulWidget {
-  const HomeWidget({Key key}) : super(key: key);
+  const HomeWidget({Key? key}) : super(key: key);
 
   @override
   _HomeWidgetState createState() => _HomeWidgetState();
@@ -28,6 +28,7 @@ class _HomeWidgetState extends State<HomeWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: Colors.white,
         automaticallyImplyLeading: false,
@@ -56,7 +57,6 @@ class _HomeWidgetState extends State<HomeWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -142,9 +142,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                         ),
                       );
                     }
-                    List<UsersRecord> rowUsersRecordList = snapshot.data;
+                    List<UsersRecord> rowUsersRecordList = snapshot.data!;
                     // Return an empty Container when the document does not exist.
-                    if (snapshot.data.isEmpty) {
+                    if (snapshot.data!.isEmpty) {
                       return Container();
                     }
                     final rowUsersRecord = rowUsersRecordList.isNotEmpty
@@ -187,7 +187,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                         ),
                       );
                     }
-                    List<TempRecord> listViewTempRecordList = snapshot.data;
+                    List<TempRecord> listViewTempRecordList = snapshot.data!;
                     return ListView.builder(
                       padding: EdgeInsets.zero,
                       scrollDirection: Axis.horizontal,
@@ -217,7 +217,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       );
                                     },
                                     child: Image.network(
-                                      listViewTempRecord.image,
+                                      listViewTempRecord.image!,
                                       width: 100,
                                       height: 100,
                                       fit: BoxFit.cover,
@@ -229,7 +229,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 mainAxisSize: MainAxisSize.max,
                                 children: [
                                   AutoSizeText(
-                                    listViewTempRecord.name
+                                    listViewTempRecord.name!
                                         .maybeHandleOverflow(maxChars: 15),
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,
@@ -279,7 +279,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       );
                     }
                     List<CategoriesRecord> gridViewCategoriesRecordList =
-                        snapshot.data;
+                        snapshot.data!;
                     return GridView.builder(
                       padding: EdgeInsets.zero,
                       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
@@ -307,7 +307,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     logFirebaseEvent(
                                         'CircleImage_Update-Local-State');
                                     setState(() => FFAppState().category =
-                                        gridViewCategoriesRecord.categoryName);
+                                        gridViewCategoriesRecord.categoryName!);
                                     logFirebaseEvent('CircleImage_Navigate-To');
                                     await Navigator.push(
                                       context,
@@ -325,7 +325,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       shape: BoxShape.circle,
                                     ),
                                     child: Image.network(
-                                      gridViewCategoriesRecord.image,
+                                      gridViewCategoriesRecord.image!,
                                     ),
                                   ),
                                 ),
@@ -337,7 +337,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   AutoSizeText(
-                                    gridViewCategoriesRecord.categoryName
+                                    gridViewCategoriesRecord.categoryName!
                                         .maybeHandleOverflow(maxChars: 10),
                                     style:
                                         FlutterFlowTheme.of(context).bodyText1,

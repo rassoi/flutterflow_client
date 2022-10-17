@@ -1,31 +1,33 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'banner_record.dart';
+part of 'subbanner_record.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<BannerRecord> _$bannerRecordSerializer =
-    new _$BannerRecordSerializer();
+Serializer<SubbannerRecord> _$subbannerRecordSerializer =
+    new _$SubbannerRecordSerializer();
 
-class _$BannerRecordSerializer implements StructuredSerializer<BannerRecord> {
+class _$SubbannerRecordSerializer
+    implements StructuredSerializer<SubbannerRecord> {
   @override
-  final Iterable<Type> types = const [BannerRecord, _$BannerRecord];
+  final Iterable<Type> types = const [SubbannerRecord, _$SubbannerRecord];
   @override
-  final String wireName = 'BannerRecord';
+  final String wireName = 'SubbannerRecord';
 
   @override
-  Iterable<Object?> serialize(Serializers serializers, BannerRecord object,
+  Iterable<Object?> serialize(Serializers serializers, SubbannerRecord object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
-    value = object.image;
+    value = object.array;
     if (value != null) {
       result
-        ..add('image')
+        ..add('array')
         ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
     }
     value = object.ffRef;
     if (value != null) {
@@ -39,10 +41,10 @@ class _$BannerRecordSerializer implements StructuredSerializer<BannerRecord> {
   }
 
   @override
-  BannerRecord deserialize(
+  SubbannerRecord deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new BannerRecordBuilder();
+    final result = new SubbannerRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -50,9 +52,11 @@ class _$BannerRecordSerializer implements StructuredSerializer<BannerRecord> {
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'image':
-          result.image = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
+        case 'array':
+          result.array.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
@@ -67,66 +71,67 @@ class _$BannerRecordSerializer implements StructuredSerializer<BannerRecord> {
   }
 }
 
-class _$BannerRecord extends BannerRecord {
+class _$SubbannerRecord extends SubbannerRecord {
   @override
-  final String? image;
+  final BuiltList<String>? array;
   @override
   final DocumentReference<Object?>? ffRef;
 
-  factory _$BannerRecord([void Function(BannerRecordBuilder)? updates]) =>
-      (new BannerRecordBuilder()..update(updates))._build();
+  factory _$SubbannerRecord([void Function(SubbannerRecordBuilder)? updates]) =>
+      (new SubbannerRecordBuilder()..update(updates))._build();
 
-  _$BannerRecord._({this.image, this.ffRef}) : super._();
+  _$SubbannerRecord._({this.array, this.ffRef}) : super._();
 
   @override
-  BannerRecord rebuild(void Function(BannerRecordBuilder) updates) =>
+  SubbannerRecord rebuild(void Function(SubbannerRecordBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  BannerRecordBuilder toBuilder() => new BannerRecordBuilder()..replace(this);
+  SubbannerRecordBuilder toBuilder() =>
+      new SubbannerRecordBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is BannerRecord &&
-        image == other.image &&
+    return other is SubbannerRecord &&
+        array == other.array &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, image.hashCode), ffRef.hashCode));
+    return $jf($jc($jc(0, array.hashCode), ffRef.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'BannerRecord')
-          ..add('image', image)
+    return (newBuiltValueToStringHelper(r'SubbannerRecord')
+          ..add('array', array)
           ..add('ffRef', ffRef))
         .toString();
   }
 }
 
-class BannerRecordBuilder
-    implements Builder<BannerRecord, BannerRecordBuilder> {
-  _$BannerRecord? _$v;
+class SubbannerRecordBuilder
+    implements Builder<SubbannerRecord, SubbannerRecordBuilder> {
+  _$SubbannerRecord? _$v;
 
-  String? _image;
-  String? get image => _$this._image;
-  set image(String? image) => _$this._image = image;
+  ListBuilder<String>? _array;
+  ListBuilder<String> get array => _$this._array ??= new ListBuilder<String>();
+  set array(ListBuilder<String>? array) => _$this._array = array;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
-  BannerRecordBuilder() {
-    BannerRecord._initializeBuilder(this);
+  SubbannerRecordBuilder() {
+    SubbannerRecord._initializeBuilder(this);
   }
 
-  BannerRecordBuilder get _$this {
+  SubbannerRecordBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _image = $v.image;
+      _array = $v.array?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -134,21 +139,35 @@ class BannerRecordBuilder
   }
 
   @override
-  void replace(BannerRecord other) {
+  void replace(SubbannerRecord other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$BannerRecord;
+    _$v = other as _$SubbannerRecord;
   }
 
   @override
-  void update(void Function(BannerRecordBuilder)? updates) {
+  void update(void Function(SubbannerRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  BannerRecord build() => _build();
+  SubbannerRecord build() => _build();
 
-  _$BannerRecord _build() {
-    final _$result = _$v ?? new _$BannerRecord._(image: image, ffRef: ffRef);
+  _$SubbannerRecord _build() {
+    _$SubbannerRecord _$result;
+    try {
+      _$result =
+          _$v ?? new _$SubbannerRecord._(array: _array?.build(), ffRef: ffRef);
+    } catch (_) {
+      late String _$failedField;
+      try {
+        _$failedField = 'array';
+        _array?.build();
+      } catch (e) {
+        throw new BuiltValueNestedFieldError(
+            r'SubbannerRecord', _$failedField, e.toString());
+      }
+      rethrow;
+    }
     replace(_$result);
     return _$result;
   }

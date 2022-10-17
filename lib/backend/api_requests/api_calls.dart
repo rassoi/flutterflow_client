@@ -4,9 +4,11 @@ import 'api_manager.dart';
 
 export 'api_manager.dart' show ApiCallResponse;
 
+const _kPrivateApiFunctionName = 'ffPrivateApiCall';
+
 class SetingredCall {
   static Future<ApiCallResponse> call({
-    String recipeId = '',
+    String? recipeId = '',
   }) {
     final body = '''
 {
@@ -17,9 +19,7 @@ class SetingredCall {
       apiUrl: 'https://us-central1-rassoi-767af.cloudfunctions.net/function-3',
       callType: ApiCallType.POST,
       headers: {},
-      params: {
-        'recipe_id': recipeId,
-      },
+      params: {},
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
@@ -29,7 +29,7 @@ class SetingredCall {
 
 class RemoveIngredAsPerRecipeCall {
   static Future<ApiCallResponse> call({
-    String recipeId = '',
+    String? recipeId = '',
   }) {
     final body = '''
 {
@@ -41,12 +41,26 @@ class RemoveIngredAsPerRecipeCall {
           'https://us-central1-rassoi-767af.cloudfunctions.net/remove_ingreds_of_a_recipe',
       callType: ApiCallType.POST,
       headers: {},
-      params: {
-        'recipe_id': recipeId,
-      },
+      params: {},
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
     );
   }
+}
+
+class ApiPagingParams {
+  int nextPageNumber = 0;
+  int numItems = 0;
+  dynamic lastResponse;
+
+  ApiPagingParams({
+    required this.nextPageNumber,
+    required this.numItems,
+    required this.lastResponse,
+  });
+
+  @override
+  String toString() =>
+      'PagingParams(nextPageNumber: $nextPageNumber, numItems: $numItems, lastResponse: $lastResponse,)';
 }

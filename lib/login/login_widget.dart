@@ -9,14 +9,14 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginWidget extends StatefulWidget {
-  const LoginWidget({Key key}) : super(key: key);
+  const LoginWidget({Key? key}) : super(key: key);
 
   @override
   _LoginWidgetState createState() => _LoginWidgetState();
 }
 
 class _LoginWidgetState extends State<LoginWidget> {
-  TextEditingController textController;
+  TextEditingController? textController;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -27,9 +27,16 @@ class _LoginWidgetState extends State<LoginWidget> {
   }
 
   @override
+  void dispose() {
+    textController?.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
@@ -54,7 +61,6 @@ class _LoginWidgetState extends State<LoginWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -92,6 +98,26 @@ class _LoginWidgetState extends State<LoginWidget> {
                               topRight: Radius.circular(4.0),
                             ),
                           ),
+                          errorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
+                          focusedErrorBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(
+                              color: Color(0x00000000),
+                              width: 1,
+                            ),
+                            borderRadius: const BorderRadius.only(
+                              topLeft: Radius.circular(4.0),
+                              topRight: Radius.circular(4.0),
+                            ),
+                          ),
                           filled: true,
                           fillColor: Color(0xFFCDC8C8),
                         ),
@@ -121,9 +147,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                         ),
                       );
                     }
-                    List<UsersRecord> rowUsersRecordList = snapshot.data;
+                    List<UsersRecord> rowUsersRecordList = snapshot.data!;
                     // Return an empty Container when the document does not exist.
-                    if (snapshot.data.isEmpty) {
+                    if (snapshot.data!.isEmpty) {
                       return Container();
                     }
                     final rowUsersRecord = rowUsersRecordList.isNotEmpty
@@ -137,7 +163,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                           onPressed: () async {
                             logFirebaseEvent('LOGIN_PAGE_VERIFY_BTN_ON_TAP');
                             logFirebaseEvent('Button_Auth');
-                            final smsCodeVal = textController.text;
+                            final smsCodeVal = textController!.text;
                             if (smsCodeVal == null || smsCodeVal.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                 SnackBar(

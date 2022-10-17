@@ -1,5 +1,7 @@
 import 'dart:async';
 
+import 'package:from_css_color/from_css_color.dart';
+
 import 'index.dart';
 import 'serializers.dart';
 import 'package:built_value/built_value.dart';
@@ -10,61 +12,46 @@ abstract class RecipesRecord
     implements Built<RecipesRecord, RecipesRecordBuilder> {
   static Serializer<RecipesRecord> get serializer => _$recipesRecordSerializer;
 
-  @nullable
-  String get image;
+  String? get image;
 
-  @nullable
-  String get name;
+  String? get name;
 
-  @nullable
-  String get email;
+  String? get email;
 
-  @nullable
   @BuiltValueField(wireName: 'display_name')
-  String get displayName;
+  String? get displayName;
 
-  @nullable
   @BuiltValueField(wireName: 'photo_url')
-  String get photoUrl;
+  String? get photoUrl;
 
-  @nullable
-  String get uid;
+  String? get uid;
 
-  @nullable
   @BuiltValueField(wireName: 'created_time')
-  DateTime get createdTime;
+  DateTime? get createdTime;
 
-  @nullable
   @BuiltValueField(wireName: 'phone_number')
-  String get phoneNumber;
+  String? get phoneNumber;
 
-  @nullable
   @BuiltValueField(wireName: 'youtube_link')
-  String get youtubeLink;
+  String? get youtubeLink;
 
-  @nullable
-  DocumentReference get ref;
+  DocumentReference? get ref;
 
-  @nullable
   @BuiltValueField(wireName: 'ingred_names')
-  String get ingredNames;
+  String? get ingredNames;
 
-  @nullable
-  String get desc;
+  String? get desc;
 
-  @nullable
-  BuiltList<String> get nameAsArray;
+  BuiltList<String>? get nameAsArray;
 
-  @nullable
   @BuiltValueField(wireName: 'recipe_id')
-  String get recipeId;
+  String? get recipeId;
 
-  @nullable
-  BuiltList<String> get categoryName;
+  BuiltList<String>? get categoryName;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(RecipesRecordBuilder builder) => builder
     ..image = ''
@@ -86,11 +73,11 @@ abstract class RecipesRecord
 
   static Stream<RecipesRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<RecipesRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static RecipesRecord fromAlgolia(AlgoliaObjectSnapshot snapshot) =>
       RecipesRecord(
@@ -113,14 +100,14 @@ abstract class RecipesRecord
           ..recipeId = snapshot.data['recipe_id']
           ..categoryName =
               safeGet(() => ListBuilder(snapshot.data['categoryName']))
-          ..reference = RecipesRecord.collection.doc(snapshot.objectID),
+          ..ffRef = RecipesRecord.collection.doc(snapshot.objectID),
       );
 
   static Future<List<RecipesRecord>> search(
-          {String term,
-          FutureOr<LatLng> location,
-          int maxResults,
-          double searchRadiusMeters}) =>
+          {String? term,
+          FutureOr<LatLng>? location,
+          int? maxResults,
+          double? searchRadiusMeters}) =>
       FFAlgoliaManager.instance
           .algoliaQuery(
             index: 'recipes',
@@ -138,39 +125,45 @@ abstract class RecipesRecord
   static RecipesRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createRecipesRecordData({
-  String image,
-  String name,
-  String email,
-  String displayName,
-  String photoUrl,
-  String uid,
-  DateTime createdTime,
-  String phoneNumber,
-  String youtubeLink,
-  DocumentReference ref,
-  String ingredNames,
-  String desc,
-  String recipeId,
-}) =>
-    serializers.toFirestore(
-        RecipesRecord.serializer,
-        RecipesRecord((r) => r
-          ..image = image
-          ..name = name
-          ..email = email
-          ..displayName = displayName
-          ..photoUrl = photoUrl
-          ..uid = uid
-          ..createdTime = createdTime
-          ..phoneNumber = phoneNumber
-          ..youtubeLink = youtubeLink
-          ..ref = ref
-          ..ingredNames = ingredNames
-          ..desc = desc
-          ..nameAsArray = null
-          ..recipeId = recipeId
-          ..categoryName = null));
+  String? image,
+  String? name,
+  String? email,
+  String? displayName,
+  String? photoUrl,
+  String? uid,
+  DateTime? createdTime,
+  String? phoneNumber,
+  String? youtubeLink,
+  DocumentReference? ref,
+  String? ingredNames,
+  String? desc,
+  String? recipeId,
+}) {
+  final firestoreData = serializers.toFirestore(
+    RecipesRecord.serializer,
+    RecipesRecord(
+      (r) => r
+        ..image = image
+        ..name = name
+        ..email = email
+        ..displayName = displayName
+        ..photoUrl = photoUrl
+        ..uid = uid
+        ..createdTime = createdTime
+        ..phoneNumber = phoneNumber
+        ..youtubeLink = youtubeLink
+        ..ref = ref
+        ..ingredNames = ingredNames
+        ..desc = desc
+        ..nameAsArray = null
+        ..recipeId = recipeId
+        ..categoryName = null,
+    ),
+  );
+
+  return firestoreData;
+}

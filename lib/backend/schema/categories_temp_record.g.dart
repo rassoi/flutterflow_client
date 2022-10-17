@@ -20,11 +20,11 @@ class _$CategoriesTempRecordSerializer
   final String wireName = 'CategoriesTempRecord';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, CategoriesTempRecord object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.list;
     if (value != null) {
       result
@@ -33,40 +33,40 @@ class _$CategoriesTempRecordSerializer
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    value = object.reference;
+    value = object.ffRef;
     if (value != null) {
       result
         ..add('Document__Reference__Field')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     return result;
   }
 
   @override
   CategoriesTempRecord deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CategoriesTempRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'list':
           result.list.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
         case 'Document__Reference__Field':
-          result.reference = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+          result.ffRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
       }
     }
@@ -77,15 +77,15 @@ class _$CategoriesTempRecordSerializer
 
 class _$CategoriesTempRecord extends CategoriesTempRecord {
   @override
-  final BuiltList<String> list;
+  final BuiltList<String>? list;
   @override
-  final DocumentReference<Object> reference;
+  final DocumentReference<Object?>? ffRef;
 
   factory _$CategoriesTempRecord(
-          [void Function(CategoriesTempRecordBuilder) updates]) =>
+          [void Function(CategoriesTempRecordBuilder)? updates]) =>
       (new CategoriesTempRecordBuilder()..update(updates))._build();
 
-  _$CategoriesTempRecord._({this.list, this.reference}) : super._();
+  _$CategoriesTempRecord._({this.list, this.ffRef}) : super._();
 
   @override
   CategoriesTempRecord rebuild(
@@ -101,35 +101,34 @@ class _$CategoriesTempRecord extends CategoriesTempRecord {
     if (identical(other, this)) return true;
     return other is CategoriesTempRecord &&
         list == other.list &&
-        reference == other.reference;
+        ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, list.hashCode), reference.hashCode));
+    return $jf($jc($jc(0, list.hashCode), ffRef.hashCode));
   }
 
   @override
   String toString() {
     return (newBuiltValueToStringHelper(r'CategoriesTempRecord')
           ..add('list', list)
-          ..add('reference', reference))
+          ..add('ffRef', ffRef))
         .toString();
   }
 }
 
 class CategoriesTempRecordBuilder
     implements Builder<CategoriesTempRecord, CategoriesTempRecordBuilder> {
-  _$CategoriesTempRecord _$v;
+  _$CategoriesTempRecord? _$v;
 
-  ListBuilder<String> _list;
+  ListBuilder<String>? _list;
   ListBuilder<String> get list => _$this._list ??= new ListBuilder<String>();
-  set list(ListBuilder<String> list) => _$this._list = list;
+  set list(ListBuilder<String>? list) => _$this._list = list;
 
-  DocumentReference<Object> _reference;
-  DocumentReference<Object> get reference => _$this._reference;
-  set reference(DocumentReference<Object> reference) =>
-      _$this._reference = reference;
+  DocumentReference<Object?>? _ffRef;
+  DocumentReference<Object?>? get ffRef => _$this._ffRef;
+  set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
   CategoriesTempRecordBuilder() {
     CategoriesTempRecord._initializeBuilder(this);
@@ -139,7 +138,7 @@ class CategoriesTempRecordBuilder
     final $v = _$v;
     if ($v != null) {
       _list = $v.list?.toBuilder();
-      _reference = $v.reference;
+      _ffRef = $v.ffRef;
       _$v = null;
     }
     return this;
@@ -152,7 +151,7 @@ class CategoriesTempRecordBuilder
   }
 
   @override
-  void update(void Function(CategoriesTempRecordBuilder) updates) {
+  void update(void Function(CategoriesTempRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -163,10 +162,9 @@ class CategoriesTempRecordBuilder
     _$CategoriesTempRecord _$result;
     try {
       _$result = _$v ??
-          new _$CategoriesTempRecord._(
-              list: _list?.build(), reference: reference);
+          new _$CategoriesTempRecord._(list: _list?.build(), ffRef: ffRef);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'list';
         _list?.build();

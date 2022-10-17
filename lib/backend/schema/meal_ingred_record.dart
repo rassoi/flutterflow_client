@@ -11,37 +11,29 @@ abstract class MealIngredRecord
   static Serializer<MealIngredRecord> get serializer =>
       _$mealIngredRecordSerializer;
 
-  @nullable
-  String get english;
+  String? get english;
 
-  @nullable
-  String get hindi;
+  String? get hindi;
 
-  @nullable
   @BuiltValueField(wireName: 'inged_id')
-  String get ingedId;
+  String? get ingedId;
 
-  @nullable
   @BuiltValueField(wireName: 'user_uid')
-  String get userUid;
+  String? get userUid;
 
-  @nullable
-  String get status;
+  String? get status;
 
-  @nullable
   @BuiltValueField(wireName: 'recipe_names')
-  BuiltList<String> get recipeNames;
+  BuiltList<String>? get recipeNames;
 
-  @nullable
   @BuiltValueField(wireName: 'meal_count')
-  int get mealCount;
+  int? get mealCount;
 
-  @nullable
-  String get img;
+  String? get img;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(MealIngredRecordBuilder builder) => builder
     ..english = ''
@@ -58,11 +50,11 @@ abstract class MealIngredRecord
 
   static Stream<MealIngredRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<MealIngredRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   MealIngredRecord._();
   factory MealIngredRecord([void Function(MealIngredRecordBuilder) updates]) =
@@ -71,26 +63,32 @@ abstract class MealIngredRecord
   static MealIngredRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createMealIngredRecordData({
-  String english,
-  String hindi,
-  String ingedId,
-  String userUid,
-  String status,
-  int mealCount,
-  String img,
-}) =>
-    serializers.toFirestore(
-        MealIngredRecord.serializer,
-        MealIngredRecord((m) => m
-          ..english = english
-          ..hindi = hindi
-          ..ingedId = ingedId
-          ..userUid = userUid
-          ..status = status
-          ..recipeNames = null
-          ..mealCount = mealCount
-          ..img = img));
+  String? english,
+  String? hindi,
+  String? ingedId,
+  String? userUid,
+  String? status,
+  int? mealCount,
+  String? img,
+}) {
+  final firestoreData = serializers.toFirestore(
+    MealIngredRecord.serializer,
+    MealIngredRecord(
+      (m) => m
+        ..english = english
+        ..hindi = hindi
+        ..ingedId = ingedId
+        ..userUid = userUid
+        ..status = status
+        ..recipeNames = null
+        ..mealCount = mealCount
+        ..img = img,
+    ),
+  );
+
+  return firestoreData;
+}

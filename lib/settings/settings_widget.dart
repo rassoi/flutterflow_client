@@ -10,7 +10,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class SettingsWidget extends StatefulWidget {
-  const SettingsWidget({Key key}) : super(key: key);
+  const SettingsWidget({Key? key}) : super(key: key);
 
   @override
   _SettingsWidgetState createState() => _SettingsWidgetState();
@@ -29,6 +29,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
+      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
@@ -57,7 +58,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         centerTitle: false,
         elevation: 2,
       ),
-      backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       body: SafeArea(
         child: GestureDetector(
           onTap: () => FocusScope.of(context).unfocus(),
@@ -82,9 +82,9 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       ),
                     );
                   }
-                  List<UsersRecord> rowUsersRecordList = snapshot.data;
+                  List<UsersRecord> rowUsersRecordList = snapshot.data!;
                   // Return an empty Container when the document does not exist.
-                  if (snapshot.data.isEmpty) {
+                  if (snapshot.data!.isEmpty) {
                     return Container();
                   }
                   final rowUsersRecord = rowUsersRecordList.isNotEmpty

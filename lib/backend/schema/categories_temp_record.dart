@@ -11,12 +11,11 @@ abstract class CategoriesTempRecord
   static Serializer<CategoriesTempRecord> get serializer =>
       _$categoriesTempRecordSerializer;
 
-  @nullable
-  BuiltList<String> get list;
+  BuiltList<String>? get list;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(CategoriesTempRecordBuilder builder) =>
       builder..list = ListBuilder();
@@ -26,11 +25,11 @@ abstract class CategoriesTempRecord
 
   static Stream<CategoriesTempRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<CategoriesTempRecord> getDocumentOnce(DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   CategoriesTempRecord._();
   factory CategoriesTempRecord(
@@ -40,9 +39,16 @@ abstract class CategoriesTempRecord
   static CategoriesTempRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
-Map<String, dynamic> createCategoriesTempRecordData() =>
-    serializers.toFirestore(CategoriesTempRecord.serializer,
-        CategoriesTempRecord((c) => c..list = null));
+Map<String, dynamic> createCategoriesTempRecordData() {
+  final firestoreData = serializers.toFirestore(
+    CategoriesTempRecord.serializer,
+    CategoriesTempRecord(
+      (c) => c..list = null,
+    ),
+  );
+
+  return firestoreData;
+}

@@ -7,14 +7,14 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class FbComponentWidget extends StatefulWidget {
-  const FbComponentWidget({Key key}) : super(key: key);
+  const FbComponentWidget({Key? key}) : super(key: key);
 
   @override
   _FbComponentWidgetState createState() => _FbComponentWidgetState();
 }
 
 class _FbComponentWidgetState extends State<FbComponentWidget> {
-  int countControllerValue;
+  int? countControllerValue;
 
   @override
   Widget build(BuildContext context) {

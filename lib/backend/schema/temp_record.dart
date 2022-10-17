@@ -9,63 +9,47 @@ part 'temp_record.g.dart';
 abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
   static Serializer<TempRecord> get serializer => _$tempRecordSerializer;
 
-  @nullable
-  String get image;
+  String? get image;
 
-  @nullable
-  String get name;
+  String? get name;
 
-  @nullable
   @BuiltValueField(wireName: 'youtube_link')
-  String get youtubeLink;
+  String? get youtubeLink;
 
-  @nullable
-  DocumentReference get ref;
+  DocumentReference? get ref;
 
-  @nullable
   @BuiltValueField(wireName: 'ingred_names')
-  String get ingredNames;
+  String? get ingredNames;
 
-  @nullable
   @BuiltValueField(wireName: 'user_uid')
-  String get userUid;
+  String? get userUid;
 
-  @nullable
   @BuiltValueField(wireName: 'recipe_id')
-  String get recipeId;
+  String? get recipeId;
 
-  @nullable
-  int get counter;
+  int? get counter;
 
-  @nullable
-  BuiltList<String> get nameAsArray;
+  BuiltList<String>? get nameAsArray;
 
-  @nullable
-  String get status;
+  String? get status;
 
-  @nullable
-  bool get fav;
+  bool? get fav;
 
-  @nullable
-  String get uid;
+  String? get uid;
 
-  @nullable
   @BuiltValueField(wireName: 'meal_time')
-  BuiltList<String> get mealTime;
+  BuiltList<String>? get mealTime;
 
-  @nullable
-  BuiltList<String> get day;
+  BuiltList<String>? get day;
 
-  @nullable
   @BuiltValueField(wireName: 'which_meal')
-  BuiltList<String> get whichMeal;
+  BuiltList<String>? get whichMeal;
 
-  @nullable
-  BuiltList<String> get dates;
+  BuiltList<String>? get dates;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(TempRecordBuilder builder) => builder
     ..image = ''
@@ -89,11 +73,11 @@ abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
 
   static Stream<TempRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<TempRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   TempRecord._();
   factory TempRecord([void Function(TempRecordBuilder) updates]) = _$TempRecord;
@@ -101,38 +85,44 @@ abstract class TempRecord implements Built<TempRecord, TempRecordBuilder> {
   static TempRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createTempRecordData({
-  String image,
-  String name,
-  String youtubeLink,
-  DocumentReference ref,
-  String ingredNames,
-  String userUid,
-  String recipeId,
-  int counter,
-  String status,
-  bool fav,
-  String uid,
-}) =>
-    serializers.toFirestore(
-        TempRecord.serializer,
-        TempRecord((t) => t
-          ..image = image
-          ..name = name
-          ..youtubeLink = youtubeLink
-          ..ref = ref
-          ..ingredNames = ingredNames
-          ..userUid = userUid
-          ..recipeId = recipeId
-          ..counter = counter
-          ..nameAsArray = null
-          ..status = status
-          ..fav = fav
-          ..uid = uid
-          ..mealTime = null
-          ..day = null
-          ..whichMeal = null
-          ..dates = null));
+  String? image,
+  String? name,
+  String? youtubeLink,
+  DocumentReference? ref,
+  String? ingredNames,
+  String? userUid,
+  String? recipeId,
+  int? counter,
+  String? status,
+  bool? fav,
+  String? uid,
+}) {
+  final firestoreData = serializers.toFirestore(
+    TempRecord.serializer,
+    TempRecord(
+      (t) => t
+        ..image = image
+        ..name = name
+        ..youtubeLink = youtubeLink
+        ..ref = ref
+        ..ingredNames = ingredNames
+        ..userUid = userUid
+        ..recipeId = recipeId
+        ..counter = counter
+        ..nameAsArray = null
+        ..status = status
+        ..fav = fav
+        ..uid = uid
+        ..mealTime = null
+        ..day = null
+        ..whichMeal = null
+        ..dates = null,
+    ),
+  );
+
+  return firestoreData;
+}

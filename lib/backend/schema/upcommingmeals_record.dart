@@ -11,21 +11,17 @@ abstract class UpcommingmealsRecord
   static Serializer<UpcommingmealsRecord> get serializer =>
       _$upcommingmealsRecordSerializer;
 
-  @nullable
-  String get name;
+  String? get name;
 
-  @nullable
-  String get image;
+  String? get image;
 
-  @nullable
-  int get sequence;
+  int? get sequence;
 
-  @nullable
-  String get uid;
+  String? get uid;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(UpcommingmealsRecordBuilder builder) => builder
     ..name = ''
@@ -38,11 +34,11 @@ abstract class UpcommingmealsRecord
 
   static Stream<UpcommingmealsRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<UpcommingmealsRecord> getDocumentOnce(DocumentReference ref) =>
       ref.get().then(
-          (s) => serializers.deserializeWith(serializer, serializedData(s)));
+          (s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   UpcommingmealsRecord._();
   factory UpcommingmealsRecord(
@@ -52,19 +48,25 @@ abstract class UpcommingmealsRecord
   static UpcommingmealsRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createUpcommingmealsRecordData({
-  String name,
-  String image,
-  int sequence,
-  String uid,
-}) =>
-    serializers.toFirestore(
-        UpcommingmealsRecord.serializer,
-        UpcommingmealsRecord((u) => u
-          ..name = name
-          ..image = image
-          ..sequence = sequence
-          ..uid = uid));
+  String? name,
+  String? image,
+  int? sequence,
+  String? uid,
+}) {
+  final firestoreData = serializers.toFirestore(
+    UpcommingmealsRecord.serializer,
+    UpcommingmealsRecord(
+      (u) => u
+        ..name = name
+        ..image = image
+        ..sequence = sequence
+        ..uid = uid,
+    ),
+  );
+
+  return firestoreData;
+}

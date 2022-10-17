@@ -11,15 +11,13 @@ abstract class TimestampRecord
   static Serializer<TimestampRecord> get serializer =>
       _$timestampRecordSerializer;
 
-  @nullable
-  DateTime get lastAudit;
+  DateTime? get lastAudit;
 
-  @nullable
-  DateTime get lastBuy;
+  DateTime? get lastBuy;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(TimestampRecordBuilder builder) => builder;
 
@@ -28,11 +26,11 @@ abstract class TimestampRecord
 
   static Stream<TimestampRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<TimestampRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   TimestampRecord._();
   factory TimestampRecord([void Function(TimestampRecordBuilder) updates]) =
@@ -41,15 +39,21 @@ abstract class TimestampRecord
   static TimestampRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createTimestampRecordData({
-  DateTime lastAudit,
-  DateTime lastBuy,
-}) =>
-    serializers.toFirestore(
-        TimestampRecord.serializer,
-        TimestampRecord((t) => t
-          ..lastAudit = lastAudit
-          ..lastBuy = lastBuy));
+  DateTime? lastAudit,
+  DateTime? lastBuy,
+}) {
+  final firestoreData = serializers.toFirestore(
+    TimestampRecord.serializer,
+    TimestampRecord(
+      (t) => t
+        ..lastAudit = lastAudit
+        ..lastBuy = lastBuy,
+    ),
+  );
+
+  return firestoreData;
+}

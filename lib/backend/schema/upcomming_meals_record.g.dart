@@ -20,11 +20,11 @@ class _$UpcommingMealsRecordSerializer
   final String wireName = 'UpcommingMealsRecord';
 
   @override
-  Iterable<Object> serialize(
+  Iterable<Object?> serialize(
       Serializers serializers, UpcommingMealsRecord object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.image;
     if (value != null) {
       result
@@ -39,42 +39,42 @@ class _$UpcommingMealsRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.reference;
+    value = object.ffRef;
     if (value != null) {
       result
         ..add('Document__Reference__Field')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     return result;
   }
 
   @override
   UpcommingMealsRecord deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new UpcommingMealsRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'image':
           result.image = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'text':
           result.text = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'Document__Reference__Field':
-          result.reference = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+          result.ffRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
       }
     }
@@ -85,17 +85,17 @@ class _$UpcommingMealsRecordSerializer
 
 class _$UpcommingMealsRecord extends UpcommingMealsRecord {
   @override
-  final String image;
+  final String? image;
   @override
-  final String text;
+  final String? text;
   @override
-  final DocumentReference<Object> reference;
+  final DocumentReference<Object?>? ffRef;
 
   factory _$UpcommingMealsRecord(
-          [void Function(UpcommingMealsRecordBuilder) updates]) =>
+          [void Function(UpcommingMealsRecordBuilder)? updates]) =>
       (new UpcommingMealsRecordBuilder()..update(updates))._build();
 
-  _$UpcommingMealsRecord._({this.image, this.text, this.reference}) : super._();
+  _$UpcommingMealsRecord._({this.image, this.text, this.ffRef}) : super._();
 
   @override
   UpcommingMealsRecord rebuild(
@@ -112,13 +112,12 @@ class _$UpcommingMealsRecord extends UpcommingMealsRecord {
     return other is UpcommingMealsRecord &&
         image == other.image &&
         text == other.text &&
-        reference == other.reference;
+        ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
-    return $jf(
-        $jc($jc($jc(0, image.hashCode), text.hashCode), reference.hashCode));
+    return $jf($jc($jc($jc(0, image.hashCode), text.hashCode), ffRef.hashCode));
   }
 
   @override
@@ -126,27 +125,26 @@ class _$UpcommingMealsRecord extends UpcommingMealsRecord {
     return (newBuiltValueToStringHelper(r'UpcommingMealsRecord')
           ..add('image', image)
           ..add('text', text)
-          ..add('reference', reference))
+          ..add('ffRef', ffRef))
         .toString();
   }
 }
 
 class UpcommingMealsRecordBuilder
     implements Builder<UpcommingMealsRecord, UpcommingMealsRecordBuilder> {
-  _$UpcommingMealsRecord _$v;
+  _$UpcommingMealsRecord? _$v;
 
-  String _image;
-  String get image => _$this._image;
-  set image(String image) => _$this._image = image;
+  String? _image;
+  String? get image => _$this._image;
+  set image(String? image) => _$this._image = image;
 
-  String _text;
-  String get text => _$this._text;
-  set text(String text) => _$this._text = text;
+  String? _text;
+  String? get text => _$this._text;
+  set text(String? text) => _$this._text = text;
 
-  DocumentReference<Object> _reference;
-  DocumentReference<Object> get reference => _$this._reference;
-  set reference(DocumentReference<Object> reference) =>
-      _$this._reference = reference;
+  DocumentReference<Object?>? _ffRef;
+  DocumentReference<Object?>? get ffRef => _$this._ffRef;
+  set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
   UpcommingMealsRecordBuilder() {
     UpcommingMealsRecord._initializeBuilder(this);
@@ -157,7 +155,7 @@ class UpcommingMealsRecordBuilder
     if ($v != null) {
       _image = $v.image;
       _text = $v.text;
-      _reference = $v.reference;
+      _ffRef = $v.ffRef;
       _$v = null;
     }
     return this;
@@ -170,7 +168,7 @@ class UpcommingMealsRecordBuilder
   }
 
   @override
-  void update(void Function(UpcommingMealsRecordBuilder) updates) {
+  void update(void Function(UpcommingMealsRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -179,8 +177,7 @@ class UpcommingMealsRecordBuilder
 
   _$UpcommingMealsRecord _build() {
     final _$result = _$v ??
-        new _$UpcommingMealsRecord._(
-            image: image, text: text, reference: reference);
+        new _$UpcommingMealsRecord._(image: image, text: text, ffRef: ffRef);
     replace(_$result);
     return _$result;
   }

@@ -17,10 +17,10 @@ class _$CategoriesRecordSerializer
   final String wireName = 'CategoriesRecord';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, CategoriesRecord object,
+  Iterable<Object?> serialize(Serializers serializers, CategoriesRecord object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.image;
     if (value != null) {
       result
@@ -35,42 +35,42 @@ class _$CategoriesRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.reference;
+    value = object.ffRef;
     if (value != null) {
       result
         ..add('Document__Reference__Field')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     return result;
   }
 
   @override
   CategoriesRecord deserialize(
-      Serializers serializers, Iterable<Object> serialized,
+      Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new CategoriesRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'image':
           result.image = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'categoryName':
           result.categoryName = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'Document__Reference__Field':
-          result.reference = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+          result.ffRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
       }
     }
@@ -81,18 +81,17 @@ class _$CategoriesRecordSerializer
 
 class _$CategoriesRecord extends CategoriesRecord {
   @override
-  final String image;
+  final String? image;
   @override
-  final String categoryName;
+  final String? categoryName;
   @override
-  final DocumentReference<Object> reference;
+  final DocumentReference<Object?>? ffRef;
 
   factory _$CategoriesRecord(
-          [void Function(CategoriesRecordBuilder) updates]) =>
+          [void Function(CategoriesRecordBuilder)? updates]) =>
       (new CategoriesRecordBuilder()..update(updates))._build();
 
-  _$CategoriesRecord._({this.image, this.categoryName, this.reference})
-      : super._();
+  _$CategoriesRecord._({this.image, this.categoryName, this.ffRef}) : super._();
 
   @override
   CategoriesRecord rebuild(void Function(CategoriesRecordBuilder) updates) =>
@@ -108,13 +107,13 @@ class _$CategoriesRecord extends CategoriesRecord {
     return other is CategoriesRecord &&
         image == other.image &&
         categoryName == other.categoryName &&
-        reference == other.reference;
+        ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc($jc(0, image.hashCode), categoryName.hashCode),
-        reference.hashCode));
+    return $jf($jc(
+        $jc($jc(0, image.hashCode), categoryName.hashCode), ffRef.hashCode));
   }
 
   @override
@@ -122,27 +121,26 @@ class _$CategoriesRecord extends CategoriesRecord {
     return (newBuiltValueToStringHelper(r'CategoriesRecord')
           ..add('image', image)
           ..add('categoryName', categoryName)
-          ..add('reference', reference))
+          ..add('ffRef', ffRef))
         .toString();
   }
 }
 
 class CategoriesRecordBuilder
     implements Builder<CategoriesRecord, CategoriesRecordBuilder> {
-  _$CategoriesRecord _$v;
+  _$CategoriesRecord? _$v;
 
-  String _image;
-  String get image => _$this._image;
-  set image(String image) => _$this._image = image;
+  String? _image;
+  String? get image => _$this._image;
+  set image(String? image) => _$this._image = image;
 
-  String _categoryName;
-  String get categoryName => _$this._categoryName;
-  set categoryName(String categoryName) => _$this._categoryName = categoryName;
+  String? _categoryName;
+  String? get categoryName => _$this._categoryName;
+  set categoryName(String? categoryName) => _$this._categoryName = categoryName;
 
-  DocumentReference<Object> _reference;
-  DocumentReference<Object> get reference => _$this._reference;
-  set reference(DocumentReference<Object> reference) =>
-      _$this._reference = reference;
+  DocumentReference<Object?>? _ffRef;
+  DocumentReference<Object?>? get ffRef => _$this._ffRef;
+  set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
   CategoriesRecordBuilder() {
     CategoriesRecord._initializeBuilder(this);
@@ -153,7 +151,7 @@ class CategoriesRecordBuilder
     if ($v != null) {
       _image = $v.image;
       _categoryName = $v.categoryName;
-      _reference = $v.reference;
+      _ffRef = $v.ffRef;
       _$v = null;
     }
     return this;
@@ -166,7 +164,7 @@ class CategoriesRecordBuilder
   }
 
   @override
-  void update(void Function(CategoriesRecordBuilder) updates) {
+  void update(void Function(CategoriesRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -176,7 +174,7 @@ class CategoriesRecordBuilder
   _$CategoriesRecord _build() {
     final _$result = _$v ??
         new _$CategoriesRecord._(
-            image: image, categoryName: categoryName, reference: reference);
+            image: image, categoryName: categoryName, ffRef: ffRef);
     replace(_$result);
     return _$result;
   }

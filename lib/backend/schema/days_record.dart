@@ -9,18 +9,15 @@ part 'days_record.g.dart';
 abstract class DaysRecord implements Built<DaysRecord, DaysRecordBuilder> {
   static Serializer<DaysRecord> get serializer => _$daysRecordSerializer;
 
-  @nullable
-  BuiltList<String> get day;
+  BuiltList<String>? get day;
 
-  @nullable
-  String get type;
+  String? get type;
 
-  @nullable
-  BuiltList<String> get date;
+  BuiltList<String>? get date;
 
-  @nullable
   @BuiltValueField(wireName: kDocumentReferenceField)
-  DocumentReference get reference;
+  DocumentReference? get ffRef;
+  DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(DaysRecordBuilder builder) => builder
     ..day = ListBuilder()
@@ -32,11 +29,11 @@ abstract class DaysRecord implements Built<DaysRecord, DaysRecordBuilder> {
 
   static Stream<DaysRecord> getDocument(DocumentReference ref) => ref
       .snapshots()
-      .map((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .map((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   static Future<DaysRecord> getDocumentOnce(DocumentReference ref) => ref
       .get()
-      .then((s) => serializers.deserializeWith(serializer, serializedData(s)));
+      .then((s) => serializers.deserializeWith(serializer, serializedData(s))!);
 
   DaysRecord._();
   factory DaysRecord([void Function(DaysRecordBuilder) updates]) = _$DaysRecord;
@@ -44,15 +41,21 @@ abstract class DaysRecord implements Built<DaysRecord, DaysRecordBuilder> {
   static DaysRecord getDocumentFromData(
           Map<String, dynamic> data, DocumentReference reference) =>
       serializers.deserializeWith(serializer,
-          {...mapFromFirestore(data), kDocumentReferenceField: reference});
+          {...mapFromFirestore(data), kDocumentReferenceField: reference})!;
 }
 
 Map<String, dynamic> createDaysRecordData({
-  String type,
-}) =>
-    serializers.toFirestore(
-        DaysRecord.serializer,
-        DaysRecord((d) => d
-          ..day = null
-          ..type = type
-          ..date = null));
+  String? type,
+}) {
+  final firestoreData = serializers.toFirestore(
+    DaysRecord.serializer,
+    DaysRecord(
+      (d) => d
+        ..day = null
+        ..type = type
+        ..date = null,
+    ),
+  );
+
+  return firestoreData;
+}

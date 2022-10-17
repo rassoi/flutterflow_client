@@ -15,10 +15,10 @@ class _$DaysRecordSerializer implements StructuredSerializer<DaysRecord> {
   final String wireName = 'DaysRecord';
 
   @override
-  Iterable<Object> serialize(Serializers serializers, DaysRecord object,
+  Iterable<Object?> serialize(Serializers serializers, DaysRecord object,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = <Object>[];
-    Object value;
+    final result = <Object?>[];
+    Object? value;
     value = object.day;
     if (value != null) {
       result
@@ -42,49 +42,49 @@ class _$DaysRecordSerializer implements StructuredSerializer<DaysRecord> {
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    value = object.reference;
+    value = object.ffRef;
     if (value != null) {
       result
         ..add('Document__Reference__Field')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(
-                DocumentReference, const [const FullType(Object)])));
+                DocumentReference, const [const FullType.nullable(Object)])));
     }
     return result;
   }
 
   @override
-  DaysRecord deserialize(Serializers serializers, Iterable<Object> serialized,
+  DaysRecord deserialize(Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
     final result = new DaysRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
-      final key = iterator.current as String;
+      final key = iterator.current! as String;
       iterator.moveNext();
-      final Object value = iterator.current;
+      final Object? value = iterator.current;
       switch (key) {
         case 'day':
           result.day.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
         case 'type':
           result.type = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String;
+              specifiedType: const FullType(String)) as String?;
           break;
         case 'date':
           result.date.replace(serializers.deserialize(value,
-                  specifiedType:
-                      const FullType(BuiltList, const [const FullType(String)]))
-              as BuiltList<Object>);
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
         case 'Document__Reference__Field':
-          result.reference = serializers.deserialize(value,
-                  specifiedType: const FullType(
-                      DocumentReference, const [const FullType(Object)]))
-              as DocumentReference<Object>;
+          result.ffRef = serializers.deserialize(value,
+              specifiedType: const FullType(DocumentReference, const [
+                const FullType.nullable(Object)
+              ])) as DocumentReference<Object?>?;
           break;
       }
     }
@@ -95,18 +95,18 @@ class _$DaysRecordSerializer implements StructuredSerializer<DaysRecord> {
 
 class _$DaysRecord extends DaysRecord {
   @override
-  final BuiltList<String> day;
+  final BuiltList<String>? day;
   @override
-  final String type;
+  final String? type;
   @override
-  final BuiltList<String> date;
+  final BuiltList<String>? date;
   @override
-  final DocumentReference<Object> reference;
+  final DocumentReference<Object?>? ffRef;
 
-  factory _$DaysRecord([void Function(DaysRecordBuilder) updates]) =>
+  factory _$DaysRecord([void Function(DaysRecordBuilder)? updates]) =>
       (new DaysRecordBuilder()..update(updates))._build();
 
-  _$DaysRecord._({this.day, this.type, this.date, this.reference}) : super._();
+  _$DaysRecord._({this.day, this.type, this.date, this.ffRef}) : super._();
 
   @override
   DaysRecord rebuild(void Function(DaysRecordBuilder) updates) =>
@@ -122,13 +122,13 @@ class _$DaysRecord extends DaysRecord {
         day == other.day &&
         type == other.type &&
         date == other.date &&
-        reference == other.reference;
+        ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
     return $jf($jc($jc($jc($jc(0, day.hashCode), type.hashCode), date.hashCode),
-        reference.hashCode));
+        ffRef.hashCode));
   }
 
   @override
@@ -137,30 +137,29 @@ class _$DaysRecord extends DaysRecord {
           ..add('day', day)
           ..add('type', type)
           ..add('date', date)
-          ..add('reference', reference))
+          ..add('ffRef', ffRef))
         .toString();
   }
 }
 
 class DaysRecordBuilder implements Builder<DaysRecord, DaysRecordBuilder> {
-  _$DaysRecord _$v;
+  _$DaysRecord? _$v;
 
-  ListBuilder<String> _day;
+  ListBuilder<String>? _day;
   ListBuilder<String> get day => _$this._day ??= new ListBuilder<String>();
-  set day(ListBuilder<String> day) => _$this._day = day;
+  set day(ListBuilder<String>? day) => _$this._day = day;
 
-  String _type;
-  String get type => _$this._type;
-  set type(String type) => _$this._type = type;
+  String? _type;
+  String? get type => _$this._type;
+  set type(String? type) => _$this._type = type;
 
-  ListBuilder<String> _date;
+  ListBuilder<String>? _date;
   ListBuilder<String> get date => _$this._date ??= new ListBuilder<String>();
-  set date(ListBuilder<String> date) => _$this._date = date;
+  set date(ListBuilder<String>? date) => _$this._date = date;
 
-  DocumentReference<Object> _reference;
-  DocumentReference<Object> get reference => _$this._reference;
-  set reference(DocumentReference<Object> reference) =>
-      _$this._reference = reference;
+  DocumentReference<Object?>? _ffRef;
+  DocumentReference<Object?>? get ffRef => _$this._ffRef;
+  set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
   DaysRecordBuilder() {
     DaysRecord._initializeBuilder(this);
@@ -172,7 +171,7 @@ class DaysRecordBuilder implements Builder<DaysRecord, DaysRecordBuilder> {
       _day = $v.day?.toBuilder();
       _type = $v.type;
       _date = $v.date?.toBuilder();
-      _reference = $v.reference;
+      _ffRef = $v.ffRef;
       _$v = null;
     }
     return this;
@@ -185,7 +184,7 @@ class DaysRecordBuilder implements Builder<DaysRecord, DaysRecordBuilder> {
   }
 
   @override
-  void update(void Function(DaysRecordBuilder) updates) {
+  void update(void Function(DaysRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
@@ -200,9 +199,9 @@ class DaysRecordBuilder implements Builder<DaysRecord, DaysRecordBuilder> {
               day: _day?.build(),
               type: type,
               date: _date?.build(),
-              reference: reference);
+              ffRef: ffRef);
     } catch (_) {
-      String _$failedField;
+      late String _$failedField;
       try {
         _$failedField = 'day';
         _day?.build();
