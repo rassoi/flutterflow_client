@@ -4,6 +4,7 @@ import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../meal_info/meal_info_widget.dart';
+import '../custom_code/actions/index.dart' as actions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -24,12 +25,6 @@ class MealsWidget extends StatefulWidget {
 class _MealsWidgetState extends State<MealsWidget> {
   String? choiceChipsValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Meals'});
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -188,9 +183,6 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         5, 0, 0, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        logFirebaseEvent(
-                                            'MEALS_PAGE_Image_mhi3w1zc_ON_TAP');
-                                        logFirebaseEvent('Image_Navigate-To');
                                         await Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -246,16 +238,16 @@ class _MealsWidgetState extends State<MealsWidget> {
                                     ),
                                     InkWell(
                                       onTap: () async {
-                                        logFirebaseEvent(
-                                            'MEALS_PAGE_Icon_zuf11jpb_ON_TAP');
-                                        logFirebaseEvent('Icon_Backend-Call');
-
-                                        final tempUpdateData = {
-                                          'meal_time': FieldValue.arrayRemove(
-                                              ['${choiceChipsValue}Brakefast']),
-                                        };
-                                        await listViewTempRecord.reference
-                                            .update(tempUpdateData);
+                                        await actions.deleteIngred(
+                                          listViewTempRecord.uid,
+                                          listViewTempRecord.name,
+                                          listViewTempRecord.ingredNames,
+                                        );
+                                        await actions.mealCountUpdate(
+                                          listViewTempRecord.uid,
+                                          listViewTempRecord.ingredNames,
+                                          listViewTempRecord.name,
+                                        );
                                       },
                                       child: Icon(
                                         Icons.delete,
@@ -323,9 +315,6 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         5, 0, 0, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        logFirebaseEvent(
-                                            'MEALS_PAGE_Image_jkevin9q_ON_TAP');
-                                        logFirebaseEvent('Image_Navigate-To');
                                         await Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -381,10 +370,6 @@ class _MealsWidgetState extends State<MealsWidget> {
                                     ),
                                     InkWell(
                                       onTap: () async {
-                                        logFirebaseEvent(
-                                            'MEALS_PAGE_Icon_750tzq7i_ON_TAP');
-                                        logFirebaseEvent('Icon_Backend-Call');
-
                                         final tempUpdateData = {
                                           'meal_time': FieldValue.arrayRemove(
                                               ['${choiceChipsValue}Lunch']),
@@ -458,9 +443,6 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         5, 0, 0, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        logFirebaseEvent(
-                                            'MEALS_PAGE_Image_bqgcl2md_ON_TAP');
-                                        logFirebaseEvent('Image_Navigate-To');
                                         await Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -516,10 +498,6 @@ class _MealsWidgetState extends State<MealsWidget> {
                                     ),
                                     InkWell(
                                       onTap: () async {
-                                        logFirebaseEvent(
-                                            'MEALS_PAGE_Icon_t2ocizh2_ON_TAP');
-                                        logFirebaseEvent('Icon_Backend-Call');
-
                                         final tempUpdateData = {
                                           'meal_time': FieldValue.arrayRemove(
                                               ['${choiceChipsValue}Snacks']),
@@ -593,9 +571,6 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         5, 0, 0, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        logFirebaseEvent(
-                                            'MEALS_PAGE_Image_scytherl_ON_TAP');
-                                        logFirebaseEvent('Image_Navigate-To');
                                         await Navigator.push(
                                           context,
                                           MaterialPageRoute(
@@ -651,10 +626,6 @@ class _MealsWidgetState extends State<MealsWidget> {
                                     ),
                                     InkWell(
                                       onTap: () async {
-                                        logFirebaseEvent(
-                                            'MEALS_PAGE_Icon_ww5elsow_ON_TAP');
-                                        logFirebaseEvent('Icon_Backend-Call');
-
                                         final tempUpdateData = {
                                           'meal_time': FieldValue.arrayRemove(
                                               ['${choiceChipsValue}Dinner']),

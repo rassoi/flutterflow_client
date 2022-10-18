@@ -19,12 +19,6 @@ class _HomeWidgetState extends State<HomeWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
-  void initState() {
-    super.initState();
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Home'});
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -34,8 +28,6 @@ class _HomeWidgetState extends State<HomeWidget> {
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
-            logFirebaseEvent('HOME_PAGE_Icon_0nuwe44s_ON_TAP');
-            logFirebaseEvent('Icon_Navigate-To');
             await Navigator.push(
               context,
               MaterialPageRoute(
@@ -205,9 +197,6 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
-                                      logFirebaseEvent(
-                                          'HOME_PAGE_Image_adszkbny_ON_TAP');
-                                      logFirebaseEvent('Image_Navigate-To');
                                       await Navigator.push(
                                         context,
                                         MaterialPageRoute(
@@ -302,13 +291,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                               children: [
                                 InkWell(
                                   onTap: () async {
-                                    logFirebaseEvent(
-                                        'HOME_PAGE_CircleImage_3sfeuvo0_ON_TAP');
-                                    logFirebaseEvent(
-                                        'CircleImage_Update-Local-State');
                                     setState(() => FFAppState().category =
                                         gridViewCategoriesRecord.categoryName!);
-                                    logFirebaseEvent('CircleImage_Navigate-To');
                                     await Navigator.push(
                                       context,
                                       MaterialPageRoute(

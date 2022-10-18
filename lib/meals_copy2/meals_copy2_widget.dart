@@ -9,7 +9,6 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../meal_info/meal_info_widget.dart';
 import '../custom_code/actions/index.dart' as actions;
-import '../flutter_flow/custom_functions.dart' as functions;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -38,7 +37,6 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
   @override
   void initState() {
     super.initState();
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'MealsCopy2'});
     textController = TextEditingController();
   }
 
@@ -447,11 +445,6 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                             size: 30,
                                           ),
                                           onPressed: () async {
-                                            logFirebaseEvent(
-                                                'MEALS_COPY2_PAGE_add_ICN_ON_TAP');
-                                            logFirebaseEvent(
-                                                'IconButton_Backend-Call');
-
                                             final tempUpdateData = {
                                               'meal_time':
                                                   FieldValue.arrayUnion([
@@ -620,41 +613,18 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                           0, 1),
                                                   child: FFButtonWidget(
                                                     onPressed: () async {
-                                                      logFirebaseEvent(
-                                                          'MEALS_COPY2_PAGE_ADD_BTN_ON_TAP');
-                                                      logFirebaseEvent(
-                                                          'Button_Backend-Call');
-
-                                                      final tempUpdateData = {
-                                                        'meal_time': FieldValue
-                                                            .arrayUnion([
-                                                          '${dropDownValue1}${dropDownValue2}'
-                                                        ]),
-                                                        'dates': FieldValue
-                                                            .arrayUnion([
-                                                          functions.getStrTimeStamp(
-                                                              columnDaysRecord!
-                                                                  .date!
-                                                                  .toList(),
-                                                              columnDaysRecord!
-                                                                  .day!
-                                                                  .toList(),
-                                                              dropDownValue1)
-                                                        ]),
-                                                        'counter': FieldValue
-                                                            .increment(1),
-                                                      };
-                                                      await listViewTempRecord
-                                                          .reference
-                                                          .update(
-                                                              tempUpdateData);
-                                                      logFirebaseEvent(
-                                                          'Button_Custom-Action');
                                                       await actions.addIngred(
                                                         listViewTempRecord
                                                             .ingredNames,
                                                         listViewTempRecord.name,
                                                         listViewTempRecord.uid,
+                                                      );
+                                                      await actions
+                                                          .mealCountUpdate(
+                                                        listViewTempRecord.uid,
+                                                        listViewTempRecord
+                                                            .ingredNames,
+                                                        listViewTempRecord.name,
                                                       );
                                                     },
                                                     text: 'Add',
@@ -733,10 +703,6 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                     : null;
                                             return InkWell(
                                               onTap: () async {
-                                                logFirebaseEvent(
-                                                    'MEALS_COPY2_PAGE_Image_uei5zsjt_ON_TAP');
-                                                logFirebaseEvent(
-                                                    'Image_Navigate-To');
                                                 await Navigator.push(
                                                   context,
                                                   MaterialPageRoute(

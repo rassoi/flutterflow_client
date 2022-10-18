@@ -7,7 +7,7 @@ import '../../flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 
 // Begin custom action code
-Future addIngred(
+Future deleteIngred(
   String? ingredtext,
   String? name,
   String? uid,
@@ -30,7 +30,7 @@ Future addIngred(
     var ingred = uid! + ingredIds[i];
     var nycRef = db.collection("meal_ingred").doc(ingred);
     batch.update(nycRef, {
-      "recipe_names": FieldValue.arrayUnion([name]),
+      "recipe_names": FieldValue.arrayRemove([name]),
     });
   }
   batch.commit();

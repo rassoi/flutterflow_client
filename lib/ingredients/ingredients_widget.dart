@@ -25,7 +25,6 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
   @override
   void initState() {
     super.initState();
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'Ingredients'});
     swipeableStackController = SwipeableCardSectionController();
   }
 
@@ -208,10 +207,6 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                           children: [
                             FFButtonWidget(
                               onPressed: () async {
-                                logFirebaseEvent(
-                                    'INGREDIENTS_PAGE_BUY_BTN_ON_TAP');
-                                logFirebaseEvent('Button_Backend-Call');
-
                                 final timestampUpdateData =
                                     createTimestampRecordData(
                                   lastBuy: functions.geCurrentTimeStamp(),

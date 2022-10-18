@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:flutter/material.dart';
+import 'package:from_css_color/from_css_color.dart';
 import 'package:intl/intl.dart';
 import 'package:json_path/json_path.dart';
 import 'package:timeago/timeago.dart' as timeago;
@@ -12,6 +13,7 @@ import '../main.dart';
 
 import 'lat_lng.dart';
 
+export 'keep_alive_wrapper.dart';
 export 'lat_lng.dart';
 export 'place.dart';
 export '../app_state.dart';
@@ -20,7 +22,6 @@ export 'dart:convert' show jsonEncode, jsonDecode;
 export 'package:intl/intl.dart';
 export 'package:cloud_firestore/cloud_firestore.dart' show DocumentReference;
 export 'package:page_transition/page_transition.dart';
-export '../backend/firebase_analytics/analytics.dart';
 
 T valueOrDefault<T>(T? value, T defaultValue) =>
     (value is String && value.isEmpty) || value == null ? defaultValue : value;
@@ -42,6 +43,13 @@ Future launchURL(String url) async {
   } catch (e) {
     throw 'Could not launch $uri: $e';
   }
+}
+
+Color colorFromCssString(String color, {Color? defaultColor}) {
+  try {
+    return fromCssColor(color);
+  } catch (_) {}
+  return defaultColor ?? Colors.black;
 }
 
 enum FormatType {

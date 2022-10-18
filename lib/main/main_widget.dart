@@ -24,7 +24,6 @@ class _MainWidgetState extends State<MainWidget> {
   @override
   void initState() {
     super.initState();
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'main'});
     textController = TextEditingController();
   }
 
@@ -100,16 +99,11 @@ class _MainWidgetState extends State<MainWidget> {
                                   alignment: AlignmentDirectional(0, 0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      logFirebaseEvent(
-                                          'MAIN_PAGE_SIGN_IN_WITH_GOOGLE_BTN_ON_TAP');
-                                      logFirebaseEvent('Button_Auth');
                                       final user =
                                           await signInWithGoogle(context);
                                       if (user == null) {
                                         return;
                                       }
-                                      logFirebaseEvent(
-                                          'Button_Update-Local-State');
                                       setState(() =>
                                           FFAppState().user = currentUserUid);
                                       await Navigator.pushAndRemoveUntil(
@@ -267,9 +261,6 @@ class _MainWidgetState extends State<MainWidget> {
                                 alignment: AlignmentDirectional(0, 0),
                                 child: FFButtonWidget(
                                   onPressed: () async {
-                                    logFirebaseEvent(
-                                        'MAIN_PAGE_SIGN_IN_WITH_PHONE_BTN_ON_TAP');
-                                    logFirebaseEvent('Button_Auth');
                                     final phoneNumberVal = textController!.text;
                                     if (phoneNumberVal == null ||
                                         phoneNumberVal.isEmpty ||
@@ -297,8 +288,6 @@ class _MainWidgetState extends State<MainWidget> {
                                       },
                                     );
 
-                                    logFirebaseEvent(
-                                        'Button_Update-Local-State');
                                     setState(() =>
                                         FFAppState().user = currentUserUid);
                                   },
@@ -385,16 +374,11 @@ class _MainWidgetState extends State<MainWidget> {
                                   alignment: AlignmentDirectional(0, 0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
-                                      logFirebaseEvent(
-                                          'MAIN_SIGN_IN_AS_ANONYMOUS_BTN_ON_TAP');
-                                      logFirebaseEvent('Button_Auth');
                                       final user =
                                           await signInAnonymously(context);
                                       if (user == null) {
                                         return;
                                       }
-                                      logFirebaseEvent(
-                                          'Button_Update-Local-State');
                                       setState(() =>
                                           FFAppState().user = currentUserUid);
                                       await Navigator.pushAndRemoveUntil(

@@ -24,7 +24,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   @override
   void initState() {
     super.initState();
-    logFirebaseEvent('screen_view', parameters: {'screen_name': 'HomePage'});
     textController = TextEditingController();
   }
 
@@ -103,16 +102,11 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           0, 2, 0, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          logFirebaseEvent(
-                                              'HOME_SIGN_IN_WITH_GOOGLE_BTN_ON_TAP');
-                                          logFirebaseEvent('Button_Auth');
                                           final user =
                                               await signInWithGoogle(context);
                                           if (user == null) {
                                             return;
                                           }
-                                          logFirebaseEvent(
-                                              'Button_Update-Local-State');
                                           setState(() => FFAppState().user =
                                               currentUserUid);
                                           await Navigator.pushAndRemoveUntil(
@@ -256,9 +250,6 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           0, 2, 0, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
-                                          logFirebaseEvent(
-                                              'HOME_SIGN_IN_WITH_PHONE_BTN_ON_TAP');
-                                          logFirebaseEvent('Button_Auth');
                                           final phoneNumberVal =
                                               textController!.text;
                                           if (phoneNumberVal == null ||

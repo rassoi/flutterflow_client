@@ -7,7 +7,7 @@ import '../../flutter_flow/custom_functions.dart'; // Imports custom functions
 import 'package:flutter/material.dart';
 
 // Begin custom action code
-Future addIngred(
+Future mealCountUpdate(
   String? ingredtext,
   String? name,
   String? uid,
@@ -29,9 +29,14 @@ Future addIngred(
   for (var i = 0; i < ingredIds.length; i++) {
     var ingred = uid! + ingredIds[i];
     var nycRef = db.collection("meal_ingred").doc(ingred);
-    batch.update(nycRef, {
-      "recipe_names": FieldValue.arrayUnion([name]),
-    });
+    nycRef.get().then(
+      (DocumentSnapshot doc) {
+        final data = doc.data() as Map<String, dynamic>;
+
+        batch.update(nycRef, {"meal_count": data["meal_count"].length});
+      },
+      onError: (e) => print("Error getting document: $e"),
+    );
   }
   batch.commit();
 }
