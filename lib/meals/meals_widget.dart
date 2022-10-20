@@ -238,6 +238,12 @@ class _MealsWidgetState extends State<MealsWidget> {
                                     ),
                                     InkWell(
                                       onTap: () async {
+                                        final tempUpdateData = {
+                                          'meal_time': FieldValue.arrayRemove(
+                                              ['${choiceChipsValue}Brakefast']),
+                                        };
+                                        await listViewTempRecord.reference
+                                            .update(tempUpdateData);
                                         await actions.deleteIngred(
                                           listViewTempRecord.uid,
                                           listViewTempRecord.name,
@@ -376,6 +382,16 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         };
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);
+                                        await actions.deleteIngred(
+                                          listViewTempRecord.uid,
+                                          listViewTempRecord.name,
+                                          listViewTempRecord.ingredNames,
+                                        );
+                                        await actions.mealCountUpdate(
+                                          listViewTempRecord.uid,
+                                          listViewTempRecord.ingredNames,
+                                          listViewTempRecord.name,
+                                        );
                                       },
                                       child: Icon(
                                         Icons.delete,
@@ -504,6 +520,16 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         };
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);
+                                        await actions.deleteIngred(
+                                          listViewTempRecord.uid,
+                                          listViewTempRecord.name,
+                                          listViewTempRecord.ingredNames,
+                                        );
+                                        await actions.mealCountUpdate(
+                                          listViewTempRecord.uid,
+                                          listViewTempRecord.ingredNames,
+                                          listViewTempRecord.name,
+                                        );
                                       },
                                       child: Icon(
                                         Icons.delete,
@@ -632,6 +658,16 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         };
                                         await listViewTempRecord.reference
                                             .update(tempUpdateData);
+                                        await actions.deleteIngred(
+                                          listViewTempRecord.uid,
+                                          listViewTempRecord.name,
+                                          listViewTempRecord.ingredNames,
+                                        );
+                                        await actions.mealCountUpdate(
+                                          listViewTempRecord.uid,
+                                          listViewTempRecord.ingredNames,
+                                          listViewTempRecord.name,
+                                        );
                                       },
                                       child: Icon(
                                         Icons.delete,

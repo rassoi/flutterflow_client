@@ -613,6 +613,16 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                           0, 1),
                                                   child: FFButtonWidget(
                                                     onPressed: () async {
+                                                      final tempUpdateData = {
+                                                        'meal_time': FieldValue
+                                                            .arrayUnion([
+                                                          '${dropDownValue1}${dropDownValue2}'
+                                                        ]),
+                                                      };
+                                                      await listViewTempRecord
+                                                          .reference
+                                                          .update(
+                                                              tempUpdateData);
                                                       await actions.addIngred(
                                                         listViewTempRecord
                                                             .ingredNames,

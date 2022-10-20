@@ -1,8 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:rxdart/rxdart.dart';
 
-import 'auth_util.dart';
-
 class RassoiFirebaseUser {
   RassoiFirebaseUser(this.user);
   User? user;
@@ -19,7 +17,6 @@ Stream<RassoiFirebaseUser> rassoiFirebaseUserStream() => FirebaseAuth.instance
         .map<RassoiFirebaseUser>(
       (user) {
         currentUser = RassoiFirebaseUser(user);
-        updateUserJwtTimer(user);
         return currentUser!;
       },
     );

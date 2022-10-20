@@ -33,7 +33,7 @@ Future mealCountUpdate(
       (DocumentSnapshot doc) {
         final data = doc.data() as Map<String, dynamic>;
 
-        batch.update(nycRef, {"meal_count": data["meal_count"].length});
+        batch.update(nycRef, {"meal_count": data["recipe_names"].length});
       },
       onError: (e) => print("Error getting document: $e"),
     );
