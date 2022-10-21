@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 
 // Begin custom action code
 Future mealCountUpdate(
+  String? uid,
   String? ingredtext,
   String? name,
-  String? uid,
 ) async {
   // Add your function code here!
 

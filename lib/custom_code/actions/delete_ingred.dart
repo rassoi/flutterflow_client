@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 
 // Begin custom action code
 Future deleteIngred(
-  String? ingredtext,
-  String? name,
   String? uid,
+  String? name,
+  String? ingredtext,
 ) async {
   // Add your function code here!
 
