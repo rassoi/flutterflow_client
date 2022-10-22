@@ -14,8 +14,8 @@ Future mealCountUpdate(
 ) async {
   // Add your function code here!
 
-  var db = FirebaseFirestore.instance;
-  WriteBatch batch = db.batch();
+  var db1 = FirebaseFirestore.instance;
+  WriteBatch batch1 = db1.batch();
 
   List<String> b = ingredtext!.split("*");
   List<String> nameList = [];
@@ -26,17 +26,21 @@ Future mealCountUpdate(
     nameList.add(c[1]);
   }
   var ingredIds = nameList;
+  // List<String> mealCountList = [];
   for (var i = 0; i < ingredIds.length; i++) {
     var ingred = uid! + ingredIds[i];
-    var nycRef = db.collection("meal_ingred").doc(ingred);
+    var nycRef = db1.collection("meal_ingred").doc(ingred);
     nycRef.get().then(
       (DocumentSnapshot doc) {
         final data = doc.data() as Map<String, dynamic>;
+        print(data["recipe_names"].length);
 
-        batch.update(nycRef, {"meal_count": data["recipe_names"].length});
+        // mealCountList.add(data["recipe_names"].length);
+        nycRef.update({"meal_count": data["recipe_names"].length}).then(
+            (value) => print("DocumentSnapshot successfully updated!"),
+            onError: (e) => print("Error updating document $e"));
       },
       onError: (e) => print("Error getting document: $e"),
     );
   }
-  batch.commit();
 }
