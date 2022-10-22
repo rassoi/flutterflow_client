@@ -623,12 +623,6 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                           .reference
                                                           .update(
                                                               tempUpdateData);
-                                                      await actions.addIngred(
-                                                        listViewTempRecord
-                                                            .ingredNames,
-                                                        listViewTempRecord.name,
-                                                        listViewTempRecord.uid,
-                                                      );
                                                       await actions
                                                           .mealCountUpdate(
                                                         listViewTempRecord.uid,
