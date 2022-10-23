@@ -341,7 +341,7 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                                                       .user)
                                                           .where('status',
                                                               isEqualTo:
-                                                                  'Unavailable')
+                                                                  'unavailable')
                                                           .where('meal_count',
                                                               isGreaterThan: 1)
                                                           .where('audit',
