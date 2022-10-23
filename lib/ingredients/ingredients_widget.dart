@@ -376,7 +376,7 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                                   final mealIngredUpdateData =
                                                       createMealIngredRecordData(
                                                     audit: 1,
-                                                    status: 'Unavailable',
+                                                    status: 'unavailable',
                                                   );
                                                   await tabBarMealIngredRecord!
                                                       .reference
@@ -397,7 +397,7 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                                   final mealIngredUpdateData =
                                                       createMealIngredRecordData(
                                                     audit: 1,
-                                                    status: 'Available',
+                                                    status: 'available',
                                                   );
                                                   await tabBarMealIngredRecord!
                                                       .reference
