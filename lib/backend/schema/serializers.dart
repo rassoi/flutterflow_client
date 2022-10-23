@@ -13,7 +13,6 @@ import 'miscellaneous_record.dart';
 import 'timestamp_record.dart';
 import 'days_record.dart';
 import 'upcommingmeals_record.dart';
-import 'subbanner_record.dart';
 
 import 'index.dart';
 
@@ -37,7 +36,6 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   TimestampRecord,
   DaysRecord,
   UpcommingmealsRecord,
-  SubbannerRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

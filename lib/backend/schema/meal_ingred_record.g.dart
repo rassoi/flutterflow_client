@@ -77,6 +77,12 @@ class _$MealIngredRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.audit;
+    if (value != null) {
+      result
+        ..add('audit')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -134,6 +140,10 @@ class _$MealIngredRecordSerializer
           result.img = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'audit':
+          result.audit = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -165,6 +175,8 @@ class _$MealIngredRecord extends MealIngredRecord {
   @override
   final String? img;
   @override
+  final int? audit;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$MealIngredRecord(
@@ -180,6 +192,7 @@ class _$MealIngredRecord extends MealIngredRecord {
       this.recipeNames,
       this.mealCount,
       this.img,
+      this.audit,
       this.ffRef})
       : super._();
 
@@ -203,6 +216,7 @@ class _$MealIngredRecord extends MealIngredRecord {
         recipeNames == other.recipeNames &&
         mealCount == other.mealCount &&
         img == other.img &&
+        audit == other.audit &&
         ffRef == other.ffRef;
   }
 
@@ -214,13 +228,17 @@ class _$MealIngredRecord extends MealIngredRecord {
                 $jc(
                     $jc(
                         $jc(
-                            $jc($jc($jc(0, english.hashCode), hindi.hashCode),
-                                ingedId.hashCode),
-                            userUid.hashCode),
-                        status.hashCode),
-                    recipeNames.hashCode),
-                mealCount.hashCode),
-            img.hashCode),
+                            $jc(
+                                $jc(
+                                    $jc($jc(0, english.hashCode),
+                                        hindi.hashCode),
+                                    ingedId.hashCode),
+                                userUid.hashCode),
+                            status.hashCode),
+                        recipeNames.hashCode),
+                    mealCount.hashCode),
+                img.hashCode),
+            audit.hashCode),
         ffRef.hashCode));
   }
 
@@ -235,6 +253,7 @@ class _$MealIngredRecord extends MealIngredRecord {
           ..add('recipeNames', recipeNames)
           ..add('mealCount', mealCount)
           ..add('img', img)
+          ..add('audit', audit)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -278,6 +297,10 @@ class MealIngredRecordBuilder
   String? get img => _$this._img;
   set img(String? img) => _$this._img = img;
 
+  int? _audit;
+  int? get audit => _$this._audit;
+  set audit(int? audit) => _$this._audit = audit;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -297,6 +320,7 @@ class MealIngredRecordBuilder
       _recipeNames = $v.recipeNames?.toBuilder();
       _mealCount = $v.mealCount;
       _img = $v.img;
+      _audit = $v.audit;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -330,6 +354,7 @@ class MealIngredRecordBuilder
               recipeNames: _recipeNames?.build(),
               mealCount: mealCount,
               img: img,
+              audit: audit,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

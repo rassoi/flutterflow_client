@@ -671,12 +671,12 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                     ),
                                   ),
                                 ),
-                                Expanded(
-                                  flex: 4,
-                                  child: Column(
-                                    mainAxisSize: MainAxisSize.max,
-                                    children: [
-                                      Padding(
+                                Stack(
+                                  children: [
+                                    Align(
+                                      alignment:
+                                          AlignmentDirectional(-0.18, -5.86),
+                                      child: Padding(
                                         padding: EdgeInsetsDirectional.fromSTEB(
                                             0, 5, 0, 0),
                                         child:
@@ -729,14 +729,24 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                 listViewTempRecord.image!,
                                                 width: 160,
                                                 height: 130,
-                                                fit: BoxFit.fitHeight,
+                                                fit: BoxFit.fill,
                                               ),
                                             );
                                           },
                                         ),
                                       ),
-                                    ],
-                                  ),
+                                    ),
+                                    if (listViewTempRecord.longPreperation == 1)
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(-1.03, -1),
+                                        child: Icon(
+                                          Icons.av_timer_rounded,
+                                          color: Color(0xFFD92319),
+                                          size: 36,
+                                        ),
+                                      ),
+                                  ],
                                 ),
                               ],
                             ),

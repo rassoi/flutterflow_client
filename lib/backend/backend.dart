@@ -16,7 +16,6 @@ import 'schema/miscellaneous_record.dart';
 import 'schema/timestamp_record.dart';
 import 'schema/days_record.dart';
 import 'schema/upcommingmeals_record.dart';
-import 'schema/subbanner_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -36,7 +35,6 @@ export 'schema/miscellaneous_record.dart';
 export 'schema/timestamp_record.dart';
 export 'schema/days_record.dart';
 export 'schema/upcommingmeals_record.dart';
-export 'schema/subbanner_record.dart';
 
 /// Functions to query BannerRecords (as a Stream and as a Future).
 Stream<List<BannerRecord>> queryBannerRecord({
@@ -536,51 +534,6 @@ Future<FFFirestorePage<UpcommingmealsRecord>> queryUpcommingmealsRecordPage({
     queryCollectionPage(
       UpcommingmealsRecord.collection,
       UpcommingmealsRecord.serializer,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
-/// Functions to query SubbannerRecords (as a Stream and as a Future).
-Stream<List<SubbannerRecord>> querySubbannerRecord({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      SubbannerRecord.collection(parent),
-      SubbannerRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<SubbannerRecord>> querySubbannerRecordOnce({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      SubbannerRecord.collection(parent),
-      SubbannerRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<SubbannerRecord>> querySubbannerRecordPage({
-  DocumentReference? parent,
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      SubbannerRecord.collection(parent),
-      SubbannerRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,
