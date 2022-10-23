@@ -544,6 +544,18 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
+                                            if (listViewTempRecord
+                                                    .longPreperation ==
+                                                1)
+                                              Align(
+                                                alignment: AlignmentDirectional(
+                                                    -1.03, -1),
+                                                child: Icon(
+                                                  Icons.av_timer_rounded,
+                                                  color: Color(0xFFD92319),
+                                                  size: 36,
+                                                ),
+                                              ),
                                             Expanded(
                                               child: Align(
                                                 alignment:
@@ -736,16 +748,6 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                         ),
                                       ),
                                     ),
-                                    if (listViewTempRecord.longPreperation == 1)
-                                      Align(
-                                        alignment:
-                                            AlignmentDirectional(-1.03, -1),
-                                        child: Icon(
-                                          Icons.av_timer_rounded,
-                                          color: Color(0xFFD92319),
-                                          size: 36,
-                                        ),
-                                      ),
                                   ],
                                 ),
                               ],
