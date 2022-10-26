@@ -38,7 +38,7 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
         backgroundColor: FlutterFlowTheme.of(context).primaryColor,
         automaticallyImplyLeading: false,
         title: Text(
-          'Page Title',
+          'Ingredients',
           style: FlutterFlowTheme.of(context).title2.override(
                 fontFamily: 'Poppins',
                 color: Colors.white,
@@ -371,11 +371,19 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                                 topCardWidthFraction: 0.9,
                                                 middleCardWidthFraction: 0.85,
                                                 botttomCardWidthFraction: 0.8,
-                                                onSwipeFn: (index) {},
-                                                onLeftSwipe: (index) async {
+                                                onSwipeFn: (index) async {
                                                   final mealIngredUpdateData =
                                                       createMealIngredRecordData(
                                                     audit: 1,
+                                                  );
+                                                  await tabBarMealIngredRecord!
+                                                      .reference
+                                                      .update(
+                                                          mealIngredUpdateData);
+                                                },
+                                                onLeftSwipe: (index) async {
+                                                  final mealIngredUpdateData =
+                                                      createMealIngredRecordData(
                                                     status: 'unavailable',
                                                   );
                                                   await tabBarMealIngredRecord!
@@ -396,7 +404,6 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                                 onRightSwipe: (index) async {
                                                   final mealIngredUpdateData =
                                                       createMealIngredRecordData(
-                                                    audit: 1,
                                                     status: 'available',
                                                   );
                                                   await tabBarMealIngredRecord!
