@@ -16,16 +16,13 @@ abstract class MiscellaneousRecord
 
   int? get avaialable;
 
-  int? get unavaialable;
-
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
 
   static void _initializeBuilder(MiscellaneousRecordBuilder builder) => builder
     ..categoriesList = ListBuilder()
-    ..avaialable = 0
-    ..unavaialable = 0;
+    ..avaialable = 0;
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('miscellaneous');
@@ -51,15 +48,13 @@ abstract class MiscellaneousRecord
 
 Map<String, dynamic> createMiscellaneousRecordData({
   int? avaialable,
-  int? unavaialable,
 }) {
   final firestoreData = serializers.toFirestore(
     MiscellaneousRecord.serializer,
     MiscellaneousRecord(
       (m) => m
         ..categoriesList = null
-        ..avaialable = avaialable
-        ..unavaialable = unavaialable,
+        ..avaialable = avaialable,
     ),
   );
 

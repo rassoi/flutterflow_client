@@ -274,10 +274,6 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
                       Text(
-                        rowMiscellaneousRecord!.unavaialable!.toString(),
-                        style: FlutterFlowTheme.of(context).bodyText1,
-                      ),
-                      Text(
                         ')',
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
@@ -502,10 +498,6 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                       ),
                       Text(
                         ' (',
-                        style: FlutterFlowTheme.of(context).bodyText1,
-                      ),
-                      Text(
-                        rowMiscellaneousRecord!.avaialable!.toString(),
                         style: FlutterFlowTheme.of(context).bodyText1,
                       ),
                       Text(
