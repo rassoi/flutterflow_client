@@ -246,7 +246,7 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.home_outlined,
+                  Icons.format_list_bulleted,
                   color:
                       currentIndex == 4 ? Color(0xFF39BDEF) : Color(0x8A484545),
                   size: 24,

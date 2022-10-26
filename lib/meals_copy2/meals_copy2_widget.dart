@@ -9,6 +9,7 @@ import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../meal_info/meal_info_widget.dart';
 import '../custom_code/actions/index.dart' as actions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_debounce/easy_debounce.dart';
 import 'package:flutter/material.dart';
@@ -410,8 +411,9 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                           child: ClipRRect(
                                             borderRadius:
                                                 BorderRadius.circular(10),
-                                            child: Image.network(
-                                              listViewTempRecord.image!,
+                                            child: CachedNetworkImage(
+                                              imageUrl:
+                                                  listViewTempRecord.image!,
                                               width: 100,
                                               height: 100,
                                               fit: BoxFit.cover,
@@ -737,8 +739,9 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                   ),
                                                 );
                                               },
-                                              child: Image.network(
-                                                listViewTempRecord.image!,
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                    listViewTempRecord.image!,
                                                 width: 160,
                                                 height: 130,
                                                 fit: BoxFit.fill,

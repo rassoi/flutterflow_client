@@ -5,6 +5,7 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../meal_info/meal_info_widget.dart';
 import '../custom_code/actions/index.dart' as actions;
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -196,8 +197,8 @@ class _MealsWidgetState extends State<MealsWidget> {
                                       },
                                       child: ClipRRect(
                                         borderRadius: BorderRadius.circular(5),
-                                        child: Image.network(
-                                          listViewTempRecord.image!,
+                                        child: CachedNetworkImage(
+                                          imageUrl: listViewTempRecord.image!,
                                           width: 130,
                                           height: 100,
                                           fit: BoxFit.cover,

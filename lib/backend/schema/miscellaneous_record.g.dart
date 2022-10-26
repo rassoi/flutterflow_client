@@ -39,12 +39,6 @@ class _$MiscellaneousRecordSerializer
         ..add('avaialable')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
-    value = object.unavaialable;
-    if (value != null) {
-      result
-        ..add('unavaialable')
-        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
-    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -78,10 +72,6 @@ class _$MiscellaneousRecordSerializer
           result.avaialable = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
-        case 'unavaialable':
-          result.unavaialable = serializers.deserialize(value,
-              specifiedType: const FullType(int)) as int?;
-          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -101,16 +91,13 @@ class _$MiscellaneousRecord extends MiscellaneousRecord {
   @override
   final int? avaialable;
   @override
-  final int? unavaialable;
-  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$MiscellaneousRecord(
           [void Function(MiscellaneousRecordBuilder)? updates]) =>
       (new MiscellaneousRecordBuilder()..update(updates))._build();
 
-  _$MiscellaneousRecord._(
-      {this.categoriesList, this.avaialable, this.unavaialable, this.ffRef})
+  _$MiscellaneousRecord._({this.categoriesList, this.avaialable, this.ffRef})
       : super._();
 
   @override
@@ -128,15 +115,12 @@ class _$MiscellaneousRecord extends MiscellaneousRecord {
     return other is MiscellaneousRecord &&
         categoriesList == other.categoriesList &&
         avaialable == other.avaialable &&
-        unavaialable == other.unavaialable &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
-    return $jf($jc(
-        $jc($jc($jc(0, categoriesList.hashCode), avaialable.hashCode),
-            unavaialable.hashCode),
+    return $jf($jc($jc($jc(0, categoriesList.hashCode), avaialable.hashCode),
         ffRef.hashCode));
   }
 
@@ -145,7 +129,6 @@ class _$MiscellaneousRecord extends MiscellaneousRecord {
     return (newBuiltValueToStringHelper(r'MiscellaneousRecord')
           ..add('categoriesList', categoriesList)
           ..add('avaialable', avaialable)
-          ..add('unavaialable', unavaialable)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -165,10 +148,6 @@ class MiscellaneousRecordBuilder
   int? get avaialable => _$this._avaialable;
   set avaialable(int? avaialable) => _$this._avaialable = avaialable;
 
-  int? _unavaialable;
-  int? get unavaialable => _$this._unavaialable;
-  set unavaialable(int? unavaialable) => _$this._unavaialable = unavaialable;
-
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -182,7 +161,6 @@ class MiscellaneousRecordBuilder
     if ($v != null) {
       _categoriesList = $v.categoriesList?.toBuilder();
       _avaialable = $v.avaialable;
-      _unavaialable = $v.unavaialable;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -210,7 +188,6 @@ class MiscellaneousRecordBuilder
           new _$MiscellaneousRecord._(
               categoriesList: _categoriesList?.build(),
               avaialable: avaialable,
-              unavaialable: unavaialable,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
