@@ -823,7 +823,16 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                     .secondaryBackground,
                               ),
                               child: StreamBuilder<List<MealIngredRecord>>(
-                                stream: queryMealIngredRecord(),
+                                stream: queryMealIngredRecord(
+                                  queryBuilder: (mealIngredRecord) =>
+                                      mealIngredRecord
+                                          .where('user_uid',
+                                              isEqualTo: FFAppState().user)
+                                          .where('meal_count', isGreaterThan: 0)
+                                          .where('status',
+                                              isEqualTo: 'unavailable')
+                                          .where('audit', isEqualTo: 0),
+                                ),
                                 builder: (context, snapshot) {
                                   // Customize what your widget looks like when it's loading.
                                   if (!snapshot.hasData) {
@@ -1001,9 +1010,9 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                                       onPressed: () async {
                                                         final mealIngredUpdateData =
                                                             createMealIngredRecordData(
-                                                          audit: 0,
                                                           status:
                                                               'unavaialable',
+                                                          audit: 1,
                                                         );
                                                         await listViewMealIngredRecord
                                                             .reference
