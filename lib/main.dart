@@ -122,11 +122,10 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     final tabs = {
-      'Meals': MealsWidget(),
-      'MealsCopy': MealsCopyWidget(),
-      'MealsCopy2': MealsCopy2Widget(),
       'Home': HomeWidget(),
+      'Meals': MealsWidget(),
       'Ingredients': IngredientsWidget(),
+      'MealsCopy2': MealsCopy2Widget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(
@@ -154,13 +153,13 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.food_bank_rounded,
+                  Icons.home_outlined,
                   color:
                       currentIndex == 0 ? Color(0xFF39BDEF) : Color(0x8A484545),
                   size: 24,
                 ),
                 Text(
-                  'My Meals',
+                  'Home',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 0
@@ -177,13 +176,13 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.list,
+                  Icons.food_bank_rounded,
                   color:
                       currentIndex == 1 ? Color(0xFF39BDEF) : Color(0x8A484545),
                   size: 24,
                 ),
                 Text(
-                  'Ingredients',
+                  'My Meals',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1
@@ -200,13 +199,13 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.search,
+                  Icons.format_list_bulleted,
                   color:
                       currentIndex == 2 ? Color(0xFF39BDEF) : Color(0x8A484545),
                   size: 24,
                 ),
                 Text(
-                  'Explore',
+                  'Home',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2
@@ -223,39 +222,16 @@ class _NavBarPageState extends State<NavBarPage> {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Icon(
-                  Icons.home_outlined,
+                  Icons.search,
                   color:
                       currentIndex == 3 ? Color(0xFF39BDEF) : Color(0x8A484545),
                   size: 24,
                 ),
                 Text(
-                  'Home',
+                  'Explore',
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3
-                        ? Color(0xFF39BDEF)
-                        : Color(0x8A484545),
-                    fontSize: 11.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.format_list_bulleted,
-                  color:
-                      currentIndex == 4 ? Color(0xFF39BDEF) : Color(0x8A484545),
-                  size: 24,
-                ),
-                Text(
-                  'Home',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 4
                         ? Color(0xFF39BDEF)
                         : Color(0x8A484545),
                     fontSize: 11.0,

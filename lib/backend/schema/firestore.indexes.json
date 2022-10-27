@@ -69,11 +69,11 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "status",
+          "fieldPath": "user_uid",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "user_uid",
+          "fieldPath": "status",
           "order": "ASCENDING"
         },
         {
@@ -91,11 +91,11 @@
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "user_uid",
+          "fieldPath": "status",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "status",
+          "fieldPath": "user_uid",
           "order": "ASCENDING"
         },
         {
