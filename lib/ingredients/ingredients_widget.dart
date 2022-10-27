@@ -392,81 +392,139 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                                 ),
                                               ],
                                             ),
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Column(
+                                            StreamBuilder<
+                                                List<TimestampRecord>>(
+                                              stream: queryTimestampRecord(
+                                                singleRecord: true,
+                                              ),
+                                              builder: (context, snapshot) {
+                                                // Customize what your widget looks like when it's loading.
+                                                if (!snapshot.hasData) {
+                                                  return Center(
+                                                    child: SizedBox(
+                                                      width: 50,
+                                                      height: 50,
+                                                      child: SpinKitThreeBounce(
+                                                        color:
+                                                            Color(0xFF8783B0),
+                                                        size: 50,
+                                                      ),
+                                                    ),
+                                                  );
+                                                }
+                                                List<TimestampRecord>
+                                                    rowTimestampRecordList =
+                                                    snapshot.data!;
+                                                // Return an empty Container when the document does not exist.
+                                                if (snapshot.data!.isEmpty) {
+                                                  return Container();
+                                                }
+                                                final rowTimestampRecord =
+                                                    rowTimestampRecordList
+                                                            .isNotEmpty
+                                                        ? rowTimestampRecordList
+                                                            .first
+                                                        : null;
+                                                return Row(
                                                   mainAxisSize:
                                                       MainAxisSize.max,
+                                                  mainAxisAlignment:
+                                                      MainAxisAlignment.center,
                                                   children: [
-                                                    FlutterFlowIconButton(
-                                                      borderColor:
-                                                          Colors.transparent,
-                                                      borderRadius: 30,
-                                                      borderWidth: 1,
-                                                      buttonSize: 60,
-                                                      icon: Icon(
-                                                        Icons.close,
-                                                        color:
-                                                            Color(0xFFD92319),
-                                                        size: 30,
+                                                    Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        FlutterFlowIconButton(
+                                                          borderColor: Colors
+                                                              .transparent,
+                                                          borderRadius: 30,
+                                                          borderWidth: 1,
+                                                          buttonSize: 60,
+                                                          icon: Icon(
+                                                            Icons.close,
+                                                            color: Color(
+                                                                0xFFD92319),
+                                                            size: 30,
+                                                          ),
+                                                          onPressed: () async {
+                                                            final mealIngredUpdateData =
+                                                                createMealIngredRecordData(
+                                                              audit: 1,
+                                                              status:
+                                                                  'available',
+                                                            );
+                                                            await listViewMealIngredRecord
+                                                                .reference
+                                                                .update(
+                                                                    mealIngredUpdateData);
+
+                                                            final timestampUpdateData =
+                                                                createTimestampRecordData(
+                                                              lastAudit: functions
+                                                                  .geCurrentTimeStamp(),
+                                                            );
+                                                            await rowTimestampRecord!
+                                                                .reference
+                                                                .update(
+                                                                    timestampUpdateData);
+                                                          },
+                                                        ),
+                                                      ],
+                                                    ),
+                                                    Container(
+                                                      width: 100,
+                                                      height: 100,
+                                                      decoration: BoxDecoration(
+                                                        color: FlutterFlowTheme
+                                                                .of(context)
+                                                            .secondaryBackground,
                                                       ),
-                                                      onPressed: () async {
-                                                        final mealIngredUpdateData =
-                                                            createMealIngredRecordData(
-                                                          audit: 1,
-                                                          status: 'available',
-                                                        );
-                                                        await listViewMealIngredRecord
-                                                            .reference
-                                                            .update(
-                                                                mealIngredUpdateData);
-                                                      },
+                                                    ),
+                                                    Column(
+                                                      mainAxisSize:
+                                                          MainAxisSize.max,
+                                                      children: [
+                                                        FlutterFlowIconButton(
+                                                          borderColor: Colors
+                                                              .transparent,
+                                                          borderRadius: 30,
+                                                          borderWidth: 1,
+                                                          buttonSize: 60,
+                                                          icon: Icon(
+                                                            Icons.done,
+                                                            color: Color(
+                                                                0xFF39D256),
+                                                            size: 30,
+                                                          ),
+                                                          onPressed: () async {
+                                                            final mealIngredUpdateData =
+                                                                createMealIngredRecordData(
+                                                              status:
+                                                                  'unavailable',
+                                                              audit: 1,
+                                                            );
+                                                            await listViewMealIngredRecord
+                                                                .reference
+                                                                .update(
+                                                                    mealIngredUpdateData);
+
+                                                            final timestampUpdateData =
+                                                                createTimestampRecordData(
+                                                              lastAudit: functions
+                                                                  .geCurrentTimeStamp(),
+                                                            );
+                                                            await rowTimestampRecord!
+                                                                .reference
+                                                                .update(
+                                                                    timestampUpdateData);
+                                                          },
+                                                        ),
+                                                      ],
                                                     ),
                                                   ],
-                                                ),
-                                                Container(
-                                                  width: 100,
-                                                  height: 100,
-                                                  decoration: BoxDecoration(
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .secondaryBackground,
-                                                  ),
-                                                ),
-                                                Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.max,
-                                                  children: [
-                                                    FlutterFlowIconButton(
-                                                      borderColor:
-                                                          Colors.transparent,
-                                                      borderRadius: 30,
-                                                      borderWidth: 1,
-                                                      buttonSize: 60,
-                                                      icon: Icon(
-                                                        Icons.done,
-                                                        color:
-                                                            Color(0xFF39D256),
-                                                        size: 30,
-                                                      ),
-                                                      onPressed: () async {
-                                                        final mealIngredUpdateData =
-                                                            createMealIngredRecordData(
-                                                          status: 'unavailable',
-                                                          audit: 1,
-                                                        );
-                                                        await listViewMealIngredRecord
-                                                            .reference
-                                                            .update(
-                                                                mealIngredUpdateData);
-                                                      },
-                                                    ),
-                                                  ],
-                                                ),
-                                              ],
+                                                );
+                                              },
                                             ),
                                           ],
                                         ),
@@ -735,120 +793,177 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                     final listViewMealIngredRecord =
                                         listViewMealIngredRecordList[
                                             listViewIndex];
-                                    return Container(
-                                      width: double.infinity,
-                                      color: Colors.white,
-                                      child: ExpandableNotifier(
-                                        initialExpanded: false,
-                                        child: ExpandablePanel(
-                                          header: Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Expanded(
-                                                flex: 4,
-                                                child: Text(
-                                                  listViewMealIngredRecord
-                                                      .english!,
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .subtitle2,
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 0, 30, 0),
-                                                child: InkWell(
-                                                  onTap: () async {
-                                                    final mealIngredUpdateData =
-                                                        createMealIngredRecordData(
-                                                      status: 'unavailable',
-                                                    );
-                                                    await listViewMealIngredRecord
-                                                        .reference
-                                                        .update(
-                                                            mealIngredUpdateData);
-                                                  },
-                                                  child: Icon(
-                                                    Icons.done,
-                                                    color: Colors.black,
-                                                    size: 24,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          collapsed: Container(),
-                                          expanded: Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    'Hindi Name: ',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1
-                                                        .override(
-                                                          fontFamily: 'Poppins',
-                                                          color:
-                                                              Color(0x8A000000),
-                                                        ),
-                                                  ),
-                                                  Text(
-                                                    listViewMealIngredRecord
-                                                        .hindi!,
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1,
-                                                  ),
-                                                ],
-                                              ),
-                                              Row(
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  Text(
-                                                    'Used in : ',
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1,
-                                                  ),
-                                                  Text(
-                                                    functions.recipeList(
-                                                        listViewMealIngredRecord
-                                                            .recipeNames!
-                                                            .toList()),
-                                                    style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyText1,
-                                                  ),
-                                                ],
-                                              ),
-                                              Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(0, 4, 0, 0),
-                                                child: Image.network(
-                                                  listViewMealIngredRecord.img!,
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  height: 100,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          theme: ExpandableThemeData(
-                                            tapHeaderToExpand: true,
-                                            tapBodyToExpand: false,
-                                            tapBodyToCollapse: false,
-                                            headerAlignment:
-                                                ExpandablePanelHeaderAlignment
-                                                    .center,
-                                            hasIcon: true,
-                                          ),
-                                        ),
+                                    return StreamBuilder<List<TimestampRecord>>(
+                                      stream: queryTimestampRecord(
+                                        singleRecord: true,
                                       ),
+                                      builder: (context, snapshot) {
+                                        // Customize what your widget looks like when it's loading.
+                                        if (!snapshot.hasData) {
+                                          return Center(
+                                            child: SizedBox(
+                                              width: 50,
+                                              height: 50,
+                                              child: SpinKitThreeBounce(
+                                                color: Color(0xFF8783B0),
+                                                size: 50,
+                                              ),
+                                            ),
+                                          );
+                                        }
+                                        List<TimestampRecord>
+                                            expandableTimestampRecordList =
+                                            snapshot.data!;
+                                        // Return an empty Container when the document does not exist.
+                                        if (snapshot.data!.isEmpty) {
+                                          return Container();
+                                        }
+                                        final expandableTimestampRecord =
+                                            expandableTimestampRecordList
+                                                    .isNotEmpty
+                                                ? expandableTimestampRecordList
+                                                    .first
+                                                : null;
+                                        return Container(
+                                          width: double.infinity,
+                                          color: Colors.white,
+                                          child: ExpandableNotifier(
+                                            initialExpanded: false,
+                                            child: ExpandablePanel(
+                                              header: Row(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Expanded(
+                                                    flex: 4,
+                                                    child: Text(
+                                                      listViewMealIngredRecord
+                                                          .english!,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .subtitle2,
+                                                    ),
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 0, 30, 0),
+                                                    child: InkWell(
+                                                      onTap: () async {
+                                                        final mealIngredUpdateData =
+                                                            createMealIngredRecordData(
+                                                          status: 'unavailable',
+                                                        );
+                                                        await listViewMealIngredRecord
+                                                            .reference
+                                                            .update(
+                                                                mealIngredUpdateData);
+
+                                                        final timestampUpdateData =
+                                                            createTimestampRecordData(
+                                                          lastAudit: functions
+                                                              .geCurrentTimeStamp(),
+                                                        );
+                                                        await expandableTimestampRecord!
+                                                            .reference
+                                                            .update(
+                                                                timestampUpdateData);
+                                                      },
+                                                      child: Icon(
+                                                        Icons.done,
+                                                        color: Colors.black,
+                                                        size: 24,
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              collapsed: Container(),
+                                              expanded: Column(
+                                                mainAxisSize: MainAxisSize.max,
+                                                children: [
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        'Hindi Name: ',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1
+                                                                .override(
+                                                                  fontFamily:
+                                                                      'Poppins',
+                                                                  color: Color(
+                                                                      0x8A000000),
+                                                                ),
+                                                      ),
+                                                      Text(
+                                                        listViewMealIngredRecord
+                                                            .hindi!,
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.max,
+                                                    children: [
+                                                      Text(
+                                                        'Used in : ',
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1,
+                                                      ),
+                                                      Text(
+                                                        functions.recipeList(
+                                                            listViewMealIngredRecord
+                                                                .recipeNames!
+                                                                .toList()),
+                                                        style:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .bodyText1,
+                                                      ),
+                                                    ],
+                                                  ),
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsetsDirectional
+                                                            .fromSTEB(
+                                                                0, 4, 0, 0),
+                                                    child: Image.network(
+                                                      listViewMealIngredRecord
+                                                          .img!,
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      height: 100,
+                                                      fit: BoxFit.cover,
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                              theme: ExpandableThemeData(
+                                                tapHeaderToExpand: true,
+                                                tapBodyToExpand: false,
+                                                tapBodyToCollapse: false,
+                                                headerAlignment:
+                                                    ExpandablePanelHeaderAlignment
+                                                        .center,
+                                                hasIcon: true,
+                                              ),
+                                            ),
+                                          ),
+                                        );
+                                      },
                                     );
                                   },
                                 );
