@@ -642,6 +642,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                             .ingredNames,
                                                         listViewTempRecord.name,
                                                         listViewTempRecord.uid,
+                                                        dropDownValue1,
                                                       );
                                                       await actions
                                                           .mealCountUpdate(

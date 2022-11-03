@@ -11,6 +11,7 @@ Future addIngred(
   String? ingredtext,
   String? name,
   String? uid,
+  String? day,
 ) async {
   // Add your function code here!
 
@@ -28,9 +29,11 @@ Future addIngred(
   var ingredIds = nameList;
   for (var i = 0; i < ingredIds.length; i++) {
     var ingred = uid! + ingredIds[i];
+    var recipeSchedule = name! + day!;
     var nycRef = db.collection("meal_ingred").doc(ingred);
+
     batch.update(nycRef, {
-      "recipe_names": FieldValue.arrayUnion([name]),
+      "recipe_names": FieldValue.arrayUnion([recipeSchedule]),
     });
   }
   batch.commit();
