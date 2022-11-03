@@ -12,6 +12,7 @@ Future addIngred(
   String? name,
   String? uid,
   String? day,
+  String? mealTime,
 ) async {
   // Add your function code here!
 
@@ -29,7 +30,7 @@ Future addIngred(
   var ingredIds = nameList;
   for (var i = 0; i < ingredIds.length; i++) {
     var ingred = uid! + ingredIds[i];
-    var recipeSchedule = name! + day!;
+    var recipeSchedule = name! + day! + mealTime!;
     var nycRef = db.collection("meal_ingred").doc(ingred);
 
     batch.update(nycRef, {

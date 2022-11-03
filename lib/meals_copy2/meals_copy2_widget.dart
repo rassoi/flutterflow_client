@@ -309,23 +309,6 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                             size: 25,
                           ),
                         ),
-                        ToggleIcon(
-                          onPressed: () async {
-                            setState(
-                                () => FFAppState().Fav = !FFAppState().Fav);
-                          },
-                          value: FFAppState().Fav,
-                          onIcon: Icon(
-                            Icons.circle,
-                            color: Color(0xFF50C878),
-                            size: 25,
-                          ),
-                          offIcon: Icon(
-                            Icons.circle,
-                            color: Color(0xFFD92A2A),
-                            size: 25,
-                          ),
-                        ),
                       ],
                     );
                   },
@@ -643,6 +626,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                         listViewTempRecord.name,
                                                         listViewTempRecord.uid,
                                                         dropDownValue1,
+                                                        dropDownValue2,
                                                       );
                                                       await actions
                                                           .mealCountUpdate(
