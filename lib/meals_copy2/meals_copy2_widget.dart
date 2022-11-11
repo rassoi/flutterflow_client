@@ -429,15 +429,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                 .primaryText,
                                             size: 30,
                                           ),
-                                          onPressed: () async {
-                                            final tempUpdateData = {
-                                              'meal_time':
-                                                  FieldValue.arrayUnion([
-                                                '${dropDownValue1}${dropDownValue2}'
-                                              ]),
-                                            };
-                                            await listViewTempRecord.reference
-                                                .update(tempUpdateData);
+                                          onPressed: () {
+                                            print('IconButton pressed ...');
                                           },
                                         ),
                                         ToggleIcon(
@@ -627,6 +620,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                         listViewTempRecord.uid,
                                                         dropDownValue1,
                                                         dropDownValue2,
+                                                        listViewTempRecord
+                                                            .recipeId,
                                                       );
                                                       await actions
                                                           .mealCountUpdate(

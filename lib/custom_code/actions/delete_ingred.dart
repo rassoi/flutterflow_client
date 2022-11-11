@@ -13,6 +13,7 @@ Future deleteIngred(
   String? ingredtext,
   String? day,
   String? mealTime,
+  String? mealId,
 ) async {
   // Add your function code here!
 
@@ -30,7 +31,7 @@ Future deleteIngred(
   var ingredIds = nameList;
   for (var i = 0; i < ingredIds.length; i++) {
     var ingred = uid! + ingredIds[i];
-    var recipeSchedule = "$name! : $day! : $mealTime! + $ingredIds[i]";
+    var recipeSchedule = "$name : $day : $mealTime + $mealId";
     var nycRef = db.collection("meal_ingred").doc(ingred);
     batch.update(nycRef, {
       "recipe_names": FieldValue.arrayRemove([recipeSchedule]),

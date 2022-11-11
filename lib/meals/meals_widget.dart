@@ -251,6 +251,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                           listViewTempRecord.ingredNames,
                                           choiceChipsValue,
                                           'Brakefast',
+                                          listViewTempRecord.recipeId,
                                         );
                                         await actions.mealCountUpdate(
                                           listViewTempRecord.uid,
@@ -391,6 +392,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                           listViewTempRecord.ingredNames,
                                           choiceChipsValue,
                                           'Lunch',
+                                          listViewTempRecord.recipeId,
                                         );
                                         await actions.mealCountUpdate(
                                           listViewTempRecord.uid,
@@ -531,6 +533,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                           listViewTempRecord.ingredNames,
                                           choiceChipsValue,
                                           'Snacks',
+                                          listViewTempRecord.recipeId,
                                         );
                                         await actions.mealCountUpdate(
                                           listViewTempRecord.uid,
@@ -671,6 +674,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                           listViewTempRecord.ingredNames,
                                           choiceChipsValue,
                                           'Dinner',
+                                          listViewTempRecord.recipeId,
                                         );
                                         await actions.mealCountUpdate(
                                           listViewTempRecord.uid,
