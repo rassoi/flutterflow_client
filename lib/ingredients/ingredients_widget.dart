@@ -200,13 +200,8 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                           mainAxisSize: MainAxisSize.max,
                           children: [
                             FFButtonWidget(
-                              onPressed: () async {
-                                final timestampUpdateData =
-                                    createTimestampRecordData(
-                                  lastBuy: functions.geCurrentTimeStamp(),
-                                );
-                                await columnTimestampRecord!.reference
-                                    .update(timestampUpdateData);
+                              onPressed: () {
+                                print('Button pressed ...');
                               },
                               text: 'Buy',
                               options: FFButtonOptions(
