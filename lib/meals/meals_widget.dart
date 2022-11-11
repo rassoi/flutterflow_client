@@ -249,6 +249,8 @@ class _MealsWidgetState extends State<MealsWidget> {
                                           listViewTempRecord.uid,
                                           listViewTempRecord.name,
                                           listViewTempRecord.ingredNames,
+                                          choiceChipsValue,
+                                          'Brakefast',
                                         );
                                         await actions.mealCountUpdate(
                                           listViewTempRecord.uid,
@@ -387,6 +389,8 @@ class _MealsWidgetState extends State<MealsWidget> {
                                           listViewTempRecord.uid,
                                           listViewTempRecord.name,
                                           listViewTempRecord.ingredNames,
+                                          choiceChipsValue,
+                                          'Lunch',
                                         );
                                         await actions.mealCountUpdate(
                                           listViewTempRecord.uid,
@@ -525,6 +529,8 @@ class _MealsWidgetState extends State<MealsWidget> {
                                           listViewTempRecord.uid,
                                           listViewTempRecord.name,
                                           listViewTempRecord.ingredNames,
+                                          choiceChipsValue,
+                                          'Snacks',
                                         );
                                         await actions.mealCountUpdate(
                                           listViewTempRecord.uid,
@@ -663,6 +669,8 @@ class _MealsWidgetState extends State<MealsWidget> {
                                           listViewTempRecord.uid,
                                           listViewTempRecord.name,
                                           listViewTempRecord.ingredNames,
+                                          choiceChipsValue,
+                                          'Dinner',
                                         );
                                         await actions.mealCountUpdate(
                                           listViewTempRecord.uid,

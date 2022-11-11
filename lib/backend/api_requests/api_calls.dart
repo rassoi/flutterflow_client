@@ -25,6 +25,7 @@ class SetingredCall {
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
+      cache: false,
     );
   }
 }
@@ -47,6 +48,7 @@ class RemoveIngredAsPerRecipeCall {
       body: body,
       bodyType: BodyType.JSON,
       returnBody: true,
+      cache: false,
     );
   }
 }

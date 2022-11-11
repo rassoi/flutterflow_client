@@ -30,7 +30,7 @@ Future addIngred(
   var ingredIds = nameList;
   for (var i = 0; i < ingredIds.length; i++) {
     var ingred = uid! + ingredIds[i];
-    var recipeSchedule = name! + day! + mealTime!;
+    var recipeSchedule = "$name! : $day! : $mealTime! + $ingredIds[i]";
     var nycRef = db.collection("meal_ingred").doc(ingred);
 
     batch.update(nycRef, {
