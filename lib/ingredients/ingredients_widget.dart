@@ -538,10 +538,14 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                                     final recipeListItem =
                                                         recipeList[
                                                             recipeListIndex];
-                                                    return Container(
-                                                        width: 100,
-                                                        height: 100,
-                                                        color: Colors.green);
+                                                    return SelectionArea(
+                                                        child: Text(
+                                                      recipeListItem,
+                                                      style:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .bodyText1,
+                                                    ));
                                                   },
                                                 );
                                               },

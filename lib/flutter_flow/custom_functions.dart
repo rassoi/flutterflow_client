@@ -44,3 +44,14 @@ int mealStatus(List<String>? mealTime) {
 
   return mealTime!.length;
 }
+
+List<String> recipeName(List<String>? recipeArray) {
+  List<String> nameList = [];
+
+  for (var i = 0; i < recipeArray!.length; i++) {
+    String currentElement = recipeArray[i];
+    List<String> c = currentElement.split("+");
+    nameList.add(c[0]);
+  }
+  return nameList;
+}
