@@ -521,6 +521,31 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                                 ),
                                               ],
                                             ),
+                                            Builder(
+                                              builder: (context) {
+                                                final recipeList =
+                                                    listViewMealIngredRecord
+                                                        .recipeNames!
+                                                        .toList();
+                                                return ListView.builder(
+                                                  padding: EdgeInsets.zero,
+                                                  shrinkWrap: true,
+                                                  scrollDirection:
+                                                      Axis.vertical,
+                                                  itemCount: recipeList.length,
+                                                  itemBuilder: (context,
+                                                      recipeListIndex) {
+                                                    final recipeListItem =
+                                                        recipeList[
+                                                            recipeListIndex];
+                                                    return Container(
+                                                        width: 100,
+                                                        height: 100,
+                                                        color: Colors.green);
+                                                  },
+                                                );
+                                              },
+                                            ),
                                           ],
                                         ),
                                       );
