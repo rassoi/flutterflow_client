@@ -376,17 +376,6 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                                 ),
                                               ],
                                             ),
-                                            Row(
-                                              mainAxisSize: MainAxisSize.max,
-                                              children: [
-                                                Text(
-                                                  'Used in : ${functions.recipeList(listViewMealIngredRecord.recipeNames!.toList())}',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyText1,
-                                                ),
-                                              ],
-                                            ),
                                             StreamBuilder<
                                                 List<TimestampRecord>>(
                                               stream: queryTimestampRecord(
@@ -520,6 +509,17 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                                   ],
                                                 );
                                               },
+                                            ),
+                                            Row(
+                                              mainAxisSize: MainAxisSize.max,
+                                              children: [
+                                                Text(
+                                                  'Used in : ${functions.recipeList(listViewMealIngredRecord.recipeNames!.toList())}',
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .bodyText1,
+                                                ),
+                                              ],
                                             ),
                                           ],
                                         ),
