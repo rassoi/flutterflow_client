@@ -1,8 +1,6 @@
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../main.dart';
-import '../settings/settings_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -19,6 +17,13 @@ class _HomeWidgetState extends State<HomeWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -28,12 +33,7 @@ class _HomeWidgetState extends State<HomeWidget> {
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
-            await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => SettingsWidget(),
-              ),
-            );
+            context.pushNamed('settings');
           },
           child: Icon(
             Icons.settings_outlined,
@@ -197,13 +197,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              NavBarPage(initialPage: 'Meals'),
-                                        ),
-                                      );
+                                      context.pushNamed('Meals');
                                     },
                                     child: Image.network(
                                       listViewTempRecord.image!,
@@ -293,13 +287,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                   onTap: () async {
                                     setState(() => FFAppState().category =
                                         gridViewCategoriesRecord.categoryName!);
-                                    await Navigator.push(
-                                      context,
-                                      MaterialPageRoute(
-                                        builder: (context) => NavBarPage(
-                                            initialPage: 'MealsCopy2'),
-                                      ),
-                                    );
+
+                                    context.pushNamed('MealsCopy2');
                                   },
                                   child: Container(
                                     width: 100,

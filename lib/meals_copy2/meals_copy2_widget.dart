@@ -7,7 +7,6 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_toggle_icon.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../meal_info/meal_info_widget.dart';
 import '../custom_code/actions/index.dart' as actions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -39,6 +38,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
   void initState() {
     super.initState();
     textController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -707,16 +707,16 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                     : null;
                                             return InkWell(
                                               onTap: () async {
-                                                await Navigator.push(
-                                                  context,
-                                                  MaterialPageRoute(
-                                                    builder: (context) =>
-                                                        MealInfoWidget(
-                                                      mealRef:
-                                                          listViewTempRecord
-                                                              .reference,
+                                                context.pushNamed(
+                                                  'meal_info',
+                                                  queryParams: {
+                                                    'mealRef': serializeParam(
+                                                      listViewTempRecord
+                                                          .reference,
+                                                      ParamType
+                                                          .DocumentReference,
                                                     ),
-                                                  ),
+                                                  }.withoutNulls,
                                                 );
                                               },
                                               child: CachedNetworkImage(

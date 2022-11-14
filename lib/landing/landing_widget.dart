@@ -2,8 +2,6 @@ import '../auth/auth_util.dart';
 import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../main.dart';
-import '../main/main_widget.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
@@ -25,15 +23,13 @@ class _LandingWidgetState extends State<LandingWidget> {
     super.initState();
     // On page load action.
     SchedulerBinding.instance.addPostFrameCallback((_) async {
+      GoRouter.of(context).prepareAuthEvent();
       await signOut();
-      await Navigator.pushAndRemoveUntil(
-        context,
-        MaterialPageRoute(
-          builder: (context) => MainWidget(),
-        ),
-        (r) => false,
-      );
+
+      context.goNamedAuth('main', mounted);
     });
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -187,13 +183,7 @@ class _LandingWidgetState extends State<LandingWidget> {
                                       10, 0, 0, 0),
                                   child: InkWell(
                                     onTap: () async {
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              NavBarPage(initialPage: 'Meals'),
-                                        ),
-                                      );
+                                      context.pushNamed('Meals');
                                     },
                                     child: ClipRRect(
                                       borderRadius: BorderRadius.circular(10),
@@ -294,13 +284,8 @@ class _LandingWidgetState extends State<LandingWidget> {
                                                 .categoryName,
                                             'All',
                                           ));
-                                      await Navigator.push(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) => NavBarPage(
-                                              initialPage: 'MealsCopy2'),
-                                        ),
-                                      );
+
+                                      context.pushNamed('MealsCopy2');
                                     },
                                     child: Container(
                                       width: 70,

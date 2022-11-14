@@ -3,7 +3,6 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_choice_chips.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
-import '../meal_info/meal_info_widget.dart';
 import '../custom_code/actions/index.dart' as actions;
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -26,6 +25,13 @@ class MealsWidget extends StatefulWidget {
 class _MealsWidgetState extends State<MealsWidget> {
   String? choiceChipsValue;
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -184,15 +190,14 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         5, 0, 0, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                MealInfoWidget(
-                                              mealRef:
-                                                  listViewTempRecord.reference,
+                                        context.pushNamed(
+                                          'meal_info',
+                                          queryParams: {
+                                            'mealRef': serializeParam(
+                                              listViewTempRecord.reference,
+                                              ParamType.DocumentReference,
                                             ),
-                                          ),
+                                          }.withoutNulls,
                                         );
                                       },
                                       child: ClipRRect(
@@ -325,15 +330,14 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         5, 0, 0, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                MealInfoWidget(
-                                              mealRef:
-                                                  listViewTempRecord.reference,
+                                        context.pushNamed(
+                                          'meal_info',
+                                          queryParams: {
+                                            'mealRef': serializeParam(
+                                              listViewTempRecord.reference,
+                                              ParamType.DocumentReference,
                                             ),
-                                          ),
+                                          }.withoutNulls,
                                         );
                                       },
                                       child: ClipRRect(
@@ -466,15 +470,14 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         5, 0, 0, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                MealInfoWidget(
-                                              mealRef:
-                                                  listViewTempRecord.reference,
+                                        context.pushNamed(
+                                          'meal_info',
+                                          queryParams: {
+                                            'mealRef': serializeParam(
+                                              listViewTempRecord.reference,
+                                              ParamType.DocumentReference,
                                             ),
-                                          ),
+                                          }.withoutNulls,
                                         );
                                       },
                                       child: ClipRRect(
@@ -607,15 +610,14 @@ class _MealsWidgetState extends State<MealsWidget> {
                                         5, 0, 0, 0),
                                     child: InkWell(
                                       onTap: () async {
-                                        await Navigator.push(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) =>
-                                                MealInfoWidget(
-                                              mealRef:
-                                                  listViewTempRecord.reference,
+                                        context.pushNamed(
+                                          'meal_info',
+                                          queryParams: {
+                                            'mealRef': serializeParam(
+                                              listViewTempRecord.reference,
+                                              ParamType.DocumentReference,
                                             ),
-                                          ),
+                                          }.withoutNulls,
                                         );
                                       },
                                       child: ClipRRect(

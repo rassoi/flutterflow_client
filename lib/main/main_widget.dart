@@ -3,8 +3,6 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../login/login_widget.dart';
-import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,6 +23,7 @@ class _MainWidgetState extends State<MainWidget> {
   void initState() {
     super.initState();
     textController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -99,6 +98,7 @@ class _MainWidgetState extends State<MainWidget> {
                                   alignment: AlignmentDirectional(0, 0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
+                                      GoRouter.of(context).prepareAuthEvent();
                                       final user =
                                           await signInWithGoogle(context);
                                       if (user == null) {
@@ -106,14 +106,8 @@ class _MainWidgetState extends State<MainWidget> {
                                       }
                                       setState(() =>
                                           FFAppState().user = currentUserUid);
-                                      await Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              NavBarPage(initialPage: 'Home'),
-                                        ),
-                                        (r) => false,
-                                      );
+
+                                      context.goNamedAuth('Home', mounted);
                                     },
                                     text: 'Sign in with Google',
                                     icon: Icon(
@@ -278,13 +272,7 @@ class _MainWidgetState extends State<MainWidget> {
                                       context: context,
                                       phoneNumber: phoneNumberVal,
                                       onCodeSent: () async {
-                                        await Navigator.pushAndRemoveUntil(
-                                          context,
-                                          MaterialPageRoute(
-                                            builder: (context) => LoginWidget(),
-                                          ),
-                                          (r) => false,
-                                        );
+                                        context.goNamedAuth('login', mounted);
                                       },
                                     );
 
@@ -374,6 +362,7 @@ class _MainWidgetState extends State<MainWidget> {
                                   alignment: AlignmentDirectional(0, 0),
                                   child: FFButtonWidget(
                                     onPressed: () async {
+                                      GoRouter.of(context).prepareAuthEvent();
                                       final user =
                                           await signInAnonymously(context);
                                       if (user == null) {
@@ -381,14 +370,8 @@ class _MainWidgetState extends State<MainWidget> {
                                       }
                                       setState(() =>
                                           FFAppState().user = currentUserUid);
-                                      await Navigator.pushAndRemoveUntil(
-                                        context,
-                                        MaterialPageRoute(
-                                          builder: (context) =>
-                                              NavBarPage(initialPage: 'Home'),
-                                        ),
-                                        (r) => false,
-                                      );
+
+                                      context.goNamedAuth('Home', mounted);
                                     },
                                     text: 'Sign in as Anonymous',
                                     icon: Icon(

@@ -4,13 +4,14 @@ import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'auth/firebase_user_provider.dart';
 import 'auth/auth_util.dart';
-
+import 'backend/push_notifications/push_notifications_util.dart';
 import 'flutter_flow/flutter_flow_theme.dart';
 import 'flutter_flow/flutter_flow_util.dart';
 import 'flutter_flow/internationalization.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:floating_bottom_navigation_bar/floating_bottom_navigation_bar.dart';
+import 'flutter_flow/nav/nav.dart';
 import 'index.dart';
 
 void main() async {
@@ -36,27 +37,31 @@ class _MyAppState extends State<MyApp> {
   ThemeMode _themeMode = ThemeMode.system;
 
   late Stream<RassoiFirebaseUser> userStream;
-  RassoiFirebaseUser? initialUser;
-  bool displaySplashImage = true;
+
+  late AppStateNotifier _appStateNotifier;
+  late GoRouter _router;
 
   final authUserSub = authenticatedUserStream.listen((_) {});
+  final fcmTokenSub = fcmTokenUserStream.listen((_) {});
 
   @override
   void initState() {
     super.initState();
+    _appStateNotifier = AppStateNotifier();
+    _router = createRouter(_appStateNotifier);
     userStream = rassoiFirebaseUserStream()
-      ..listen((user) => initialUser ?? setState(() => initialUser = user));
+      ..listen((user) => _appStateNotifier.update(user));
     jwtTokenStream.listen((_) {});
     Future.delayed(
       Duration(seconds: 1),
-      () => setState(() => displaySplashImage = false),
+      () => _appStateNotifier.stopShowingSplashImage(),
     );
   }
 
   @override
   void dispose() {
     authUserSub.cancel();
-
+    fcmTokenSub.cancel();
     super.dispose();
   }
 
@@ -68,7 +73,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return MaterialApp.router(
       title: 'Rassoi',
       localizationsDelegates: [
         FFLocalizationsDelegate(),
@@ -80,19 +85,8 @@ class _MyAppState extends State<MyApp> {
       supportedLocales: const [Locale('en', '')],
       theme: ThemeData(brightness: Brightness.light),
       themeMode: _themeMode,
-      home: initialUser == null || displaySplashImage
-          ? Builder(
-              builder: (context) => Container(
-                color: Colors.transparent,
-                child: Image.asset(
-                  'assets/images/undraw_breakfast_psiw.svg',
-                  fit: BoxFit.cover,
-                ),
-              ),
-            )
-          : currentUser!.loggedIn
-              ? NavBarPage()
-              : MainWidget(),
+      routeInformationParser: _router.routeInformationParser,
+      routerDelegate: _router.routerDelegate,
     );
   }
 }

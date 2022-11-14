@@ -3,8 +3,6 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
-import '../main/main_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -20,6 +18,13 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       key: scaffoldKey,
@@ -29,12 +34,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
-            await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => NavBarPage(initialPage: 'Home'),
-              ),
-            );
+            context.pushNamed('Home');
           },
           child: Icon(
             Icons.chevron_left,
@@ -101,15 +101,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   children: [
                     FFButtonWidget(
                       onPressed: () async {
+                        GoRouter.of(context).prepareAuthEvent();
                         await signOut();
                         setState(() => FFAppState().user = '');
-                        await Navigator.pushAndRemoveUntil(
-                          context,
-                          MaterialPageRoute(
-                            builder: (context) => MainWidget(),
-                          ),
-                          (r) => false,
-                        );
+
+                        context.goNamedAuth('main', mounted);
                       },
                       text: 'Logout',
                       options: FFButtonOptions(

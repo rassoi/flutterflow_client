@@ -3,8 +3,6 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../login/login_widget.dart';
-import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -25,6 +23,7 @@ class _HomePageWidgetState extends State<HomePageWidget> {
   void initState() {
     super.initState();
     textController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -102,6 +101,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           0, 2, 0, 0),
                                       child: FFButtonWidget(
                                         onPressed: () async {
+                                          GoRouter.of(context)
+                                              .prepareAuthEvent();
                                           final user =
                                               await signInWithGoogle(context);
                                           if (user == null) {
@@ -109,14 +110,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                           }
                                           setState(() => FFAppState().user =
                                               currentUserUid);
-                                          await Navigator.pushAndRemoveUntil(
-                                            context,
-                                            MaterialPageRoute(
-                                              builder: (context) => NavBarPage(
-                                                  initialPage: 'Home'),
-                                            ),
-                                            (r) => false,
-                                          );
+
+                                          context.goNamedAuth('Home', mounted);
                                         },
                                         text: 'Sign in with Google',
                                         icon: Icon(
@@ -268,15 +263,8 @@ class _HomePageWidgetState extends State<HomePageWidget> {
                                             context: context,
                                             phoneNumber: phoneNumberVal,
                                             onCodeSent: () async {
-                                              await Navigator
-                                                  .pushAndRemoveUntil(
-                                                context,
-                                                MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      LoginWidget(),
-                                                ),
-                                                (r) => false,
-                                              );
+                                              context.goNamedAuth(
+                                                  'login', mounted);
                                             },
                                           );
                                         },

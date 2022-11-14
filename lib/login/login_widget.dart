@@ -3,7 +3,6 @@ import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
-import '../main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -23,6 +22,7 @@ class _LoginWidgetState extends State<LoginWidget> {
   void initState() {
     super.initState();
     textController = TextEditingController();
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
   }
 
   @override
@@ -41,12 +41,7 @@ class _LoginWidgetState extends State<LoginWidget> {
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
-            await Navigator.push(
-              context,
-              MaterialPageRoute(
-                builder: (context) => NavBarPage(initialPage: 'Home'),
-              ),
-            );
+            context.pushNamed('Home');
           },
           child: Icon(
             Icons.chevron_left,
@@ -158,6 +153,7 @@ class _LoginWidgetState extends State<LoginWidget> {
                       children: [
                         FFButtonWidget(
                           onPressed: () async {
+                            GoRouter.of(context).prepareAuthEvent();
                             final smsCodeVal = textController!.text;
                             if (smsCodeVal == null || smsCodeVal.isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
@@ -176,14 +172,8 @@ class _LoginWidgetState extends State<LoginWidget> {
                             }
 
                             setState(() => FFAppState().user = currentUserUid);
-                            await Navigator.pushAndRemoveUntil(
-                              context,
-                              MaterialPageRoute(
-                                builder: (context) =>
-                                    NavBarPage(initialPage: 'Home'),
-                              ),
-                              (r) => false,
-                            );
+
+                            context.goNamedAuth('Home', mounted);
                           },
                           text: 'Verify',
                           options: FFButtonOptions(

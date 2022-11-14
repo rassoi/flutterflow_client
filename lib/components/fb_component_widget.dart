@@ -17,6 +17,13 @@ class _FbComponentWidgetState extends State<FbComponentWidget> {
   int? countControllerValue;
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Container(
       width: 160,

@@ -27,6 +27,13 @@ class _MealsCopy2CopyWidgetState extends State<MealsCopy2CopyWidget> {
   int? countControllerValue;
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<RecipesRecord>(
       stream: RecipesRecord.getDocument(widget.mealDetail!),
@@ -54,7 +61,7 @@ class _MealsCopy2CopyWidgetState extends State<MealsCopy2CopyWidget> {
               automaticallyImplyLeading: true,
               leading: InkWell(
                 onTap: () async {
-                  Navigator.pop(context);
+                  context.pop();
                 },
                 child: Icon(
                   Icons.chevron_left,

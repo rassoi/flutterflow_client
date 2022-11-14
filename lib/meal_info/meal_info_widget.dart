@@ -29,6 +29,13 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
   int? countControllerValue;
 
   @override
+  void initState() {
+    super.initState();
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => setState(() {}));
+  }
+
+  @override
   Widget build(BuildContext context) {
     return StreamBuilder<TempRecord>(
       stream: TempRecord.getDocument(widget.mealRef!),
@@ -56,7 +63,7 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
               automaticallyImplyLeading: true,
               leading: InkWell(
                 onTap: () async {
-                  Navigator.pop(context);
+                  context.pop();
                 },
                 child: Icon(
                   Icons.chevron_left,
