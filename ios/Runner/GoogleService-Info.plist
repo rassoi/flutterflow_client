@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>557519141026-fvtam3nlap6k76oamsb9h7j7f0t5iljn.apps.googleusercontent.com</string>
+	<string>557519141026-l7tc4i3r0taf1rh98dsoglnec66143fu.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.557519141026-fvtam3nlap6k76oamsb9h7j7f0t5iljn</string>
+	<string>com.googleusercontent.apps.557519141026-l7tc4i3r0taf1rh98dsoglnec66143fu</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>557519141026-0gf7jc2ig58a1983o73mt8s8dcavmfkk.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.flutterflow.rassoi</string>
+	<string>com.flutterflow.rassoiV2</string>
 	<key>PROJECT_ID</key>
 	<string>rassoi-767af</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:557519141026:ios:857328cea3650ea5453ffb</string>
+	<string>1:557519141026:ios:9850efa92217c06c453ffb</string>
 </dict>
 </plist>

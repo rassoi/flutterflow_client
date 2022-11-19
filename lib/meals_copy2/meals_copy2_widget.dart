@@ -144,40 +144,48 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
             return Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                Container(
-                  width: double.infinity,
-                  height: 40,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEEEEEE),
+                StreamBuilder<List<MiscellaneousRecord>>(
+                  stream: queryMiscellaneousRecord(
+                    singleRecord: true,
                   ),
-                  child: StreamBuilder<List<MiscellaneousRecord>>(
-                    stream: queryMiscellaneousRecord(),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: SpinKitThreeBounce(
-                              color: Color(0xFF8783B0),
-                              size: 50,
-                            ),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: SpinKitThreeBounce(
+                            color: Color(0xFF8783B0),
+                            size: 50,
                           ),
-                        );
-                      }
-                      List<MiscellaneousRecord>
-                          listViewMiscellaneousRecordList = snapshot.data!;
-                      return ListView.builder(
+                        ),
+                      );
+                    }
+                    List<MiscellaneousRecord> containerMiscellaneousRecordList =
+                        snapshot.data!;
+                    // Return an empty Container when the document does not exist.
+                    if (snapshot.data!.isEmpty) {
+                      return Container();
+                    }
+                    final containerMiscellaneousRecord =
+                        containerMiscellaneousRecordList.isNotEmpty
+                            ? containerMiscellaneousRecordList.first
+                            : null;
+                    return Container(
+                      width: double.infinity,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: FlutterFlowTheme.of(context).secondaryBackground,
+                      ),
+                      child: ListView(
                         padding: EdgeInsets.zero,
                         scrollDirection: Axis.horizontal,
-                        itemCount: listViewMiscellaneousRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewMiscellaneousRecord =
-                              listViewMiscellaneousRecordList[listViewIndex];
-                          return FlutterFlowChoiceChips(
-                            initiallySelected: [FFAppState().category],
-                            options: listViewMiscellaneousRecord.categoriesList!
+                        children: [
+                          FlutterFlowChoiceChips(
+                            initiallySelected: [widget.category!],
+                            options: containerMiscellaneousRecord!
+                                .categoriesList!
                                 .toList()
                                 .map((label) => ChipData(label))
                                 .toList(),
@@ -211,11 +219,11 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                             multiselect: false,
                             initialized: choiceChipsValue != null,
                             alignment: WrapAlignment.start,
-                          );
-                        },
-                      );
-                    },
-                  ),
+                          ),
+                        ],
+                      ),
+                    );
+                  },
                 ),
                 StreamBuilder<List<DaysRecord>>(
                   stream: queryDaysRecord(
@@ -247,7 +255,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                       mainAxisSize: MainAxisSize.max,
                       children: [
                         Expanded(
-                          child: FlutterFlowDropDown(
+                          child: FlutterFlowDropDown<String>(
                             initialOption: dropDownValue1 ??= 'Today',
                             options: rowDaysRecord!.day!.toList().toList(),
                             onChanged: (val) =>
@@ -270,7 +278,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                           ),
                         ),
                         Expanded(
-                          child: FlutterFlowDropDown(
+                          child: FlutterFlowDropDown<String>(
                             initialOption: dropDownValue2 ??= 'Brakefast',
                             options: ['Brakefast', 'Lunch', 'Snacks', 'Dinner'],
                             onChanged: (val) =>
@@ -319,10 +327,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                       queryBuilder: (tempRecord) => tempRecord
                           .where('uid', isEqualTo: FFAppState().user)
                           .where('nameAsArray',
-                              arrayContains: '${valueOrDefault<String>(
-                                choiceChipsValue,
-                                'All',
-                              )}${textController!.text}')
+                              arrayContains:
+                                  '${choiceChipsValue}${textController!.text}')
                           .where('fav', isEqualTo: true),
                     ),
                     builder: (context, snapshot) {
@@ -352,10 +358,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                             queryBuilder: (tempRecord) => tempRecord
                                 .where('uid', isEqualTo: FFAppState().user)
                                 .where('nameAsArray',
-                                    arrayContains: '${valueOrDefault<String>(
-                                      choiceChipsValue,
-                                      'All',
-                                    )}${textController!.text}')
+                                    arrayContains:
+                                        '${choiceChipsValue}${textController!.text}')
                                 .where('fav', isEqualTo: true),
                           ),
                           builder: (context, snapshot) {
@@ -469,10 +473,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                     stream: queryTempRecord(
                       queryBuilder: (tempRecord) => tempRecord
                           .where('nameAsArray',
-                              arrayContains: '${valueOrDefault<String>(
-                                choiceChipsValue,
-                                'All',
-                              )}${textController!.text}')
+                              arrayContains:
+                                  '${choiceChipsValue}${textController!.text}')
                           .where('uid', isEqualTo: FFAppState().user)
                           .where('fav', isEqualTo: false),
                     ),
