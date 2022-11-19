@@ -148,14 +148,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => LoginWidget(),
             ),
             FFRoute(
-              name: 'main',
-              path: 'main',
-              builder: (context, params) => MainWidget(),
-            ),
-            FFRoute(
               name: 'settings',
               path: 'settings',
               builder: (context, params) => SettingsWidget(),
+            ),
+            FFRoute(
+              name: 'main',
+              path: 'main',
+              builder: (context, params) => MainWidget(),
             ),
             FFRoute(
               name: 'temp',

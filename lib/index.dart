@@ -10,6 +10,6 @@ export 'meals_copy2_copy/meals_copy2_copy_widget.dart'
     show MealsCopy2CopyWidget;
 export 'meal_info/meal_info_widget.dart' show MealInfoWidget;
 export 'login/login_widget.dart' show LoginWidget;
-export 'main/main_widget.dart' show MainWidget;
 export 'settings/settings_widget.dart' show SettingsWidget;
+export 'main/main_widget.dart' show MainWidget;
 export 'temp/temp_widget.dart' show TempWidget;
