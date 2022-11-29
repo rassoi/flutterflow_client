@@ -1,20 +1,6 @@
 {
   "indexes": [
     {
-      "collectionGroup": "upcommingmeals",
-      "queryScope": "COLLECTION",
-      "fields": [
-        {
-          "fieldPath": "uid",
-          "order": "ASCENDING"
-        },
-        {
-          "fieldPath": "sequence",
-          "order": "ASCENDING"
-        }
-      ]
-    },
-    {
       "collectionGroup": "temp",
       "queryScope": "COLLECTION",
       "fields": [

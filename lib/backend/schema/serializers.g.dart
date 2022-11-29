@@ -11,14 +11,22 @@ Serializers _$serializers = (new Serializers().toBuilder()
       ..add(CategoriesRecord.serializer)
       ..add(CategoriesTempRecord.serializer)
       ..add(DaysRecord.serializer)
+      ..add(IngredsRecord.serializer)
       ..add(MealIngredRecord.serializer)
       ..add(MiscellaneousRecord.serializer)
       ..add(RecipesRecord.serializer)
+      ..add(RecipesTempRecord.serializer)
       ..add(TempRecord.serializer)
       ..add(TimestampRecord.serializer)
       ..add(UpcommingMealsRecord.serializer)
       ..add(UpcommingmealsRecord.serializer)
       ..add(UsersRecord.serializer)
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
+      ..addBuilderFactory(
+          const FullType(BuiltList, const [const FullType(String)]),
+          () => new ListBuilder<String>())
       ..addBuilderFactory(
           const FullType(BuiltList, const [const FullType(String)]),
           () => new ListBuilder<String>())

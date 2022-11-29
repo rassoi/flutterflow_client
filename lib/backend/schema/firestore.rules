@@ -84,5 +84,24 @@ service cloud.firestore {
       allow write: if true;
       allow delete: if true;
     }
+
+    match /recipes_temp/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /recipes_temp/{parent}/ingreds/{document} {
+      allow create: if true;
+      allow read: if true;
+      allow write: if false;
+      allow delete: if false;
+    }
+
+    match /{path=**}/ingreds/{document} {
+      allow read: if true;
+    }
+
   }
 }

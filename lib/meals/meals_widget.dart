@@ -263,6 +263,22 @@ class _MealsWidgetState extends State<MealsWidget> {
                                           listViewTempRecord.ingredNames,
                                           listViewTempRecord.name,
                                         );
+                                        ScaffoldMessenger.of(context)
+                                            .showSnackBar(
+                                          SnackBar(
+                                            content: Text(
+                                              'Removing${listViewTempRecord.name} from ${choiceChipsValue} Breakfast',
+                                              style: TextStyle(
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .primaryText,
+                                              ),
+                                            ),
+                                            duration:
+                                                Duration(milliseconds: 4000),
+                                            backgroundColor: Color(0x00000000),
+                                          ),
+                                        );
                                       },
                                       child: Icon(
                                         Icons.delete,

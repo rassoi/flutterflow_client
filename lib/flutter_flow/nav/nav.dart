@@ -99,11 +99,6 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
                     ),
             ),
             FFRoute(
-              name: 'Landing',
-              path: 'landing',
-              builder: (context, params) => LandingWidget(),
-            ),
-            FFRoute(
               name: 'MealsCopy',
               path: 'mealsCopy',
               builder: (context, params) => MealsCopyWidget(
@@ -161,6 +156,20 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               name: 'temp',
               path: 'temp',
               builder: (context, params) => TempWidget(),
+            ),
+            FFRoute(
+              name: 'MealsCopy2Copy2',
+              path: 'mealsCopy2Copy2',
+              builder: (context, params) => MealsCopy2Copy2Widget(
+                category: params.getParam('category', ParamType.String),
+              ),
+            ),
+            FFRoute(
+              name: 'exploreDish',
+              path: 'exploreDish',
+              builder: (context, params) => params.isEmpty
+                  ? NavBarPage(initialPage: 'exploreDish')
+                  : ExploreDishWidget(),
             )
           ].map((r) => r.toRoute(appStateNotifier)).toList(),
         ).toRoute(appStateNotifier),

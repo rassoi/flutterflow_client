@@ -121,6 +121,7 @@ class _NavBarPageState extends State<NavBarPage> {
       'Meals': MealsWidget(),
       'Ingredients': IngredientsWidget(),
       'MealsCopy2': MealsCopy2Widget(),
+      'exploreDish': ExploreDishWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
     return Scaffold(
@@ -133,7 +134,7 @@ class _NavBarPageState extends State<NavBarPage> {
           _currentPageName = tabs.keys.toList()[i];
         }),
         backgroundColor: Color(0xFFE2E8E8),
-        selectedItemColor: Color(0xFF39BDEF),
+        selectedItemColor: Color(0xFF72E6C1),
         unselectedItemColor: Color(0x8A484545),
         selectedBackgroundColor: Color(0x00000000),
         borderRadius: 8,
@@ -150,7 +151,7 @@ class _NavBarPageState extends State<NavBarPage> {
                 Icon(
                   Icons.home_outlined,
                   color:
-                      currentIndex == 0 ? Color(0xFF39BDEF) : Color(0x8A484545),
+                      currentIndex == 0 ? Color(0xFF72E6C1) : Color(0x8A484545),
                   size: 24,
                 ),
                 Text(
@@ -158,7 +159,7 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 0
-                        ? Color(0xFF39BDEF)
+                        ? Color(0xFF72E6C1)
                         : Color(0x8A484545),
                     fontSize: 11.0,
                   ),
@@ -173,7 +174,7 @@ class _NavBarPageState extends State<NavBarPage> {
                 Icon(
                   Icons.food_bank_rounded,
                   color:
-                      currentIndex == 1 ? Color(0xFF39BDEF) : Color(0x8A484545),
+                      currentIndex == 1 ? Color(0xFF72E6C1) : Color(0x8A484545),
                   size: 24,
                 ),
                 Text(
@@ -181,7 +182,7 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 1
-                        ? Color(0xFF39BDEF)
+                        ? Color(0xFF72E6C1)
                         : Color(0x8A484545),
                     fontSize: 11.0,
                   ),
@@ -196,7 +197,7 @@ class _NavBarPageState extends State<NavBarPage> {
                 Icon(
                   Icons.format_list_bulleted,
                   color:
-                      currentIndex == 2 ? Color(0xFF39BDEF) : Color(0x8A484545),
+                      currentIndex == 2 ? Color(0xFF72E6C1) : Color(0x8A484545),
                   size: 24,
                 ),
                 Text(
@@ -204,7 +205,7 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 2
-                        ? Color(0xFF39BDEF)
+                        ? Color(0xFF72E6C1)
                         : Color(0x8A484545),
                     fontSize: 11.0,
                   ),
@@ -219,7 +220,7 @@ class _NavBarPageState extends State<NavBarPage> {
                 Icon(
                   Icons.search,
                   color:
-                      currentIndex == 3 ? Color(0xFF39BDEF) : Color(0x8A484545),
+                      currentIndex == 3 ? Color(0xFF72E6C1) : Color(0x8A484545),
                   size: 24,
                 ),
                 Text(
@@ -227,7 +228,30 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3
-                        ? Color(0xFF39BDEF)
+                        ? Color(0xFF72E6C1)
+                        : Color(0x8A484545),
+                    fontSize: 11.0,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          FloatingNavbarItem(
+            customWidget: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Icon(
+                  Icons.search,
+                  color:
+                      currentIndex == 4 ? Color(0xFF72E6C1) : Color(0x8A484545),
+                  size: 24,
+                ),
+                Text(
+                  'New',
+                  overflow: TextOverflow.ellipsis,
+                  style: TextStyle(
+                    color: currentIndex == 4
+                        ? Color(0xFF72E6C1)
                         : Color(0x8A484545),
                     fontSize: 11.0,
                   ),

@@ -468,7 +468,12 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                       );
                     },
                   ),
-                Expanded(
+                Container(
+                  width: double.infinity,
+                  height: MediaQuery.of(context).size.height * 0.7,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                  ),
                   child: StreamBuilder<List<TempRecord>>(
                     stream: queryTempRecord(
                       queryBuilder: (tempRecord) => tempRecord
@@ -631,6 +636,25 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                         listViewTempRecord
                                                             .ingredNames,
                                                         listViewTempRecord.name,
+                                                      );
+                                                      ScaffoldMessenger.of(
+                                                              context)
+                                                          .showSnackBar(
+                                                        SnackBar(
+                                                          content: Text(
+                                                            'Adding${listViewTempRecord.name} from ${dropDownValue1} ${dropDownValue2}',
+                                                            style: TextStyle(
+                                                              color: FlutterFlowTheme
+                                                                      .of(context)
+                                                                  .primaryText,
+                                                            ),
+                                                          ),
+                                                          duration: Duration(
+                                                              milliseconds:
+                                                                  4000),
+                                                          backgroundColor:
+                                                              Color(0x00000000),
+                                                        ),
                                                       );
                                                     },
                                                     text: 'Add',
