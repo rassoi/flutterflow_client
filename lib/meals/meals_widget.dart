@@ -267,7 +267,7 @@ class _MealsWidgetState extends State<MealsWidget> {
                                           final tempUpdateData = {
                                             'meal_time':
                                                 FieldValue.arrayRemove([
-                                              '${choiceChipsValue}Brakefast'
+                                              '${choiceChipsValue}Breakfast'
                                             ]),
                                           };
                                           await listViewTempRecord.reference
