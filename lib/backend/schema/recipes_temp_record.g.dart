@@ -28,13 +28,6 @@ class _$RecipesTempRecordSerializer
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
-    value = object.mealTime;
-    if (value != null) {
-      result
-        ..add('mealTime')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.name;
     if (value != null) {
       result
@@ -72,19 +65,27 @@ class _$RecipesTempRecordSerializer
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
     }
-    value = object.veg;
-    if (value != null) {
-      result
-        ..add('veg')
-        ..add(serializers.serialize(value,
-            specifiedType: const FullType(String)));
-    }
     value = object.youtubeLink;
     if (value != null) {
       result
         ..add('youtube_link')
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
+    }
+    value = object.veg;
+    if (value != null) {
+      result
+        ..add('veg')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
+    value = object.mealTime;
+    if (value != null) {
+      result
+        ..add('mealTime')
+        ..add(serializers.serialize(value,
+            specifiedType:
+                const FullType(BuiltList, const [const FullType(String)])));
     }
     value = object.ffRef;
     if (value != null) {
@@ -113,10 +114,6 @@ class _$RecipesTempRecordSerializer
           result.image = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
-        case 'mealTime':
-          result.mealTime = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
         case 'name':
           result.name = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
@@ -141,13 +138,19 @@ class _$RecipesTempRecordSerializer
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
           break;
-        case 'veg':
-          result.veg = serializers.deserialize(value,
-              specifiedType: const FullType(String)) as String?;
-          break;
         case 'youtube_link':
           result.youtubeLink = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
+          break;
+        case 'veg':
+          result.veg = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
+        case 'mealTime':
+          result.mealTime.replace(serializers.deserialize(value,
+                  specifiedType: const FullType(
+                      BuiltList, const [const FullType(String)]))!
+              as BuiltList<Object?>);
           break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
@@ -166,8 +169,6 @@ class _$RecipesTempRecord extends RecipesTempRecord {
   @override
   final String? image;
   @override
-  final String? mealTime;
-  @override
   final String? name;
   @override
   final String? nameHindi;
@@ -178,9 +179,11 @@ class _$RecipesTempRecord extends RecipesTempRecord {
   @override
   final BuiltList<String>? categoryName;
   @override
-  final String? veg;
-  @override
   final String? youtubeLink;
+  @override
+  final bool? veg;
+  @override
+  final BuiltList<String>? mealTime;
   @override
   final DocumentReference<Object?>? ffRef;
 
@@ -190,14 +193,14 @@ class _$RecipesTempRecord extends RecipesTempRecord {
 
   _$RecipesTempRecord._(
       {this.image,
-      this.mealTime,
       this.name,
       this.nameHindi,
       this.recipeId,
       this.subCategories,
       this.categoryName,
-      this.veg,
       this.youtubeLink,
+      this.veg,
+      this.mealTime,
       this.ffRef})
       : super._();
 
@@ -214,14 +217,14 @@ class _$RecipesTempRecord extends RecipesTempRecord {
     if (identical(other, this)) return true;
     return other is RecipesTempRecord &&
         image == other.image &&
-        mealTime == other.mealTime &&
         name == other.name &&
         nameHindi == other.nameHindi &&
         recipeId == other.recipeId &&
         subCategories == other.subCategories &&
         categoryName == other.categoryName &&
-        veg == other.veg &&
         youtubeLink == other.youtubeLink &&
+        veg == other.veg &&
+        mealTime == other.mealTime &&
         ffRef == other.ffRef;
   }
 
@@ -234,16 +237,14 @@ class _$RecipesTempRecord extends RecipesTempRecord {
                     $jc(
                         $jc(
                             $jc(
-                                $jc(
-                                    $jc($jc(0, image.hashCode),
-                                        mealTime.hashCode),
-                                    name.hashCode),
-                                nameHindi.hashCode),
-                            recipeId.hashCode),
-                        subCategories.hashCode),
-                    categoryName.hashCode),
+                                $jc($jc($jc(0, image.hashCode), name.hashCode),
+                                    nameHindi.hashCode),
+                                recipeId.hashCode),
+                            subCategories.hashCode),
+                        categoryName.hashCode),
+                    youtubeLink.hashCode),
                 veg.hashCode),
-            youtubeLink.hashCode),
+            mealTime.hashCode),
         ffRef.hashCode));
   }
 
@@ -251,14 +252,14 @@ class _$RecipesTempRecord extends RecipesTempRecord {
   String toString() {
     return (newBuiltValueToStringHelper(r'RecipesTempRecord')
           ..add('image', image)
-          ..add('mealTime', mealTime)
           ..add('name', name)
           ..add('nameHindi', nameHindi)
           ..add('recipeId', recipeId)
           ..add('subCategories', subCategories)
           ..add('categoryName', categoryName)
-          ..add('veg', veg)
           ..add('youtubeLink', youtubeLink)
+          ..add('veg', veg)
+          ..add('mealTime', mealTime)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -271,10 +272,6 @@ class RecipesTempRecordBuilder
   String? _image;
   String? get image => _$this._image;
   set image(String? image) => _$this._image = image;
-
-  String? _mealTime;
-  String? get mealTime => _$this._mealTime;
-  set mealTime(String? mealTime) => _$this._mealTime = mealTime;
 
   String? _name;
   String? get name => _$this._name;
@@ -300,13 +297,18 @@ class RecipesTempRecordBuilder
   set categoryName(ListBuilder<String>? categoryName) =>
       _$this._categoryName = categoryName;
 
-  String? _veg;
-  String? get veg => _$this._veg;
-  set veg(String? veg) => _$this._veg = veg;
-
   String? _youtubeLink;
   String? get youtubeLink => _$this._youtubeLink;
   set youtubeLink(String? youtubeLink) => _$this._youtubeLink = youtubeLink;
+
+  bool? _veg;
+  bool? get veg => _$this._veg;
+  set veg(bool? veg) => _$this._veg = veg;
+
+  ListBuilder<String>? _mealTime;
+  ListBuilder<String> get mealTime =>
+      _$this._mealTime ??= new ListBuilder<String>();
+  set mealTime(ListBuilder<String>? mealTime) => _$this._mealTime = mealTime;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
@@ -320,14 +322,14 @@ class RecipesTempRecordBuilder
     final $v = _$v;
     if ($v != null) {
       _image = $v.image;
-      _mealTime = $v.mealTime;
       _name = $v.name;
       _nameHindi = $v.nameHindi;
       _recipeId = $v.recipeId;
       _subCategories = $v.subCategories?.toBuilder();
       _categoryName = $v.categoryName?.toBuilder();
-      _veg = $v.veg;
       _youtubeLink = $v.youtubeLink;
+      _veg = $v.veg;
+      _mealTime = $v.mealTime?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -354,14 +356,14 @@ class RecipesTempRecordBuilder
       _$result = _$v ??
           new _$RecipesTempRecord._(
               image: image,
-              mealTime: mealTime,
               name: name,
               nameHindi: nameHindi,
               recipeId: recipeId,
               subCategories: _subCategories?.build(),
               categoryName: _categoryName?.build(),
-              veg: veg,
               youtubeLink: youtubeLink,
+              veg: veg,
+              mealTime: _mealTime?.build(),
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
@@ -370,6 +372,9 @@ class RecipesTempRecordBuilder
         _subCategories?.build();
         _$failedField = 'categoryName';
         _categoryName?.build();
+
+        _$failedField = 'mealTime';
+        _mealTime?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
             r'RecipesTempRecord', _$failedField, e.toString());
