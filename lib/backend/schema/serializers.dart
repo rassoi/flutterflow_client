@@ -8,13 +8,12 @@ import 'categories_record.dart';
 import 'users_record.dart';
 import 'temp_record.dart';
 import 'meal_ingred_record.dart';
-import 'categories_temp_record.dart';
 import 'miscellaneous_record.dart';
 import 'timestamp_record.dart';
 import 'days_record.dart';
 import 'upcommingmeals_record.dart';
 import 'recipes_temp_record.dart';
-import 'ingreds_record.dart';
+import 'category_temp_record.dart';
 
 import 'index.dart';
 
@@ -33,13 +32,12 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   UsersRecord,
   TempRecord,
   MealIngredRecord,
-  CategoriesTempRecord,
   MiscellaneousRecord,
   TimestampRecord,
   DaysRecord,
   UpcommingmealsRecord,
   RecipesTempRecord,
-  IngredsRecord,
+  CategoryTempRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

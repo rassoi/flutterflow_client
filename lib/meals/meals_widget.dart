@@ -39,13 +39,13 @@ class _MealsWidgetState extends State<MealsWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF72E6C1),
         automaticallyImplyLeading: true,
         title: Text(
           'My Meals',
-          style: FlutterFlowTheme.of(context).title1.override(
+          style: FlutterFlowTheme.of(context).title2.override(
                 fontFamily: 'Poppins',
-                fontSize: 36,
+                color: Colors.white,
               ),
         ),
         actions: [],
@@ -106,7 +106,8 @@ class _MealsWidgetState extends State<MealsWidget> {
                             onChanged: (val) =>
                                 setState(() => choiceChipsValue = val?.first),
                             selectedChipStyle: ChipStyle(
-                              backgroundColor: Color(0xFF323B45),
+                              backgroundColor:
+                                  FlutterFlowTheme.of(context).black600,
                               textStyle: FlutterFlowTheme.of(context)
                                   .bodyText1
                                   .override(
@@ -140,580 +141,668 @@ class _MealsWidgetState extends State<MealsWidget> {
                   },
                 ),
                 Text(
-                  'Brakefast',
+                  'Breakfast',
                   textAlign: TextAlign.center,
-                  style: FlutterFlowTheme.of(context).subtitle2,
+                  style: FlutterFlowTheme.of(context).subtitle2.override(
+                        fontFamily: 'Open Sans',
+                        color: FlutterFlowTheme.of(context).black600,
+                      ),
                 ),
-                Container(
-                  width: double.infinity,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEEEEEE),
-                  ),
-                  child: StreamBuilder<List<TempRecord>>(
-                    stream: queryTempRecord(
-                      queryBuilder: (tempRecord) => tempRecord
-                          .where('meal_time',
-                              arrayContains: '${choiceChipsValue}Brakefast')
-                          .where('uid', isEqualTo: FFAppState().user),
+                Material(
+                  color: Colors.transparent,
+                  elevation: 3,
+                  child: Container(
+                    width: double.infinity,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: Color(0xFFFFFAFA),
                     ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: SpinKitThreeBounce(
-                              color: Color(0xFF8783B0),
-                              size: 50,
+                    child: StreamBuilder<List<TempRecord>>(
+                      stream: queryTempRecord(
+                        queryBuilder: (tempRecord) => tempRecord
+                            .where('meal_time',
+                                arrayContains: '${choiceChipsValue}Breakfast')
+                            .where('uid', isEqualTo: FFAppState().user),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: SpinKitThreeBounce(
+                                color: Color(0xFF8783B0),
+                                size: 50,
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                      List<TempRecord> listViewTempRecordList = snapshot.data!;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: listViewTempRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewTempRecord =
-                              listViewTempRecordList[listViewIndex];
-                          return Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        context.pushNamed(
-                                          'meal_info',
-                                          queryParams: {
-                                            'mealRef': serializeParam(
-                                              listViewTempRecord.reference,
-                                              ParamType.DocumentReference,
-                                            ),
-                                          }.withoutNulls,
-                                        );
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(5),
-                                        child: CachedNetworkImage(
-                                          imageUrl: listViewTempRecord.image!,
-                                          width: 130,
-                                          height: 100,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    listViewTempRecord.name!
-                                        .maybeHandleOverflow(maxChars: 15),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                ],
-                              ),
-                              Expanded(
-                                child: Row(
+                          );
+                        }
+                        List<TempRecord> listViewTempRecordList =
+                            snapshot.data!;
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: listViewTempRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewTempRecord =
+                                listViewTempRecordList[listViewIndex];
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Align(
-                                      alignment: AlignmentDirectional(0, 0),
-                                      child: Text(
-                                        formatNumber(
-                                          listViewTempRecord.counter!,
-                                          formatType: FormatType.custom,
-                                          format: '0',
-                                          locale: '',
-                                        ),
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () async {
-                                        final tempUpdateData = {
-                                          'meal_time': FieldValue.arrayRemove(
-                                              ['${choiceChipsValue}Brakefast']),
-                                        };
-                                        await listViewTempRecord.reference
-                                            .update(tempUpdateData);
-                                        await actions.deleteIngred(
-                                          listViewTempRecord.uid,
-                                          listViewTempRecord.name,
-                                          listViewTempRecord.ingredNames,
-                                          choiceChipsValue,
-                                          'Brakefast',
-                                          listViewTempRecord.recipeId,
-                                        );
-                                        await actions.mealCountUpdate(
-                                          listViewTempRecord.uid,
-                                          listViewTempRecord.ingredNames,
-                                          listViewTempRecord.name,
-                                        );
-                                        ScaffoldMessenger.of(context)
-                                            .showSnackBar(
-                                          SnackBar(
-                                            content: Text(
-                                              'Removing${listViewTempRecord.name} from ${choiceChipsValue} Breakfast',
-                                              style: TextStyle(
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5, 0, 0, 0),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          context.pushNamed(
+                                            'meal_info',
+                                            queryParams: {
+                                              'mealRef': serializeParam(
+                                                listViewTempRecord.reference,
+                                                ParamType.DocumentReference,
                                               ),
-                                            ),
-                                            duration:
-                                                Duration(milliseconds: 4000),
-                                            backgroundColor: Color(0x00000000),
+                                            }.withoutNulls,
+                                          );
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          child: CachedNetworkImage(
+                                            imageUrl: listViewTempRecord.image!,
+                                            width: 130,
+                                            height: 100,
+                                            fit: BoxFit.cover,
                                           ),
-                                        );
-                                      },
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: Colors.black,
-                                        size: 24,
+                                        ),
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      listViewTempRecord.name!
+                                          .maybeHandleOverflow(maxChars: 15),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .black600,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Text(
+                                          formatNumber(
+                                            listViewTempRecord.counter!,
+                                            formatType: FormatType.custom,
+                                            format: '0',
+                                            locale: '',
+                                          ),
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .black600,
+                                              ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () async {
+                                          final tempUpdateData = {
+                                            'meal_time':
+                                                FieldValue.arrayRemove([
+                                              '${choiceChipsValue}Brakefast'
+                                            ]),
+                                          };
+                                          await listViewTempRecord.reference
+                                              .update(tempUpdateData);
+                                          await actions.deleteIngred(
+                                            listViewTempRecord.uid,
+                                            listViewTempRecord.name,
+                                            listViewTempRecord.ingredNames,
+                                            choiceChipsValue,
+                                            'Brakefast',
+                                            listViewTempRecord.recipeId,
+                                          );
+                                          await actions.mealCountUpdate(
+                                            listViewTempRecord.uid,
+                                            listViewTempRecord.ingredNames,
+                                            listViewTempRecord.name,
+                                          );
+                                          ScaffoldMessenger.of(context)
+                                              .showSnackBar(
+                                            SnackBar(
+                                              content: Text(
+                                                'Removing${listViewTempRecord.name} from ${choiceChipsValue} Breakfast',
+                                                style: TextStyle(
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .primaryText,
+                                                ),
+                                              ),
+                                              duration:
+                                                  Duration(milliseconds: 4000),
+                                              backgroundColor:
+                                                  Color(0x00000000),
+                                            ),
+                                          );
+                                        },
+                                        child: Icon(
+                                          Icons.delete,
+                                          color: Colors.black,
+                                          size: 24,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
                 Text(
                   'Lunch',
-                  style: FlutterFlowTheme.of(context).subtitle2,
+                  style: FlutterFlowTheme.of(context).subtitle2.override(
+                        fontFamily: 'Poppins',
+                        color: FlutterFlowTheme.of(context).black600,
+                      ),
                 ),
-                Container(
-                  width: double.infinity,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEEEEEE),
-                  ),
-                  child: StreamBuilder<List<TempRecord>>(
-                    stream: queryTempRecord(
-                      queryBuilder: (tempRecord) => tempRecord
-                          .where('meal_time',
-                              arrayContains: '${choiceChipsValue}Lunch')
-                          .where('uid', isEqualTo: FFAppState().user),
+                Material(
+                  color: Colors.transparent,
+                  elevation: 3,
+                  child: Container(
+                    width: double.infinity,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
                     ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: SpinKitThreeBounce(
-                              color: Color(0xFF8783B0),
-                              size: 50,
+                    child: StreamBuilder<List<TempRecord>>(
+                      stream: queryTempRecord(
+                        queryBuilder: (tempRecord) => tempRecord
+                            .where('meal_time',
+                                arrayContains: '${choiceChipsValue}Lunch')
+                            .where('uid', isEqualTo: FFAppState().user),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: SpinKitThreeBounce(
+                                color: Color(0xFF8783B0),
+                                size: 50,
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                      List<TempRecord> listViewTempRecordList = snapshot.data!;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: listViewTempRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewTempRecord =
-                              listViewTempRecordList[listViewIndex];
-                          return Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        context.pushNamed(
-                                          'meal_info',
-                                          queryParams: {
-                                            'mealRef': serializeParam(
-                                              listViewTempRecord.reference,
-                                              ParamType.DocumentReference,
-                                            ),
-                                          }.withoutNulls,
-                                        );
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(5),
-                                        child: Image.network(
-                                          listViewTempRecord.image!,
-                                          width: 130,
-                                          height: 100,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    listViewTempRecord.name!
-                                        .maybeHandleOverflow(maxChars: 15),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                ],
-                              ),
-                              Expanded(
-                                child: Row(
+                          );
+                        }
+                        List<TempRecord> listViewTempRecordList =
+                            snapshot.data!;
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: listViewTempRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewTempRecord =
+                                listViewTempRecordList[listViewIndex];
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Align(
-                                      alignment: AlignmentDirectional(0, 0),
-                                      child: Text(
-                                        formatNumber(
-                                          listViewTempRecord.counter!,
-                                          formatType: FormatType.custom,
-                                          format: '0',
-                                          locale: '',
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5, 0, 0, 0),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          context.pushNamed(
+                                            'meal_info',
+                                            queryParams: {
+                                              'mealRef': serializeParam(
+                                                listViewTempRecord.reference,
+                                                ParamType.DocumentReference,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          child: Image.network(
+                                            listViewTempRecord.image!,
+                                            width: 130,
+                                            height: 100,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () async {
-                                        final tempUpdateData = {
-                                          'meal_time': FieldValue.arrayRemove(
-                                              ['${choiceChipsValue}Lunch']),
-                                        };
-                                        await listViewTempRecord.reference
-                                            .update(tempUpdateData);
-                                        await actions.deleteIngred(
-                                          listViewTempRecord.uid,
-                                          listViewTempRecord.name,
-                                          listViewTempRecord.ingredNames,
-                                          choiceChipsValue,
-                                          'Lunch',
-                                          listViewTempRecord.recipeId,
-                                        );
-                                        await actions.mealCountUpdate(
-                                          listViewTempRecord.uid,
-                                          listViewTempRecord.ingredNames,
-                                          listViewTempRecord.name,
-                                        );
-                                      },
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: Colors.black,
-                                        size: 24,
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      listViewTempRecord.name!
+                                          .maybeHandleOverflow(maxChars: 15),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .black600,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Text(
+                                          formatNumber(
+                                            listViewTempRecord.counter!,
+                                            formatType: FormatType.custom,
+                                            format: '0',
+                                            locale: '',
+                                          ),
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .black600,
+                                              ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () async {
+                                          final tempUpdateData = {
+                                            'meal_time': FieldValue.arrayRemove(
+                                                ['${choiceChipsValue}Lunch']),
+                                          };
+                                          await listViewTempRecord.reference
+                                              .update(tempUpdateData);
+                                          await actions.deleteIngred(
+                                            listViewTempRecord.uid,
+                                            listViewTempRecord.name,
+                                            listViewTempRecord.ingredNames,
+                                            choiceChipsValue,
+                                            'Lunch',
+                                            listViewTempRecord.recipeId,
+                                          );
+                                          await actions.mealCountUpdate(
+                                            listViewTempRecord.uid,
+                                            listViewTempRecord.ingredNames,
+                                            listViewTempRecord.name,
+                                          );
+                                        },
+                                        child: Icon(
+                                          Icons.delete,
+                                          color: Colors.black,
+                                          size: 24,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
                 Text(
                   'Snacks',
-                  style: FlutterFlowTheme.of(context).subtitle2,
+                  style: FlutterFlowTheme.of(context).subtitle2.override(
+                        fontFamily: 'Poppins',
+                        color: FlutterFlowTheme.of(context).black600,
+                      ),
                 ),
-                Container(
-                  width: double.infinity,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEEEEEE),
+                Material(
+                  color: Colors.transparent,
+                  elevation: 3,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(0),
                   ),
-                  child: StreamBuilder<List<TempRecord>>(
-                    stream: queryTempRecord(
-                      queryBuilder: (tempRecord) => tempRecord
-                          .where('meal_time',
-                              arrayContains: '${choiceChipsValue}Snacks')
-                          .where('uid', isEqualTo: FFAppState().user),
+                  child: Container(
+                    width: double.infinity,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(0),
                     ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: SpinKitThreeBounce(
-                              color: Color(0xFF8783B0),
-                              size: 50,
+                    child: StreamBuilder<List<TempRecord>>(
+                      stream: queryTempRecord(
+                        queryBuilder: (tempRecord) => tempRecord
+                            .where('meal_time',
+                                arrayContains: '${choiceChipsValue}Snacks')
+                            .where('uid', isEqualTo: FFAppState().user),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: SpinKitThreeBounce(
+                                color: Color(0xFF8783B0),
+                                size: 50,
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                      List<TempRecord> listViewTempRecordList = snapshot.data!;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: listViewTempRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewTempRecord =
-                              listViewTempRecordList[listViewIndex];
-                          return Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        context.pushNamed(
-                                          'meal_info',
-                                          queryParams: {
-                                            'mealRef': serializeParam(
-                                              listViewTempRecord.reference,
-                                              ParamType.DocumentReference,
-                                            ),
-                                          }.withoutNulls,
-                                        );
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(5),
-                                        child: Image.network(
-                                          listViewTempRecord.image!,
-                                          width: 130,
-                                          height: 100,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    listViewTempRecord.name!
-                                        .maybeHandleOverflow(maxChars: 15),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                ],
-                              ),
-                              Expanded(
-                                child: Row(
+                          );
+                        }
+                        List<TempRecord> listViewTempRecordList =
+                            snapshot.data!;
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: listViewTempRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewTempRecord =
+                                listViewTempRecordList[listViewIndex];
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Align(
-                                      alignment: AlignmentDirectional(0, 0),
-                                      child: Text(
-                                        formatNumber(
-                                          listViewTempRecord.counter!,
-                                          formatType: FormatType.custom,
-                                          format: '0',
-                                          locale: '',
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5, 0, 0, 0),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          context.pushNamed(
+                                            'meal_info',
+                                            queryParams: {
+                                              'mealRef': serializeParam(
+                                                listViewTempRecord.reference,
+                                                ParamType.DocumentReference,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          child: Image.network(
+                                            listViewTempRecord.image!,
+                                            width: 130,
+                                            height: 100,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () async {
-                                        final tempUpdateData = {
-                                          'meal_time': FieldValue.arrayRemove(
-                                              ['${choiceChipsValue}Snacks']),
-                                        };
-                                        await listViewTempRecord.reference
-                                            .update(tempUpdateData);
-                                        await actions.deleteIngred(
-                                          listViewTempRecord.uid,
-                                          listViewTempRecord.name,
-                                          listViewTempRecord.ingredNames,
-                                          choiceChipsValue,
-                                          'Snacks',
-                                          listViewTempRecord.recipeId,
-                                        );
-                                        await actions.mealCountUpdate(
-                                          listViewTempRecord.uid,
-                                          listViewTempRecord.ingredNames,
-                                          listViewTempRecord.name,
-                                        );
-                                      },
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: Colors.black,
-                                        size: 24,
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      listViewTempRecord.name!
+                                          .maybeHandleOverflow(maxChars: 15),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .black600,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Text(
+                                          formatNumber(
+                                            listViewTempRecord.counter!,
+                                            formatType: FormatType.custom,
+                                            format: '0',
+                                            locale: '',
+                                          ),
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .black600,
+                                              ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () async {
+                                          final tempUpdateData = {
+                                            'meal_time': FieldValue.arrayRemove(
+                                                ['${choiceChipsValue}Snacks']),
+                                          };
+                                          await listViewTempRecord.reference
+                                              .update(tempUpdateData);
+                                          await actions.deleteIngred(
+                                            listViewTempRecord.uid,
+                                            listViewTempRecord.name,
+                                            listViewTempRecord.ingredNames,
+                                            choiceChipsValue,
+                                            'Snacks',
+                                            listViewTempRecord.recipeId,
+                                          );
+                                          await actions.mealCountUpdate(
+                                            listViewTempRecord.uid,
+                                            listViewTempRecord.ingredNames,
+                                            listViewTempRecord.name,
+                                          );
+                                        },
+                                        child: Icon(
+                                          Icons.delete,
+                                          color: Colors.black,
+                                          size: 24,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
                 Text(
                   'Dinner',
-                  style: FlutterFlowTheme.of(context).bodyText1,
+                  style: FlutterFlowTheme.of(context).bodyText1.override(
+                        fontFamily: 'Poppins',
+                        color: FlutterFlowTheme.of(context).black600,
+                        fontSize: 16,
+                      ),
                 ),
-                Container(
-                  width: double.infinity,
-                  height: 150,
-                  decoration: BoxDecoration(
-                    color: Color(0xFFEEEEEE),
-                  ),
-                  child: StreamBuilder<List<TempRecord>>(
-                    stream: queryTempRecord(
-                      queryBuilder: (tempRecord) => tempRecord
-                          .where('meal_time',
-                              arrayContains: '${choiceChipsValue}Dinner')
-                          .where('uid', isEqualTo: FFAppState().user),
+                Material(
+                  color: Colors.transparent,
+                  elevation: 3,
+                  child: Container(
+                    width: double.infinity,
+                    height: 150,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
                     ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: SpinKitThreeBounce(
-                              color: Color(0xFF8783B0),
-                              size: 50,
+                    child: StreamBuilder<List<TempRecord>>(
+                      stream: queryTempRecord(
+                        queryBuilder: (tempRecord) => tempRecord
+                            .where('meal_time',
+                                arrayContains: '${choiceChipsValue}Dinner')
+                            .where('uid', isEqualTo: FFAppState().user),
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: SpinKitThreeBounce(
+                                color: Color(0xFF8783B0),
+                                size: 50,
+                              ),
                             ),
-                          ),
-                        );
-                      }
-                      List<TempRecord> listViewTempRecordList = snapshot.data!;
-                      return ListView.builder(
-                        padding: EdgeInsets.zero,
-                        scrollDirection: Axis.horizontal,
-                        itemCount: listViewTempRecordList.length,
-                        itemBuilder: (context, listViewIndex) {
-                          final listViewTempRecord =
-                              listViewTempRecordList[listViewIndex];
-                          return Column(
-                            mainAxisSize: MainAxisSize.max,
-                            children: [
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        5, 0, 0, 0),
-                                    child: InkWell(
-                                      onTap: () async {
-                                        context.pushNamed(
-                                          'meal_info',
-                                          queryParams: {
-                                            'mealRef': serializeParam(
-                                              listViewTempRecord.reference,
-                                              ParamType.DocumentReference,
-                                            ),
-                                          }.withoutNulls,
-                                        );
-                                      },
-                                      child: ClipRRect(
-                                        borderRadius: BorderRadius.circular(5),
-                                        child: Image.network(
-                                          listViewTempRecord.image!,
-                                          width: 130,
-                                          height: 100,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              Row(
-                                mainAxisSize: MainAxisSize.max,
-                                children: [
-                                  Text(
-                                    listViewTempRecord.name!
-                                        .maybeHandleOverflow(maxChars: 15),
-                                    style:
-                                        FlutterFlowTheme.of(context).bodyText1,
-                                  ),
-                                ],
-                              ),
-                              Expanded(
-                                child: Row(
+                          );
+                        }
+                        List<TempRecord> listViewTempRecordList =
+                            snapshot.data!;
+                        return ListView.builder(
+                          padding: EdgeInsets.zero,
+                          scrollDirection: Axis.horizontal,
+                          itemCount: listViewTempRecordList.length,
+                          itemBuilder: (context, listViewIndex) {
+                            final listViewTempRecord =
+                                listViewTempRecordList[listViewIndex];
+                            return Column(
+                              mainAxisSize: MainAxisSize.max,
+                              children: [
+                                Row(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
-                                    Align(
-                                      alignment: AlignmentDirectional(0, 0),
-                                      child: Text(
-                                        formatNumber(
-                                          listViewTempRecord.counter!,
-                                          formatType: FormatType.custom,
-                                          format: '0',
-                                          locale: '',
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          5, 0, 0, 0),
+                                      child: InkWell(
+                                        onTap: () async {
+                                          context.pushNamed(
+                                            'meal_info',
+                                            queryParams: {
+                                              'mealRef': serializeParam(
+                                                listViewTempRecord.reference,
+                                                ParamType.DocumentReference,
+                                              ),
+                                            }.withoutNulls,
+                                          );
+                                        },
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(5),
+                                          child: Image.network(
+                                            listViewTempRecord.image!,
+                                            width: 130,
+                                            height: 100,
+                                            fit: BoxFit.cover,
+                                          ),
                                         ),
-                                        textAlign: TextAlign.start,
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyText1,
-                                      ),
-                                    ),
-                                    InkWell(
-                                      onTap: () async {
-                                        final tempUpdateData = {
-                                          'meal_time': FieldValue.arrayRemove(
-                                              ['${choiceChipsValue}Dinner']),
-                                        };
-                                        await listViewTempRecord.reference
-                                            .update(tempUpdateData);
-                                        await actions.deleteIngred(
-                                          listViewTempRecord.uid,
-                                          listViewTempRecord.name,
-                                          listViewTempRecord.ingredNames,
-                                          choiceChipsValue,
-                                          'Dinner',
-                                          listViewTempRecord.recipeId,
-                                        );
-                                        await actions.mealCountUpdate(
-                                          listViewTempRecord.uid,
-                                          listViewTempRecord.ingredNames,
-                                          listViewTempRecord.name,
-                                        );
-                                      },
-                                      child: Icon(
-                                        Icons.delete,
-                                        color: Colors.black,
-                                        size: 24,
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
-                          );
-                        },
-                      );
-                    },
+                                Row(
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    Text(
+                                      listViewTempRecord.name!
+                                          .maybeHandleOverflow(maxChars: 15),
+                                      style: FlutterFlowTheme.of(context)
+                                          .bodyText1
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .black600,
+                                          ),
+                                    ),
+                                  ],
+                                ),
+                                Expanded(
+                                  child: Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Align(
+                                        alignment: AlignmentDirectional(0, 0),
+                                        child: Text(
+                                          formatNumber(
+                                            listViewTempRecord.counter!,
+                                            formatType: FormatType.custom,
+                                            format: '0',
+                                            locale: '',
+                                          ),
+                                          textAlign: TextAlign.start,
+                                          style: FlutterFlowTheme.of(context)
+                                              .bodyText1
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .black600,
+                                              ),
+                                        ),
+                                      ),
+                                      InkWell(
+                                        onTap: () async {
+                                          final tempUpdateData = {
+                                            'meal_time': FieldValue.arrayRemove(
+                                                ['${choiceChipsValue}Dinner']),
+                                          };
+                                          await listViewTempRecord.reference
+                                              .update(tempUpdateData);
+                                          await actions.deleteIngred(
+                                            listViewTempRecord.uid,
+                                            listViewTempRecord.name,
+                                            listViewTempRecord.ingredNames,
+                                            choiceChipsValue,
+                                            'Dinner',
+                                            listViewTempRecord.recipeId,
+                                          );
+                                          await actions.mealCountUpdate(
+                                            listViewTempRecord.uid,
+                                            listViewTempRecord.ingredNames,
+                                            listViewTempRecord.name,
+                                          );
+                                        },
+                                        child: Icon(
+                                          Icons.delete,
+                                          color: Colors.black,
+                                          size: 24,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                        );
+                      },
+                    ),
                   ),
                 ),
               ],

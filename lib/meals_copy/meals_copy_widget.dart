@@ -38,11 +38,14 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF72E6C1),
         automaticallyImplyLeading: true,
         title: Text(
           'Ingredients',
-          style: FlutterFlowTheme.of(context).title2,
+          style: FlutterFlowTheme.of(context).title2.override(
+                fontFamily: 'Poppins',
+                color: Colors.white,
+              ),
         ),
         actions: [],
         centerTitle: true,
@@ -54,191 +57,202 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
           child: Column(
             mainAxisSize: MainAxisSize.max,
             children: [
-              Row(
-                mainAxisSize: MainAxisSize.max,
-                children: [
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Last Audit',
-                              style: FlutterFlowTheme.of(context).bodyText1,
-                            ),
-                          ],
-                        ),
-                        StreamBuilder<List<TimestampRecord>>(
-                          stream: queryTimestampRecord(
-                            singleRecord: true,
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 15, 0, 0),
+                child: Row(
+                  mainAxisSize: MainAxisSize.max,
+                  children: [
+                    Expanded(
+                      child: Column(
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          Row(
+                            mainAxisSize: MainAxisSize.max,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              Padding(
+                                padding: EdgeInsetsDirectional.fromSTEB(
+                                    160, 0, 0, 0),
+                                child: Text(
+                                  'Last Audit',
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .black600,
+                                      ),
+                                ),
+                              ),
+                            ],
                           ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: SpinKitThreeBounce(
-                                    color: Color(0xFF8783B0),
-                                    size: 50,
-                                  ),
+                          Align(
+                            alignment: AlignmentDirectional(0.1, 0.3),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(8, 0, 0, 0),
+                              child: StreamBuilder<List<TimestampRecord>>(
+                                stream: queryTimestampRecord(
+                                  singleRecord: true,
                                 ),
-                              );
-                            }
-                            List<TimestampRecord> rowTimestampRecordList =
-                                snapshot.data!;
-                            // Return an empty Container when the document does not exist.
-                            if (snapshot.data!.isEmpty) {
-                              return Container();
-                            }
-                            final rowTimestampRecord =
-                                rowTimestampRecordList.isNotEmpty
-                                    ? rowTimestampRecordList.first
-                                    : null;
-                            return Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  dateTimeFormat('M/d h:mm a',
-                                      rowTimestampRecord!.lastAudit!),
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: Column(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Row(
-                          mainAxisSize: MainAxisSize.max,
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text(
-                              'Last buy',
-                              style: FlutterFlowTheme.of(context).bodyText1,
+                                builder: (context, snapshot) {
+                                  // Customize what your widget looks like when it's loading.
+                                  if (!snapshot.hasData) {
+                                    return Center(
+                                      child: SizedBox(
+                                        width: 50,
+                                        height: 50,
+                                        child: SpinKitThreeBounce(
+                                          color: Color(0xFF8783B0),
+                                          size: 50,
+                                        ),
+                                      ),
+                                    );
+                                  }
+                                  List<TimestampRecord> rowTimestampRecordList =
+                                      snapshot.data!;
+                                  // Return an empty Container when the document does not exist.
+                                  if (snapshot.data!.isEmpty) {
+                                    return Container();
+                                  }
+                                  final rowTimestampRecord =
+                                      rowTimestampRecordList.isNotEmpty
+                                          ? rowTimestampRecordList.first
+                                          : null;
+                                  return Row(
+                                    mainAxisSize: MainAxisSize.max,
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      Align(
+                                        alignment:
+                                            AlignmentDirectional(-0.15, -0.3),
+                                        child: FFButtonWidget(
+                                          onPressed: () {
+                                            print('Button pressed ...');
+                                          },
+                                          text: 'Copy',
+                                          options: FFButtonOptions(
+                                            width: 90,
+                                            height: 40,
+                                            color: Color(0xFF72E6C1),
+                                            textStyle:
+                                                FlutterFlowTheme.of(context)
+                                                    .subtitle2
+                                                    .override(
+                                                      fontFamily: 'Poppins',
+                                                      color: Colors.white,
+                                                    ),
+                                            borderSide: BorderSide(
+                                              color: Colors.transparent,
+                                              width: 1,
+                                            ),
+                                            borderRadius:
+                                                BorderRadius.circular(8),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                        alignment: AlignmentDirectional(0.3, 0),
+                                        child: Padding(
+                                          padding:
+                                              EdgeInsetsDirectional.fromSTEB(
+                                                  45, 0, 0, 0),
+                                          child: Text(
+                                            dateTimeFormat('M/d h:mm a',
+                                                rowTimestampRecord!.lastAudit!),
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1
+                                                .override(
+                                                  fontFamily: 'Poppins',
+                                                  color: FlutterFlowTheme.of(
+                                                          context)
+                                                      .black600,
+                                                ),
+                                          ),
+                                        ),
+                                      ),
+                                    ],
+                                  );
+                                },
+                              ),
                             ),
-                          ],
-                        ),
-                        StreamBuilder<List<TimestampRecord>>(
-                          stream: queryTimestampRecord(
-                            singleRecord: true,
                           ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: SpinKitThreeBounce(
-                                    color: Color(0xFF8783B0),
-                                    size: 50,
-                                  ),
-                                ),
-                              );
-                            }
-                            List<TimestampRecord> rowTimestampRecordList =
-                                snapshot.data!;
-                            // Return an empty Container when the document does not exist.
-                            if (snapshot.data!.isEmpty) {
-                              return Container();
-                            }
-                            final rowTimestampRecord =
-                                rowTimestampRecordList.isNotEmpty
-                                    ? rowTimestampRecordList.first
-                                    : null;
-                            return Row(
-                              mainAxisSize: MainAxisSize.max,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                Text(
-                                  dateTimeFormat('M/d h:mm a',
-                                      rowTimestampRecord!.lastBuy!),
-                                  style: FlutterFlowTheme.of(context).bodyText1,
-                                ),
-                              ],
-                            );
-                          },
-                        ),
-                      ],
-                    ),
-                  ),
-                  Expanded(
-                    child: StreamBuilder<List<TimestampRecord>>(
-                      stream: queryTimestampRecord(
-                        singleRecord: true,
+                        ],
                       ),
-                      builder: (context, snapshot) {
-                        // Customize what your widget looks like when it's loading.
-                        if (!snapshot.hasData) {
-                          return Center(
-                            child: SizedBox(
-                              width: 50,
-                              height: 50,
-                              child: SpinKitThreeBounce(
-                                color: Color(0xFF8783B0),
-                                size: 50,
-                              ),
-                            ),
-                          );
-                        }
-                        List<TimestampRecord> columnTimestampRecordList =
-                            snapshot.data!;
-                        // Return an empty Container when the document does not exist.
-                        if (snapshot.data!.isEmpty) {
-                          return Container();
-                        }
-                        final columnTimestampRecord =
-                            columnTimestampRecordList.isNotEmpty
-                                ? columnTimestampRecordList.first
-                                : null;
-                        return Column(
-                          mainAxisSize: MainAxisSize.max,
-                          children: [
-                            FFButtonWidget(
-                              onPressed: () async {
-                                final timestampUpdateData =
-                                    createTimestampRecordData(
-                                  lastBuy: functions.geCurrentTimeStamp(),
-                                );
-                                await columnTimestampRecord!.reference
-                                    .update(timestampUpdateData);
-                              },
-                              text: 'Buy',
-                              options: FFButtonOptions(
-                                width: 130,
-                                height: 40,
-                                color:
-                                    FlutterFlowTheme.of(context).primaryColor,
-                                textStyle: FlutterFlowTheme.of(context)
-                                    .subtitle2
-                                    .override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                    ),
-                                borderSide: BorderSide(
-                                  color: Colors.transparent,
-                                  width: 1,
-                                ),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                            ),
-                          ],
-                        );
-                      },
                     ),
-                  ),
-                ],
+                    Expanded(
+                      child: StreamBuilder<List<TimestampRecord>>(
+                        stream: queryTimestampRecord(
+                          singleRecord: true,
+                        ),
+                        builder: (context, snapshot) {
+                          // Customize what your widget looks like when it's loading.
+                          if (!snapshot.hasData) {
+                            return Center(
+                              child: SizedBox(
+                                width: 50,
+                                height: 50,
+                                child: SpinKitThreeBounce(
+                                  color: Color(0xFF8783B0),
+                                  size: 50,
+                                ),
+                              ),
+                            );
+                          }
+                          List<TimestampRecord> columnTimestampRecordList =
+                              snapshot.data!;
+                          // Return an empty Container when the document does not exist.
+                          if (snapshot.data!.isEmpty) {
+                            return Container();
+                          }
+                          final columnTimestampRecord =
+                              columnTimestampRecordList.isNotEmpty
+                                  ? columnTimestampRecordList.first
+                                  : null;
+                          return Column(
+                            mainAxisSize: MainAxisSize.max,
+                            children: [
+                              Align(
+                                alignment: AlignmentDirectional(0.8, 0.2),
+                                child: Padding(
+                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                      0, 21, 0, 0),
+                                  child: FFButtonWidget(
+                                    onPressed: () async {
+                                      final timestampUpdateData =
+                                          createTimestampRecordData(
+                                        lastBuy: functions.geCurrentTimeStamp(),
+                                      );
+                                      await columnTimestampRecord!.reference
+                                          .update(timestampUpdateData);
+                                    },
+                                    text: 'Buy',
+                                    options: FFButtonOptions(
+                                      width: 90,
+                                      height: 40,
+                                      color: Color(0xFF72E6C1),
+                                      textStyle: FlutterFlowTheme.of(context)
+                                          .subtitle2
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: Colors.white,
+                                          ),
+                                      borderSide: BorderSide(
+                                        color: Colors.transparent,
+                                        width: 1,
+                                      ),
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
               ),
               StreamBuilder<List<MiscellaneousRecord>>(
                 stream: queryMiscellaneousRecord(
@@ -274,15 +288,27 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                     children: [
                       Text(
                         'Unavaialble',
-                        style: FlutterFlowTheme.of(context).subtitle2,
+                        style: FlutterFlowTheme.of(context).subtitle2.override(
+                              fontFamily: 'Poppins',
+                              color: FlutterFlowTheme.of(context).black600,
+                              fontSize: 17,
+                            ),
                       ),
                       Text(
                         ' (',
-                        style: FlutterFlowTheme.of(context).bodyText1,
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: FlutterFlowTheme.of(context).black600,
+                              fontSize: 18,
+                            ),
                       ),
                       Text(
                         ')',
-                        style: FlutterFlowTheme.of(context).bodyText1,
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: FlutterFlowTheme.of(context).black600,
+                              fontSize: 18,
+                            ),
                       ),
                     ],
                   );
@@ -361,7 +387,13 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                         child: Text(
                                           listViewMealIngredRecord.english!,
                                           style: FlutterFlowTheme.of(context)
-                                              .subtitle2,
+                                              .subtitle2
+                                              .override(
+                                                fontFamily: 'Poppins',
+                                                color:
+                                                    FlutterFlowTheme.of(context)
+                                                        .black600,
+                                              ),
                                         ),
                                       ),
                                       Padding(
@@ -501,15 +533,27 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                     children: [
                       Text(
                         'Available',
-                        style: FlutterFlowTheme.of(context).subtitle2,
+                        style: FlutterFlowTheme.of(context).subtitle2.override(
+                              fontFamily: 'Poppins',
+                              color: FlutterFlowTheme.of(context).black600,
+                              fontSize: 18,
+                            ),
                       ),
                       Text(
                         ' (',
-                        style: FlutterFlowTheme.of(context).bodyText1,
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: FlutterFlowTheme.of(context).black600,
+                              fontSize: 18,
+                            ),
                       ),
                       Text(
                         ')',
-                        style: FlutterFlowTheme.of(context).bodyText1,
+                        style: FlutterFlowTheme.of(context).bodyText1.override(
+                              fontFamily: 'Poppins',
+                              color: FlutterFlowTheme.of(context).black600,
+                              fontSize: 18,
+                            ),
                       ),
                     ],
                   );
@@ -560,7 +604,12 @@ class _MealsCopyWidgetState extends State<MealsCopyWidget> {
                                     child: Text(
                                       listViewMealIngredRecord.english!,
                                       style: FlutterFlowTheme.of(context)
-                                          .subtitle2,
+                                          .subtitle2
+                                          .override(
+                                            fontFamily: 'Poppins',
+                                            color: FlutterFlowTheme.of(context)
+                                                .black600,
+                                          ),
                                     ),
                                   ),
                                   Padding(

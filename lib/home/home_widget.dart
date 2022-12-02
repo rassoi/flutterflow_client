@@ -117,7 +117,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: Image.network(
-                            'https://drive.google.com/file/d/17el1NqG8xLJa0T7hgO-3eLXZoEmFSuTf/view?usp=sharing',
+                            'https://drive.google.com/file/d/17el1NqG8xLJa0T7hgO-3eLXZoEmFSuTf',
                             width: 100,
                             height: 100,
                             fit: BoxFit.cover,
@@ -364,7 +364,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                           gridViewCategoriesRecord
                                               .categoryName!);
 
-                                      context.pushNamed('MealsCopy2');
+                                      context.pushNamed('exploreDish');
                                     },
                                     child: Container(
                                       width: 60,

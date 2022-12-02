@@ -37,7 +37,7 @@ class _LoginWidgetState extends State<LoginWidget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+        backgroundColor: Color(0xFF72E6C1),
         automaticallyImplyLeading: false,
         leading: InkWell(
           onTap: () async {
@@ -65,55 +65,63 @@ class _LoginWidgetState extends State<LoginWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Expanded(
-                      child: TextFormField(
-                        controller: textController,
-                        obscureText: false,
-                        decoration: InputDecoration(
-                          hintText: 'Enter Verification Code',
-                          enabledBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x8A484545),
-                              width: 1,
+                      child: Padding(
+                        padding: EdgeInsetsDirectional.fromSTEB(0, 0, 0, 20),
+                        child: TextFormField(
+                          controller: textController,
+                          obscureText: false,
+                          decoration: InputDecoration(
+                            hintText: 'Enter Verification Code',
+                            enabledBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).grayIcon,
+                                width: 1,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
                             ),
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(4.0),
-                              topRight: Radius.circular(4.0),
+                            focusedBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: FlutterFlowTheme.of(context).grayIcon,
+                                width: 1,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
                             ),
+                            errorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            focusedErrorBorder: UnderlineInputBorder(
+                              borderSide: BorderSide(
+                                color: Color(0x00000000),
+                                width: 1,
+                              ),
+                              borderRadius: const BorderRadius.only(
+                                topLeft: Radius.circular(4.0),
+                                topRight: Radius.circular(4.0),
+                              ),
+                            ),
+                            filled: true,
+                            fillColor: Color(0xFFE9EEF1),
                           ),
-                          focusedBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x8A484545),
-                              width: 1,
-                            ),
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(4.0),
-                              topRight: Radius.circular(4.0),
-                            ),
-                          ),
-                          errorBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(4.0),
-                              topRight: Radius.circular(4.0),
-                            ),
-                          ),
-                          focusedErrorBorder: UnderlineInputBorder(
-                            borderSide: BorderSide(
-                              color: Color(0x00000000),
-                              width: 1,
-                            ),
-                            borderRadius: const BorderRadius.only(
-                              topLeft: Radius.circular(4.0),
-                              topRight: Radius.circular(4.0),
-                            ),
-                          ),
-                          filled: true,
-                          fillColor: Color(0xFFCDC8C8),
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText1
+                              .override(
+                                fontFamily: 'Poppins',
+                                color: FlutterFlowTheme.of(context).black600,
+                              ),
                         ),
-                        style: FlutterFlowTheme.of(context).bodyText1,
                       ),
                     ),
                   ],
@@ -151,51 +159,92 @@ class _LoginWidgetState extends State<LoginWidget> {
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        FFButtonWidget(
-                          onPressed: () async {
-                            GoRouter.of(context).prepareAuthEvent();
-                            final smsCodeVal = textController!.text;
-                            if (smsCodeVal == null || smsCodeVal.isEmpty) {
-                              ScaffoldMessenger.of(context).showSnackBar(
-                                SnackBar(
-                                  content: Text('Enter SMS verification code.'),
-                                ),
+                        Padding(
+                          padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              GoRouter.of(context).prepareAuthEvent();
+                              final smsCodeVal = textController!.text;
+                              if (smsCodeVal == null || smsCodeVal.isEmpty) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content:
+                                        Text('Enter SMS verification code.'),
+                                  ),
+                                );
+                                return;
+                              }
+                              final phoneVerifiedUser = await verifySmsCode(
+                                context: context,
+                                smsCode: smsCodeVal,
                               );
-                              return;
-                            }
-                            final phoneVerifiedUser = await verifySmsCode(
-                              context: context,
-                              smsCode: smsCodeVal,
-                            );
-                            if (phoneVerifiedUser == null) {
-                              return;
-                            }
+                              if (phoneVerifiedUser == null) {
+                                return;
+                              }
 
-                            setState(() => FFAppState().user = currentUserUid);
+                              setState(
+                                  () => FFAppState().user = currentUserUid);
 
-                            context.goNamedAuth('Home', mounted);
-                          },
-                          text: 'Verify',
-                          options: FFButtonOptions(
-                            width: 130,
-                            height: 40,
-                            color: FlutterFlowTheme.of(context).primaryColor,
-                            textStyle:
-                                FlutterFlowTheme.of(context).subtitle2.override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.white,
-                                    ),
-                            borderSide: BorderSide(
-                              color: Colors.transparent,
-                              width: 1,
+                              context.goNamedAuth('Home', mounted);
+                            },
+                            text: 'Verify',
+                            options: FFButtonOptions(
+                              width: 130,
+                              height: 40,
+                              color: Color(0xFF72E6C1),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                  ),
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
                             ),
-                            borderRadius: BorderRadius.circular(12),
                           ),
                         ),
                       ],
                     );
                   },
                 ),
+              ),
+              Align(
+                alignment: AlignmentDirectional(0, 0),
+                child: Padding(
+                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
+                  child: Text(
+                    'Your Food is about to get',
+                    style: FlutterFlowTheme.of(context).title1.override(
+                          fontFamily: 'Poppins',
+                          color: FlutterFlowTheme.of(context).grayIcon,
+                          fontSize: 20,
+                        ),
+                  ),
+                ),
+              ),
+              Text(
+                'Taisty-er',
+                style: FlutterFlowTheme.of(context).bodyText1.override(
+                      fontFamily: 'Roboto Condensed',
+                      color: Color(0xFF72E6C1),
+                      fontSize: 50,
+                    ),
+              ),
+              Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(180, 20, 0, 0),
+                child: Icon(
+                  Icons.message_outlined,
+                  color: FlutterFlowTheme.of(context).grayIcon,
+                  size: 100,
+                ),
+              ),
+              Icon(
+                Icons.phone_android_outlined,
+                color: Color(0xFF72E6C1),
+                size: 200,
               ),
             ],
           ),

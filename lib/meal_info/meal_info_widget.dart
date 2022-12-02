@@ -59,7 +59,7 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
             appBar: AppBar(
-              backgroundColor: Colors.white,
+              backgroundColor: Color(0xFF72E6C1),
               automaticallyImplyLeading: true,
               leading: InkWell(
                 onTap: () async {
@@ -67,7 +67,7 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
                 },
                 child: Icon(
                   Icons.chevron_left,
-                  color: Colors.black,
+                  color: Colors.white,
                   size: 36,
                 ),
               ),
@@ -75,6 +75,7 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
                 'Meal Detail',
                 style: FlutterFlowTheme.of(context).bodyText1.override(
                       fontFamily: 'Poppins',
+                      color: Colors.white,
                       fontSize: 25,
                     ),
               ),
@@ -106,7 +107,12 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
                       children: [
                         Text(
                           mealInfoTempRecord.name!,
-                          style: FlutterFlowTheme.of(context).subtitle1,
+                          style: FlutterFlowTheme.of(context)
+                              .subtitle1
+                              .override(
+                                fontFamily: 'Poppins',
+                                color: FlutterFlowTheme.of(context).black600,
+                              ),
                         ),
                       ],
                     ),
@@ -117,7 +123,12 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
                           padding: EdgeInsetsDirectional.fromSTEB(5, 0, 0, 0),
                           child: Text(
                             'Ingredients',
-                            style: FlutterFlowTheme.of(context).subtitle2,
+                            style: FlutterFlowTheme.of(context)
+                                .subtitle2
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color: FlutterFlowTheme.of(context).grayIcon,
+                                ),
                           ),
                         ),
                       ],
@@ -139,7 +150,13 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
                                     ingredName[ingredNameIndex];
                                 return Text(
                                   ingredNameItem,
-                                  style: FlutterFlowTheme.of(context).bodyText1,
+                                  style: FlutterFlowTheme.of(context)
+                                      .bodyText1
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: FlutterFlowTheme.of(context)
+                                            .grayIcon,
+                                      ),
                                 );
                               },
                             );
@@ -152,72 +169,92 @@ class _MealInfoWidgetState extends State<MealInfoWidget> {
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Container(
-                            width: 160,
-                            height: 50,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(25),
-                              shape: BoxShape.rectangle,
-                              border: Border.all(
-                                color: Color(0xFF9E9E9E),
-                                width: 1,
-                              ),
-                            ),
-                            child: FlutterFlowCountController(
-                              decrementIconBuilder: (enabled) => FaIcon(
-                                FontAwesomeIcons.minus,
-                                color: enabled
-                                    ? Color(0xDD000000)
-                                    : Color(0xFFEEEEEE),
-                                size: 20,
-                              ),
-                              incrementIconBuilder: (enabled) => FaIcon(
-                                FontAwesomeIcons.plus,
-                                color:
-                                    enabled ? Colors.blue : Color(0xFFEEEEEE),
-                                size: 20,
-                              ),
-                              countBuilder: (count) => Text(
-                                count.toString(),
-                                style: GoogleFonts.getFont(
-                                  'Roboto',
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.w600,
-                                  fontSize: 16,
+                          Align(
+                            alignment: AlignmentDirectional(0, 0.05),
+                            child: Padding(
+                              padding:
+                                  EdgeInsetsDirectional.fromSTEB(20, 0, 0, 0),
+                              child: Material(
+                                color: Colors.transparent,
+                                elevation: 3,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(20),
+                                ),
+                                child: Container(
+                                  width: 120,
+                                  height: 40,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(20),
+                                    shape: BoxShape.rectangle,
+                                    border: Border.all(
+                                      color: Color(0xFF9E9E9E),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: FlutterFlowCountController(
+                                    decrementIconBuilder: (enabled) => FaIcon(
+                                      FontAwesomeIcons.minus,
+                                      color: enabled
+                                          ? Color(0xDD000000)
+                                          : Color(0xFFEEEEEE),
+                                      size: 20,
+                                    ),
+                                    incrementIconBuilder: (enabled) => FaIcon(
+                                      FontAwesomeIcons.plus,
+                                      color: enabled
+                                          ? Color(0xFF72E6C1)
+                                          : Color(0xFFEEEEEE),
+                                      size: 18,
+                                    ),
+                                    countBuilder: (count) => Text(
+                                      count.toString(),
+                                      style: GoogleFonts.getFont(
+                                        'Roboto',
+                                        color: Colors.black,
+                                        fontWeight: FontWeight.w600,
+                                        fontSize: 16,
+                                      ),
+                                    ),
+                                    count: countControllerValue ??=
+                                        mealInfoTempRecord.counter!,
+                                    updateCount: (count) => setState(
+                                        () => countControllerValue = count),
+                                    stepSize: 1,
+                                  ),
                                 ),
                               ),
-                              count: countControllerValue ??=
-                                  mealInfoTempRecord.counter!,
-                              updateCount: (count) =>
-                                  setState(() => countControllerValue = count),
-                              stepSize: 1,
                             ),
                           ),
-                          FFButtonWidget(
-                            onPressed: () async {
-                              final tempUpdateData = createTempRecordData(
-                                counter: countControllerValue,
-                              );
-                              await mealInfoTempRecord.reference
-                                  .update(tempUpdateData);
-                            },
-                            text: 'Save',
-                            options: FFButtonOptions(
-                              width: 130,
-                              height: 40,
-                              color: FlutterFlowTheme.of(context).primaryColor,
-                              textStyle: FlutterFlowTheme.of(context)
-                                  .subtitle2
-                                  .override(
-                                    fontFamily: 'Poppins',
-                                    color: Colors.white,
+                          Expanded(
+                            child: Align(
+                              alignment: AlignmentDirectional(0.7, 0.05),
+                              child: FFButtonWidget(
+                                onPressed: () async {
+                                  final tempUpdateData = createTempRecordData(
+                                    counter: countControllerValue,
+                                  );
+                                  await mealInfoTempRecord.reference
+                                      .update(tempUpdateData);
+                                },
+                                text: 'Save',
+                                options: FFButtonOptions(
+                                  width: 100,
+                                  height: 40,
+                                  color: Color(0xFF72E6C1),
+                                  textStyle: FlutterFlowTheme.of(context)
+                                      .subtitle2
+                                      .override(
+                                        fontFamily: 'Poppins',
+                                        color: Colors.white,
+                                      ),
+                                  borderSide: BorderSide(
+                                    color: Colors.transparent,
+                                    width: 1,
                                   ),
-                              borderSide: BorderSide(
-                                color: Colors.transparent,
-                                width: 1,
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
                               ),
-                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
                         ],

@@ -53,7 +53,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
       appBar: AppBar(
-        backgroundColor: Colors.white,
+        backgroundColor: Color(0xFF72E6C1),
         automaticallyImplyLeading: true,
         title: TextFormField(
           controller: textController,
@@ -64,7 +64,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
           ),
           obscureText: false,
           decoration: InputDecoration(
-            hintText: 'Searh Dish',
+            hintText: 'Search Dish',
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide(
                 color: Color(0x00000000),
@@ -106,7 +106,10 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
               ),
             ),
           ),
-          style: FlutterFlowTheme.of(context).subtitle1,
+          style: FlutterFlowTheme.of(context).subtitle1.override(
+                fontFamily: 'Poppins',
+                color: Colors.white,
+              ),
         ),
         actions: [],
         centerTitle: true,
@@ -144,8 +147,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
             return Column(
               mainAxisSize: MainAxisSize.max,
               children: [
-                StreamBuilder<List<MiscellaneousRecord>>(
-                  stream: queryMiscellaneousRecord(
+                StreamBuilder<List<CategoryTempRecord>>(
+                  stream: queryCategoryTempRecord(
                     singleRecord: true,
                   ),
                   builder: (context, snapshot) {
@@ -162,15 +165,15 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                         ),
                       );
                     }
-                    List<MiscellaneousRecord> containerMiscellaneousRecordList =
+                    List<CategoryTempRecord> containerCategoryTempRecordList =
                         snapshot.data!;
                     // Return an empty Container when the document does not exist.
                     if (snapshot.data!.isEmpty) {
                       return Container();
                     }
-                    final containerMiscellaneousRecord =
-                        containerMiscellaneousRecordList.isNotEmpty
-                            ? containerMiscellaneousRecordList.first
+                    final containerCategoryTempRecord =
+                        containerCategoryTempRecordList.isNotEmpty
+                            ? containerCategoryTempRecordList.first
                             : null;
                     return Container(
                       width: double.infinity,
@@ -184,15 +187,14 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                         children: [
                           FlutterFlowChoiceChips(
                             initiallySelected: [widget.category!],
-                            options: containerMiscellaneousRecord!
-                                .categoriesList!
+                            options: containerCategoryTempRecord!.categoriName!
                                 .toList()
                                 .map((label) => ChipData(label))
                                 .toList(),
                             onChanged: (val) =>
                                 setState(() => choiceChipsValue = val?.first),
                             selectedChipStyle: ChipStyle(
-                              backgroundColor: Color(0xFF323B45),
+                              backgroundColor: Colors.white,
                               textStyle: FlutterFlowTheme.of(context)
                                   .bodyText1
                                   .override(
@@ -211,9 +213,9 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                     fontFamily: 'Poppins',
                                     color: Color(0xFF323B45),
                                   ),
-                              iconColor: Color(0xFF323B45),
+                              iconColor: Colors.white,
                               iconSize: 18,
-                              elevation: 4,
+                              elevation: 3,
                             ),
                             chipSpacing: 20,
                             multiselect: false,
@@ -262,11 +264,12 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                 setState(() => dropDownValue1 = val),
                             width: 180,
                             height: 50,
-                            textStyle:
-                                FlutterFlowTheme.of(context).bodyText1.override(
-                                      fontFamily: 'Poppins',
-                                      color: Colors.black,
-                                    ),
+                            textStyle: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color: FlutterFlowTheme.of(context).black600,
+                                ),
                             fillColor: Colors.white,
                             elevation: 2,
                             borderColor: Colors.transparent,
@@ -279,8 +282,8 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                         ),
                         Expanded(
                           child: FlutterFlowDropDown<String>(
-                            initialOption: dropDownValue2 ??= 'Brakefast',
-                            options: ['Brakefast', 'Lunch', 'Snacks', 'Dinner'],
+                            initialOption: dropDownValue2 ??= 'Breakfast',
+                            options: ['Breakfast', 'Lunch', 'Snacks', 'Dinner'],
                             onChanged: (val) =>
                                 setState(() => dropDownValue2 = val),
                             width: 180,
@@ -346,124 +349,132 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                         );
                       }
                       List<TempRecord> containerTempRecordList = snapshot.data!;
-                      return Container(
-                        width: double.infinity,
-                        height: 190,
-                        decoration: BoxDecoration(
-                          color: Color(0xFFEEEEEE),
-                          borderRadius: BorderRadius.circular(30),
+                      return Material(
+                        color: Colors.transparent,
+                        elevation: 3,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(0),
                         ),
-                        child: StreamBuilder<List<TempRecord>>(
-                          stream: queryTempRecord(
-                            queryBuilder: (tempRecord) => tempRecord
-                                .where('uid', isEqualTo: FFAppState().user)
-                                .where('nameAsArray',
-                                    arrayContains:
-                                        '${choiceChipsValue}${textController!.text}')
-                                .where('fav', isEqualTo: true),
+                        child: Container(
+                          width: double.infinity,
+                          height: 190,
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(0),
                           ),
-                          builder: (context, snapshot) {
-                            // Customize what your widget looks like when it's loading.
-                            if (!snapshot.hasData) {
-                              return Center(
-                                child: SizedBox(
-                                  width: 50,
-                                  height: 50,
-                                  child: SpinKitThreeBounce(
-                                    color: Color(0xFF8783B0),
-                                    size: 50,
+                          child: StreamBuilder<List<TempRecord>>(
+                            stream: queryTempRecord(
+                              queryBuilder: (tempRecord) => tempRecord
+                                  .where('uid', isEqualTo: FFAppState().user)
+                                  .where('nameAsArray',
+                                      arrayContains:
+                                          '${choiceChipsValue}${textController!.text}')
+                                  .where('fav', isEqualTo: true),
+                            ),
+                            builder: (context, snapshot) {
+                              // Customize what your widget looks like when it's loading.
+                              if (!snapshot.hasData) {
+                                return Center(
+                                  child: SizedBox(
+                                    width: 50,
+                                    height: 50,
+                                    child: SpinKitThreeBounce(
+                                      color: Color(0xFF8783B0),
+                                      size: 50,
+                                    ),
                                   ),
-                                ),
-                              );
-                            }
-                            List<TempRecord> listViewTempRecordList =
-                                snapshot.data!;
-                            return ListView.builder(
-                              padding: EdgeInsets.zero,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: listViewTempRecordList.length,
-                              itemBuilder: (context, listViewIndex) {
-                                final listViewTempRecord =
-                                    listViewTempRecordList[listViewIndex];
-                                return Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  2.5, 2.5, 2.5, 2.5),
-                                          child: ClipRRect(
-                                            borderRadius:
-                                                BorderRadius.circular(10),
-                                            child: CachedNetworkImage(
-                                              imageUrl:
-                                                  listViewTempRecord.image!,
-                                              width: 100,
-                                              height: 100,
-                                              fit: BoxFit.cover,
+                                );
+                              }
+                              List<TempRecord> listViewTempRecordList =
+                                  snapshot.data!;
+                              return ListView.builder(
+                                padding: EdgeInsets.zero,
+                                scrollDirection: Axis.horizontal,
+                                itemCount: listViewTempRecordList.length,
+                                itemBuilder: (context, listViewIndex) {
+                                  final listViewTempRecord =
+                                      listViewTempRecordList[listViewIndex];
+                                  return Column(
+                                    mainAxisSize: MainAxisSize.max,
+                                    children: [
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    2.5, 2.5, 2.5, 2.5),
+                                            child: ClipRRect(
+                                              borderRadius:
+                                                  BorderRadius.circular(10),
+                                              child: CachedNetworkImage(
+                                                imageUrl:
+                                                    listViewTempRecord.image!,
+                                                width: 100,
+                                                height: 100,
+                                                fit: BoxFit.cover,
+                                              ),
                                             ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Text(
-                                          listViewTempRecord.name!,
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyText1,
-                                        ),
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        FlutterFlowIconButton(
-                                          borderColor: Colors.transparent,
-                                          borderRadius: 30,
-                                          borderWidth: 1,
-                                          buttonSize: 60,
-                                          icon: Icon(
-                                            Icons.add,
-                                            color: FlutterFlowTheme.of(context)
-                                                .primaryText,
-                                            size: 30,
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Text(
+                                            listViewTempRecord.name!,
+                                            style: FlutterFlowTheme.of(context)
+                                                .bodyText1,
                                           ),
-                                          onPressed: () {
-                                            print('IconButton pressed ...');
-                                          },
-                                        ),
-                                        ToggleIcon(
-                                          onPressed: () async {
-                                            final tempUpdateData = {
-                                              'fav': !listViewTempRecord.fav!,
-                                            };
-                                            await listViewTempRecord.reference
-                                                .update(tempUpdateData);
-                                          },
-                                          value: listViewTempRecord.fav!,
-                                          onIcon: Icon(
-                                            Icons.favorite,
-                                            color: Colors.black,
-                                            size: 25,
+                                        ],
+                                      ),
+                                      Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          FlutterFlowIconButton(
+                                            borderColor: Colors.transparent,
+                                            borderRadius: 30,
+                                            borderWidth: 1,
+                                            buttonSize: 60,
+                                            icon: Icon(
+                                              Icons.add,
+                                              color:
+                                                  FlutterFlowTheme.of(context)
+                                                      .primaryText,
+                                              size: 30,
+                                            ),
+                                            onPressed: () {
+                                              print('IconButton pressed ...');
+                                            },
                                           ),
-                                          offIcon: Icon(
-                                            Icons.favorite_border,
-                                            color: Colors.black,
-                                            size: 25,
+                                          ToggleIcon(
+                                            onPressed: () async {
+                                              final tempUpdateData = {
+                                                'fav': !listViewTempRecord.fav!,
+                                              };
+                                              await listViewTempRecord.reference
+                                                  .update(tempUpdateData);
+                                            },
+                                            value: listViewTempRecord.fav!,
+                                            onIcon: Icon(
+                                              Icons.favorite,
+                                              color: Colors.black,
+                                              size: 25,
+                                            ),
+                                            offIcon: Icon(
+                                              Icons.favorite_border,
+                                              color: Colors.black,
+                                              size: 25,
+                                            ),
                                           ),
-                                        ),
-                                      ],
-                                    ),
-                                  ],
-                                );
-                              },
-                            );
-                          },
+                                        ],
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                          ),
                         ),
                       );
                     },
@@ -510,7 +521,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                             width: 100,
                             height: 140,
                             decoration: BoxDecoration(
-                              color: Color(0xFFEEEEEE),
+                              color: Colors.white,
                             ),
                             child: Row(
                               mainAxisSize: MainAxisSize.max,
@@ -529,18 +540,6 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                         Row(
                                           mainAxisSize: MainAxisSize.max,
                                           children: [
-                                            if (listViewTempRecord
-                                                    .longPreperation ==
-                                                1)
-                                              Align(
-                                                alignment: AlignmentDirectional(
-                                                    -1.03, -1),
-                                                child: Icon(
-                                                  Icons.av_timer_rounded,
-                                                  color: Color(0xFFD92319),
-                                                  size: 36,
-                                                ),
-                                              ),
                                             Expanded(
                                               child: Align(
                                                 alignment:
@@ -661,7 +660,7 @@ class _MealsCopy2WidgetState extends State<MealsCopy2Widget> {
                                                     options: FFButtonOptions(
                                                       width: 100,
                                                       height: 25,
-                                                      color: Color(0xFF736CAF),
+                                                      color: Color(0xFF72E6C1),
                                                       textStyle:
                                                           FlutterFlowTheme.of(
                                                                   context)

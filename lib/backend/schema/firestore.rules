@@ -50,13 +50,6 @@ service cloud.firestore {
       allow delete: if true;
     }
 
-    match /categories_temp/{document} {
-      allow create: if true;
-      allow read: if true;
-      allow write: if true;
-      allow delete: if true;
-    }
-
     match /miscellaneous/{document} {
       allow create: if true;
       allow read: if true;
@@ -92,16 +85,11 @@ service cloud.firestore {
       allow delete: if false;
     }
 
-    match /recipes_temp/{parent}/ingreds/{document} {
+    match /categoryTemp/{document} {
       allow create: if true;
       allow read: if true;
       allow write: if false;
       allow delete: if false;
     }
-
-    match /{path=**}/ingreds/{document} {
-      allow read: if true;
-    }
-
   }
 }

@@ -120,7 +120,6 @@ class _NavBarPageState extends State<NavBarPage> {
       'Home': HomeWidget(),
       'Meals': MealsWidget(),
       'Ingredients': IngredientsWidget(),
-      'MealsCopy2': MealsCopy2Widget(),
       'exploreDish': ExploreDishWidget(),
     };
     final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
@@ -228,29 +227,6 @@ class _NavBarPageState extends State<NavBarPage> {
                   overflow: TextOverflow.ellipsis,
                   style: TextStyle(
                     color: currentIndex == 3
-                        ? Color(0xFF72E6C1)
-                        : Color(0x8A484545),
-                    fontSize: 11.0,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          FloatingNavbarItem(
-            customWidget: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Icon(
-                  Icons.search,
-                  color:
-                      currentIndex == 4 ? Color(0xFF72E6C1) : Color(0x8A484545),
-                  size: 24,
-                ),
-                Text(
-                  'New',
-                  overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    color: currentIndex == 4
                         ? Color(0xFF72E6C1)
                         : Color(0x8A484545),
                     fontSize: 11.0,

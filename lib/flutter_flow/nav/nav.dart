@@ -78,16 +78,16 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               appStateNotifier.loggedIn ? NavBarPage() : MainWidget(),
           routes: [
             FFRoute(
-              name: 'HomePage',
-              path: 'homePage',
-              builder: (context, params) => HomePageWidget(),
-            ),
-            FFRoute(
               name: 'Home',
               path: 'home',
               builder: (context, params) => params.isEmpty
                   ? NavBarPage(initialPage: 'Home')
                   : HomeWidget(),
+            ),
+            FFRoute(
+              name: 'HomePage',
+              path: 'homePage',
+              builder: (context, params) => HomePageWidget(),
             ),
             FFRoute(
               name: 'Meals',
@@ -115,18 +115,8 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
             FFRoute(
               name: 'MealsCopy2',
               path: 'mealsCopy2',
-              builder: (context, params) => params.isEmpty
-                  ? NavBarPage(initialPage: 'MealsCopy2')
-                  : MealsCopy2Widget(
-                      category: params.getParam('category', ParamType.String),
-                    ),
-            ),
-            FFRoute(
-              name: 'MealsCopy2Copy',
-              path: 'mealsCopy2Copy',
-              builder: (context, params) => MealsCopy2CopyWidget(
-                mealDetail: params.getParam('mealDetail',
-                    ParamType.DocumentReference, false, 'recipes'),
+              builder: (context, params) => MealsCopy2Widget(
+                category: params.getParam('category', ParamType.String),
               ),
             ),
             FFRoute(
@@ -143,26 +133,14 @@ GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
               builder: (context, params) => LoginWidget(),
             ),
             FFRoute(
-              name: 'settings',
-              path: 'settings',
-              builder: (context, params) => SettingsWidget(),
-            ),
-            FFRoute(
               name: 'main',
               path: 'main',
               builder: (context, params) => MainWidget(),
             ),
             FFRoute(
-              name: 'temp',
-              path: 'temp',
-              builder: (context, params) => TempWidget(),
-            ),
-            FFRoute(
-              name: 'MealsCopy2Copy2',
-              path: 'mealsCopy2Copy2',
-              builder: (context, params) => MealsCopy2Copy2Widget(
-                category: params.getParam('category', ParamType.String),
-              ),
+              name: 'settings',
+              path: 'settings',
+              builder: (context, params) => SettingsWidget(),
             ),
             FFRoute(
               name: 'exploreDish',

@@ -66,7 +66,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
           appBar: AppBar(
-            backgroundColor: FlutterFlowTheme.of(context).primaryColor,
+            backgroundColor: Color(0xFF72E6C1),
             automaticallyImplyLeading: false,
             leading: InkWell(
               onTap: () async {
@@ -78,9 +78,18 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                 size: 24,
               ),
             ),
-            title: Text(
-              'Settings',
-              style: FlutterFlowTheme.of(context).title3,
+            title: Align(
+              alignment: AlignmentDirectional(0, 0),
+              child: Padding(
+                padding: EdgeInsetsDirectional.fromSTEB(0, 0, 60, 0),
+                child: Text(
+                  'Settings',
+                  style: FlutterFlowTheme.of(context).title3.override(
+                        fontFamily: 'Poppins',
+                        color: Colors.white,
+                      ),
+                ),
+              ),
             ),
             actions: [],
             centerTitle: false,
@@ -123,7 +132,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         children: [
                           Text(
                             FFAppState().user,
-                            style: FlutterFlowTheme.of(context).bodyText1,
+                            style: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color: FlutterFlowTheme.of(context).black600,
+                                ),
                           ),
                         ],
                       );
@@ -183,7 +197,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               ),
                             ),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyText1,
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText1
+                              .override(
+                                fontFamily: 'Poppins',
+                                color: FlutterFlowTheme.of(context).black600,
+                              ),
                         ),
                       ),
                     ],
@@ -242,13 +261,18 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               ),
                             ),
                           ),
-                          style: FlutterFlowTheme.of(context).bodyText1,
+                          style: FlutterFlowTheme.of(context)
+                              .bodyText1
+                              .override(
+                                fontFamily: 'Poppins',
+                                color: FlutterFlowTheme.of(context).black600,
+                              ),
                         ),
                       ),
                     ],
                   ),
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 100, 0, 0),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 150, 0, 0),
                     child: Row(
                       mainAxisSize: MainAxisSize.max,
                       mainAxisAlignment: MainAxisAlignment.center,
@@ -265,7 +289,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           options: FFButtonOptions(
                             width: 130,
                             height: 40,
-                            color: FlutterFlowTheme.of(context).primaryColor,
+                            color: Color(0xFF72E6C1),
                             textStyle:
                                 FlutterFlowTheme.of(context).subtitle2.override(
                                       fontFamily: 'Poppins',
@@ -311,7 +335,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           options: FFButtonOptions(
                             width: 130,
                             height: 40,
-                            color: FlutterFlowTheme.of(context).primaryColor,
+                            color: Color(0xFF72E6C1),
                             textStyle:
                                 FlutterFlowTheme.of(context).subtitle2.override(
                                       fontFamily: 'Poppins',

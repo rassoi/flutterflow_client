@@ -11,13 +11,12 @@ import 'schema/categories_record.dart';
 import 'schema/users_record.dart';
 import 'schema/temp_record.dart';
 import 'schema/meal_ingred_record.dart';
-import 'schema/categories_temp_record.dart';
 import 'schema/miscellaneous_record.dart';
 import 'schema/timestamp_record.dart';
 import 'schema/days_record.dart';
 import 'schema/upcommingmeals_record.dart';
 import 'schema/recipes_temp_record.dart';
-import 'schema/ingreds_record.dart';
+import 'schema/category_temp_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -32,13 +31,12 @@ export 'schema/categories_record.dart';
 export 'schema/users_record.dart';
 export 'schema/temp_record.dart';
 export 'schema/meal_ingred_record.dart';
-export 'schema/categories_temp_record.dart';
 export 'schema/miscellaneous_record.dart';
 export 'schema/timestamp_record.dart';
 export 'schema/days_record.dart';
 export 'schema/upcommingmeals_record.dart';
 export 'schema/recipes_temp_record.dart';
-export 'schema/ingreds_record.dart';
+export 'schema/category_temp_record.dart';
 
 /// Functions to query BannerRecords (as a Stream and as a Future).
 Stream<List<BannerRecord>> queryBannerRecord({
@@ -334,48 +332,6 @@ Future<FFFirestorePage<MealIngredRecord>> queryMealIngredRecordPage({
       isStream: isStream,
     );
 
-/// Functions to query CategoriesTempRecords (as a Stream and as a Future).
-Stream<List<CategoriesTempRecord>> queryCategoriesTempRecord({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollection(
-      CategoriesTempRecord.collection,
-      CategoriesTempRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<List<CategoriesTempRecord>> queryCategoriesTempRecordOnce({
-  Query Function(Query)? queryBuilder,
-  int limit = -1,
-  bool singleRecord = false,
-}) =>
-    queryCollectionOnce(
-      CategoriesTempRecord.collection,
-      CategoriesTempRecord.serializer,
-      queryBuilder: queryBuilder,
-      limit: limit,
-      singleRecord: singleRecord,
-    );
-
-Future<FFFirestorePage<CategoriesTempRecord>> queryCategoriesTempRecordPage({
-  Query Function(Query)? queryBuilder,
-  DocumentSnapshot? nextPageMarker,
-  required int pageSize,
-  required bool isStream,
-}) =>
-    queryCollectionPage(
-      CategoriesTempRecord.collection,
-      CategoriesTempRecord.serializer,
-      queryBuilder: queryBuilder,
-      nextPageMarker: nextPageMarker,
-      pageSize: pageSize,
-      isStream: isStream,
-    );
-
 /// Functions to query MiscellaneousRecords (as a Stream and as a Future).
 Stream<List<MiscellaneousRecord>> queryMiscellaneousRecord({
   Query Function(Query)? queryBuilder,
@@ -586,45 +542,42 @@ Future<FFFirestorePage<RecipesTempRecord>> queryRecipesTempRecordPage({
       isStream: isStream,
     );
 
-/// Functions to query IngredsRecords (as a Stream and as a Future).
-Stream<List<IngredsRecord>> queryIngredsRecord({
-  DocumentReference? parent,
+/// Functions to query CategoryTempRecords (as a Stream and as a Future).
+Stream<List<CategoryTempRecord>> queryCategoryTempRecord({
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollection(
-      IngredsRecord.collection(parent),
-      IngredsRecord.serializer,
+      CategoryTempRecord.collection,
+      CategoryTempRecord.serializer,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
     );
 
-Future<List<IngredsRecord>> queryIngredsRecordOnce({
-  DocumentReference? parent,
+Future<List<CategoryTempRecord>> queryCategoryTempRecordOnce({
   Query Function(Query)? queryBuilder,
   int limit = -1,
   bool singleRecord = false,
 }) =>
     queryCollectionOnce(
-      IngredsRecord.collection(parent),
-      IngredsRecord.serializer,
+      CategoryTempRecord.collection,
+      CategoryTempRecord.serializer,
       queryBuilder: queryBuilder,
       limit: limit,
       singleRecord: singleRecord,
     );
 
-Future<FFFirestorePage<IngredsRecord>> queryIngredsRecordPage({
-  DocumentReference? parent,
+Future<FFFirestorePage<CategoryTempRecord>> queryCategoryTempRecordPage({
   Query Function(Query)? queryBuilder,
   DocumentSnapshot? nextPageMarker,
   required int pageSize,
   required bool isStream,
 }) =>
     queryCollectionPage(
-      IngredsRecord.collection(parent),
-      IngredsRecord.serializer,
+      CategoryTempRecord.collection,
+      CategoryTempRecord.serializer,
       queryBuilder: queryBuilder,
       nextPageMarker: nextPageMarker,
       pageSize: pageSize,

@@ -1,34 +1,31 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'categories_temp_record.dart';
+part of 'category_temp_record.dart';
 
 // **************************************************************************
 // BuiltValueGenerator
 // **************************************************************************
 
-Serializer<CategoriesTempRecord> _$categoriesTempRecordSerializer =
-    new _$CategoriesTempRecordSerializer();
+Serializer<CategoryTempRecord> _$categoryTempRecordSerializer =
+    new _$CategoryTempRecordSerializer();
 
-class _$CategoriesTempRecordSerializer
-    implements StructuredSerializer<CategoriesTempRecord> {
+class _$CategoryTempRecordSerializer
+    implements StructuredSerializer<CategoryTempRecord> {
   @override
-  final Iterable<Type> types = const [
-    CategoriesTempRecord,
-    _$CategoriesTempRecord
-  ];
+  final Iterable<Type> types = const [CategoryTempRecord, _$CategoryTempRecord];
   @override
-  final String wireName = 'CategoriesTempRecord';
+  final String wireName = 'CategoryTempRecord';
 
   @override
   Iterable<Object?> serialize(
-      Serializers serializers, CategoriesTempRecord object,
+      Serializers serializers, CategoryTempRecord object,
       {FullType specifiedType = FullType.unspecified}) {
     final result = <Object?>[];
     Object? value;
-    value = object.list;
+    value = object.categoriName;
     if (value != null) {
       result
-        ..add('list')
+        ..add('categoriName')
         ..add(serializers.serialize(value,
             specifiedType:
                 const FullType(BuiltList, const [const FullType(String)])));
@@ -45,10 +42,10 @@ class _$CategoriesTempRecordSerializer
   }
 
   @override
-  CategoriesTempRecord deserialize(
+  CategoryTempRecord deserialize(
       Serializers serializers, Iterable<Object?> serialized,
       {FullType specifiedType = FullType.unspecified}) {
-    final result = new CategoriesTempRecordBuilder();
+    final result = new CategoryTempRecordBuilder();
 
     final iterator = serialized.iterator;
     while (iterator.moveNext()) {
@@ -56,8 +53,8 @@ class _$CategoriesTempRecordSerializer
       iterator.moveNext();
       final Object? value = iterator.current;
       switch (key) {
-        case 'list':
-          result.list.replace(serializers.deserialize(value,
+        case 'categoriName':
+          result.categoriName.replace(serializers.deserialize(value,
                   specifiedType: const FullType(
                       BuiltList, const [const FullType(String)]))!
               as BuiltList<Object?>);
@@ -75,69 +72,71 @@ class _$CategoriesTempRecordSerializer
   }
 }
 
-class _$CategoriesTempRecord extends CategoriesTempRecord {
+class _$CategoryTempRecord extends CategoryTempRecord {
   @override
-  final BuiltList<String>? list;
+  final BuiltList<String>? categoriName;
   @override
   final DocumentReference<Object?>? ffRef;
 
-  factory _$CategoriesTempRecord(
-          [void Function(CategoriesTempRecordBuilder)? updates]) =>
-      (new CategoriesTempRecordBuilder()..update(updates))._build();
+  factory _$CategoryTempRecord(
+          [void Function(CategoryTempRecordBuilder)? updates]) =>
+      (new CategoryTempRecordBuilder()..update(updates))._build();
 
-  _$CategoriesTempRecord._({this.list, this.ffRef}) : super._();
+  _$CategoryTempRecord._({this.categoriName, this.ffRef}) : super._();
 
   @override
-  CategoriesTempRecord rebuild(
-          void Function(CategoriesTempRecordBuilder) updates) =>
+  CategoryTempRecord rebuild(
+          void Function(CategoryTempRecordBuilder) updates) =>
       (toBuilder()..update(updates)).build();
 
   @override
-  CategoriesTempRecordBuilder toBuilder() =>
-      new CategoriesTempRecordBuilder()..replace(this);
+  CategoryTempRecordBuilder toBuilder() =>
+      new CategoryTempRecordBuilder()..replace(this);
 
   @override
   bool operator ==(Object other) {
     if (identical(other, this)) return true;
-    return other is CategoriesTempRecord &&
-        list == other.list &&
+    return other is CategoryTempRecord &&
+        categoriName == other.categoriName &&
         ffRef == other.ffRef;
   }
 
   @override
   int get hashCode {
-    return $jf($jc($jc(0, list.hashCode), ffRef.hashCode));
+    return $jf($jc($jc(0, categoriName.hashCode), ffRef.hashCode));
   }
 
   @override
   String toString() {
-    return (newBuiltValueToStringHelper(r'CategoriesTempRecord')
-          ..add('list', list)
+    return (newBuiltValueToStringHelper(r'CategoryTempRecord')
+          ..add('categoriName', categoriName)
           ..add('ffRef', ffRef))
         .toString();
   }
 }
 
-class CategoriesTempRecordBuilder
-    implements Builder<CategoriesTempRecord, CategoriesTempRecordBuilder> {
-  _$CategoriesTempRecord? _$v;
+class CategoryTempRecordBuilder
+    implements Builder<CategoryTempRecord, CategoryTempRecordBuilder> {
+  _$CategoryTempRecord? _$v;
 
-  ListBuilder<String>? _list;
-  ListBuilder<String> get list => _$this._list ??= new ListBuilder<String>();
-  set list(ListBuilder<String>? list) => _$this._list = list;
+  ListBuilder<String>? _categoriName;
+  ListBuilder<String> get categoriName =>
+      _$this._categoriName ??= new ListBuilder<String>();
+  set categoriName(ListBuilder<String>? categoriName) =>
+      _$this._categoriName = categoriName;
 
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
 
-  CategoriesTempRecordBuilder() {
-    CategoriesTempRecord._initializeBuilder(this);
+  CategoryTempRecordBuilder() {
+    CategoryTempRecord._initializeBuilder(this);
   }
 
-  CategoriesTempRecordBuilder get _$this {
+  CategoryTempRecordBuilder get _$this {
     final $v = _$v;
     if ($v != null) {
-      _list = $v.list?.toBuilder();
+      _categoriName = $v.categoriName?.toBuilder();
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -145,32 +144,33 @@ class CategoriesTempRecordBuilder
   }
 
   @override
-  void replace(CategoriesTempRecord other) {
+  void replace(CategoryTempRecord other) {
     ArgumentError.checkNotNull(other, 'other');
-    _$v = other as _$CategoriesTempRecord;
+    _$v = other as _$CategoryTempRecord;
   }
 
   @override
-  void update(void Function(CategoriesTempRecordBuilder)? updates) {
+  void update(void Function(CategoryTempRecordBuilder)? updates) {
     if (updates != null) updates(this);
   }
 
   @override
-  CategoriesTempRecord build() => _build();
+  CategoryTempRecord build() => _build();
 
-  _$CategoriesTempRecord _build() {
-    _$CategoriesTempRecord _$result;
+  _$CategoryTempRecord _build() {
+    _$CategoryTempRecord _$result;
     try {
       _$result = _$v ??
-          new _$CategoriesTempRecord._(list: _list?.build(), ffRef: ffRef);
+          new _$CategoryTempRecord._(
+              categoriName: _categoriName?.build(), ffRef: ffRef);
     } catch (_) {
       late String _$failedField;
       try {
-        _$failedField = 'list';
-        _list?.build();
+        _$failedField = 'categoriName';
+        _categoriName?.build();
       } catch (e) {
         throw new BuiltValueNestedFieldError(
-            r'CategoriesTempRecord', _$failedField, e.toString());
+            r'CategoryTempRecord', _$failedField, e.toString());
       }
       rethrow;
     }

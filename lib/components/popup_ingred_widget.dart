@@ -3,12 +3,18 @@ import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
 import '../flutter_flow/custom_functions.dart' as functions;
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class PopupIngredWidget extends StatefulWidget {
-  const PopupIngredWidget({Key? key}) : super(key: key);
+  const PopupIngredWidget({
+    Key? key,
+    this.ingreInfo,
+  }) : super(key: key);
+
+  final DocumentReference? ingreInfo;
 
   @override
   _PopupIngredWidgetState createState() => _PopupIngredWidgetState();
@@ -50,6 +56,7 @@ class _PopupIngredWidgetState extends State<PopupIngredWidget> {
         child: SingleChildScrollView(
           child: Column(
             mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.end,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Row(
@@ -71,9 +78,28 @@ class _PopupIngredWidgetState extends State<PopupIngredWidget> {
               ),
               Padding(
                 padding: EdgeInsetsDirectional.fromSTEB(16, 12, 0, 0),
-                child: Text(
-                  'Create Note',
-                  style: FlutterFlowTheme.of(context).title2,
+                child: StreamBuilder<MealIngredRecord>(
+                  stream: MealIngredRecord.getDocument(widget.ingreInfo!),
+                  builder: (context, snapshot) {
+                    // Customize what your widget looks like when it's loading.
+                    if (!snapshot.hasData) {
+                      return Center(
+                        child: SizedBox(
+                          width: 50,
+                          height: 50,
+                          child: SpinKitThreeBounce(
+                            color: Color(0xFF8783B0),
+                            size: 50,
+                          ),
+                        ),
+                      );
+                    }
+                    final textMealIngredRecord = snapshot.data!;
+                    return Text(
+                      textMealIngredRecord.english!,
+                      style: FlutterFlowTheme.of(context).title2,
+                    );
+                  },
                 ),
               ),
               Row(
@@ -180,7 +206,7 @@ class _PopupIngredWidgetState extends State<PopupIngredWidget> {
                               final recipeNameListItem =
                                   recipeNameList[recipeNameListIndex];
                               return Text(
-                                'Hello World',
+                                recipeNameListItem,
                                 style: FlutterFlowTheme.of(context).bodyText1,
                               );
                             },
@@ -197,10 +223,10 @@ class _PopupIngredWidgetState extends State<PopupIngredWidget> {
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: [
                   Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 24, 0, 44),
+                    padding: EdgeInsetsDirectional.fromSTEB(0, 10, 0, 20),
                     child: FFButtonWidget(
                       onPressed: () async {
-                        context.pop();
+                        Navigator.pop(context);
                       },
                       text: 'Ok',
                       options: FFButtonOptions(
