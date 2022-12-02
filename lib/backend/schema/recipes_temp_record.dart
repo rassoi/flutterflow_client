@@ -13,8 +13,6 @@ abstract class RecipesTempRecord
 
   String? get image;
 
-  String? get mealTime;
-
   String? get name;
 
   @BuiltValueField(wireName: 'name_hindi')
@@ -27,10 +25,12 @@ abstract class RecipesTempRecord
 
   BuiltList<String>? get categoryName;
 
-  String? get veg;
-
   @BuiltValueField(wireName: 'youtube_link')
   String? get youtubeLink;
+
+  bool? get veg;
+
+  BuiltList<String>? get mealTime;
 
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
@@ -38,14 +38,14 @@ abstract class RecipesTempRecord
 
   static void _initializeBuilder(RecipesTempRecordBuilder builder) => builder
     ..image = ''
-    ..mealTime = ''
     ..name = ''
     ..nameHindi = ''
     ..recipeId = ''
     ..subCategories = ListBuilder()
     ..categoryName = ListBuilder()
-    ..veg = ''
-    ..youtubeLink = '';
+    ..youtubeLink = ''
+    ..veg = false
+    ..mealTime = ListBuilder();
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('recipes_temp');
@@ -70,26 +70,25 @@ abstract class RecipesTempRecord
 
 Map<String, dynamic> createRecipesTempRecordData({
   String? image,
-  String? mealTime,
   String? name,
   String? nameHindi,
   String? recipeId,
-  String? veg,
   String? youtubeLink,
+  bool? veg,
 }) {
   final firestoreData = serializers.toFirestore(
     RecipesTempRecord.serializer,
     RecipesTempRecord(
       (r) => r
         ..image = image
-        ..mealTime = mealTime
         ..name = name
         ..nameHindi = nameHindi
         ..recipeId = recipeId
         ..subCategories = null
         ..categoryName = null
+        ..youtubeLink = youtubeLink
         ..veg = veg
-        ..youtubeLink = youtubeLink,
+        ..mealTime = null,
     ),
   );
 
