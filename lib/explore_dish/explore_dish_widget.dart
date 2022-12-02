@@ -292,14 +292,13 @@ class _ExploreDishWidgetState extends State<ExploreDishWidget> {
                   );
                 },
               ),
-              Container(
-                width: double.infinity,
-                height: 190,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).secondaryBackground,
-                ),
-                child: Visibility(
-                  visible: FFAppState().Fav,
+              if (FFAppState().Fav)
+                Container(
+                  width: double.infinity,
+                  height: 190,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).secondaryBackground,
+                  ),
                   child: StreamBuilder<List<TempRecord>>(
                     stream: queryTempRecord(
                       queryBuilder: (tempRecord) => tempRecord
@@ -444,7 +443,6 @@ class _ExploreDishWidgetState extends State<ExploreDishWidget> {
                     },
                   ),
                 ),
-              ),
               Container(
                 width: double.infinity,
                 height: MediaQuery.of(context).size.height * 0.7,
