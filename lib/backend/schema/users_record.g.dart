@@ -89,6 +89,13 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
         ..add(serializers.serialize(value,
             specifiedType: const FullType(String)));
     }
+    value = object.buy;
+    if (value != null) {
+      result
+        ..add('buy')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -151,6 +158,10 @@ class _$UsersRecordSerializer implements StructuredSerializer<UsersRecord> {
           result.address = serializers.deserialize(value,
               specifiedType: const FullType(String)) as String?;
           break;
+        case 'buy':
+          result.buy = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -186,6 +197,8 @@ class _$UsersRecord extends UsersRecord {
   @override
   final String? address;
   @override
+  final bool? buy;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$UsersRecord([void Function(UsersRecordBuilder)? updates]) =>
@@ -202,6 +215,7 @@ class _$UsersRecord extends UsersRecord {
       this.createdTime,
       this.phoneNumber,
       this.address,
+      this.buy,
       this.ffRef})
       : super._();
 
@@ -226,6 +240,7 @@ class _$UsersRecord extends UsersRecord {
         createdTime == other.createdTime &&
         phoneNumber == other.phoneNumber &&
         address == other.address &&
+        buy == other.buy &&
         ffRef == other.ffRef;
   }
 
@@ -240,16 +255,18 @@ class _$UsersRecord extends UsersRecord {
                             $jc(
                                 $jc(
                                     $jc(
-                                        $jc($jc(0, dsc.hashCode),
-                                            text.hashCode),
-                                        image.hashCode),
-                                    email.hashCode),
-                                displayName.hashCode),
-                            photoUrl.hashCode),
-                        uid.hashCode),
-                    createdTime.hashCode),
-                phoneNumber.hashCode),
-            address.hashCode),
+                                        $jc(
+                                            $jc($jc(0, dsc.hashCode),
+                                                text.hashCode),
+                                            image.hashCode),
+                                        email.hashCode),
+                                    displayName.hashCode),
+                                photoUrl.hashCode),
+                            uid.hashCode),
+                        createdTime.hashCode),
+                    phoneNumber.hashCode),
+                address.hashCode),
+            buy.hashCode),
         ffRef.hashCode));
   }
 
@@ -266,6 +283,7 @@ class _$UsersRecord extends UsersRecord {
           ..add('createdTime', createdTime)
           ..add('phoneNumber', phoneNumber)
           ..add('address', address)
+          ..add('buy', buy)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -314,6 +332,10 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
   String? get address => _$this._address;
   set address(String? address) => _$this._address = address;
 
+  bool? _buy;
+  bool? get buy => _$this._buy;
+  set buy(bool? buy) => _$this._buy = buy;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -335,6 +357,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
       _createdTime = $v.createdTime;
       _phoneNumber = $v.phoneNumber;
       _address = $v.address;
+      _buy = $v.buy;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -368,6 +391,7 @@ class UsersRecordBuilder implements Builder<UsersRecord, UsersRecordBuilder> {
             createdTime: createdTime,
             phoneNumber: phoneNumber,
             address: address,
+            buy: buy,
             ffRef: ffRef);
     replace(_$result);
     return _$result;

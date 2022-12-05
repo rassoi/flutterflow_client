@@ -1,5 +1,4 @@
 import '../auth/auth_util.dart';
-import '../backend/backend.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
 import '../flutter_flow/flutter_flow_widgets.dart';
@@ -47,16 +46,13 @@ class _MainWidgetState extends State<MainWidget> {
               children: [
                 Align(
                   alignment: AlignmentDirectional(0, 0),
-                  child: Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(0, 50, 0, 0),
-                    child: Text(
-                      'Let\'s Transform your ',
-                      style: FlutterFlowTheme.of(context).bodyText1.override(
-                            fontFamily: 'Open Sans',
-                            color: FlutterFlowTheme.of(context).grayIcon,
-                            fontSize: 16,
-                          ),
-                    ),
+                  child: Text(
+                    'Let\'s Transform your ',
+                    style: FlutterFlowTheme.of(context).bodyText1.override(
+                          fontFamily: 'Open Sans',
+                          color: FlutterFlowTheme.of(context).grayIcon,
+                          fontSize: 16,
+                        ),
                   ),
                 ),
                 Align(
@@ -69,108 +65,6 @@ class _MainWidgetState extends State<MainWidget> {
                           color: FlutterFlowTheme.of(context).grayIcon,
                           fontSize: 45,
                         ),
-                  ),
-                ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 45, 0, 0),
-                  child: StreamBuilder<List<UsersRecord>>(
-                    stream: queryUsersRecord(
-                      singleRecord: true,
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: SpinKitThreeBounce(
-                              color: Color(0xFF8783B0),
-                              size: 50,
-                            ),
-                          ),
-                        );
-                      }
-                      List<UsersRecord> rowUsersRecordList = snapshot.data!;
-                      // Return an empty Container when the document does not exist.
-                      if (snapshot.data!.isEmpty) {
-                        return Container();
-                      }
-                      final rowUsersRecord = rowUsersRecordList.isNotEmpty
-                          ? rowUsersRecordList.first
-                          : null;
-                      return Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional(0, 0),
-                            child: Container(
-                              width: 230,
-                              height: 44,
-                              child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: AlignmentDirectional(0, 0),
-                                    child: FFButtonWidget(
-                                      onPressed: () async {
-                                        GoRouter.of(context).prepareAuthEvent();
-                                        final user =
-                                            await signInWithGoogle(context);
-                                        if (user == null) {
-                                          return;
-                                        }
-                                        setState(() =>
-                                            FFAppState().user = currentUserUid);
-
-                                        context.goNamedAuth('Home', mounted);
-                                      },
-                                      text: 'Sign in with Google',
-                                      icon: Icon(
-                                        Icons.add,
-                                        color: Colors.transparent,
-                                        size: 20,
-                                      ),
-                                      options: FFButtonOptions(
-                                        width: 230,
-                                        height: 44,
-                                        color: Color(0xFF72E6C1),
-                                        textStyle: GoogleFonts.getFont(
-                                          'Open Sans',
-                                          color: Color(0xFF101213),
-                                          fontSize: 17,
-                                        ),
-                                        elevation: 4,
-                                        borderSide: BorderSide(
-                                          color: Colors.transparent,
-                                          width: 0,
-                                        ),
-                                        borderRadius: BorderRadius.circular(12),
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(-0.83, 0),
-                                    child: Container(
-                                      width: 22,
-                                      height: 22,
-                                      clipBehavior: Clip.antiAlias,
-                                      decoration: BoxDecoration(
-                                        shape: BoxShape.circle,
-                                      ),
-                                      child: Image.network(
-                                        'https://i0.wp.com/nanophorm.com/wp-content/uploads/2018/04/google-logo-icon-PNG-Transparent-Background.png?w=1000&ssl=1',
-                                        fit: BoxFit.contain,
-                                      ),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
                   ),
                 ),
                 Row(
@@ -233,119 +127,74 @@ class _MainWidgetState extends State<MainWidget> {
                     ),
                   ],
                 ),
-                Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0, 20, 0, 0),
-                  child: StreamBuilder<List<UsersRecord>>(
-                    stream: queryUsersRecord(
-                      singleRecord: true,
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: SpinKitThreeBounce(
-                              color: Color(0xFF8783B0),
-                              size: 50,
+                Align(
+                  alignment: AlignmentDirectional(0, 0),
+                  child: Container(
+                    width: 230,
+                    height: 44,
+                    child: Stack(
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(0, 0),
+                          child: FFButtonWidget(
+                            onPressed: () async {
+                              final phoneNumberVal = textController!.text;
+                              if (phoneNumberVal == null ||
+                                  phoneNumberVal.isEmpty ||
+                                  !phoneNumberVal.startsWith('+')) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  SnackBar(
+                                    content: Text(
+                                        'Phone Number is required and has to start with +.'),
+                                  ),
+                                );
+                                return;
+                              }
+                              await beginPhoneAuth(
+                                context: context,
+                                phoneNumber: phoneNumberVal,
+                                onCodeSent: () async {
+                                  context.goNamedAuth('login', mounted);
+                                },
+                              );
+
+                              setState(
+                                  () => FFAppState().user = currentUserUid);
+                            },
+                            text: 'Sign in with Phone',
+                            icon: Icon(
+                              Icons.add,
+                              color: Colors.transparent,
+                              size: 20,
                             ),
-                          ),
-                        );
-                      }
-                      List<UsersRecord> rowUsersRecordList = snapshot.data!;
-                      // Return an empty Container when the document does not exist.
-                      if (snapshot.data!.isEmpty) {
-                        return Container();
-                      }
-                      final rowUsersRecord = rowUsersRecordList.isNotEmpty
-                          ? rowUsersRecordList.first
-                          : null;
-                      return Row(
-                        mainAxisSize: MainAxisSize.max,
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Align(
-                            alignment: AlignmentDirectional(0, 0),
-                            child: Container(
+                            options: FFButtonOptions(
                               width: 230,
                               height: 44,
-                              child: Stack(
-                                children: [
-                                  Align(
-                                    alignment: AlignmentDirectional(0, 0),
-                                    child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0, 2, 0, 0),
-                                      child: FFButtonWidget(
-                                        onPressed: () async {
-                                          final phoneNumberVal =
-                                              textController!.text;
-                                          if (phoneNumberVal == null ||
-                                              phoneNumberVal.isEmpty ||
-                                              !phoneNumberVal.startsWith('+')) {
-                                            ScaffoldMessenger.of(context)
-                                                .showSnackBar(
-                                              SnackBar(
-                                                content: Text(
-                                                    'Phone Number is required and has to start with +.'),
-                                              ),
-                                            );
-                                            return;
-                                          }
-                                          await beginPhoneAuth(
-                                            context: context,
-                                            phoneNumber: phoneNumberVal,
-                                            onCodeSent: () async {
-                                              context.goNamedAuth(
-                                                  'login', mounted);
-                                            },
-                                          );
-
-                                          setState(() => FFAppState().user =
-                                              currentUserUid);
-                                        },
-                                        text: 'Sign in with Phone',
-                                        icon: Icon(
-                                          Icons.add,
-                                          color: Colors.transparent,
-                                          size: 20,
-                                        ),
-                                        options: FFButtonOptions(
-                                          width: 230,
-                                          height: 44,
-                                          color: Color(0xFF72E6C1),
-                                          textStyle: GoogleFonts.getFont(
-                                            'Open Sans',
-                                            color: Color(0xFF101213),
-                                            fontSize: 17,
-                                          ),
-                                          elevation: 4,
-                                          borderSide: BorderSide(
-                                            color: Colors.transparent,
-                                            width: 0,
-                                          ),
-                                          borderRadius:
-                                              BorderRadius.circular(12),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
-                                  Align(
-                                    alignment: AlignmentDirectional(-0.85, 0),
-                                    child: Icon(
-                                      Icons.phone_enabled,
-                                      color: Color(0xFF101213),
-                                      size: 30,
-                                    ),
-                                  ),
-                                ],
+                              color: Color(0xFF72E6C1),
+                              textStyle: GoogleFonts.getFont(
+                                'Open Sans',
+                                color: Color(0xFF101213),
+                                fontSize: 17,
                               ),
+                              elevation: 4,
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 0,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
                             ),
                           ),
-                        ],
-                      );
-                    },
+                        ),
+                        Align(
+                          alignment: AlignmentDirectional(-0.85, 0),
+                          child: Icon(
+                            Icons.phone_enabled,
+                            color: Color(0xFF101213),
+                            size: 30,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
                 Row(
@@ -364,6 +213,32 @@ class _MainWidgetState extends State<MainWidget> {
                       ),
                     ),
                   ],
+                ),
+                FFButtonWidget(
+                  onPressed: () async {
+                    GoRouter.of(context).prepareAuthEvent();
+                    final user = await signInAnonymously(context);
+                    if (user == null) {
+                      return;
+                    }
+
+                    context.goNamedAuth('Home', mounted);
+                  },
+                  text: 'Button',
+                  options: FFButtonOptions(
+                    width: 130,
+                    height: 40,
+                    color: FlutterFlowTheme.of(context).primaryColor,
+                    textStyle: FlutterFlowTheme.of(context).subtitle2.override(
+                          fontFamily: 'Poppins',
+                          color: Colors.white,
+                        ),
+                    borderSide: BorderSide(
+                      color: Colors.transparent,
+                      width: 1,
+                    ),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
                 ),
               ],
             ),

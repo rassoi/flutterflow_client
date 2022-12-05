@@ -14,6 +14,7 @@ import 'days_record.dart';
 import 'upcommingmeals_record.dart';
 import 'recipes_temp_record.dart';
 import 'category_temp_record.dart';
+import 'ingred_buy_notifier_record.dart';
 
 import 'index.dart';
 
@@ -38,6 +39,7 @@ const kDocumentReferenceField = 'Document__Reference__Field';
   UpcommingmealsRecord,
   RecipesTempRecord,
   CategoryTempRecord,
+  IngredBuyNotifierRecord,
 ])
 final Serializers serializers = (_$serializers.toBuilder()
       ..add(DocumentReferenceSerializer())

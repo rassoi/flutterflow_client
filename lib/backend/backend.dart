@@ -17,6 +17,7 @@ import 'schema/days_record.dart';
 import 'schema/upcommingmeals_record.dart';
 import 'schema/recipes_temp_record.dart';
 import 'schema/category_temp_record.dart';
+import 'schema/ingred_buy_notifier_record.dart';
 import 'schema/serializers.dart';
 
 export 'dart:async' show StreamSubscription;
@@ -37,6 +38,7 @@ export 'schema/days_record.dart';
 export 'schema/upcommingmeals_record.dart';
 export 'schema/recipes_temp_record.dart';
 export 'schema/category_temp_record.dart';
+export 'schema/ingred_buy_notifier_record.dart';
 
 /// Functions to query BannerRecords (as a Stream and as a Future).
 Stream<List<BannerRecord>> queryBannerRecord({
@@ -583,6 +585,49 @@ Future<FFFirestorePage<CategoryTempRecord>> queryCategoryTempRecordPage({
       pageSize: pageSize,
       isStream: isStream,
     );
+
+/// Functions to query IngredBuyNotifierRecords (as a Stream and as a Future).
+Stream<List<IngredBuyNotifierRecord>> queryIngredBuyNotifierRecord({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollection(
+      IngredBuyNotifierRecord.collection,
+      IngredBuyNotifierRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<List<IngredBuyNotifierRecord>> queryIngredBuyNotifierRecordOnce({
+  Query Function(Query)? queryBuilder,
+  int limit = -1,
+  bool singleRecord = false,
+}) =>
+    queryCollectionOnce(
+      IngredBuyNotifierRecord.collection,
+      IngredBuyNotifierRecord.serializer,
+      queryBuilder: queryBuilder,
+      limit: limit,
+      singleRecord: singleRecord,
+    );
+
+Future<FFFirestorePage<IngredBuyNotifierRecord>>
+    queryIngredBuyNotifierRecordPage({
+  Query Function(Query)? queryBuilder,
+  DocumentSnapshot? nextPageMarker,
+  required int pageSize,
+  required bool isStream,
+}) =>
+        queryCollectionPage(
+          IngredBuyNotifierRecord.collection,
+          IngredBuyNotifierRecord.serializer,
+          queryBuilder: queryBuilder,
+          nextPageMarker: nextPageMarker,
+          pageSize: pageSize,
+          isStream: isStream,
+        );
 
 Stream<List<T>> queryCollection<T>(Query collection, Serializer<T> serializer,
     {Query Function(Query)? queryBuilder,

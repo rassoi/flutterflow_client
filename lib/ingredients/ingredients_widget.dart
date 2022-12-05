@@ -140,11 +140,43 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                         ],
                       ),
                     ),
+                    Column(
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Align(
+                          alignment: AlignmentDirectional(0.85, -0.2),
+                          child: FFButtonWidget(
+                            onPressed: () {
+                              print('Button pressed ...');
+                            },
+                            text: 'Update Audit',
+                            options: FFButtonOptions(
+                              width: 140,
+                              height: 40,
+                              color: Color(0xFF72E6C1),
+                              textStyle: FlutterFlowTheme.of(context)
+                                  .subtitle2
+                                  .override(
+                                    fontFamily: 'Poppins',
+                                    color: Colors.white,
+                                  ),
+                              borderSide: BorderSide(
+                                color: Colors.transparent,
+                                width: 1,
+                              ),
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                          ),
+                        ),
+                      ],
+                    ),
                     Expanded(
                       child: Align(
                         alignment: AlignmentDirectional(0, 0.2),
-                        child: StreamBuilder<List<TimestampRecord>>(
-                          stream: queryTimestampRecord(
+                        child: StreamBuilder<List<UsersRecord>>(
+                          stream: queryUsersRecord(
+                            queryBuilder: (usersRecord) => usersRecord
+                                .where('uid', isEqualTo: FFAppState().user),
                             singleRecord: true,
                           ),
                           builder: (context, snapshot) {
@@ -161,15 +193,15 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                 ),
                               );
                             }
-                            List<TimestampRecord> columnTimestampRecordList =
+                            List<UsersRecord> columnUsersRecordList =
                                 snapshot.data!;
                             // Return an empty Container when the document does not exist.
                             if (snapshot.data!.isEmpty) {
                               return Container();
                             }
-                            final columnTimestampRecord =
-                                columnTimestampRecordList.isNotEmpty
-                                    ? columnTimestampRecordList.first
+                            final columnUsersRecord =
+                                columnUsersRecordList.isNotEmpty
+                                    ? columnUsersRecordList.first
                                     : null;
                             return Column(
                               mainAxisSize: MainAxisSize.max,
@@ -178,8 +210,13 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                                 Align(
                                   alignment: AlignmentDirectional(0.85, -0.2),
                                   child: FFButtonWidget(
-                                    onPressed: () {
-                                      print('Button pressed ...');
+                                    onPressed: () async {
+                                      final usersUpdateData =
+                                          createUsersRecordData(
+                                        buy: true,
+                                      );
+                                      await columnUsersRecord!.reference
+                                          .update(usersUpdateData);
                                     },
                                     text: 'Buy',
                                     options: FFButtonOptions(

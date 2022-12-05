@@ -83,6 +83,19 @@ class _$MealIngredRecordSerializer
         ..add('audit')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
+    value = object.price;
+    if (value != null) {
+      result
+        ..add('price')
+        ..add(serializers.serialize(value, specifiedType: const FullType(int)));
+    }
+    value = object.desc;
+    if (value != null) {
+      result
+        ..add('desc')
+        ..add(serializers.serialize(value,
+            specifiedType: const FullType(String)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -144,6 +157,14 @@ class _$MealIngredRecordSerializer
           result.audit = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
+        case 'price':
+          result.price = serializers.deserialize(value,
+              specifiedType: const FullType(int)) as int?;
+          break;
+        case 'desc':
+          result.desc = serializers.deserialize(value,
+              specifiedType: const FullType(String)) as String?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -177,6 +198,10 @@ class _$MealIngredRecord extends MealIngredRecord {
   @override
   final int? audit;
   @override
+  final int? price;
+  @override
+  final String? desc;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$MealIngredRecord(
@@ -193,6 +218,8 @@ class _$MealIngredRecord extends MealIngredRecord {
       this.mealCount,
       this.img,
       this.audit,
+      this.price,
+      this.desc,
       this.ffRef})
       : super._();
 
@@ -217,6 +244,8 @@ class _$MealIngredRecord extends MealIngredRecord {
         mealCount == other.mealCount &&
         img == other.img &&
         audit == other.audit &&
+        price == other.price &&
+        desc == other.desc &&
         ffRef == other.ffRef;
   }
 
@@ -230,15 +259,19 @@ class _$MealIngredRecord extends MealIngredRecord {
                         $jc(
                             $jc(
                                 $jc(
-                                    $jc($jc(0, english.hashCode),
-                                        hindi.hashCode),
-                                    ingedId.hashCode),
-                                userUid.hashCode),
-                            status.hashCode),
-                        recipeNames.hashCode),
-                    mealCount.hashCode),
-                img.hashCode),
-            audit.hashCode),
+                                    $jc(
+                                        $jc(
+                                            $jc($jc(0, english.hashCode),
+                                                hindi.hashCode),
+                                            ingedId.hashCode),
+                                        userUid.hashCode),
+                                    status.hashCode),
+                                recipeNames.hashCode),
+                            mealCount.hashCode),
+                        img.hashCode),
+                    audit.hashCode),
+                price.hashCode),
+            desc.hashCode),
         ffRef.hashCode));
   }
 
@@ -254,6 +287,8 @@ class _$MealIngredRecord extends MealIngredRecord {
           ..add('mealCount', mealCount)
           ..add('img', img)
           ..add('audit', audit)
+          ..add('price', price)
+          ..add('desc', desc)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -301,6 +336,14 @@ class MealIngredRecordBuilder
   int? get audit => _$this._audit;
   set audit(int? audit) => _$this._audit = audit;
 
+  int? _price;
+  int? get price => _$this._price;
+  set price(int? price) => _$this._price = price;
+
+  String? _desc;
+  String? get desc => _$this._desc;
+  set desc(String? desc) => _$this._desc = desc;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -321,6 +364,8 @@ class MealIngredRecordBuilder
       _mealCount = $v.mealCount;
       _img = $v.img;
       _audit = $v.audit;
+      _price = $v.price;
+      _desc = $v.desc;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -355,6 +400,8 @@ class MealIngredRecordBuilder
               mealCount: mealCount,
               img: img,
               audit: audit,
+              price: price,
+              desc: desc,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

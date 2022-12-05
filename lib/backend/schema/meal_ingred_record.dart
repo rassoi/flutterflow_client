@@ -33,6 +33,10 @@ abstract class MealIngredRecord
 
   int? get audit;
 
+  int? get price;
+
+  String? get desc;
+
   @BuiltValueField(wireName: kDocumentReferenceField)
   DocumentReference? get ffRef;
   DocumentReference get reference => ffRef!;
@@ -46,7 +50,9 @@ abstract class MealIngredRecord
     ..recipeNames = ListBuilder()
     ..mealCount = 0
     ..img = ''
-    ..audit = 0;
+    ..audit = 0
+    ..price = 0
+    ..desc = '';
 
   static CollectionReference get collection =>
       FirebaseFirestore.instance.collection('meal_ingred');
@@ -78,6 +84,8 @@ Map<String, dynamic> createMealIngredRecordData({
   int? mealCount,
   String? img,
   int? audit,
+  int? price,
+  String? desc,
 }) {
   final firestoreData = serializers.toFirestore(
     MealIngredRecord.serializer,
@@ -91,7 +99,9 @@ Map<String, dynamic> createMealIngredRecordData({
         ..recipeNames = null
         ..mealCount = mealCount
         ..img = img
-        ..audit = audit,
+        ..audit = audit
+        ..price = price
+        ..desc = desc,
     ),
   );
 

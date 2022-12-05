@@ -253,7 +253,7 @@ class _ExploreDishWidgetState extends State<ExploreDishWidget> {
                       ),
                       FlutterFlowDropDown<String>(
                         initialOption: dropDownValue2 ??= 'Breakfast',
-                        options: ['Breakfast', 'Lunch', 'Snacks', 'Sinner'],
+                        options: ['Breakfast', 'Lunch', 'Snacks', 'Dinner'],
                         onChanged: (val) =>
                             setState(() => dropDownValue2 = val),
                         width: MediaQuery.of(context).size.width * 0.45,
@@ -497,26 +497,32 @@ class _ExploreDishWidgetState extends State<ExploreDishWidget> {
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
-                                    Row(
-                                      mainAxisSize: MainAxisSize.max,
-                                      children: [
-                                        Padding(
-                                          padding:
-                                              EdgeInsetsDirectional.fromSTEB(
-                                                  10, 0, 0, 30),
-                                          child: Text(
-                                            listViewTempRecord.name!,
-                                            style: FlutterFlowTheme.of(context)
-                                                .bodyText1
-                                                .override(
-                                                  fontFamily: 'Poppins',
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .black600,
-                                                ),
+                                    Padding(
+                                      padding: EdgeInsetsDirectional.fromSTEB(
+                                          0, 0, 10, 0),
+                                      child: Row(
+                                        mainAxisSize: MainAxisSize.max,
+                                        children: [
+                                          Padding(
+                                            padding:
+                                                EdgeInsetsDirectional.fromSTEB(
+                                                    10, 0, 0, 30),
+                                            child: Text(
+                                              listViewTempRecord.name!,
+                                              style:
+                                                  FlutterFlowTheme.of(context)
+                                                      .bodyText1
+                                                      .override(
+                                                        fontFamily: 'Poppins',
+                                                        color:
+                                                            FlutterFlowTheme.of(
+                                                                    context)
+                                                                .black600,
+                                                      ),
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                        ],
+                                      ),
                                     ),
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
