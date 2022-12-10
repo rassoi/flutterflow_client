@@ -91,27 +91,14 @@ class _MainWidgetState extends State<MainWidget> {
                             alignment: AlignmentDirectional(0, 0),
                             child: FFButtonWidget(
                               onPressed: () async {
-                                final phoneNumberVal = textController!.text;
-                                if (phoneNumberVal == null ||
-                                    phoneNumberVal.isEmpty ||
-                                    !phoneNumberVal.startsWith('+')) {
-                                  ScaffoldMessenger.of(context).showSnackBar(
-                                    SnackBar(
-                                      content: Text(
-                                          'Phone Number is required and has to start with +.'),
-                                    ),
-                                  );
+                                GoRouter.of(context).prepareAuthEvent();
+                                final user = await signInWithGoogle(context);
+                                if (user == null) {
                                   return;
                                 }
-                                await beginPhoneAuth(
-                                  context: context,
-                                  phoneNumber: phoneNumberVal,
-                                  onCodeSent: () async {
-                                    context.goNamedAuth('login', mounted);
-                                  },
-                                );
-
                                 setState(() {});
+
+                                context.goNamedAuth('Home', mounted);
                               },
                               text: 'Sign in with Gmail',
                               icon: Icon(
