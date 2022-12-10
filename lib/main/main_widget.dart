@@ -70,6 +70,86 @@ class _MainWidgetState extends State<MainWidget> {
                         ),
                   ),
                 ),
+                Align(
+                  alignment: AlignmentDirectional(0, 0),
+                  child: InkWell(
+                    onTap: () async {
+                      GoRouter.of(context).prepareAuthEvent();
+                      final user = await signInWithGoogle(context);
+                      if (user == null) {
+                        return;
+                      }
+
+                      context.goNamedAuth('Home', mounted);
+                    },
+                    child: Container(
+                      width: 230,
+                      height: 44,
+                      child: Stack(
+                        children: [
+                          Align(
+                            alignment: AlignmentDirectional(0, 0),
+                            child: FFButtonWidget(
+                              onPressed: () async {
+                                final phoneNumberVal = textController!.text;
+                                if (phoneNumberVal == null ||
+                                    phoneNumberVal.isEmpty ||
+                                    !phoneNumberVal.startsWith('+')) {
+                                  ScaffoldMessenger.of(context).showSnackBar(
+                                    SnackBar(
+                                      content: Text(
+                                          'Phone Number is required and has to start with +.'),
+                                    ),
+                                  );
+                                  return;
+                                }
+                                await beginPhoneAuth(
+                                  context: context,
+                                  phoneNumber: phoneNumberVal,
+                                  onCodeSent: () async {
+                                    context.goNamedAuth('login', mounted);
+                                  },
+                                );
+
+                                setState(() {});
+                              },
+                              text: 'Sign in witGmail',
+                              icon: Icon(
+                                Icons.add,
+                                color: Colors.transparent,
+                                size: 20,
+                              ),
+                              options: FFButtonOptions(
+                                width: 230,
+                                height: 44,
+                                color: Color(0xFF72E6C1),
+                                textStyle: GoogleFonts.getFont(
+                                  'Open Sans',
+                                  color: Color(0xFF101213),
+                                  fontSize: 17,
+                                ),
+                                elevation: 4,
+                                borderSide: BorderSide(
+                                  color: Colors.transparent,
+                                  width: 0,
+                                ),
+                                borderRadius: BorderRadius.circular(12),
+                              ),
+                            ),
+                          ),
+                          Align(
+                            alignment: AlignmentDirectional(-0.85, 0),
+                            child: Icon(
+                              Icons.mail,
+                              color: Color(0xFF101213),
+                              size: 30,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
                 Row(
                   mainAxisSize: MainAxisSize.max,
                   children: [
