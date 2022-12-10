@@ -7,6 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({Key? key}) : super(key: key);
@@ -36,6 +37,8 @@ class _SettingsWidgetState extends State<SettingsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return StreamBuilder<List<UsersRecord>>(
       stream: queryUsersRecord(
         singleRecord: true,
@@ -281,7 +284,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           onPressed: () async {
                             GoRouter.of(context).prepareAuthEvent();
                             await signOut();
-                            setState(() => FFAppState().user = '');
+                            setState(() {});
 
                             context.goNamedAuth('main', mounted);
                           },

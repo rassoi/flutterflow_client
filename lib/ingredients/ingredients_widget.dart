@@ -1,4 +1,5 @@
 import '../auth/auth_util.dart';
+import '../backend/api_requests/api_calls.dart';
 import '../backend/backend.dart';
 import '../components/popup_ingred_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
@@ -11,6 +12,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class IngredientsWidget extends StatefulWidget {
   const IngredientsWidget({Key? key}) : super(key: key);
@@ -20,6 +22,7 @@ class IngredientsWidget extends StatefulWidget {
 }
 
 class _IngredientsWidgetState extends State<IngredientsWidget> {
+  ApiCallResponse? apiResultmdk;
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
@@ -31,6 +34,8 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
@@ -146,8 +151,12 @@ class _IngredientsWidgetState extends State<IngredientsWidget> {
                         Align(
                           alignment: AlignmentDirectional(0.85, -0.2),
                           child: FFButtonWidget(
-                            onPressed: () {
-                              print('Button pressed ...');
+                            onPressed: () async {
+                              apiResultmdk = await CreateBuyListCall.call(
+                                uid: currentUserUid,
+                              );
+
+                              setState(() {});
                             },
                             text: 'Update Audit',
                             options: FFButtonOptions(

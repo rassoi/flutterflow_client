@@ -1,7 +1,8 @@
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'flutter_flow/lat_lng.dart';
 
-class FFAppState {
+class FFAppState extends ChangeNotifier {
   static final FFAppState _instance = FFAppState._internal();
 
   factory FFAppState() {
@@ -29,6 +30,8 @@ class FFAppState {
   String _user = '';
   String get user => _user;
   set user(String _value) {
+    notifyListeners();
+
     _user = _value;
     prefs.setString('ff_user', _value);
   }
@@ -36,6 +39,8 @@ class FFAppState {
   String _category = 'All';
   String get category => _category;
   set category(String _value) {
+    notifyListeners();
+
     _category = _value;
     prefs.setString('ff_category', _value);
   }
@@ -43,15 +48,25 @@ class FFAppState {
   bool _eddiMeal = false;
   bool get eddiMeal => _eddiMeal;
   set eddiMeal(bool _value) {
+    notifyListeners();
+
     _eddiMeal = _value;
     prefs.setBool('ff_eddiMeal', _value);
   }
 
-  String Brakefast = 'Brakefast';
+  String _Brakefast = 'Brakefast';
+  String get Brakefast => _Brakefast;
+  set Brakefast(String _value) {
+    notifyListeners();
+
+    _Brakefast = _value;
+  }
 
   String _Lunch = 'Lunch';
   String get Lunch => _Lunch;
   set Lunch(String _value) {
+    notifyListeners();
+
     _Lunch = _value;
     prefs.setString('ff_Lunch', _value);
   }
@@ -59,6 +74,8 @@ class FFAppState {
   String _Snacks = 'Snacks';
   String get Snacks => _Snacks;
   set Snacks(String _value) {
+    notifyListeners();
+
     _Snacks = _value;
     prefs.setString('ff_Snacks', _value);
   }
@@ -66,6 +83,8 @@ class FFAppState {
   String _Dinner = 'Dinner';
   String get Dinner => _Dinner;
   set Dinner(String _value) {
+    notifyListeners();
+
     _Dinner = _value;
     prefs.setString('ff_Dinner', _value);
   }
@@ -73,13 +92,27 @@ class FFAppState {
   String _upcommingMealTime = '1';
   String get upcommingMealTime => _upcommingMealTime;
   set upcommingMealTime(String _value) {
+    notifyListeners();
+
     _upcommingMealTime = _value;
     prefs.setString('ff_upcommingMealTime', _value);
   }
 
-  String day = 'Today';
+  String _day = 'Today';
+  String get day => _day;
+  set day(String _value) {
+    notifyListeners();
 
-  bool Fav = false;
+    _day = _value;
+  }
+
+  bool _Fav = false;
+  bool get Fav => _Fav;
+  set Fav(bool _value) {
+    notifyListeners();
+
+    _Fav = _value;
+  }
 }
 
 LatLng? _latLngFromString(String? val) {

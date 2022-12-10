@@ -8,6 +8,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class PopupIngredWidget extends StatefulWidget {
   const PopupIngredWidget({
@@ -41,6 +42,8 @@ class _PopupIngredWidgetState extends State<PopupIngredWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Material(
       color: Colors.transparent,
       elevation: 5,
@@ -324,7 +327,7 @@ class _PopupIngredWidgetState extends State<PopupIngredWidget> {
                             final mealIngredUpdateData =
                                 createMealIngredRecordData(
                               desc: textController1?.text ?? '',
-                              price: int.parse(textController2?.text ?? ''),
+                              price: int.tryParse(textController2?.text ?? ''),
                             );
                             await columnMealIngredRecord.reference
                                 .update(mealIngredUpdateData);

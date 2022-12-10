@@ -7,6 +7,7 @@ import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:provider/provider.dart';
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({Key? key}) : super(key: key);
@@ -27,6 +28,8 @@ class _HomeWidgetState extends State<HomeWidget> {
 
   @override
   Widget build(BuildContext context) {
+    context.watch<FFAppState>();
+
     return Scaffold(
       key: scaffoldKey,
       backgroundColor: Color(0xFFF4F4F2),
@@ -313,7 +316,7 @@ class _HomeWidgetState extends State<HomeWidget> {
               ),
               Container(
                 width: double.infinity,
-                height: 270,
+                height: 250,
                 decoration: BoxDecoration(
                   color: Color(0xFFEEEEEE),
                 ),
@@ -360,9 +363,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
-                                      setState(() => FFAppState().category =
-                                          gridViewCategoriesRecord
-                                              .categoryName!);
+                                      setState(() {});
 
                                       context.pushNamed('exploreDish');
                                     },
