@@ -1,5 +1,4 @@
 import '../backend/backend.dart';
-import '../components/popup_widget.dart';
 import '../flutter_flow/flutter_flow_icon_button.dart';
 import '../flutter_flow/flutter_flow_theme.dart';
 import '../flutter_flow/flutter_flow_util.dart';
@@ -36,36 +35,11 @@ class _HomeWidgetState extends State<HomeWidget> {
       appBar: AppBar(
         backgroundColor: Color(0xFF72E6C1),
         automaticallyImplyLeading: false,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30,
-          borderWidth: 1,
-          buttonSize: 60,
-          icon: Icon(
-            Icons.info_outlined,
-            color: Colors.white,
-            size: 30,
-          ),
-          onPressed: () async {
-            await showModalBottomSheet(
-              isScrollControlled: true,
-              context: context,
-              builder: (context) {
-                return Padding(
-                  padding: MediaQuery.of(context).viewInsets,
-                  child: Container(
-                    height: MediaQuery.of(context).size.height * 0.75,
-                    child: PopupWidget(),
-                  ),
-                );
-              },
-            ).then((value) => setState(() {}));
-          },
-        ),
         title: Align(
-          alignment: AlignmentDirectional(-0.2, 0),
+          alignment: AlignmentDirectional(0.25, 0),
           child: Text(
             'Taisty',
+            textAlign: TextAlign.center,
             style: FlutterFlowTheme.of(context).title1.override(
                   fontFamily: 'Damion',
                   color: Color(0xFFF4F4F2),
@@ -123,7 +97,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                             'https://storage.googleapis.com/rassoi-767af.appspot.com/images/banners/photo-output.JPG',
                             width: 100,
                             height: 100,
-                            fit: BoxFit.contain,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -147,7 +121,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                             'https://storage.googleapis.com/rassoi-767af.appspot.com/images/banners/Capture.JPG',
                             width: 100,
                             height: 100,
-                            fit: BoxFit.contain,
+                            fit: BoxFit.cover,
                           ),
                         ),
                       ),
@@ -304,7 +278,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Text(
-                      'Eat what you love',
+                      'Explore Meals !',
                       style: FlutterFlowTheme.of(context).title3.override(
                             fontFamily: 'Open Sans',
                             color: Color(0xFF141212),

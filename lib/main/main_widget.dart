@@ -113,7 +113,7 @@ class _MainWidgetState extends State<MainWidget> {
 
                                 setState(() {});
                               },
-                              text: 'Sign in witGmail',
+                              text: 'Sign in with Gmail',
                               icon: Icon(
                                 Icons.add,
                                 color: Colors.transparent,
@@ -306,15 +306,18 @@ class _MainWidgetState extends State<MainWidget> {
 
                     context.goNamedAuth('Home', mounted);
                   },
-                  text: 'Button',
+                  text: 'Skip Login',
                   options: FFButtonOptions(
                     width: 130,
                     height: 40,
-                    color: FlutterFlowTheme.of(context).primaryColor,
+                    color: Color(0xFF72E6C1),
                     textStyle: FlutterFlowTheme.of(context).subtitle2.override(
-                          fontFamily: 'Poppins',
-                          color: Colors.white,
+                          fontFamily: 'Open Sans',
+                          color: FlutterFlowTheme.of(context).gray600,
+                          fontSize: 17,
+                          fontWeight: FontWeight.normal,
                         ),
+                    elevation: 4,
                     borderSide: BorderSide(
                       color: Colors.transparent,
                       width: 1,

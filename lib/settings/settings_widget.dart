@@ -104,47 +104,55 @@ class _SettingsWidgetState extends State<SettingsWidget> {
               child: Column(
                 mainAxisSize: MainAxisSize.max,
                 children: [
-                  StreamBuilder<List<UsersRecord>>(
-                    stream: queryUsersRecord(
-                      singleRecord: true,
-                    ),
-                    builder: (context, snapshot) {
-                      // Customize what your widget looks like when it's loading.
-                      if (!snapshot.hasData) {
-                        return Center(
-                          child: SizedBox(
-                            width: 50,
-                            height: 50,
-                            child: SpinKitThreeBounce(
-                              color: Color(0xFF8783B0),
-                              size: 50,
+                  Padding(
+                    padding: EdgeInsetsDirectional.fromSTEB(16, 0, 0, 0),
+                    child: StreamBuilder<List<UsersRecord>>(
+                      stream: queryUsersRecord(
+                        singleRecord: true,
+                      ),
+                      builder: (context, snapshot) {
+                        // Customize what your widget looks like when it's loading.
+                        if (!snapshot.hasData) {
+                          return Center(
+                            child: SizedBox(
+                              width: 50,
+                              height: 50,
+                              child: SpinKitThreeBounce(
+                                color: Color(0xFF8783B0),
+                                size: 50,
+                              ),
                             ),
-                          ),
+                          );
+                        }
+                        List<UsersRecord> rowUsersRecordList = snapshot.data!;
+                        // Return an empty Container when the document does not exist.
+                        if (snapshot.data!.isEmpty) {
+                          return Container();
+                        }
+                        final rowUsersRecord = rowUsersRecordList.isNotEmpty
+                            ? rowUsersRecordList.first
+                            : null;
+                        return Row(
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            Align(
+                              alignment: AlignmentDirectional(-0.05, 0),
+                              child: Text(
+                                FFAppState().user,
+                                style: FlutterFlowTheme.of(context)
+                                    .bodyText1
+                                    .override(
+                                      fontFamily: 'Poppins',
+                                      color:
+                                          FlutterFlowTheme.of(context).black600,
+                                      fontSize: 17,
+                                    ),
+                              ),
+                            ),
+                          ],
                         );
-                      }
-                      List<UsersRecord> rowUsersRecordList = snapshot.data!;
-                      // Return an empty Container when the document does not exist.
-                      if (snapshot.data!.isEmpty) {
-                        return Container();
-                      }
-                      final rowUsersRecord = rowUsersRecordList.isNotEmpty
-                          ? rowUsersRecordList.first
-                          : null;
-                      return Row(
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          Text(
-                            FFAppState().user,
-                            style: FlutterFlowTheme.of(context)
-                                .bodyText1
-                                .override(
-                                  fontFamily: 'Poppins',
-                                  color: FlutterFlowTheme.of(context).black600,
-                                ),
-                          ),
-                        ],
-                      );
-                    },
+                      },
+                    ),
                   ),
                   Row(
                     mainAxisSize: MainAxisSize.max,
@@ -205,7 +213,9 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               .override(
                                 fontFamily: 'Poppins',
                                 color: FlutterFlowTheme.of(context).black600,
+                                fontSize: 17,
                               ),
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ],
@@ -214,62 +224,68 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     mainAxisSize: MainAxisSize.max,
                     children: [
                       Expanded(
-                        child: TextFormField(
-                          controller: textController2 ??= TextEditingController(
-                            text: settingsUsersRecord!.address,
+                        child: Align(
+                          alignment: AlignmentDirectional(0.05, 0),
+                          child: TextFormField(
+                            controller: textController2 ??=
+                                TextEditingController(
+                              text: settingsUsersRecord!.address,
+                            ),
+                            autofocus: true,
+                            obscureText: false,
+                            decoration: InputDecoration(
+                              labelText: 'Address',
+                              hintStyle: FlutterFlowTheme.of(context).bodyText2,
+                              enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                ),
+                              ),
+                              focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                ),
+                              ),
+                              errorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                ),
+                              ),
+                              focusedErrorBorder: UnderlineInputBorder(
+                                borderSide: BorderSide(
+                                  color: Color(0x00000000),
+                                  width: 1,
+                                ),
+                                borderRadius: const BorderRadius.only(
+                                  topLeft: Radius.circular(4.0),
+                                  topRight: Radius.circular(4.0),
+                                ),
+                              ),
+                            ),
+                            style: FlutterFlowTheme.of(context)
+                                .bodyText1
+                                .override(
+                                  fontFamily: 'Poppins',
+                                  color: FlutterFlowTheme.of(context).black600,
+                                  fontSize: 17,
+                                ),
+                            textAlign: TextAlign.center,
                           ),
-                          autofocus: true,
-                          obscureText: false,
-                          decoration: InputDecoration(
-                            labelText: 'Address',
-                            hintStyle: FlutterFlowTheme.of(context).bodyText2,
-                            enabledBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            focusedBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            errorBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                            focusedErrorBorder: UnderlineInputBorder(
-                              borderSide: BorderSide(
-                                color: Color(0x00000000),
-                                width: 1,
-                              ),
-                              borderRadius: const BorderRadius.only(
-                                topLeft: Radius.circular(4.0),
-                                topRight: Radius.circular(4.0),
-                              ),
-                            ),
-                          ),
-                          style: FlutterFlowTheme.of(context)
-                              .bodyText1
-                              .override(
-                                fontFamily: 'Poppins',
-                                color: FlutterFlowTheme.of(context).black600,
-                              ),
                         ),
                       ),
                     ],
