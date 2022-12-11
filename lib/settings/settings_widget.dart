@@ -300,7 +300,9 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           onPressed: () async {
                             GoRouter.of(context).prepareAuthEvent();
                             await signOut();
-                            setState(() {});
+                            setState(() {
+                              FFAppState().user = '';
+                            });
 
                             context.goNamedAuth('main', mounted);
                           },

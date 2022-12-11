@@ -602,41 +602,44 @@ class _ExploreDishWidgetState extends State<ExploreDishWidget> {
                                   ],
                                 ),
                               ),
-                              Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
-                                    0, 20, 0, 40),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    ToggleIcon(
-                                      onPressed: () async {
-                                        final tempUpdateData = {
-                                          'fav': !listViewTempRecord.fav!,
-                                        };
-                                        await listViewTempRecord.reference
-                                            .update(tempUpdateData);
-                                      },
-                                      value: listViewTempRecord.fav!,
-                                      onIcon: Icon(
-                                        Icons.favorite,
-                                        color: Colors.black,
-                                        size: 25,
-                                      ),
-                                      offIcon: Icon(
-                                        Icons.favorite_border,
-                                        color: Colors.black,
-                                        size: 25,
-                                      ),
+                              Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceEvenly,
+                                children: [
+                                  ToggleIcon(
+                                    onPressed: () async {
+                                      final tempUpdateData = {
+                                        'fav': !listViewTempRecord.fav!,
+                                      };
+                                      await listViewTempRecord.reference
+                                          .update(tempUpdateData);
+                                    },
+                                    value: listViewTempRecord.fav!,
+                                    onIcon: Icon(
+                                      Icons.favorite,
+                                      color: Colors.black,
+                                      size: 25,
                                     ),
+                                    offIcon: Icon(
+                                      Icons.favorite_border,
+                                      color: Colors.black,
+                                      size: 25,
+                                    ),
+                                  ),
+                                  if (listViewTempRecord.longPreperation == 1)
                                     Icon(
                                       Icons.access_time_rounded,
                                       color: Colors.black,
                                       size: 24,
                                     ),
-                                  ],
-                                ),
+                                  if (listViewTempRecord.veg == true)
+                                    Icon(
+                                      Icons.radio_button_checked,
+                                      color: Color(0xFFC52626),
+                                      size: 24,
+                                    ),
+                                ],
                               ),
                               Expanded(
                                 child: Column(

@@ -337,7 +337,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 children: [
                                   InkWell(
                                     onTap: () async {
-                                      setState(() {});
+                                      setState(() {
+                                        FFAppState().category =
+                                            gridViewCategoriesRecord
+                                                .categoryName!;
+                                      });
 
                                       context.pushNamed('exploreDish');
                                     },

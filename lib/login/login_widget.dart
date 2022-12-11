@@ -185,7 +185,9 @@ class _LoginWidgetState extends State<LoginWidget> {
                                 return;
                               }
 
-                              setState(() {});
+                              setState(() {
+                                FFAppState().user = currentUserUid;
+                              });
 
                               context.goNamedAuth('Home', mounted);
                             },

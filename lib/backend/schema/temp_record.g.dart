@@ -142,6 +142,13 @@ class _$TempRecordSerializer implements StructuredSerializer<TempRecord> {
         ..add('longPreperation')
         ..add(serializers.serialize(value, specifiedType: const FullType(int)));
     }
+    value = object.veg;
+    if (value != null) {
+      result
+        ..add('veg')
+        ..add(
+            serializers.serialize(value, specifiedType: const FullType(bool)));
+    }
     value = object.ffRef;
     if (value != null) {
       result
@@ -244,6 +251,10 @@ class _$TempRecordSerializer implements StructuredSerializer<TempRecord> {
           result.longPreperation = serializers.deserialize(value,
               specifiedType: const FullType(int)) as int?;
           break;
+        case 'veg':
+          result.veg = serializers.deserialize(value,
+              specifiedType: const FullType(bool)) as bool?;
+          break;
         case 'Document__Reference__Field':
           result.ffRef = serializers.deserialize(value,
               specifiedType: const FullType(DocumentReference, const [
@@ -293,6 +304,8 @@ class _$TempRecord extends TempRecord {
   @override
   final int? longPreperation;
   @override
+  final bool? veg;
+  @override
   final DocumentReference<Object?>? ffRef;
 
   factory _$TempRecord([void Function(TempRecordBuilder)? updates]) =>
@@ -316,6 +329,7 @@ class _$TempRecord extends TempRecord {
       this.whichMeal,
       this.dates,
       this.longPreperation,
+      this.veg,
       this.ffRef})
       : super._();
 
@@ -347,6 +361,7 @@ class _$TempRecord extends TempRecord {
         whichMeal == other.whichMeal &&
         dates == other.dates &&
         longPreperation == other.longPreperation &&
+        veg == other.veg &&
         ffRef == other.ffRef;
   }
 
@@ -370,28 +385,31 @@ class _$TempRecord extends TempRecord {
                                                                 $jc(
                                                                     $jc(
                                                                         $jc(
-                                                                            0,
-                                                                            image
+                                                                            $jc(
+                                                                                0,
+                                                                                image
+                                                                                    .hashCode),
+                                                                            name
                                                                                 .hashCode),
-                                                                        name
+                                                                        youtubeLink
                                                                             .hashCode),
-                                                                    youtubeLink
+                                                                    ref
                                                                         .hashCode),
-                                                                ref.hashCode),
-                                                            ingredNames
-                                                                .hashCode),
-                                                        userUid.hashCode),
-                                                    recipeId.hashCode),
-                                                counter.hashCode),
-                                            nameAsArray.hashCode),
-                                        status.hashCode),
-                                    fav.hashCode),
-                                uid.hashCode),
-                            mealTime.hashCode),
-                        day.hashCode),
-                    whichMeal.hashCode),
-                dates.hashCode),
-            longPreperation.hashCode),
+                                                                ingredNames
+                                                                    .hashCode),
+                                                            userUid.hashCode),
+                                                        recipeId.hashCode),
+                                                    counter.hashCode),
+                                                nameAsArray.hashCode),
+                                            status.hashCode),
+                                        fav.hashCode),
+                                    uid.hashCode),
+                                mealTime.hashCode),
+                            day.hashCode),
+                        whichMeal.hashCode),
+                    dates.hashCode),
+                longPreperation.hashCode),
+            veg.hashCode),
         ffRef.hashCode));
   }
 
@@ -415,6 +433,7 @@ class _$TempRecord extends TempRecord {
           ..add('whichMeal', whichMeal)
           ..add('dates', dates)
           ..add('longPreperation', longPreperation)
+          ..add('veg', veg)
           ..add('ffRef', ffRef))
         .toString();
   }
@@ -497,6 +516,10 @@ class TempRecordBuilder implements Builder<TempRecord, TempRecordBuilder> {
   set longPreperation(int? longPreperation) =>
       _$this._longPreperation = longPreperation;
 
+  bool? _veg;
+  bool? get veg => _$this._veg;
+  set veg(bool? veg) => _$this._veg = veg;
+
   DocumentReference<Object?>? _ffRef;
   DocumentReference<Object?>? get ffRef => _$this._ffRef;
   set ffRef(DocumentReference<Object?>? ffRef) => _$this._ffRef = ffRef;
@@ -525,6 +548,7 @@ class TempRecordBuilder implements Builder<TempRecord, TempRecordBuilder> {
       _whichMeal = $v.whichMeal?.toBuilder();
       _dates = $v.dates?.toBuilder();
       _longPreperation = $v.longPreperation;
+      _veg = $v.veg;
       _ffRef = $v.ffRef;
       _$v = null;
     }
@@ -567,6 +591,7 @@ class TempRecordBuilder implements Builder<TempRecord, TempRecordBuilder> {
               whichMeal: _whichMeal?.build(),
               dates: _dates?.build(),
               longPreperation: longPreperation,
+              veg: veg,
               ffRef: ffRef);
     } catch (_) {
       late String _$failedField;

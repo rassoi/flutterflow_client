@@ -96,7 +96,9 @@ class _MainWidgetState extends State<MainWidget> {
                                 if (user == null) {
                                   return;
                                 }
-                                setState(() {});
+                                setState(() {
+                                  FFAppState().user = currentUserUid;
+                                });
 
                                 context.goNamedAuth('Home', mounted);
                               },
@@ -228,7 +230,9 @@ class _MainWidgetState extends State<MainWidget> {
                                 },
                               );
 
-                              setState(() {});
+                              setState(() {
+                                FFAppState().user = currentUserUid;
+                              });
                             },
                             text: 'Sign in with Phone',
                             icon: Icon(

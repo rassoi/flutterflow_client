@@ -312,6 +312,19 @@ class _MealsWidgetState extends State<MealsWidget> {
                                           size: 24,
                                         ),
                                       ),
+                                      if (listViewTempRecord.longPreperation ==
+                                          1)
+                                        Icon(
+                                          Icons.access_time_outlined,
+                                          color: Color(0xFF59DC1C),
+                                          size: 14,
+                                        ),
+                                      if (listViewTempRecord.veg == true)
+                                        Icon(
+                                          Icons.radio_button_checked,
+                                          color: Color(0xFFC52626),
+                                          size: 14,
+                                        ),
                                     ],
                                   ),
                                 ),
@@ -472,6 +485,19 @@ class _MealsWidgetState extends State<MealsWidget> {
                                           size: 24,
                                         ),
                                       ),
+                                      if (listViewTempRecord.longPreperation ==
+                                          1)
+                                        Icon(
+                                          Icons.access_time_outlined,
+                                          color: Color(0xFF59DC1C),
+                                          size: 14,
+                                        ),
+                                      if (listViewTempRecord.veg == true)
+                                        Icon(
+                                          Icons.radio_button_checked,
+                                          color: Color(0xFFC52626),
+                                          size: 14,
+                                        ),
                                     ],
                                   ),
                                 ),
@@ -636,6 +662,19 @@ class _MealsWidgetState extends State<MealsWidget> {
                                           size: 24,
                                         ),
                                       ),
+                                      if (listViewTempRecord.longPreperation ==
+                                          1)
+                                        Icon(
+                                          Icons.access_time_outlined,
+                                          color: Color(0xFF59DC1C),
+                                          size: 14,
+                                        ),
+                                      if (listViewTempRecord.veg == true)
+                                        Icon(
+                                          Icons.radio_button_checked,
+                                          color: Color(0xFFC52626),
+                                          size: 14,
+                                        ),
                                     ],
                                   ),
                                 ),
@@ -797,6 +836,19 @@ class _MealsWidgetState extends State<MealsWidget> {
                                           size: 24,
                                         ),
                                       ),
+                                      if (listViewTempRecord.longPreperation ==
+                                          1)
+                                        Icon(
+                                          Icons.access_time_outlined,
+                                          color: Color(0xFF59DC1C),
+                                          size: 14,
+                                        ),
+                                      if (listViewTempRecord.veg == true)
+                                        Icon(
+                                          Icons.radio_button_checked,
+                                          color: Color(0xFFC52626),
+                                          size: 14,
+                                        ),
                                     ],
                                   ),
                                 ),
